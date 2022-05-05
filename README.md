@@ -4,6 +4,7 @@ FYP_1 - the making of Gemini
 
 # Design
 Samuel Nathan 0128561
+
 Chew Chee Pin 0128730
 
 # Tech
