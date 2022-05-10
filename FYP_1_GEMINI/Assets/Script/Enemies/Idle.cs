@@ -11,10 +11,7 @@ public class Idle : Enemies_Abstract
 
     public override void UpdateState(Enemies_Manager enemy)
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            enemy.SwitchState(enemy.PatrolState);
-        }
+
     }
 
     public override void OnCollisionEnter(Enemies_Manager enemy, Collision collision)
