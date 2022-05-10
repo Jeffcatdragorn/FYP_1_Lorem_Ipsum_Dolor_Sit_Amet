@@ -5,8 +5,10 @@ public class HumanoidLandInput : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; } = Vector2.zero;
     public Vector2 LookInput { get; private set; } = Vector2.zero;
+    public bool InvertMouseY { get; private set; } = true;
 
     InputActions input = null;
+    public bool MoveIsPressed = false;
 
     private void OnEnable()
     {
@@ -32,6 +34,7 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetMove(InputAction.CallbackContext ctx)
     {
         MoveInput = ctx.ReadValue<Vector2>();
+        MoveIsPressed = !(MoveInput == Vector2.zero);
     }
 
     private void SetLook(InputAction.CallbackContext ctx)
