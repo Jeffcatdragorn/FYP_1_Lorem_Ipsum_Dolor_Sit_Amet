@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] HumanoidLandInput input;
     [SerializeField] CameraController cameraController;
 
-    Rigidbody rigidbody = null;
+    new Rigidbody rigidbody = null;
+    CapsuleCollider capsuleCollider = null;
 
     Vector3 playerMoveInput = Vector3.zero;
 
@@ -20,10 +21,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float movementMultiplier = 30.0f;
     [SerializeField] float rotationSpeedMultiplier = 180.0f;
     [SerializeField] float pitchSpeedMultiplier = 180.0f;
+    [SerializeField] float runMultiplier = 2.5f;
+
+    [Header("GroundChecker")]
+    [SerializeField] bool playerIsGrounded = true;
+    [SerializeField][Range(0.0f, 1.8f)] float groundCheckRadiusMultiplier = 0.9f;
+    [SerializeField][Range(-0.95f, 1.05f)] float groundCheckerExtraDistance = 0.05f;
+    RaycastHit groundCheckHit = new RaycastHit();
+
+    [Header("Gravity")]
+    [SerializeField] float gravityFallCurrent = -100.0f;
+    [SerializeField] float gravityFallMin = -100.0f;
+    [SerializeField] float gravityFallMax = -500.0f;
+    [SerializeField] [Range(-5.0f, -35.0f)] float gravityFallIncrementAmount= -20.0f;
+    [SerializeField] float gravityFallIncrementTime = 0.05f;
+    [SerializeField] float playerFallTimer = 0.0f;
+    [SerializeField] float gravity = 0.0f;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
     private void FixedUpdate()
@@ -36,7 +54,10 @@ public class PlayerController : MonoBehaviour
         }
 
         playerMoveInput = GetMoveInput();
-        PlayerMove();
+        playerIsGrounded = PlayerGroundCheck();
+        playerMoveInput.y = PlayerGravity();
+        playerMoveInput = PlayerRun();
+        playerMoveInput = PlayerMove();
 
         rigidbody.AddRelativeForce(playerMoveInput, ForceMode.Force);
     }
@@ -67,10 +88,54 @@ public class PlayerController : MonoBehaviour
         return new Vector3(input.MoveInput.x, 0.0f, input.MoveInput.y);
     }
 
-    private void PlayerMove()
+    private bool PlayerGroundCheck()
     {
-        playerMoveInput = (new Vector3(playerMoveInput.x * movementMultiplier * rigidbody.mass, 
-                                       playerMoveInput.y, 
+        float sphereCastRadius = capsuleCollider.radius * groundCheckRadiusMultiplier;
+        float sphereCastTravelDistance = capsuleCollider.bounds.extents.y - sphereCastRadius + groundCheckerExtraDistance;
+        return Physics.SphereCast(rigidbody.position, sphereCastRadius, Vector3.down, out groundCheckHit, sphereCastTravelDistance);
+    }
+
+    private float PlayerGravity()
+    {
+        if (playerIsGrounded)
+        {
+            gravity = 0.0f;
+            gravityFallCurrent = gravityFallMin;
+        }
+
+        else
+        {
+            playerFallTimer -= Time.fixedDeltaTime;
+            if(playerFallTimer < 0.0f)
+            {
+                if(gravityFallCurrent > gravityFallMax) //negative values
+                {
+                    gravityFallCurrent += gravityFallIncrementAmount;
+                }
+                playerFallTimer = gravityFallIncrementTime;
+                gravity = gravityFallCurrent;
+            }
+        }
+        return gravity;
+    }
+
+    private Vector3 PlayerRun()
+    {
+        Vector3 calculatedPlayerRunSpeed = playerMoveInput;
+        if (input.RunIsPressed)
+        {
+            calculatedPlayerRunSpeed.x *= runMultiplier;
+            calculatedPlayerRunSpeed.z *= runMultiplier;
+        }
+        return calculatedPlayerRunSpeed;
+    }
+
+    private Vector3 PlayerMove()
+    {
+        Vector3 calculatedPlayerMOvement = (new Vector3(playerMoveInput.x * movementMultiplier * rigidbody.mass, 
+                                       playerMoveInput.y * rigidbody.mass, 
                                        playerMoveInput.z * movementMultiplier * rigidbody.mass));
+
+        return calculatedPlayerMOvement;
     }
 }

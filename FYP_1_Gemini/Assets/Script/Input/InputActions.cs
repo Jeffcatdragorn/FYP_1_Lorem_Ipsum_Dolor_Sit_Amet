@@ -53,6 +53,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ZoomCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""7ad0834a-ba74-4227-9226-4b9f44d77182"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Value"",
+                    ""id"": ""f08debbd-5075-4187-a172-eec93663994d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -165,6 +183,50 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""ChangeCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e62c4fc-f205-42c2-9a96-d0bc52228654"",
+                    ""path"": ""<Gamepad>/dpad/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZoomCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81b5392c-c111-494a-aa9b-f4e434309c98"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": ""Clamp(min=-4,max=4)"",
+                    ""groups"": """",
+                    ""action"": ""ZoomCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""692810f6-25a5-45aa-acbd-3b2919b197cd"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d185cfb-647b-426a-84dd-ab07cec867cf"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -176,6 +238,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_Move = m_HumanoidLand.FindAction("Move", throwIfNotFound: true);
         m_HumanoidLand_Look = m_HumanoidLand.FindAction("Look", throwIfNotFound: true);
         m_HumanoidLand_ChangeCamera = m_HumanoidLand.FindAction("ChangeCamera", throwIfNotFound: true);
+        m_HumanoidLand_ZoomCamera = m_HumanoidLand.FindAction("ZoomCamera", throwIfNotFound: true);
+        m_HumanoidLand_Run = m_HumanoidLand.FindAction("Run", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +302,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_Move;
     private readonly InputAction m_HumanoidLand_Look;
     private readonly InputAction m_HumanoidLand_ChangeCamera;
+    private readonly InputAction m_HumanoidLand_ZoomCamera;
+    private readonly InputAction m_HumanoidLand_Run;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -245,6 +311,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_HumanoidLand_Move;
         public InputAction @Look => m_Wrapper.m_HumanoidLand_Look;
         public InputAction @ChangeCamera => m_Wrapper.m_HumanoidLand_ChangeCamera;
+        public InputAction @ZoomCamera => m_Wrapper.m_HumanoidLand_ZoomCamera;
+        public InputAction @Run => m_Wrapper.m_HumanoidLand_Run;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +331,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @ChangeCamera.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnChangeCamera;
                 @ChangeCamera.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnChangeCamera;
                 @ChangeCamera.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnChangeCamera;
+                @ZoomCamera.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnZoomCamera;
+                @ZoomCamera.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnZoomCamera;
+                @ZoomCamera.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnZoomCamera;
+                @Run.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnRun;
+                @Run.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnRun;
+                @Run.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnRun;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -276,6 +350,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @ChangeCamera.started += instance.OnChangeCamera;
                 @ChangeCamera.performed += instance.OnChangeCamera;
                 @ChangeCamera.canceled += instance.OnChangeCamera;
+                @ZoomCamera.started += instance.OnZoomCamera;
+                @ZoomCamera.performed += instance.OnZoomCamera;
+                @ZoomCamera.canceled += instance.OnZoomCamera;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
             }
         }
     }
@@ -285,5 +365,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnChangeCamera(InputAction.CallbackContext context);
+        void OnZoomCamera(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
     }
 }

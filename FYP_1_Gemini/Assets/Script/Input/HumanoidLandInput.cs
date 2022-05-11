@@ -6,11 +6,14 @@ public class HumanoidLandInput : MonoBehaviour
     public Vector2 MoveInput { get; private set; } = Vector2.zero;
     public Vector2 LookInput { get; private set; } = Vector2.zero;
     public bool InvertMouseY { get; private set; } = true;
+    public bool ChangeCameraWasPressedThisFrame { get; private set; } = false;
+    public float ZoomCameraInput { get; private set; } = 0.0f;
+    public bool InvertScroll { get; private set; } = true;
+    public bool RunIsPressed { get; private set; } = false;
 
-    InputActions input = null;
     public bool MoveIsPressed = false;
+    InputActions input = null;
 
-    public bool changeCameraWasPressedThisFrame { get; private set; } = false;
 
     private void OnEnable()
     {
@@ -22,6 +25,12 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Look.performed += SetLook;
         input.HumanoidLand.Look.canceled += SetLook;
+
+        input.HumanoidLand.Run.started += SetRun;
+        input.HumanoidLand.Run.canceled += SetRun;
+
+        input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
+        input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
 
     private void OnDisable()
@@ -31,11 +40,19 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Look.performed -= SetLook;
         input.HumanoidLand.Look.canceled -= SetLook;
+
+        input.HumanoidLand.Run.started -= SetRun;
+        input.HumanoidLand.Run.canceled -= SetRun;
+
+        input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
+        input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
+
+        input.HumanoidLand.Disable();
     }
 
     private void Update()
     {
-        changeCameraWasPressedThisFrame = input.HumanoidLand.ChangeCamera.WasPressedThisFrame();
+        ChangeCameraWasPressedThisFrame = input.HumanoidLand.ChangeCamera.WasPressedThisFrame();
     }
 
     private void SetMove(InputAction.CallbackContext ctx)
@@ -47,5 +64,15 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetLook(InputAction.CallbackContext ctx)
     {
         LookInput = ctx.ReadValue<Vector2>();
+    }
+
+    private void SetRun(InputAction.CallbackContext ctx)
+    {
+        RunIsPressed = ctx.started;
+    }
+
+    private void SetZoomCamera(InputAction.CallbackContext ctx)
+    {
+        ZoomCameraInput = ctx.ReadValue<float>();
     }
 }

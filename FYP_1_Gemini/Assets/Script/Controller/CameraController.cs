@@ -7,13 +7,28 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] HumanoidLandInput input;
 
+    [SerializeField] float cameraZoomModifier = 32.0f;
+
+    float minCameraZoomDistance = 2.0f;
+    float minOrbitCameraZoomDistance = 2.0f;
+    float maxCameraZoomDistance = 12.0f;
+    float maxOrbitCameraZoomDistance = 36.0f;
+
     CinemachineVirtualCamera activeCamera;
     int activeCameraPriorityModifier = 31337;
 
     public Camera mainCamera;
     public CinemachineVirtualCamera cinemachineFirstPerson;
     public CinemachineVirtualCamera cinemachineThirdPerson;
+    CinemachineFramingTransposer cinemachineFramingTransposerThirdPerson;
     public CinemachineVirtualCamera cinemachineOrbit;
+    CinemachineFramingTransposer cinemachineFramingTransposerOrbit;
+
+    private void Awake()
+    {
+        cinemachineFramingTransposerThirdPerson = cinemachineThirdPerson.GetCinemachineComponent<CinemachineFramingTransposer>();
+        cinemachineFramingTransposerOrbit = cinemachineOrbit.GetCinemachineComponent<CinemachineFramingTransposer>();
+    }
 
     private void Start()
     {
@@ -22,9 +37,33 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (input.changeCameraWasPressedThisFrame)
+        if(!(input.ZoomCameraInput == 0.0f))
+        {
+            ZoomCamera();
+        }
+
+        if (input.ChangeCameraWasPressedThisFrame)
         {
             ChangeCamera();
+        }
+    }
+
+    private void ZoomCamera()
+    {
+        if(activeCamera == cinemachineThirdPerson)
+        {
+            cinemachineFramingTransposerThirdPerson.m_CameraDistance = Mathf.Clamp(cinemachineFramingTransposerThirdPerson.m_CameraDistance + 
+                                                                       (input.InvertScroll ? input.ZoomCameraInput : -input.ZoomCameraInput) / cameraZoomModifier, 
+                                                                       minCameraZoomDistance,
+                                                                       maxCameraZoomDistance);
+        }
+
+        if (activeCamera == cinemachineOrbit)
+        { 
+            cinemachineFramingTransposerOrbit.m_CameraDistance = Mathf.Clamp(cinemachineFramingTransposerOrbit.m_CameraDistance + 
+                                                                 (input.InvertScroll ? input.ZoomCameraInput : -input.ZoomCameraInput) / cameraZoomModifier,
+                                                                 minOrbitCameraZoomDistance,
+                                                                 maxOrbitCameraZoomDistance);
         }
     }
 
