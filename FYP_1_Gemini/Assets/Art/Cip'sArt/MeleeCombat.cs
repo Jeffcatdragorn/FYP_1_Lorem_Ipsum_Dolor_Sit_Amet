@@ -7,21 +7,37 @@ public class MeleeCombat : MonoBehaviour
     public Animator charAnimation;
     private bool isAttacking;
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 LookInput { get; private set; } = Vector2.zero;
+
+    CombatControls inputs;
+
+    private void Awake()
     {
-        #region BasicAttack
-        if (Input.GetKey("E"))
-        {
-            if (!isAttacking)
-            {
-                StartAttack();
-                charAnimation.SetTrigger("Attack1");
-            }
-        }
-        #endregion
+        inputs = new CombatControls();
+
+        inputs.HumanoidActions.Actions.performed += x => Attack();
     }
 
+    #region Enable/Disable
+    private void OnEnable()
+    {
+        inputs.HumanoidActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputs.HumanoidActions.Disable();
+    }
+    #endregion
+
+    // Update is called once per frame
+    public void Attack()
+    {
+        #region BasicAttack
+        StartAttack();
+        charAnimation.SetTrigger("Attack1");
+        #endregion
+    }
     public void StartAttack()
     {
         isAttacking = true;
