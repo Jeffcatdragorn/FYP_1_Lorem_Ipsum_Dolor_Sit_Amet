@@ -130,14 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3126121495988155968, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_CullingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126121495988155968, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8559595252575090304, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: m_Name
       value: Ely By K.Atienza
@@ -152,11 +144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9043819745923296314, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.5
+      value: -9.272
       objectReference: {fileID: 0}
     - target: {fileID: 9043819745923296314, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9043819745923296314, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: m_LocalRotation.w

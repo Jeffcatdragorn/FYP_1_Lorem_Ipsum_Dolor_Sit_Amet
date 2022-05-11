@@ -1,0 +1,74 @@
+{
+    "name": "CombatControls",
+    "maps": [
+        {
+            "name": "HumanoidActions",
+            "id": "9f248260-a7a2-44a4-814d-fca006fc547b",
+            "actions": [
+                {
+                    "name": "Punching",
+                    "type": "Button",
+                    "id": "01af1190-0a46-49f4-af02-7fccbd16bc0c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Aim",
+                    "type": "Value",
+                    "id": "9e16a3dc-98ef-4998-ae42-d6c29bc5d0cb",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Dashing",
+                    "type": "Button",
+                    "id": "22624f47-a32c-40a2-9a5e-f6a0c1317482",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "704c9b35-1069-445f-a9b3-ca34bb4b9d1b",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "ScaleVector2(x=0.03,y=0.03)",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69a4d7fd-4647-43ed-a688-e10d81a4d3ec",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Punching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f5a39db-216d-49f0-964a-af7307f39811",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dashing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
