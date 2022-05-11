@@ -44,6 +44,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ChangeCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""49bba93a-b27b-4ddc-8da5-820101ab62a6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,6 +143,28 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1bd1b217-d622-41d0-a0b9-1f8d922c41f6"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""855dc17a-8f7b-486f-b4ba-d91704160d4a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -144,6 +175,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand = asset.FindActionMap("HumanoidLand", throwIfNotFound: true);
         m_HumanoidLand_Move = m_HumanoidLand.FindAction("Move", throwIfNotFound: true);
         m_HumanoidLand_Look = m_HumanoidLand.FindAction("Look", throwIfNotFound: true);
+        m_HumanoidLand_ChangeCamera = m_HumanoidLand.FindAction("ChangeCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,12 +237,14 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private IHumanoidLandActions m_HumanoidLandActionsCallbackInterface;
     private readonly InputAction m_HumanoidLand_Move;
     private readonly InputAction m_HumanoidLand_Look;
+    private readonly InputAction m_HumanoidLand_ChangeCamera;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
         public HumanoidLandActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_HumanoidLand_Move;
         public InputAction @Look => m_Wrapper.m_HumanoidLand_Look;
+        public InputAction @ChangeCamera => m_Wrapper.m_HumanoidLand_ChangeCamera;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -226,6 +260,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnLook;
+                @ChangeCamera.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnChangeCamera;
+                @ChangeCamera.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnChangeCamera;
+                @ChangeCamera.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnChangeCamera;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -236,6 +273,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @ChangeCamera.started += instance.OnChangeCamera;
+                @ChangeCamera.performed += instance.OnChangeCamera;
+                @ChangeCamera.canceled += instance.OnChangeCamera;
             }
         }
     }
@@ -244,5 +284,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnChangeCamera(InputAction.CallbackContext context);
     }
 }

@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     public Transform cameraFollow;
 
     [SerializeField] HumanoidLandInput input;
+    [SerializeField] CameraController cameraController;
 
     Rigidbody rigidbody = null;
 
@@ -27,9 +28,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerLookInput = GetLookInput();
-        PlayerLook();
-        PitchCamera();
+        if(!cameraController.usingOrbitalCamera)
+        {
+            playerLookInput = GetLookInput();
+            PlayerLook();
+            PitchCamera();
+        }
 
         playerMoveInput = GetMoveInput();
         PlayerMove();

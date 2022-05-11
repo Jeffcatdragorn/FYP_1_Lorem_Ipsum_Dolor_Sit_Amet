@@ -10,6 +10,8 @@ public class HumanoidLandInput : MonoBehaviour
     InputActions input = null;
     public bool MoveIsPressed = false;
 
+    public bool changeCameraWasPressedThisFrame { get; private set; } = false;
+
     private void OnEnable()
     {
         input = new InputActions();
@@ -29,6 +31,11 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Look.performed -= SetLook;
         input.HumanoidLand.Look.canceled -= SetLook;
+    }
+
+    private void Update()
+    {
+        changeCameraWasPressedThisFrame = input.HumanoidLand.ChangeCamera.WasPressedThisFrame();
     }
 
     private void SetMove(InputAction.CallbackContext ctx)
