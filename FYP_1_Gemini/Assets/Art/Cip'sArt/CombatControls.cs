@@ -44,6 +44,15 @@ public partial class @CombatControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""78291444-33b6-4498-851d-1c5e8410c123"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -61,11 +70,22 @@ public partial class @CombatControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""69a4d7fd-4647-43ed-a688-e10d81a4d3ec"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Actions"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87aa2e8f-057a-43ff-92e8-09ffde48352d"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -78,6 +98,7 @@ public partial class @CombatControls : IInputActionCollection2, IDisposable
         m_HumanoidActions = asset.FindActionMap("HumanoidActions", throwIfNotFound: true);
         m_HumanoidActions_Actions = m_HumanoidActions.FindAction("Actions", throwIfNotFound: true);
         m_HumanoidActions_Aim = m_HumanoidActions.FindAction("Aim", throwIfNotFound: true);
+        m_HumanoidActions_Dash = m_HumanoidActions.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,12 +160,14 @@ public partial class @CombatControls : IInputActionCollection2, IDisposable
     private IHumanoidActionsActions m_HumanoidActionsActionsCallbackInterface;
     private readonly InputAction m_HumanoidActions_Actions;
     private readonly InputAction m_HumanoidActions_Aim;
+    private readonly InputAction m_HumanoidActions_Dash;
     public struct HumanoidActionsActions
     {
         private @CombatControls m_Wrapper;
         public HumanoidActionsActions(@CombatControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Actions => m_Wrapper.m_HumanoidActions_Actions;
         public InputAction @Aim => m_Wrapper.m_HumanoidActions_Aim;
+        public InputAction @Dash => m_Wrapper.m_HumanoidActions_Dash;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -160,6 +183,9 @@ public partial class @CombatControls : IInputActionCollection2, IDisposable
                 @Aim.started -= m_Wrapper.m_HumanoidActionsActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_HumanoidActionsActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_HumanoidActionsActionsCallbackInterface.OnAim;
+                @Dash.started -= m_Wrapper.m_HumanoidActionsActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_HumanoidActionsActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_HumanoidActionsActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_HumanoidActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -170,6 +196,9 @@ public partial class @CombatControls : IInputActionCollection2, IDisposable
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -178,5 +207,6 @@ public partial class @CombatControls : IInputActionCollection2, IDisposable
     {
         void OnActions(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

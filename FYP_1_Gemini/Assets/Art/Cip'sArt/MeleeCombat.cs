@@ -16,6 +16,7 @@ public class MeleeCombat : MonoBehaviour
         inputs = new CombatControls();
 
         inputs.HumanoidActions.Actions.performed += x => Attack();
+        inputs.HumanoidActions.Dash.performed += x => Evade();
     }
 
     #region Enable/Disable
@@ -36,6 +37,13 @@ public class MeleeCombat : MonoBehaviour
         #region BasicAttack
         StartAttack();
         charAnimation.SetTrigger("Attack1");
+        #endregion
+    }
+
+    public void Evade()
+    {
+        #region Dodging
+        charAnimation.SetTrigger("Dash");
         #endregion
     }
     public void StartAttack()

@@ -2209,9 +2209,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9043819745923296314}
   - component: {fileID: 3126121495988155968}
-  - component: {fileID: 64878699}
   - component: {fileID: 3082949689591874256}
   - component: {fileID: 4758848769657173160}
+  - component: {fileID: 1800526415}
   m_Layer: 0
   m_Name: Ely By K.Atienza
   m_TagString: Untagged
@@ -2256,19 +2256,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &64878699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8559595252575090304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a4312233264074b838214026ba22d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charAnimation: {fileID: 3126121495988155968}
 --- !u!54 &3082949689591874256
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2299,6 +2286,19 @@ CapsuleCollider:
   m_Height: 1.8603823
   m_Direction: 1
   m_Center: {x: 0, y: 0.86957425, z: 0}
+--- !u!114 &1800526415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8559595252575090304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e122c39110a03684294fd9f70532cfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charAnimation: {fileID: 3126121495988155968}
 --- !u!1 &8653527193492638103
 GameObject:
   m_ObjectHideFlags: 0
