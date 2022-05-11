@@ -6,7 +6,7 @@ public class Idle : Enemies_Abstract
 {
     public override void EnterState(Enemies_Manager enemy)
     {
-        Debug.Log("Entered Idle State");
+        //Debug.Log("Entered Idle State");
     }
 
     public override void UpdateState(Enemies_Manager enemy)
