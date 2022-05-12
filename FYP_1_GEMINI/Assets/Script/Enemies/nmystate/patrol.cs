@@ -4,17 +4,30 @@ using UnityEngine;
 
 public class patrol : Enemies_Abstract
 {
+    float patrolTimer = .0f;
     public override void EnterState(Enemies_Manager enemy)
     {
         Debug.Log("Entered Patrol State");
+        Animator anim = enemy.GetComponent<Animator>();
+        anim.SetBool("walk", true);
+        enemy.Patrolling();
     }
 
     public override void UpdateState(Enemies_Manager enemy)
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        patrolTimer += Time.deltaTime;
+        if (patrolTimer > enemy.PatrolTime)
         {
-            Debug.Log("fak");
+            patrolTimer = .0f;
+            enemy.StopPatrolling();
+            enemy.SwitchState(enemy.IdleState);
         }
+        else if (enemy.Dist < 1f && patrolTimer < 5.0f) 
+        {
+            enemy.IncreaseIndex(); 
+            enemy.Patrolling();
+        }
+        
     }
 
     public override void OnCollisionEnter(Enemies_Manager enemy, Collision collision)
@@ -23,5 +36,9 @@ public class patrol : Enemies_Abstract
 
     public override void ExitState(Enemies_Manager enemy)
     {
+        enemy.StopPatrolling();
+        Debug.Log("exit patrol state");
+
     }
+
 }

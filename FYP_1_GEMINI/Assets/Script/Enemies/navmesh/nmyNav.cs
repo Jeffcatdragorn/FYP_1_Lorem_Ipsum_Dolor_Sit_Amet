@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -124,46 +126,30 @@ public class nmyNav : MonoBehaviour
     #region patrol with array and navmesh
 
     private Animator animPhaser;
-
-    //To store the waypoint
-    public Transform[] waypoint;
-
-    //To check the waypoint stored in the element in the waypoint array
-    private int waypointIndex;
-
-    //To adjust the speed of the agent to move from one point to another
-    public int speed;
-
-    //To check the current distance between the agent and the waypoint
-    private float dist;
-
-    //The navmesh agent that will be used for this code
-    private NavMeshAgent navmeshAgent;
+    public Transform[] waypoint; //To store the waypoint
+    private int waypointIndex; //To check the waypoint stored in the element in the waypoint array
+    public int speed; //To adjust the speed of the agent to move from one point to another
+    private float dist; //To check the current distance between the agent and the waypoint
+    private NavMeshAgent navmeshAgent; //The navmesh agent that will be used for this code
 
     void Start()
     {
         //Reset the waypoint and look at to the origin
         waypointIndex = 0;
         transform.LookAt(waypoint[waypointIndex].position);
-
         navmeshAgent = GetComponent<NavMeshAgent>();
-
         animPhaser = GetComponent<Animator>();
     }
 
     void Update()
     {
-        //Store the distance between the waypoint and yourself
-        dist = Vector3.Distance(transform.position, waypoint[waypointIndex].position);
-        Debug.Log(dist);
-        //Check if the distance is lesser than the reaching value. 
-        if (dist < 1f)
+        
+        dist = Vector3.Distance(transform.position, waypoint[waypointIndex].position); //Store the distance between the waypoint and yourself
+        if (dist < 1f) //Check if the distance is lesser than the reaching value. 
         {
-            // if yes, change to next location by inc the index num
-            IncreaseIndex();
+            IncreaseIndex(); // if yes, change to next location by inc the index num
         }
-        // continue patrolling
-        Patrol();
+        Patrol(); // continue patrolling
     }
 
     void Patrol()
@@ -180,27 +166,25 @@ public class nmyNav : MonoBehaviour
         #endregion
     }
 
+
     void IncreaseIndex()
     {
-        //Increase the waypointIndex to change to the next location/element stored in the waypoint array
-        waypointIndex++;
-        //If you exceeded the maximum number of waypoint stored in the array
-        if (waypointIndex >= waypoint.Length)
+        waypointIndex++; //Increase the waypointIndex to change to the next location/element stored in the waypoint array
+        if (waypointIndex >= waypoint.Length) //If you exceeded the maximum number of waypoint stored in the array
         {
-            //Then set the current waypoint back to the first waypoint
-            waypointIndex = 0; // reset the loop
+            waypointIndex = 0; //Then reset the current waypoint back to the first waypoint
         }
         //transform.LookAt(waypoint[waypointIndex].position );
         #region turning slowly , you need a new animation to make it turn properly
-        Quaternion targetRotation = Quaternion.identity;
-        Quaternion nextRotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime);
-        transform.rotation = nextRotation;
+        //Quaternion targetRotation = Quaternion.identity;
+        //Quaternion nextRotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime);
+        //transform.rotation = nextRotation;
 
-        GameObject newWaypoint = GameObject.FindWithTag("point");
-        Vector3 targetDirection = (newWaypoint.transform.position - transform.position).normalized;
-        
-        targetRotation = Quaternion.LookRotation(targetDirection);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime);
+        //GameObject newWaypoint = GameObject.FindWithTag("point");
+        //Vector3 targetDirection = (newWaypoint.transform.position - transform.position).normalized;
+
+        //targetRotation = Quaternion.LookRotation(targetDirection);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime);
         #endregion
     }
     #endregion

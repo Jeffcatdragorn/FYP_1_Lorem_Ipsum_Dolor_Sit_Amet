@@ -6,6 +6,7 @@ public class teleport : Enemies_Abstract
 {
     public override void EnterState(Enemies_Manager enemy)
     {
+
     }
 
     public override void UpdateState(Enemies_Manager enemy)
