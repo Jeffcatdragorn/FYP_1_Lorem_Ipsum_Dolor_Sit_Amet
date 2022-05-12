@@ -7,7 +7,7 @@ public class patrol : Enemies_Abstract
     float patrolTimer = .0f;
     public override void EnterState(Enemies_Manager enemy)
     {
-        Debug.Log("Entered Patrol State");
+        //Debug.Log("Entered Patrol State");
         Animator anim = enemy.GetComponent<Animator>();
         anim.SetBool("walk", true);
         enemy.Patrolling();
@@ -27,7 +27,11 @@ public class patrol : Enemies_Abstract
             enemy.IncreaseIndex(); 
             enemy.Patrolling();
         }
-        
+
+        if (enemy.teleport_B)
+        {
+            enemy.SwitchState(enemy.TeleportState);
+        }
     }
 
     public override void OnCollisionEnter(Enemies_Manager enemy, Collision collision)
@@ -37,7 +41,7 @@ public class patrol : Enemies_Abstract
     public override void ExitState(Enemies_Manager enemy)
     {
         enemy.StopPatrolling();
-        Debug.Log("exit patrol state");
+        //Debug.Log("exit patrol state");
 
     }
 

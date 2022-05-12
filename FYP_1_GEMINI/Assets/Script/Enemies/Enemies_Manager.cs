@@ -20,8 +20,18 @@ public class Enemies_Manager : MonoBehaviour
     public Transform[] waypoint;
     private int waypointIndex; 
     private float dist; 
-    private NavMeshAgent navmeshAgent; 
+    private NavMeshAgent navmeshAgent;
+    private GameObject player;
 
+    [Header("Teleport ")]
+    public float teleportTime = 3.0f;
+    private float teleportTimer = .0f;
+    public float xRange;
+    public float yRange;
+    public float zRange;
+    public bool teleport_B = false;
+    public int teleportCount = 0;
+    public int teleportRandomCount;
     public float Dist 
     {
        get
@@ -59,11 +69,21 @@ public class Enemies_Manager : MonoBehaviour
         waypointIndex = 0;
         transform.LookAt(waypoint[waypointIndex].position);
         navmeshAgent = GetComponent<NavMeshAgent>();
+
+        //ignoring the unnessacary collision
+        player = GameObject.FindGameObjectWithTag("Player");
+        Physics.IgnoreCollision(player.GetComponent<CapsuleCollider>(), GetComponent<CapsuleCollider>());
+
     }
     void Update()
     {
         //will carry any logic from the current state every frame
         current_state.UpdateState(this);
+
+        if (teleport_B)
+        {
+            Teleporting();
+        }
 
     }
     void OnCollisionEnter(Collision collision)
@@ -71,11 +91,12 @@ public class Enemies_Manager : MonoBehaviour
         current_state.OnCollisionEnter(this, collision);
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("fak off");
+            //Debug.Log("fak off");
+            teleport_B = true;
         }
     }
     public void SwitchState(Enemies_Abstract state)
@@ -110,6 +131,62 @@ public class Enemies_Manager : MonoBehaviour
         }
     }
 
+
+
+    #endregion
+
+    #region teleporting
+    
+    public void Teleporting()
+    {
+        #region [hard mode coding]
+        // disable the enemy
+        // change to random transform
+        // wait for X second
+        // enable the enemy
+        // u prob need use instance or something like so to store the data cuz once this closes,and reopen all data is reseted
+        //StartCoroutine(ShowAndHide(this.gameObject, 1.0f)); // 1 second
+        //IEnumerator ShowAndHide(GameObject go, float delay)
+        //{
+        //    go.SetActive(true);
+        //    yield return new WaitForSeconds(delay);
+        //    go.SetActive(false);
+        //}
+        #endregion
+
+        #region [medium mode coding]
+        Debug.Log("i am teleporting");
+        // - play enter portal animation on contact
+        //- ignore all collision
+        Physics.IgnoreCollision(player.GetComponent<CapsuleCollider>(), GetComponent<BoxCollider>());
+        //- let the random numbers roll
+        float xPos = Random.Range(-xRange, xRange);
+        float yPos = Random.Range(0, yRange);
+        float zPos = Random.Range(-zRange, zRange);
+
+        //- wait for x seconds
+        teleportTimer += Time.deltaTime;
+        if (teleportTimer > teleportTime)
+        {
+            Debug.Log("i am done teleporting");
+            teleport_B = false;
+            teleportTimer = 0;
+            //- set the current random position
+            transform.position = new Vector3(xPos,yPos,zPos);
+            //- play exit portal animation
+            //- acknowledge collision again
+            Physics.IgnoreCollision(player.GetComponent<CapsuleCollider>(), GetComponent<BoxCollider>(), false);
+        }
+        #endregion
+    }
+
+    public void TeleportingCount()
+    {
+        if (teleportCount >= teleportRandomCount)
+        {
+            //stop teleporting
+        }
+    }
 
 
     #endregion
