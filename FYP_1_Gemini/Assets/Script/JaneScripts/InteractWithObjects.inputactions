@@ -1,0 +1,54 @@
+{
+    "name": "InteractWithObjects",
+    "maps": [
+        {
+            "name": "InteractWithObject",
+            "id": "9dfb97ca-6c59-45f5-a236-694f7720de15",
+            "actions": [
+                {
+                    "name": "CollectFuse",
+                    "type": "Button",
+                    "id": "e4febf2b-3091-4c4a-92a4-feb0f1877821",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PutFuseIn",
+                    "type": "Button",
+                    "id": "bb28626b-332a-4e2d-8776-20c6d07e2973",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9af1fd3a-66af-4203-918e-af74a8e314ba",
+                    "path": "<Keyboard>/g",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CollectFuse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cecd54b6-11e3-4d7b-985b-81864059d968",
+                    "path": "<Keyboard>/g",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PutFuseIn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

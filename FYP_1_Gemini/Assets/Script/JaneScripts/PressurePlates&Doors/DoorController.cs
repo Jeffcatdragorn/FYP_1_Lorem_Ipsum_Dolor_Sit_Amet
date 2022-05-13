@@ -22,14 +22,17 @@ public class DoorController : MonoBehaviour
     [SerializeField] private string pressurePlatePressed = "PPlatePressed";
     [SerializeField] private string pressurePlateReleased = "PPlateReleased";
 
+    private bool doorIsOpen = false;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player")) //change the tag to the object that is going to be placed on the pressure plate
         {
-            if (openDoorTrigger == true)
+            if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && doorIsOpen == false)
             {
                 door.Play(doorSlideOpen, 0, 0.0f);
                 pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
+                doorIsOpen = true;
             }
         }
     }
@@ -39,11 +42,17 @@ public class DoorController : MonoBehaviour
         if (other.CompareTag("Player")) //change the tag to the object that is going to be placed on the pressure plate
         {
             //closeDoorTrigger = true;
-            if(openOnceOnlyDoor == false)
+            if(openOnceOnlyDoor == false && FuseBoxBehaviour.fuseInserted == true)
             {
                 door.Play(doorSlideClose, 0, 0.0f);
                 pressurePlate.Play(pressurePlateReleased, 0, 0.0f);
+                doorIsOpen = false;
             }
         }
+    }
+
+    private void Update()
+    {
+        Debug.Log("doorIsOpen = " + doorIsOpen);
     }
 }
