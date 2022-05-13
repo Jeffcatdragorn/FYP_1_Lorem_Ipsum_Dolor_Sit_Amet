@@ -24,7 +24,7 @@ public class Idle : Enemies_Abstract
             enemy.SwitchState(enemy.PatrolState);
         }
 
-        if (enemy.teleport_B)
+        if (enemy.canTeleport)
         {
             enemy.SwitchState(enemy.TeleportState);
         }

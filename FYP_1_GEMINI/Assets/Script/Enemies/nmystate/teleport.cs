@@ -11,7 +11,7 @@ public class teleport : Enemies_Abstract
 
     public override void UpdateState(Enemies_Manager enemy)
     {
-        if (!enemy.teleport_B && enemy.teleportCount == enemy.teleportRandomCount)
+        if (!enemy.canTeleport && enemy.teleportCount == enemy.teleportRandomCount)
         {
             enemy.SwitchState(enemy.IdleState);
         }

@@ -5,10 +5,11 @@ using UnityEngine;
 public class patrol : Enemies_Abstract
 {
     float patrolTimer = .0f;
+    Animator anim;
     public override void EnterState(Enemies_Manager enemy)
     {
         //Debug.Log("Entered Patrol State");
-        Animator anim = enemy.GetComponent<Animator>();
+        anim = enemy.GetComponent<Animator>();
         anim.SetBool("walk", true);
         enemy.Patrolling();
     }
@@ -28,7 +29,7 @@ public class patrol : Enemies_Abstract
             enemy.Patrolling();
         }
 
-        if (enemy.teleport_B)
+        if (enemy.canTeleport)
         {
             enemy.SwitchState(enemy.TeleportState);
         }
@@ -41,6 +42,8 @@ public class patrol : Enemies_Abstract
     public override void ExitState(Enemies_Manager enemy)
     {
         enemy.StopPatrolling();
+        anim.SetBool("walk", false);
+
         //Debug.Log("exit patrol state");
 
     }

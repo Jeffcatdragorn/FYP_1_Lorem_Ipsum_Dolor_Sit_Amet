@@ -24,14 +24,20 @@ public class Enemies_Manager : MonoBehaviour
     private GameObject player;
 
     [Header("Teleport ")]
-    public float teleportTime = 3.0f;
-    private float teleportTimer = .0f;
+    public float teleportTimeA = 3.0f;
+    private float teleportTimerA = .0f;
+    public float teleportTimeB = 3.0f;
+    private float teleportTimerB = .0f;
     public float xRange;
     public float yRange;
     public float zRange;
-    public bool teleport_B = false;
+    public bool canTeleport = false;
+    public bool stillNeedTeleport = false;
     public int teleportCount = 0;
     public int teleportRandomCount;
+    private float xPos;
+    private float yPos;
+    private float zPos;
     public float Dist 
     {
        get
@@ -79,8 +85,19 @@ public class Enemies_Manager : MonoBehaviour
     {
         //will carry any logic from the current state every frame
         current_state.UpdateState(this);
-
-        if (teleport_B)
+        if (stillNeedTeleport)
+        {
+            if(teleportCount < teleportRandomCount)
+            {
+                canTeleport = true;
+            }
+            else
+            {
+                stillNeedTeleport = false;
+                teleportCount = 0;
+            }
+        }
+        if (canTeleport)
         {
             Teleporting();
         }
@@ -95,8 +112,10 @@ public class Enemies_Manager : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //Debug.Log("fak off");
-            teleport_B = true;
+            Debug.Log("fak off");
+            teleportRandomCount = Random.Range(1,4);
+            canTeleport = true;
+            stillNeedTeleport = true;
         }
     }
     public void SwitchState(Enemies_Abstract state)
@@ -120,6 +139,7 @@ public class Enemies_Manager : MonoBehaviour
     public void StopPatrolling()
     {
         navmeshAgent.SetDestination(transform.position);
+
     }
 
     public void IncreaseIndex()
@@ -155,23 +175,31 @@ public class Enemies_Manager : MonoBehaviour
         #endregion
 
         #region [medium mode coding]
-        Debug.Log("i am teleporting");
+        //Debug.Log("i am teleporting");
         // - play enter portal animation on contact
         //- ignore all collision
         Physics.IgnoreCollision(player.GetComponent<CapsuleCollider>(), GetComponent<BoxCollider>());
-        //- let the random numbers roll
-        float xPos = Random.Range(-xRange, xRange);
-        float yPos = Random.Range(0, yRange);
-        float zPos = Random.Range(-zRange, zRange);
+
 
         //- wait for x seconds
-        teleportTimer += Time.deltaTime;
-        if (teleportTimer > teleportTime)
+        if (teleportTimerA < teleportTimeA)
+        {
+            teleportTimerA += Time.deltaTime;
+            //- let the random numbers roll
+            xPos = Random.Range(-xRange, xRange);
+            yPos = Random.Range(0, yRange);
+            zPos = Random.Range(-zRange, zRange);
+        }
+        else if (teleportTimerA > teleportTimeA)
         {
             Debug.Log("i am done teleporting");
-            teleport_B = false;
-            teleportTimer = 0;
+            canTeleport = false; //B
+            teleportTimerA = 0;
+            teleportCount += 1;
             //- set the current random position
+            navmeshAgent.ResetPath();
+            player = GameObject.FindGameObjectWithTag("Player");
+            transform.LookAt(player.transform.position);
             transform.position = new Vector3(xPos,yPos,zPos);
             //- play exit portal animation
             //- acknowledge collision again
