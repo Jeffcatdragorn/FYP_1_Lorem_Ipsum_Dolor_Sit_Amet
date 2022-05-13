@@ -15,10 +15,12 @@ public class DoorController : MonoBehaviour
     //[SerializeField] private bool closeDoorTrigger = false;
 
     [Header ("Animation names")] //just in case got different animations for doors and pressure plates
-    [SerializeField] private string doorOpen = "DoorOpening";
-    [SerializeField] private string doorClose = "DoorClosing";
-    [SerializeField] private string pressurePlatePressed = "PressurePlatePressed";
-    [SerializeField] private string pressurePlateReleased = "PressurePlateReleased";
+    //[SerializeField] private string doorOpen = "DoorOpening";
+    //[SerializeField] private string doorClose = "DoorClosing";
+    [SerializeField] private string doorSlideOpen = "DoorSlideOpen";
+    [SerializeField] private string doorSlideClose = "DoorSlideClose";
+    [SerializeField] private string pressurePlatePressed = "PPlatePressed";
+    [SerializeField] private string pressurePlateReleased = "PPlateReleased";
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,7 +28,7 @@ public class DoorController : MonoBehaviour
         {
             if (openDoorTrigger == true)
             {
-                door.Play(doorOpen, 0, 0.0f);
+                door.Play(doorSlideOpen, 0, 0.0f);
                 pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
             }
         }
@@ -39,7 +41,7 @@ public class DoorController : MonoBehaviour
             //closeDoorTrigger = true;
             if(openOnceOnlyDoor == false)
             {
-                door.Play(doorClose, 0, 0.0f);
+                door.Play(doorSlideClose, 0, 0.0f);
                 pressurePlate.Play(pressurePlateReleased, 0, 0.0f);
             }
         }
