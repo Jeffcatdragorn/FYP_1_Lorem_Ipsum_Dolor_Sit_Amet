@@ -288,6 +288,37 @@ Transform:
   m_Father: {fileID: 7186917707604653081}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1282558125379270056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5621622970877183529}
+  m_Layer: 0
+  m_Name: CameraFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5621622970877183529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282558125379270056}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.003, y: 1.677, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9043819745923296314}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1288615419844251196
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,6 +2243,7 @@ GameObject:
   - component: {fileID: 3082949689591874256}
   - component: {fileID: 4758848769657173160}
   - component: {fileID: 1800526415}
+  - component: {fileID: 5268291997811946827}
   m_Layer: 0
   m_Name: Ely By K.Atienza
   m_TagString: Untagged
@@ -2233,6 +2265,7 @@ Transform:
   m_Children:
   - {fileID: 6136814299804462747}
   - {fileID: 3590012015103806638}
+  - {fileID: 5621622970877183529}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2299,6 +2332,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charAnimation: {fileID: 3126121495988155968}
+--- !u!114 &5268291997811946827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8559595252575090304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5855d1a1167c9ce4e88a4c7052564a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraFollow: {fileID: 0}
+  input: {fileID: 0}
+  cameraController: {fileID: 0}
+  playerLookInputLerpTime: 0.5
+  movementMultiplier: 30
+  rotationSpeedMultiplier: 180
+  pitchSpeedMultiplier: 180
+  runMultiplier: 5
+  playerIsGrounded: 1
+  groundCheckRadiusMultiplier: 0.9
+  groundCheckerExtraDistance: 0.05
+  gravityFallCurrent: -100
+  gravityFallMin: -100
+  gravityFallMax: -500
+  gravityFallIncrementAmount: -20
+  gravityFallIncrementTime: 0.05
+  playerFallTimer: 0
+  gravity: 0
 --- !u!1 &8653527193492638103
 GameObject:
   m_ObjectHideFlags: 0
