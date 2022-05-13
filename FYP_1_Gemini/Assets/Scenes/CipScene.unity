@@ -130,78 +130,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1800526415, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 3157217564664177772, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3082949689591874256, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_Drag
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3082949689591874256, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_Mass
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 3082949689591874256, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3082949689591874256, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_AngularDrag
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3082949689591874256, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_Constraints
-      value: 48
-      objectReference: {fileID: 0}
-    - target: {fileID: 3082949689591874256, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3082949689591874256, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126121495988155968, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4758848769657173160, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_Height
-      value: 1.8313338
       objectReference: {fileID: 0}
     - target: {fileID: 4758848769657173160, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: m_Center.y
-      value: 0.88409853
+      value: 0.9
       objectReference: {fileID: 0}
-    - target: {fileID: 4758848769657173160, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: f8a23d5825736704a978d702b4dfa4e0, type: 2}
     - target: {fileID: 5268291997811946827, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: input
       value: 
       objectReference: {fileID: 939894722}
     - target: {fileID: 5268291997811946827, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: cameraFollow
-      value: 
-      objectReference: {fileID: 64878697}
-    - target: {fileID: 5268291997811946827, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: cameraController
       value: 
       objectReference: {fileID: 787180574}
-    - target: {fileID: 5268291997811946827, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: movementMultiplier
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 5268291997811946827, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: groundCheckerExtraDistance
-      value: 1.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 5268291997811946827, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
-      propertyPath: groundCheckRadiusMultiplier
-      value: 1.8
-      objectReference: {fileID: 0}
     - target: {fileID: 8559595252575090304, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: m_Name
       value: Ely By K.Atienza
@@ -216,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9043819745923296314, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.272
+      value: -9.5
       objectReference: {fileID: 0}
     - target: {fileID: 9043819745923296314, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -750,7 +694,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903681845}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.6346483, y: 3.866969, z: -3.178317}
+  m_LocalPosition: {x: 3.6346483, y: 3.6389694, z: -3.178317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1094,7 +1038,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015964585}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.6346483, y: 3.866969, z: -3.178317}
+  m_LocalPosition: {x: 3.6346483, y: 3.6389694, z: -3.178317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1161,7 +1105,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.8615818, y: 1}
+    m_SensorSize: {x: 3.8507042, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1218,7 +1162,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2191558, y: 1}
+    m_SensorSize: {x: 3.8507042, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1235,7 +1179,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038846621}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.6196482, y: 7.3639693, z: -21.670317}
+  m_LocalPosition: {x: 3.6346483, y: 3.6389694, z: -1.8033171}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
