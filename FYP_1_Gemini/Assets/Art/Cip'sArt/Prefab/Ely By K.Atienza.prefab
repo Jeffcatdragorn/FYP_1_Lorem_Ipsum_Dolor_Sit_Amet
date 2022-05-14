@@ -311,12 +311,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282558125379270056}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.003, y: 1.677, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0060000005, y: 0.6830001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9043819745923296314}
+  m_Father: {fileID: 3157217564664177772}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1288615419844251196
@@ -727,14 +727,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3099891843028164774}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5621622970877183529}
   - {fileID: 6136814299804462747}
   - {fileID: 3590012015103806638}
   m_Father: {fileID: 9043819745923296314}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7626717229679065455
 Animator:
@@ -747,18 +748,12 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7b4cb697e386892428499b31b6fc007f, type: 3}
   m_Controller: {fileID: 9100000, guid: 1d1ce3e126ca1ed4f891ded1aed1f1ba, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_CullingMode: 1
+  m_UpdateMode: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-    'mixamorig:Spine1'\n\tTransform 'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform
-    'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:RightFoot'\n\tTransform 'mixamorig:Head'\n\tTransform
-    'mixamorig:LeftUpLeg'\n\tTransform 'mixamorig:LeftArm'\n\tand more ...\n\tFrom
-    animation clip 'Idle'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -774,6 +769,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e122c39110a03684294fd9f70532cfe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraFollow: {fileID: 5621622970877183529}
+  input: {fileID: 0}
+  cameraController: {fileID: 0}
+  playerLookInputLerpTime: 0.35
+  rigidbody: {fileID: 3082949689591874256}
+  dashSpeed: 20
+  dashTime: 0.25
+  rotationSpeedMultiplier: 180
+  pitchSpeedMultiplier: 180
   charAnimation: {fileID: 7626717229679065455}
 --- !u!1 &3211957706175867264
 GameObject:
@@ -1149,12 +1153,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4726848112448261636}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.097, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3157217564664177772}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &6966346367369452981
 SkinnedMeshRenderer:
@@ -2386,7 +2390,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8434577744959526363}
   m_LocalRotation: {x: -3.7968506e-15, y: -0.000000004493667, z: -0.0000007356328, w: 1}
-  m_LocalPosition: {x: 0.00056808715, y: -0.11452061, z: 0.005755997}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2394,7 +2398,7 @@ Transform:
   - {fileID: 817360685083540369}
   - {fileID: 3871601714527207229}
   m_Father: {fileID: 3157217564664177772}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8559595252575090304
 GameObject:
@@ -2427,7 +2431,6 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5621622970877183529}
   - {fileID: 3157217564664177772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2461,7 +2464,7 @@ CapsuleCollider:
   m_Radius: 0.35
   m_Height: 1.7816117
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!114 &5268291997811946827
 MonoBehaviour:
   m_ObjectHideFlags: 0
