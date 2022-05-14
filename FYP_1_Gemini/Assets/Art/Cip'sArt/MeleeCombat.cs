@@ -36,8 +36,10 @@ public class MeleeCombat : MonoBehaviour
     {
         #region BasicAttack
         StartAttack();
-        charAnimation.SetTrigger("Attack1");
-        #endregion
+        var attack = Random.Range(1,3);
+
+        charAnimation.SetTrigger("Attack"+attack);
+         #endregion
     }
 
     public void Evade()
