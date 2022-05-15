@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: f560c7d7697e2404eac423bb1f68fd65
+guid: 5607f91a875166b41948e4d405359797
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Punch
+    second: Left Cross
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,14 +36,14 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Punch
+      name: Left Cross
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 31
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: 1.05
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -53,9 +53,9 @@ ModelImporter:
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

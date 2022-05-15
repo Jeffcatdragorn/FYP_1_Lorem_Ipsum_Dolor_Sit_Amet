@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: f560c7d7697e2404eac423bb1f68fd65
+guid: ff7da7e06fd1f3e4e9781f4371b385a2
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Punch
+    second: LeftHook
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Punch
+      name: LeftHook
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 31
+      lastFrame: 65
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
