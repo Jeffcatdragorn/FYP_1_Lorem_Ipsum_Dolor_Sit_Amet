@@ -20,7 +20,7 @@ public class MeleeCombat : MonoBehaviour
         inputs = new CombatControls();
 
         inputs.HumanoidActions.Actions.performed += x => Attack();
-        inputs.HumanoidActions.Dash.performed += x => Dash();
+        inputs.HumanoidActions.Dash.performed += x => Dash(); //x is a var so to speak/reference point?
     }
 
     #region Enable/Disable
@@ -35,7 +35,6 @@ public class MeleeCombat : MonoBehaviour
     }
     #endregion
 
-    // Update is called once per frame
     public void Attack()
     {
         #region BasicAttack
@@ -43,7 +42,8 @@ public class MeleeCombat : MonoBehaviour
         var attack = Random.Range(1,3);
 
         charAnimation.SetTrigger("Attack"+attack);
-         #endregion
+        charAnimation.applyRootMotion = true;
+        #endregion
     }
 
     public void Dash()

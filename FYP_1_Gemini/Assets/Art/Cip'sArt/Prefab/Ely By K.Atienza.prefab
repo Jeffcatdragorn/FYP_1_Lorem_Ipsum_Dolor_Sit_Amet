@@ -1133,6 +1133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6136814299804462747}
   - component: {fileID: 6966346367369452981}
+  - component: {fileID: 385439691}
   m_Layer: 8
   m_Name: ely_vanguardsoldier_kerwinatienza_Mesh
   m_TagString: Untagged
@@ -1275,6 +1276,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00072827935, y: -0.15353498, z: -0.007320747}
     m_Extent: {x: 0.89836097, y: 0.9620329, z: 0.21658027}
   m_DirtyAABB: 0
+--- !u!136 &385439691
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4726848112448261636}
+  m_Material: {fileID: 13400000, guid: f8a23d5825736704a978d702b4dfa4e0, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: 0.35
+  m_Height: 1.7816117
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!1 &4836683849267078880
 GameObject:
   m_ObjectHideFlags: 0
