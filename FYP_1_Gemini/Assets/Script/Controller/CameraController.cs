@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
     CinemachineFramingTransposer cinemachineFramingTransposerOrbit;
 
     private void Awake()
-    {
+    { 
         cinemachineFramingTransposerThirdPerson = cinemachineThirdPerson.GetCinemachineComponent<CinemachineFramingTransposer>();
         cinemachineFramingTransposerOrbit = cinemachineOrbit.GetCinemachineComponent<CinemachineFramingTransposer>();
     }
@@ -69,31 +69,32 @@ public class CameraController : MonoBehaviour
 
     private void ChangeCamera()
     {
-        if(cinemachineThirdPerson == activeCamera)
+        if (cinemachineFirstPerson == activeCamera)
+        {
+            SetCameraPriorities(cinemachineFirstPerson, cinemachineThirdPerson);
+            //usingOrbitalCamera = true;
+            mainCamera.cullingMask |= (1 << LayerMask.NameToLayer("playerSelf"));
+        }
+
+        else if (cinemachineThirdPerson == activeCamera)
         {
             SetCameraPriorities(cinemachineThirdPerson, cinemachineFirstPerson);
-            usingOrbitalCamera = false;
+            //usingOrbitalCamera = false;
             mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("playerSelf"));
         }
 
-        else if (cinemachineFirstPerson == activeCamera)
-        {
-            SetCameraPriorities(cinemachineFirstPerson, cinemachineOrbit);
-            usingOrbitalCamera = true;
-            mainCamera.cullingMask |= 1 << LayerMask.NameToLayer("playerSelf");
-        }
-
-        else if (cinemachineOrbit == activeCamera)
-        {
-            SetCameraPriorities(cinemachineOrbit, cinemachineThirdPerson);
-            activeCamera = cinemachineThirdPerson;
-            usingOrbitalCamera = false;
-        }
+        //else if (cinemachineOrbit == activeCamera)
+        //{
+        //    SetCameraPriorities(cinemachineOrbit, cinemachineThirdPerson);
+        //    activeCamera = cinemachineThirdPerson;
+        //    usingOrbitalCamera = false;
+        //}
 
         else //for first time or if error
         {
-            cinemachineThirdPerson.Priority += activeCameraPriorityModifier;
-            activeCamera = cinemachineThirdPerson;
+            mainCamera.cullingMask |= (1 << LayerMask.NameToLayer("playerSelf"));
+            cinemachineFirstPerson.Priority += activeCameraPriorityModifier;
+            activeCamera = cinemachineFirstPerson;
         }
     }
 

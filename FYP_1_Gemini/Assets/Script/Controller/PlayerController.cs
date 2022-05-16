@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] float movementMultiplier = 30.0f;
+    [SerializeField] float notGroundedMovementMultiplier = 1.25f;
     [SerializeField] float rotationSpeedMultiplier = 180.0f;
     [SerializeField] float pitchSpeedMultiplier = 180.0f;
     [SerializeField] float runMultiplier = 2.5f;
@@ -36,7 +38,31 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(-5.0f, -35.0f)] float gravityFallIncrementAmount= -20.0f;
     [SerializeField] float gravityFallIncrementTime = 0.05f;
     [SerializeField] float playerFallTimer = 0.0f;
-    [SerializeField] float gravity = 0.0f;
+    [SerializeField] float groundedGravity = -1.0f;
+    [SerializeField] float maxSlopeAngle = 47.5f;
+
+    [Header("Jumping")]
+    [SerializeField] float initialJumpForce = 750.0f;
+    [SerializeField] float continualJumpForceMultiplier = 0.1f;
+    [SerializeField] float jumpTime = 0.175f;
+    [SerializeField] float jumpTimeCounter = 0.0f;
+    [SerializeField] float coyoteTime = 0.15f;
+    [SerializeField] float coyoteTimeCounter = 0.0f;
+    [SerializeField] float jumpBufferTime = 0.2f;
+    [SerializeField] float jumpBufferTimeCounter = 0.0f;
+    [SerializeField] bool playerIsJumping = false;
+    [SerializeField] bool jumpWasPressedLastFrame = false;
+
+    [Header("Grappling")]
+    [SerializeField] bool playerIsGrappling = false;
+    [SerializeField] Transform debugGrapplePoint;
+    [SerializeField] float grappleSpeed = 5.0f;
+    [SerializeField] LineRenderer lineRenderer;
+    private Vector3 grapplePoint;
+    public LayerMask grappleObjects;
+    public Transform grappleTip, cam, player;
+    private float maxGrappleDistance = 100f;
+    
 
     private void Awake()
     {
@@ -55,11 +81,29 @@ public class PlayerController : MonoBehaviour
 
         playerMoveInput = GetMoveInput();
         playerIsGrounded = PlayerGroundCheck();
-        playerMoveInput.y = PlayerGravity();
-        playerMoveInput = PlayerRun();
+
         playerMoveInput = PlayerMove();
+        playerMoveInput = PlayerSlope();
+        playerMoveInput = PlayerRun();
+        
+        playerMoveInput.y = PlayerFallGravity();
+        playerMoveInput.y = PlayerJump();
+
+        playerMoveInput = PlayerGrapple();
+
+        playerMoveInput *= rigidbody.mass;
 
         rigidbody.AddRelativeForce(playerMoveInput, ForceMode.Force);
+    }
+
+    private void Update()
+    {
+        Debug.Log(playerIsGrappling);
+    }
+
+    private void LateUpdate()
+    {
+        DrawLine();
     }
 
     private Vector3 GetLookInput()
@@ -95,11 +139,90 @@ public class PlayerController : MonoBehaviour
         return Physics.SphereCast(rigidbody.position, sphereCastRadius, Vector3.down, out groundCheckHit, sphereCastTravelDistance);
     }
 
-    private float PlayerGravity()
+    private Vector3 PlayerMove()
     {
+        return ((playerIsGrounded) ? (playerMoveInput * movementMultiplier) : (playerMoveInput * movementMultiplier * notGroundedMovementMultiplier));
+    }
+
+    private Vector3 PlayerRun()
+    {
+        Vector3 calculatedPlayerRunSpeed = playerMoveInput;
+        if (input.MoveIsPressed && input.RunIsPressed)
+        {
+            calculatedPlayerRunSpeed *= runMultiplier;
+        }
+        return calculatedPlayerRunSpeed;
+    }
+
+    private Vector3 PlayerSlope()
+    {
+        Vector3 calculatedPlayerMovement = playerMoveInput;
+
         if (playerIsGrounded)
         {
-            gravity = 0.0f;
+            Vector3 localGroundCheckHitNormal = rigidbody.transform.InverseTransformDirection(groundCheckHit.normal);
+
+            float groundSlopeAngle = Vector3.Angle(localGroundCheckHitNormal, rigidbody.transform.up);
+            if(groundSlopeAngle == 0.0f)
+            {
+                if (input.MoveIsPressed)
+                {
+                    RaycastHit rayHit;
+                    float rayHeightFromGround = 0.1f;
+                    float rayCalculatedHeight = rigidbody.position.y - capsuleCollider.bounds.extents.y + rayHeightFromGround;
+                    Vector3 rayOrigin = new Vector3(rigidbody.position.x, rayCalculatedHeight, rigidbody.position.z);
+                    if (Physics.Raycast(rayOrigin, rigidbody.transform.TransformDirection(calculatedPlayerMovement), out rayHit, 0.75f))
+                    {
+                        if (Vector3.Angle(rayHit.normal, rigidbody.transform.up) > maxSlopeAngle)
+                        {
+                            calculatedPlayerMovement.y = -movementMultiplier;
+                        }
+                    }
+                    Debug.DrawRay(rayOrigin, rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.green, 1.0f);
+                }
+                if (calculatedPlayerMovement.y == 0.0f)
+                {
+                    calculatedPlayerMovement.y = groundedGravity;
+                }
+            }
+
+            else
+            {
+                Quaternion slopeAngleRotation = Quaternion.FromToRotation(rigidbody.transform.up, localGroundCheckHitNormal);
+                calculatedPlayerMovement = slopeAngleRotation * calculatedPlayerMovement;
+
+                float relativeSlopeAngle = Vector3.Angle(calculatedPlayerMovement, rigidbody.transform.up) - 90.0f;
+                calculatedPlayerMovement += calculatedPlayerMovement * (relativeSlopeAngle / 90.0f);
+
+                if(groundSlopeAngle < maxSlopeAngle)
+                {
+                    if (input.MoveIsPressed)
+                    {
+                        calculatedPlayerMovement.y += groundedGravity;
+                    }
+                }
+                else
+                {
+                    float calculatedSlopeGravity = groundSlopeAngle * 0.2f;
+                    if(calculatedSlopeGravity < calculatedPlayerMovement.y)
+                    {
+                        calculatedPlayerMovement.y = calculatedSlopeGravity;
+                    }
+                }
+            }
+#if UNITY_EDITOR
+            Debug.DrawRay(rigidbody.position, rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, 0.5f);
+#endif
+        }
+
+        return calculatedPlayerMovement;
+    }
+
+    private float PlayerFallGravity()
+    {
+        float gravity = playerMoveInput.y;
+        if (playerIsGrounded)
+        {
             gravityFallCurrent = gravityFallMin;
         }
 
@@ -113,29 +236,110 @@ public class PlayerController : MonoBehaviour
                     gravityFallCurrent += gravityFallIncrementAmount;
                 }
                 playerFallTimer = gravityFallIncrementTime;
-                gravity = gravityFallCurrent;
             }
+            gravity = gravityFallCurrent;
         }
         return gravity;
     }
 
-    private Vector3 PlayerRun()
+    private float PlayerJump()
     {
-        Vector3 calculatedPlayerRunSpeed = playerMoveInput;
-        if (input.RunIsPressed)
+        float calculatedJumpInput = playerMoveInput.y;
+
+        SetJumpTimeCounter();
+        SetCoyoteTimeCounter();
+        SetJumpBufferCounter();
+
+        if (jumpBufferTimeCounter > 0.0f && !playerIsJumping && coyoteTimeCounter > 0.0f)
         {
-            calculatedPlayerRunSpeed.x *= runMultiplier;
-            calculatedPlayerRunSpeed.z *= runMultiplier;
+            if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
+            {
+                calculatedJumpInput = initialJumpForce;
+                playerIsJumping = true;
+                jumpBufferTimeCounter = 0.0f;
+                coyoteTimeCounter = 0.0f;
+            }
         }
-        return calculatedPlayerRunSpeed;
+
+        else if(input.JumpIsPressed && playerIsJumping && !playerIsGrounded && jumpTimeCounter > 0.0f)
+        {
+            calculatedJumpInput = initialJumpForce * continualJumpForceMultiplier;
+        }
+
+        else if(playerIsJumping && playerIsGrounded)
+        {
+            playerIsJumping = false;
+        }
+
+        return calculatedJumpInput;
     }
 
-    private Vector3 PlayerMove()
+    private Vector3 PlayerGrapple()
     {
-        Vector3 calculatedPlayerMOvement = (new Vector3(playerMoveInput.x * movementMultiplier * rigidbody.mass, 
-                                       playerMoveInput.y * rigidbody.mass, 
-                                       playerMoveInput.z * movementMultiplier * rigidbody.mass));
+        Vector3 calculatedGrappleInput = playerMoveInput;
+        RaycastHit rayHit;
+        if (Physics.Raycast(origin: cam.position, direction: cam.forward, out rayHit, maxGrappleDistance, grappleObjects) && playerIsGrappling == true)
+        {
+            lineRenderer.positionCount = 2;
+            debugGrapplePoint.position = rayHit.point;
+            grapplePoint = rayHit.point;
+            calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
+        }
 
-        return calculatedPlayerMOvement;
+        else if(input.GrappleIsPressed && playerIsGrappling == false)
+        {
+            playerIsGrappling = true;
+        }
+
+        else
+        {
+            lineRenderer.positionCount = 2;
+            playerIsGrappling = false;
+        }
+
+        return calculatedGrappleInput;
+    }
+
+    void DrawLine()
+    {
+        if (!playerIsGrappling) lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(index: 0, grappleTip.position);
+        lineRenderer.SetPosition(index: 1, grapplePoint);
+    }
+    private void SetJumpBufferCounter()
+    {
+        if (!jumpWasPressedLastFrame && input.JumpIsPressed)
+        {
+            jumpBufferTimeCounter = jumpBufferTime;
+        }
+        else if (jumpBufferTimeCounter > 0.0f)
+        {
+            jumpBufferTimeCounter -= Time.fixedDeltaTime;
+        }
+        jumpWasPressedLastFrame = input.JumpIsPressed;
+    }
+
+    private void SetCoyoteTimeCounter()
+    {
+        if (playerIsGrounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.fixedDeltaTime;
+        }
+    }
+
+    private void SetJumpTimeCounter()
+    {
+        if(playerIsJumping && !playerIsGrounded)
+        {
+            jumpTimeCounter -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            jumpTimeCounter = jumpTime;
+        }
     }
 }

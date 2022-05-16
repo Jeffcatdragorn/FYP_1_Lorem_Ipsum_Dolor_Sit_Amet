@@ -71,6 +71,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Value"",
+                    ""id"": ""e7ed38c4-645d-44b5-a66f-04e897838613"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""GrapplingHook"",
+                    ""type"": ""Button"",
+                    ""id"": ""5e339728-cce3-4553-85bc-beed6187d4db"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,6 +245,39 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""616cd50e-7300-47ce-ba78-28294a7d7553"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""543dcf24-527e-4ff0-848d-0ec7afac113c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34bf5f3d-b3e9-433f-9e69-6f624c6b60ec"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrapplingHook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -240,6 +291,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_ChangeCamera = m_HumanoidLand.FindAction("ChangeCamera", throwIfNotFound: true);
         m_HumanoidLand_ZoomCamera = m_HumanoidLand.FindAction("ZoomCamera", throwIfNotFound: true);
         m_HumanoidLand_Run = m_HumanoidLand.FindAction("Run", throwIfNotFound: true);
+        m_HumanoidLand_Jump = m_HumanoidLand.FindAction("Jump", throwIfNotFound: true);
+        m_HumanoidLand_GrapplingHook = m_HumanoidLand.FindAction("GrapplingHook", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -304,6 +357,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_ChangeCamera;
     private readonly InputAction m_HumanoidLand_ZoomCamera;
     private readonly InputAction m_HumanoidLand_Run;
+    private readonly InputAction m_HumanoidLand_Jump;
+    private readonly InputAction m_HumanoidLand_GrapplingHook;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -313,6 +368,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @ChangeCamera => m_Wrapper.m_HumanoidLand_ChangeCamera;
         public InputAction @ZoomCamera => m_Wrapper.m_HumanoidLand_ZoomCamera;
         public InputAction @Run => m_Wrapper.m_HumanoidLand_Run;
+        public InputAction @Jump => m_Wrapper.m_HumanoidLand_Jump;
+        public InputAction @GrapplingHook => m_Wrapper.m_HumanoidLand_GrapplingHook;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -337,6 +394,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Run.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnRun;
+                @Jump.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnJump;
+                @GrapplingHook.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGrapplingHook;
+                @GrapplingHook.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGrapplingHook;
+                @GrapplingHook.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGrapplingHook;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -356,6 +419,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @GrapplingHook.started += instance.OnGrapplingHook;
+                @GrapplingHook.performed += instance.OnGrapplingHook;
+                @GrapplingHook.canceled += instance.OnGrapplingHook;
             }
         }
     }
@@ -367,5 +436,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnChangeCamera(InputAction.CallbackContext context);
         void OnZoomCamera(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnGrapplingHook(InputAction.CallbackContext context);
     }
 }

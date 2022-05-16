@@ -10,6 +10,8 @@ public class HumanoidLandInput : MonoBehaviour
     public float ZoomCameraInput { get; private set; } = 0.0f;
     public bool InvertScroll { get; private set; } = true;
     public bool RunIsPressed { get; private set; } = false;
+    public bool JumpIsPressed { get; private set; } = false;
+    public bool GrappleIsPressed { get; private set; } = false;
 
     public bool MoveIsPressed = false;
     InputActions input = null;
@@ -29,6 +31,12 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Run.started += SetRun;
         input.HumanoidLand.Run.canceled += SetRun;
 
+        input.HumanoidLand.Jump.started += SetJump;
+        input.HumanoidLand.Jump.canceled += SetJump;
+
+        input.HumanoidLand.GrapplingHook.started += SetGrapplingHook;
+        input.HumanoidLand.GrapplingHook.canceled += SetGrapplingHook;
+
         input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -43,6 +51,12 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Run.started -= SetRun;
         input.HumanoidLand.Run.canceled -= SetRun;
+        
+        input.HumanoidLand.Jump.started -= SetJump;
+        input.HumanoidLand.Jump.canceled -= SetJump;
+
+        input.HumanoidLand.GrapplingHook.started -= SetGrapplingHook;
+        input.HumanoidLand.GrapplingHook.canceled -= SetGrapplingHook;
 
         input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
@@ -69,6 +83,16 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetRun(InputAction.CallbackContext ctx)
     {
         RunIsPressed = ctx.started;
+    }
+
+    private void SetJump(InputAction.CallbackContext ctx)
+    {
+        JumpIsPressed = ctx.started;
+    }
+
+    private void SetGrapplingHook(InputAction.CallbackContext ctx)
+    {
+        GrappleIsPressed = ctx.started;
     }
 
     private void SetZoomCamera(InputAction.CallbackContext ctx)
