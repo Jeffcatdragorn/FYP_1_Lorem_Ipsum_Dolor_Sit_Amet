@@ -89,6 +89,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6032791-49f1-460f-96a9-4ae2a18639ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -278,6 +287,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""GrapplingHook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f58cbef6-3f69-4ce4-b10c-12038844499d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -293,6 +313,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_Run = m_HumanoidLand.FindAction("Run", throwIfNotFound: true);
         m_HumanoidLand_Jump = m_HumanoidLand.FindAction("Jump", throwIfNotFound: true);
         m_HumanoidLand_GrapplingHook = m_HumanoidLand.FindAction("GrapplingHook", throwIfNotFound: true);
+        m_HumanoidLand_Shoot = m_HumanoidLand.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -359,6 +380,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_Run;
     private readonly InputAction m_HumanoidLand_Jump;
     private readonly InputAction m_HumanoidLand_GrapplingHook;
+    private readonly InputAction m_HumanoidLand_Shoot;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -370,6 +392,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_HumanoidLand_Run;
         public InputAction @Jump => m_Wrapper.m_HumanoidLand_Jump;
         public InputAction @GrapplingHook => m_Wrapper.m_HumanoidLand_GrapplingHook;
+        public InputAction @Shoot => m_Wrapper.m_HumanoidLand_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -400,6 +423,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @GrapplingHook.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGrapplingHook;
                 @GrapplingHook.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGrapplingHook;
                 @GrapplingHook.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGrapplingHook;
+                @Shoot.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -425,6 +451,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @GrapplingHook.started += instance.OnGrapplingHook;
                 @GrapplingHook.performed += instance.OnGrapplingHook;
                 @GrapplingHook.canceled += instance.OnGrapplingHook;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
@@ -438,5 +467,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnGrapplingHook(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

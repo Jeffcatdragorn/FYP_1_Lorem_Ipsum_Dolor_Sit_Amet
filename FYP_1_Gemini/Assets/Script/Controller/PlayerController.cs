@@ -62,7 +62,12 @@ public class PlayerController : MonoBehaviour
     public LayerMask grappleObjects;
     public Transform grappleTip, cam, player;
     private float maxGrappleDistance = 100f;
-    
+    private bool grappleCastOnce = false;
+
+    [Header("Shooting")]
+    [SerializeField] Transform gunTip;
+    [SerializeField] float shootRange = 100f;
+    [SerializeField] LayerMask shootObjects;
 
     private void Awake()
     {
@@ -98,13 +103,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(playerIsGrappling);
+        
     }
 
-    private void LateUpdate()
-    {
-        DrawLine();
-    }
+    //private void LateUpdate()
+    //{
+    //    DrawLine();
+    //}
 
     private Vector3 GetLookInput()
     {
@@ -277,35 +282,56 @@ public class PlayerController : MonoBehaviour
     private Vector3 PlayerGrapple()
     {
         Vector3 calculatedGrappleInput = playerMoveInput;
-        RaycastHit rayHit;
-        if (Physics.Raycast(origin: cam.position, direction: cam.forward, out rayHit, maxGrappleDistance, grappleObjects) && playerIsGrappling == true)
+        if (playerIsGrappling == true)
         {
+            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit rayHit, maxGrappleDistance, grappleObjects) && grappleCastOnce == false)
+            {
+                grapplePoint = rayHit.point;
+                debugGrapplePoint.position = rayHit.point;
+                grappleCastOnce = true;
+            }
+
             lineRenderer.positionCount = 2;
-            debugGrapplePoint.position = rayHit.point;
-            grapplePoint = rayHit.point;
             calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
         }
 
-        else if(input.GrappleIsPressed && playerIsGrappling == false)
+        if (input.GrappleIsPressed == true && playerIsGrappling == false)
         {
             playerIsGrappling = true;
-        }
-
-        else
-        {
             lineRenderer.positionCount = 2;
-            playerIsGrappling = false;
+            grappleCastOnce = false;
+            DrawLine();
         }
 
+        if(input.GrappleIsPressed == false)
+        {
+            lineRenderer.positionCount = 0;
+            playerIsGrappling = false;
+            grappleCastOnce = false;
+        }
+
+        
         return calculatedGrappleInput;
+    }
+
+    private void PlayerShoot()
+    {
+        if(input.ShootIsPressed == true)
+        {
+            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange))
+            {
+
+            }
+        }
     }
 
     void DrawLine()
     {
-        if (!playerIsGrappling) lineRenderer.positionCount = 2;
+        if (!playerIsGrappling) return;
         lineRenderer.SetPosition(index: 0, grappleTip.position);
         lineRenderer.SetPosition(index: 1, grapplePoint);
     }
+
     private void SetJumpBufferCounter()
     {
         if (!jumpWasPressedLastFrame && input.JumpIsPressed)

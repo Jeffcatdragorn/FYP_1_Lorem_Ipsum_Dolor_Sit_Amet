@@ -12,6 +12,7 @@ public class HumanoidLandInput : MonoBehaviour
     public bool RunIsPressed { get; private set; } = false;
     public bool JumpIsPressed { get; private set; } = false;
     public bool GrappleIsPressed { get; private set; } = false;
+    public bool ShootIsPressed { get; private set; } = false;
 
     public bool MoveIsPressed = false;
     InputActions input = null;
@@ -37,6 +38,9 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.GrapplingHook.started += SetGrapplingHook;
         input.HumanoidLand.GrapplingHook.canceled += SetGrapplingHook;
 
+        input.HumanoidLand.Shoot.started += SetShoot;
+        input.HumanoidLand.Shoot.canceled += SetShoot;
+
         input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -57,6 +61,9 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.GrapplingHook.started -= SetGrapplingHook;
         input.HumanoidLand.GrapplingHook.canceled -= SetGrapplingHook;
+
+        input.HumanoidLand.Shoot.started -= SetShoot;
+        input.HumanoidLand.Shoot.canceled -= SetShoot;
 
         input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
@@ -93,6 +100,11 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetGrapplingHook(InputAction.CallbackContext ctx)
     {
         GrappleIsPressed = ctx.started;
+    } 
+    
+    private void SetShoot(InputAction.CallbackContext ctx)
+    {
+        ShootIsPressed = ctx.started;
     }
 
     private void SetZoomCamera(InputAction.CallbackContext ctx)
