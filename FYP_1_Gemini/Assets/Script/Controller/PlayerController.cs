@@ -288,24 +288,26 @@ public class PlayerController : MonoBehaviour
             {
                 grapplePoint = rayHit.point;
                 debugGrapplePoint.position = rayHit.point;
+                
+                calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
                 grappleCastOnce = true;
             }
 
-            lineRenderer.positionCount = 2;
-            calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
+            //lineRenderer.positionCount = 2;
+            
         }
 
         if (input.GrappleIsPressed == true && playerIsGrappling == false)
         {
             playerIsGrappling = true;
-            lineRenderer.positionCount = 2;
+            //lineRenderer.positionCount = 2;
             grappleCastOnce = false;
             DrawLine();
         }
 
         if(input.GrappleIsPressed == false)
         {
-            lineRenderer.positionCount = 0;
+            //lineRenderer.positionCount = 0;
             playerIsGrappling = false;
             grappleCastOnce = false;
         }
