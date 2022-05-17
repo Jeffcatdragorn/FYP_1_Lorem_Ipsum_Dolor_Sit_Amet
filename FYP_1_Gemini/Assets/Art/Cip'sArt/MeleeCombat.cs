@@ -60,6 +60,7 @@ public class MeleeCombat : MonoBehaviour
         {
             var attack = Random.Range(1, 3);
             charAnimation.SetTrigger("Attack" + attack);
+            charAnimation.applyRootMotion = true; //to trigger root motion
         }
         #endregion
     }
@@ -88,7 +89,7 @@ public class MeleeCombat : MonoBehaviour
         {
             Debug.LogError("Input working fine");
             charAnimation.SetTrigger("SuperAttack");
-            //charAnimation.applyRootMotion = true; //to trigger root motion
+            charAnimation.applyRootMotion = true; //to trigger root motion
             windowActive = false;
         }
     }

@@ -312,11 +312,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282558125379270056}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.006, y: 0.6934, z: 0.0738}
+  m_LocalPosition: {x: -0.0060000005, y: 0.6933999, z: 0.0738}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3157217564664177772}
+  m_Father: {fileID: 9043819745923296314}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1288615419844251196
@@ -731,11 +731,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5621622970877183529}
   - {fileID: 6136814299804462747}
   - {fileID: 3590012015103806638}
   m_Father: {fileID: 9043819745923296314}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7626717229679065455
 Animator:
@@ -772,8 +771,9 @@ MonoBehaviour:
   input: {fileID: 0}
   rigidbody: {fileID: 3082949689591874256}
   dashSpeed: 80
-  dashTime: 0.25
+  dashDuration: 0
   charAnimation: {fileID: 7626717229679065455}
+  windowActive: 0
 --- !u!1 &3211957706175867264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,7 +1153,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3157217564664177772}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &6966346367369452981
 SkinnedMeshRenderer:
@@ -2393,7 +2393,7 @@ Transform:
   - {fileID: 817360685083540369}
   - {fileID: 3871601714527207229}
   m_Father: {fileID: 3157217564664177772}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8559595252575090304
 GameObject:
@@ -2426,6 +2426,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5621622970877183529}
   - {fileID: 3157217564664177772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2512,6 +2513,11 @@ MonoBehaviour:
   grappleTip: {fileID: 0}
   cam: {fileID: 0}
   player: {fileID: 9043819745923296314}
+  gunTip: {fileID: 0}
+  shootRange: 100
+  shootObjects:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &8653527193492638103
 GameObject:
   m_ObjectHideFlags: 0
