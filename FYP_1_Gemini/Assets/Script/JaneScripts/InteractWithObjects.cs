@@ -44,6 +44,24 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CollectKeycard"",
+                    ""type"": ""Button"",
+                    ""id"": ""65aaa4a1-9b8c-496e-a083-805036a0004e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PutKeycardIn"",
+                    ""type"": ""Button"",
+                    ""id"": ""97e86d32-8bc5-4983-832f-a880bbdea365"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +86,28 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                     ""action"": ""PutFuseIn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e07da81e-2e3d-443f-8023-44c206540c9d"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CollectKeycard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""386220a6-588f-47da-92eb-c357835b8b37"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PutKeycardIn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +118,8 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
         m_InteractWithObject = asset.FindActionMap("InteractWithObject", throwIfNotFound: true);
         m_InteractWithObject_CollectFuse = m_InteractWithObject.FindAction("CollectFuse", throwIfNotFound: true);
         m_InteractWithObject_PutFuseIn = m_InteractWithObject.FindAction("PutFuseIn", throwIfNotFound: true);
+        m_InteractWithObject_CollectKeycard = m_InteractWithObject.FindAction("CollectKeycard", throwIfNotFound: true);
+        m_InteractWithObject_PutKeycardIn = m_InteractWithObject.FindAction("PutKeycardIn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,12 +181,16 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
     private IInteractWithObjectActions m_InteractWithObjectActionsCallbackInterface;
     private readonly InputAction m_InteractWithObject_CollectFuse;
     private readonly InputAction m_InteractWithObject_PutFuseIn;
+    private readonly InputAction m_InteractWithObject_CollectKeycard;
+    private readonly InputAction m_InteractWithObject_PutKeycardIn;
     public struct InteractWithObjectActions
     {
         private @InteractWithObjects m_Wrapper;
         public InteractWithObjectActions(@InteractWithObjects wrapper) { m_Wrapper = wrapper; }
         public InputAction @CollectFuse => m_Wrapper.m_InteractWithObject_CollectFuse;
         public InputAction @PutFuseIn => m_Wrapper.m_InteractWithObject_PutFuseIn;
+        public InputAction @CollectKeycard => m_Wrapper.m_InteractWithObject_CollectKeycard;
+        public InputAction @PutKeycardIn => m_Wrapper.m_InteractWithObject_PutKeycardIn;
         public InputActionMap Get() { return m_Wrapper.m_InteractWithObject; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -160,6 +206,12 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                 @PutFuseIn.started -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnPutFuseIn;
                 @PutFuseIn.performed -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnPutFuseIn;
                 @PutFuseIn.canceled -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnPutFuseIn;
+                @CollectKeycard.started -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnCollectKeycard;
+                @CollectKeycard.performed -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnCollectKeycard;
+                @CollectKeycard.canceled -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnCollectKeycard;
+                @PutKeycardIn.started -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnPutKeycardIn;
+                @PutKeycardIn.performed -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnPutKeycardIn;
+                @PutKeycardIn.canceled -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnPutKeycardIn;
             }
             m_Wrapper.m_InteractWithObjectActionsCallbackInterface = instance;
             if (instance != null)
@@ -170,6 +222,12 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                 @PutFuseIn.started += instance.OnPutFuseIn;
                 @PutFuseIn.performed += instance.OnPutFuseIn;
                 @PutFuseIn.canceled += instance.OnPutFuseIn;
+                @CollectKeycard.started += instance.OnCollectKeycard;
+                @CollectKeycard.performed += instance.OnCollectKeycard;
+                @CollectKeycard.canceled += instance.OnCollectKeycard;
+                @PutKeycardIn.started += instance.OnPutKeycardIn;
+                @PutKeycardIn.performed += instance.OnPutKeycardIn;
+                @PutKeycardIn.canceled += instance.OnPutKeycardIn;
             }
         }
     }
@@ -178,5 +236,7 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
     {
         void OnCollectFuse(InputAction.CallbackContext context);
         void OnPutFuseIn(InputAction.CallbackContext context);
+        void OnCollectKeycard(InputAction.CallbackContext context);
+        void OnPutKeycardIn(InputAction.CallbackContext context);
     }
 }

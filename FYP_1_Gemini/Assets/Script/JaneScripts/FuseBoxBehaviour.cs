@@ -6,7 +6,8 @@ public class FuseBoxBehaviour : MonoBehaviour
 {
     InteractWithObjects input;
     public GameObject fuseObj;
-    public DoorController doorController;
+    public GameObject lightBulb;
+    //public DoorController doorController;
     public static bool fuseInserted = false;
 
     private void Awake()
@@ -44,7 +45,7 @@ public class FuseBoxBehaviour : MonoBehaviour
             fuseInserted = true;
             fuseObj.SetActive(true);
             //other future logic once fuse is inserted can be applied below 
-
+            lightBulb.SetActive(true);
             Debug.Log("Fuse inserted to fuse box!");
         }
     }

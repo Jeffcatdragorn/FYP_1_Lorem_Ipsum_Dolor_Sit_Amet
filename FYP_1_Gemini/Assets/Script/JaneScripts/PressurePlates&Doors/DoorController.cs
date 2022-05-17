@@ -28,7 +28,7 @@ public class DoorController : MonoBehaviour
     {
         if(other.CompareTag("Player")) //change the tag to the object that is going to be placed on the pressure plate
         {
-            if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && doorIsOpen == false)
+            if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
             {
                 door.Play(doorSlideOpen, 0, 0.0f);
                 pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
@@ -42,7 +42,7 @@ public class DoorController : MonoBehaviour
         if (other.CompareTag("Player")) //change the tag to the object that is going to be placed on the pressure plate
         {
             //closeDoorTrigger = true;
-            if(openOnceOnlyDoor == false && FuseBoxBehaviour.fuseInserted == true)
+            if(openOnceOnlyDoor == false && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true)
             {
                 door.Play(doorSlideClose, 0, 0.0f);
                 pressurePlate.Play(pressurePlateReleased, 0, 0.0f);
