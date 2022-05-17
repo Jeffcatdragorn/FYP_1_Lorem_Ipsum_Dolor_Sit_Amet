@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LineRenderer lineRenderer;
     private Vector3 grapplePoint;
     public LayerMask grappleObjects;
+    public LayerMask triggerObjects;
     public Transform grappleTip, cam, player;
     private float maxGrappleDistance = 100f;
     private bool grappleCastOnce = false;
@@ -75,6 +76,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform gunTip;
     [SerializeField] float shootRange = 100f;
     [SerializeField] LayerMask shootObjects;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] float shootCooldown = 1.0f;
+    [SerializeField] float shootCooldownCounter = 0.0f;
+        public float bulletSpeed;
 
     [Header("Dashing")]
     [SerializeField] float initialDashForce = 750.0f;
@@ -87,6 +92,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float dashBufferTimeCounter = 0.0f;
     [SerializeField] bool playerIsDashing = false;
     [SerializeField] bool dashWasPressedLastFrame = false;
+    [SerializeField] float dashCooldown = 1.0f;
+    [SerializeField] float dashCooldownCounter = 0.0f;
     public Animator charAnimation;
 
     private void Awake()
@@ -321,6 +328,11 @@ public class PlayerController : MonoBehaviour
                 playerIsGrappling = true;
                 grapplePoint = rayHit.point;
                 debugGrapplePoint.position = rayHit.point;
+                if (rayHit.transform.tag == "triggerGrapple")
+                {
+
+                    return calculatedGrappleInput = playerMoveInput;
+                }
                 grappleCastOnce = true;
             }
 
@@ -329,8 +341,20 @@ public class PlayerController : MonoBehaviour
                 return calculatedGrappleInput = playerMoveInput;
             }
 
-            lineRenderer.positionCount = 2;
-            calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
+            //else if (playerIsGrappling == true)
+            //{
+                lineRenderer.positionCount = 2;
+                calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
+            //}
+
+
+            //if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit triggerHit, maxGrappleDistance, triggerObjects) && grappleCastOnce == false)
+            //{
+            //    playerIsGrappling = true;
+            //    grapplePoint = triggerHit.point;
+            //    debugGrapplePoint.position = triggerHit.point;
+            //    grappleCastOnce = true;
+            //}
         }
 
         else
@@ -345,15 +369,22 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerShoot()
     {
+        SetShootCooldownCounter();
         if(input.ShootIsPressed == true)
         {
-            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange))
+            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange) && shootCooldownCounter == 0.0f)
             {
+                //GameObject newBullet = Instantiate(bulletPrefab, new Vector3(gunTip.transform.position.x, gunTip.transform.position.y, gunTip.transform.position.z), Quaternion.identity);
+                //newBullet.GetComponent<BulletBehaviour>().Travel(hit.point);
+                //newBullet.transform.position = Vector3.MoveTowards(newBullet.transform.position, hit.point, Time.deltaTime * bulletSpeed);
+                //newBullet.transform.Translate(hit.point * Time.deltaTime * bulletSpeed, Space.World);
+
                 Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
                 if(enemy != null)
                 {
                     enemy.TakeDamage(1);
                 }
+                shootCooldownCounter = shootCooldown;
             }
         }
     }
@@ -376,8 +407,9 @@ public class PlayerController : MonoBehaviour
         SetDashTimeCounter();
         SetCoyoteDashTimeCounter();
         SetDashBufferCounter();
+        SetDashCooldownCounter();
 
-        if (dashBufferTimeCounter > 0.0f && !playerIsDashing && coyotedashTimeCounter > 0.0f)
+        if (dashBufferTimeCounter > 0.0f && !playerIsDashing && coyotedashTimeCounter > 0.0f && dashCooldownCounter == 0.0f)
         {
             if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
             {
@@ -389,6 +421,7 @@ public class PlayerController : MonoBehaviour
                 coyotedashTimeCounter = 0.0f;
                 charAnimation.SetTrigger("Dash");
                 MeleeCombat.windowActive = true;
+                dashCooldownCounter = dashCooldown;
             }
         }
 
@@ -485,6 +518,32 @@ public class PlayerController : MonoBehaviour
         else
         {
             dashTimeCounter = dashTime;
+        }
+    }
+
+    private void SetDashCooldownCounter()
+    {
+        if(dashCooldownCounter > 0)
+        {
+            dashCooldownCounter -= Time.deltaTime;
+        }
+
+        if(dashCooldownCounter <= 0)
+        {
+            dashCooldownCounter = 0.0f;
+        }
+    }
+
+    private void SetShootCooldownCounter()
+    {
+        if (shootCooldownCounter > 0)
+        {
+            shootCooldownCounter -= Time.deltaTime;
+        }
+
+        if (shootCooldownCounter <= 0)
+        {
+            shootCooldownCounter = 0.0f;
         }
     }
 }
