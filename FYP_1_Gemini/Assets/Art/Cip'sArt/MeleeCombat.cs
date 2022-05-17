@@ -8,30 +8,47 @@ public class MeleeCombat : MonoBehaviour
     [SerializeField] HumanoidLandInput input;
     public new Rigidbody rigidbody;
     public float dashSpeed;
-    public float dashTime;
+    public float dashDuration;
     #endregion
 
     public Animator charAnimation;
     private bool isAttacking;
-    CombatControls inputs;
+    private bool isDashing;
+    CombatControls combatInput;
+
+    #region ComboWindow
+    [SerializeField]
+    bool windowActive = false;
+    private float comboWindow;
+    private float defaultComboWindow = 1;
+    #endregion
 
     private void Awake()
     {
-        inputs = new CombatControls();
+        combatInput = new CombatControls();
+        comboWindow = defaultComboWindow;
+        combatInput.HumanoidActions.Actions.performed += x => Attack();
+        //combatInput.HumanoidActions.Dash.performed += x => Dash(); //x is a var so to speak/reference point?
+    }
 
-        inputs.HumanoidActions.Actions.performed += x => Attack();
-        inputs.HumanoidActions.Dash.performed += x => Dash(); //x is a var so to speak/reference point?
+    private void Update()
+    {
+        combatInput.HumanoidActions.Dash.performed += x => Dash();
+        if (windowActive == true)
+        {
+            ComboAttack();
+        }
     }
 
     #region Enable/Disable
     private void OnEnable()
     {
-        inputs.HumanoidActions.Enable();
+        combatInput.HumanoidActions.Enable();
     }
 
     private void OnDisable()
     {
-        inputs.HumanoidActions.Disable();
+        combatInput.HumanoidActions.Disable();
     }
     #endregion
 
@@ -39,10 +56,11 @@ public class MeleeCombat : MonoBehaviour
     {
         #region BasicAttack
         StartAttack();
-        var attack = Random.Range(1,3);
-
-        charAnimation.SetTrigger("Attack"+attack);
-        charAnimation.applyRootMotion = true;
+        if (windowActive == false)
+        {
+            var attack = Random.Range(1, 3);
+            charAnimation.SetTrigger("Attack" + attack);
+        }
         #endregion
     }
 
@@ -50,7 +68,7 @@ public class MeleeCombat : MonoBehaviour
     {
         #region Dodging
         StartCoroutine(dashCoroutine());
-        charAnimation.SetTrigger("Dash");
+
         #endregion
     }
 
@@ -64,13 +82,28 @@ public class MeleeCombat : MonoBehaviour
         isAttacking = false;
     }
 
+    public void ComboAttack()
+    {
+        if (combatInput.HumanoidActions.Actions.triggered)
+        {
+            Debug.LogError("Input working fine");
+            charAnimation.SetTrigger("SuperAttack");
+            //charAnimation.applyRootMotion = true; //to trigger root motion
+            windowActive = false;
+        }
+    }
+
     IEnumerator dashCoroutine()
     {
         float startTime = Time.time;
-        while(Time.time < startTime + dashTime)
+        float dashTime = startTime + dashDuration;
+        Debug.LogWarning(dashTime);
+        while (Time.time < dashTime)
         {
             rigidbody.AddRelativeForce(new Vector3(0,0,input.LookInput.x +  dashSpeed), ForceMode.Impulse);
+            charAnimation.SetTrigger("Dash");
             yield return null;
         }
+        windowActive = true;
     }
 }

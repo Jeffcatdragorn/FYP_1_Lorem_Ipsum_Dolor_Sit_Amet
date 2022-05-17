@@ -312,7 +312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282558125379270056}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0060000005, y: 0.6830001, z: 0}
+  m_LocalPosition: {x: -0.006, y: 0.6934, z: 0.0738}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1133,7 +1133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6136814299804462747}
   - component: {fileID: 6966346367369452981}
-  - component: {fileID: 385439691}
   m_Layer: 8
   m_Name: ely_vanguardsoldier_kerwinatienza_Mesh
   m_TagString: Untagged
@@ -1276,20 +1275,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00072827935, y: -0.15353498, z: -0.007320747}
     m_Extent: {x: 0.89836097, y: 0.9620329, z: 0.21658027}
   m_DirtyAABB: 0
---- !u!136 &385439691
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4726848112448261636}
-  m_Material: {fileID: 13400000, guid: f8a23d5825736704a978d702b4dfa4e0, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.35
-  m_Height: 1.7816117
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!1 &4836683849267078880
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,10 +2456,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: f8a23d5825736704a978d702b4dfa4e0, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.35
-  m_Height: 1.7816117
+  m_Radius: 0.25
+  m_Height: 1.800299
   m_Direction: 1
-  m_Center: {x: 0, y: -0.2, z: 0}
+  m_Center: {x: 0, y: -0.07380714, z: 0}
 --- !u!114 &5268291997811946827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2492,6 +2477,7 @@ MonoBehaviour:
   cameraController: {fileID: 0}
   playerLookInputLerpTime: 0.5
   movementMultiplier: 60
+  notGroundedMovementMultiplier: 1.25
   rotationSpeedMultiplier: 180
   pitchSpeedMultiplier: 180
   runMultiplier: 5
@@ -2504,7 +2490,28 @@ MonoBehaviour:
   gravityFallIncrementAmount: -20
   gravityFallIncrementTime: 0.05
   playerFallTimer: 0
-  gravity: 0
+  groundedGravity: -1
+  maxSlopeAngle: 47.5
+  initialJumpForce: 750
+  continualJumpForceMultiplier: 0.1
+  jumpTime: 0.175
+  jumpTimeCounter: 0
+  coyoteTime: 0.15
+  coyoteTimeCounter: 0
+  jumpBufferTime: 0.2
+  jumpBufferTimeCounter: 0
+  playerIsJumping: 0
+  jumpWasPressedLastFrame: 0
+  playerIsGrappling: 0
+  debugGrapplePoint: {fileID: 0}
+  grappleSpeed: 5
+  lineRenderer: {fileID: 0}
+  grappleObjects:
+    serializedVersion: 2
+    m_Bits: 0
+  grappleTip: {fileID: 0}
+  cam: {fileID: 0}
+  player: {fileID: 9043819745923296314}
 --- !u!1 &8653527193492638103
 GameObject:
   m_ObjectHideFlags: 0
