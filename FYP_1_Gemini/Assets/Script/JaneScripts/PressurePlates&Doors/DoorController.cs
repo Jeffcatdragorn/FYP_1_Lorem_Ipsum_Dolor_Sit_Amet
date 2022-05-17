@@ -53,6 +53,6 @@ public class DoorController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("doorIsOpen = " + doorIsOpen);
+        //Debug.Log("doorIsOpen = " + doorIsOpen);
     }
 }

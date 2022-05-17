@@ -18,7 +18,7 @@ public class FuseBoxBehaviour : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("collectFuse = " + FuseBehaviour.collectedFuse); //for testing only
+        //Debug.Log("collectFuse = " + FuseBehaviour.collectedFuse); //for testing only
     }
 
     private void OnTriggerEnter(Collider other)

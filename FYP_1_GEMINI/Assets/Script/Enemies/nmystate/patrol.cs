@@ -38,7 +38,6 @@ public class patrol : Enemies_Abstract
         {
             enemy.SwitchState(enemy.AttackState);
         }
-
     }
 
     public override void OnCollisionEnter(Enemies_Manager enemy, Collision collision)

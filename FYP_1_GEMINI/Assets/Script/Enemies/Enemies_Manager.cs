@@ -163,6 +163,7 @@ public class Enemies_Manager : MonoBehaviour
     public void Patrolling()
     {
         navmeshAgent.destination = waypoint[waypointIndex].position;
+        Debug.Log(navmeshAgent.remainingDistance);
     }
 
     public void StopPatrolling()
@@ -210,9 +211,9 @@ public class Enemies_Manager : MonoBehaviour
         {
             teleportTimer += Time.deltaTime;
             //- let the random numbers roll
-            xPos = Random.Range(-xRange, xRange);
+            xPos = Random.Range(-xRange + player.transform.position.x, xRange + player.transform.position.x);
             yPos = Random.Range(0, yRange);
-            zPos = Random.Range(-zRange, zRange);
+            zPos = Random.Range(-zRange + player.transform.position.z, zRange + player.transform.position.z);
         }
         else if (teleportTimer > teleportTime)
         {
