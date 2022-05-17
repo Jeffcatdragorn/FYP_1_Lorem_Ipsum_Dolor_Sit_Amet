@@ -13,7 +13,9 @@ public class MeleeCombat : MonoBehaviour
 
     public Animator charAnimation;
     private bool isAttacking;
+    private bool canAttack = true;
     private bool isDashing;
+    public float atkSpeed;
     CombatControls combatInput;
     public Rigidbody playerRigidBody;
 
@@ -59,8 +61,13 @@ public class MeleeCombat : MonoBehaviour
         StartAttack();
         if (windowActive == false)
         {
-            var attack = Random.Range(1, 3);
-            charAnimation.SetTrigger("Attack" + attack);
+            if(canAttack == true)
+            {
+                var attack = Random.Range(1, 3);
+                charAnimation.SetTrigger("Attack" + attack);
+                StartCoroutine(attackSpeed());
+            }
+
             //charAnimation.applyRootMotion = true; //to trigger root motion
         }
         #endregion
@@ -94,7 +101,12 @@ public class MeleeCombat : MonoBehaviour
             windowActive = false;
         }
     }
-
+    IEnumerator attackSpeed()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(atkSpeed);
+        canAttack = true;
+    }
     //IEnumerator dashCoroutine()
     //{
     //    float startTime = Time.time;

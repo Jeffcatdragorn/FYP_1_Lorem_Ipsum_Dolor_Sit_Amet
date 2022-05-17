@@ -5577,7 +5577,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.087619, y: 1}
+    m_SensorSize: {x: 1.0823171, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -9560,7 +9560,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.087619, y: 1}
+    m_SensorSize: {x: 1.0823171, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -10221,6 +10221,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1947665872}
     m_Modifications:
+    - target: {fileID: 2834106789188517828, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
+      propertyPath: atkSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2834106789188517828, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
       propertyPath: playerRigidBody
       value: 
