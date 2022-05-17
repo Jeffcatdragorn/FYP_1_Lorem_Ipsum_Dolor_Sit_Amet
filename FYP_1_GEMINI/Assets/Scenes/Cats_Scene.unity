@@ -796,15 +796,19 @@ MonoBehaviour:
   - {fileID: 510061999}
   - {fileID: 254015971}
   - {fileID: 17253411}
-  teleportTimeA: 3
-  teleportTimeB: 3
-  xRange: 0
-  yRange: 0
-  zRange: 3
+  teleportTime: 3
+  teleportCDTime: 20
   canTeleport: 0
   stillNeedTeleport: 0
   teleportCount: 0
   teleportRandomCount: 0
+  xRange: 3
+  yRange: 5
+  zRange: 3
+  attackTime: 3
+  attackRate: 3
+  attack: 0
+  attackRange: 4.64
 --- !u!136 &627775271
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -855,7 +859,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &627775274
 BoxCollider:

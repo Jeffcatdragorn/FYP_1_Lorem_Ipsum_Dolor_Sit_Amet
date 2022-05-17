@@ -19,31 +19,47 @@ public class Enemies_Manager : MonoBehaviour
     public float PatrolTime = 5.0f;
     public Transform[] waypoint;
     private int waypointIndex; 
-    private float dist; 
+    private float distToPoint; 
+    private float distToPlayer;
     private NavMeshAgent navmeshAgent;
     private GameObject player;
 
     [Header("Teleport ")]
-    public float teleportTimeA = 3.0f;
-    private float teleportTimerA = .0f;
-    public float teleportTimeB = 3.0f;
-    private float teleportTimerB = .0f;
-    public float xRange;
-    public float yRange;
-    public float zRange;
+    public float teleportTime = 3.0f;
+    private float teleportTimer = .0f;
+    public float teleportCDTime = 3.0f;
+    private float teleportCDTimer = 20.0f;
     public bool canTeleport = false;
     public bool stillNeedTeleport = false;
     public int teleportCount = 0;
     public int teleportRandomCount;
+    public float xRange;
+    public float yRange;
+    public float zRange;
     private float xPos;
     private float yPos;
     private float zPos;
-    public float Dist 
+
+    [Header("Attack")]
+    public float attackTime = 3.0f;
+    public float attackRate = 3.0f;
+    public bool attack = false;
+    public float attackRange = 2.0f;
+
+    public float DistToPoint 
     {
        get
        {
-            return dist = Vector3.Distance(transform.position, waypoint[waypointIndex].position);
+            return distToPoint = Vector3.Distance(transform.position, waypoint[waypointIndex].position);
        }
+    }
+    public float DistToPlayer
+    {
+        get
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            return distToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        }
     }
     #region inputSystem
     public Tester input;
@@ -79,12 +95,14 @@ public class Enemies_Manager : MonoBehaviour
         //ignoring the unnessacary collision
         player = GameObject.FindGameObjectWithTag("Player");
         Physics.IgnoreCollision(player.GetComponent<CapsuleCollider>(), GetComponent<CapsuleCollider>());
-
     }
     void Update()
     {
         //will carry any logic from the current state every frame
         current_state.UpdateState(this);
+
+        teleportCDTimer += Time.deltaTime;
+
         if (stillNeedTeleport)
         {
             if(teleportCount < teleportRandomCount)
@@ -95,13 +113,13 @@ public class Enemies_Manager : MonoBehaviour
             {
                 stillNeedTeleport = false;
                 teleportCount = 0;
+                teleportCDTimer = .0f;
             }
         }
         if (canTeleport)
         {
             Teleporting();
         }
-
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -112,10 +130,21 @@ public class Enemies_Manager : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("fak off");
+            //Debug.Log("I saw the player");
             teleportRandomCount = Random.Range(1,4);
-            canTeleport = true;
-            stillNeedTeleport = true;
+            if (teleportCDTimer > teleportCDTime) //cd done cooling down, start teleporting
+            {
+                canTeleport = true;
+                stillNeedTeleport = true;
+                attack = false;
+            }
+            else // if cd is in cool down, attack player if in range
+            {
+                //stop navmesh
+                navmeshAgent.ResetPath();
+                //atack 
+                attack = true;
+            }
         }
     }
     public void SwitchState(Enemies_Abstract state)
@@ -139,7 +168,6 @@ public class Enemies_Manager : MonoBehaviour
     public void StopPatrolling()
     {
         navmeshAgent.SetDestination(transform.position);
-
     }
 
     public void IncreaseIndex()
@@ -150,13 +178,9 @@ public class Enemies_Manager : MonoBehaviour
             waypointIndex = 0; 
         }
     }
-
-
-
     #endregion
 
     #region teleporting
-    
     public void Teleporting()
     {
         #region [hard mode coding]
@@ -182,19 +206,19 @@ public class Enemies_Manager : MonoBehaviour
 
 
         //- wait for x seconds
-        if (teleportTimerA < teleportTimeA)
+        if (teleportTimer < teleportTime)
         {
-            teleportTimerA += Time.deltaTime;
+            teleportTimer += Time.deltaTime;
             //- let the random numbers roll
             xPos = Random.Range(-xRange, xRange);
             yPos = Random.Range(0, yRange);
             zPos = Random.Range(-zRange, zRange);
         }
-        else if (teleportTimerA > teleportTimeA)
+        else if (teleportTimer > teleportTime)
         {
-            Debug.Log("i am done teleporting");
-            canTeleport = false; //B
-            teleportTimerA = 0;
+            //Debug.Log("i am done teleporting");
+            canTeleport = false; 
+            teleportTimer = 0;
             teleportCount += 1;
             //- set the current random position
             navmeshAgent.ResetPath();
@@ -207,15 +231,5 @@ public class Enemies_Manager : MonoBehaviour
         }
         #endregion
     }
-
-    public void TeleportingCount()
-    {
-        if (teleportCount >= teleportRandomCount)
-        {
-            //stop teleporting
-        }
-    }
-
-
     #endregion
 }

@@ -8,7 +8,7 @@ public class patrol : Enemies_Abstract
     Animator anim;
     public override void EnterState(Enemies_Manager enemy)
     {
-        //Debug.Log("Entered Patrol State");
+        Debug.Log("Entered Patrol State");
         anim = enemy.GetComponent<Animator>();
         anim.SetBool("walk", true);
         enemy.Patrolling();
@@ -23,16 +23,22 @@ public class patrol : Enemies_Abstract
             enemy.StopPatrolling();
             enemy.SwitchState(enemy.IdleState);
         }
-        else if (enemy.Dist < 1f && patrolTimer < 5.0f) 
+        else if (enemy.DistToPoint < 1f && patrolTimer < 5.0f) 
         {
             enemy.IncreaseIndex(); 
             enemy.Patrolling();
         }
 
-        if (enemy.canTeleport)
+        if (enemy.stillNeedTeleport)
         {
             enemy.SwitchState(enemy.TeleportState);
         }
+
+        if (enemy.attack)
+        {
+            enemy.SwitchState(enemy.AttackState);
+        }
+
     }
 
     public override void OnCollisionEnter(Enemies_Manager enemy, Collision collision)
@@ -44,7 +50,7 @@ public class patrol : Enemies_Abstract
         enemy.StopPatrolling();
         anim.SetBool("walk", false);
 
-        //Debug.Log("exit patrol state");
+        Debug.Log("exit patrol state");
 
     }
 
