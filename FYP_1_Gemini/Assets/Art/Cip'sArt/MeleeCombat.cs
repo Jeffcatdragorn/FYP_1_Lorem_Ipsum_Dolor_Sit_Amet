@@ -15,10 +15,11 @@ public class MeleeCombat : MonoBehaviour
     private bool isAttacking;
     private bool isDashing;
     CombatControls combatInput;
+    public Rigidbody playerRigidBody;
 
     #region ComboWindow
     [SerializeField]
-    bool windowActive = false;
+    public static bool windowActive = false;
     private float comboWindow;
     private float defaultComboWindow = 1;
     #endregion
@@ -33,7 +34,7 @@ public class MeleeCombat : MonoBehaviour
 
     private void Update()
     {
-        combatInput.HumanoidActions.Dash.performed += x => Dash();
+        //combatInput.HumanoidActions.Dash.performed += x => Dash();
         if (windowActive == true)
         {
             ComboAttack();
@@ -60,18 +61,18 @@ public class MeleeCombat : MonoBehaviour
         {
             var attack = Random.Range(1, 3);
             charAnimation.SetTrigger("Attack" + attack);
-            charAnimation.applyRootMotion = true; //to trigger root motion
+            //charAnimation.applyRootMotion = true; //to trigger root motion
         }
         #endregion
     }
 
-    public void Dash()
-    {
-        #region Dodging
-        StartCoroutine(dashCoroutine());
+    //public void Dash()
+    //{
+    //    #region Dodging
+    //    StartCoroutine(dashCoroutine());
 
-        #endregion
-    }
+    //    #endregion
+    //}
 
     public void StartAttack()
     {
@@ -94,17 +95,17 @@ public class MeleeCombat : MonoBehaviour
         }
     }
 
-    IEnumerator dashCoroutine()
-    {
-        float startTime = Time.time;
-        float dashTime = startTime + dashDuration;
-        Debug.LogWarning(dashTime);
-        while (Time.time < dashTime)
-        {
-            rigidbody.AddRelativeForce(new Vector3(0,0,input.LookInput.x +  dashSpeed), ForceMode.Impulse);
-            charAnimation.SetTrigger("Dash");
-            yield return null;
-        }
-        windowActive = true;
-    }
+    //IEnumerator dashCoroutine()
+    //{
+    //    float startTime = Time.time;
+    //    float dashTime = startTime + dashDuration;
+    //    Debug.LogWarning(dashTime);
+    //    while (Time.time < dashTime)
+    //    {
+    //        playerRigidBody.AddRelativeForce(new Vector3(0,0,input.LookInput.x +  dashSpeed), ForceMode.Impulse);
+    //        charAnimation.SetTrigger("Dash");
+    //        yield return null;
+    //    }
+    //    windowActive = true;
+    //}
 }

@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour
     float cameraPitch = 0.0f;
     [SerializeField] float playerLookInputLerpTime = 0.35f;
 
+    public enum State
+    {
+        Detective, Fighter,
+    }
+
+    public static State state;
+
     [Header("Movement")]
     [SerializeField] float movementMultiplier = 30.0f;
     [SerializeField] float notGroundedMovementMultiplier = 1.25f;
@@ -69,6 +76,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float shootRange = 100f;
     [SerializeField] LayerMask shootObjects;
 
+    [Header("Dashing")]
+    [SerializeField] float initialDashForce = 750.0f;
+    [SerializeField] float continualDashForceMultiplier = 0.1f;
+    [SerializeField] float dashTime = 0.175f;
+    [SerializeField] float dashTimeCounter = 0.0f;
+    [SerializeField] float coyotedashTime = 0.15f;
+    [SerializeField] float coyotedashTimeCounter = 0.0f;
+    [SerializeField] float dashBufferTime = 0.2f;
+    [SerializeField] float dashBufferTimeCounter = 0.0f;
+    [SerializeField] bool playerIsDashing = false;
+    [SerializeField] bool dashWasPressedLastFrame = false;
+    public Animator charAnimation;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -94,17 +114,27 @@ public class PlayerController : MonoBehaviour
         playerMoveInput.y = PlayerFallGravity();
         playerMoveInput.y = PlayerJump();
 
-        playerMoveInput = PlayerGrapple();
+        switch (state)
+        {
+            default:
+            case State.Detective:
+                playerMoveInput = PlayerGrapple();
+                break;
+
+            case State.Fighter:
+                playerMoveInput = PlayerDash();
+                break;
+        }
 
         playerMoveInput *= rigidbody.mass;
 
         rigidbody.AddRelativeForce(playerMoveInput, ForceMode.Force);
     }
 
-    private void Update()
-    {
+    //private void Update()
+    //{
         
-    }
+    //}
 
     private void LateUpdate()
     {
@@ -323,6 +353,55 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private Vector3 PlayerDash()
+    {
+        //float startTime = Time.time;
+        //float dashTime = startTime + dashDuration;
+        //Debug.LogWarning(dashTime);
+        //while (Time.time < dashTime)
+        //{
+        //    new Vector3(0, 0, input.LookInput.x + dashSpeed;
+        //    charAnimation.SetTrigger("Dash");
+        //    yield return null;
+        //}
+        //MeleeCombat.windowActive = true;
+
+        Vector3 calculatedDashInput = playerMoveInput;
+
+        SetDashTimeCounter();
+        SetCoyoteDashTimeCounter();
+        SetDashBufferCounter();
+
+        if (dashBufferTimeCounter > 0.0f && !playerIsDashing && coyotedashTimeCounter > 0.0f)
+        {
+            if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
+            {
+                calculatedDashInput = new Vector3 (playerMoveInput.x * initialDashForce,
+                                                   playerMoveInput.y,
+                                                   playerMoveInput.z * initialDashForce);
+                playerIsDashing = true;
+                dashBufferTimeCounter = 0.0f;
+                coyotedashTimeCounter = 0.0f;
+                charAnimation.SetTrigger("Dash");
+                MeleeCombat.windowActive = true;
+            }
+        }
+
+        else if (input.DashIsPressed && playerIsDashing && !playerIsGrounded && dashTimeCounter > 0.0f)
+        {
+            calculatedDashInput = new Vector3(playerMoveInput.x * initialDashForce * continualDashForceMultiplier,
+                                                   playerMoveInput.y,
+                                                   playerMoveInput.z * initialDashForce * continualDashForceMultiplier);
+        }
+
+        else if (playerIsDashing && playerIsGrounded)
+        {
+            playerIsDashing = false;
+        }
+
+        return calculatedDashInput;
+    }
+
     void DrawLine()
     {
         if (!playerIsGrappling) return;
@@ -364,6 +443,43 @@ public class PlayerController : MonoBehaviour
         else
         {
             jumpTimeCounter = jumpTime;
+        }
+    }
+
+    private void SetDashBufferCounter()
+    {
+        if (!dashWasPressedLastFrame && input.DashIsPressed)
+        {
+            dashBufferTimeCounter = dashBufferTime;
+        }
+        else if (dashBufferTimeCounter > 0.0f)
+        {
+            dashBufferTimeCounter -= Time.fixedDeltaTime;
+        }
+        dashWasPressedLastFrame = input.DashIsPressed;
+    }
+
+    private void SetCoyoteDashTimeCounter()
+    {
+        if (playerIsGrounded)
+        {
+            coyotedashTimeCounter = coyotedashTime;
+        }
+        else
+        {
+            coyotedashTimeCounter -= Time.fixedDeltaTime;
+        }
+    }
+
+    private void SetDashTimeCounter()
+    {
+        if (playerIsDashing && !playerIsGrounded)
+        {
+            dashTimeCounter -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            dashTimeCounter = dashTime;
         }
     }
 }

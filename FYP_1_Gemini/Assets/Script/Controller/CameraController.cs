@@ -24,6 +24,10 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera cinemachineOrbit;
     CinemachineFramingTransposer cinemachineFramingTransposerOrbit;
 
+    [SerializeField] GameObject DetectiveBody;
+    [SerializeField] GameObject FighterBody;
+    //[SerializeField] PlayerController playerController;
+
     private void Awake()
     { 
         cinemachineFramingTransposerThirdPerson = cinemachineThirdPerson.GetCinemachineComponent<CinemachineFramingTransposer>();
@@ -72,14 +76,20 @@ public class CameraController : MonoBehaviour
         if (cinemachineFirstPerson == activeCamera)
         {
             SetCameraPriorities(cinemachineFirstPerson, cinemachineThirdPerson);
-            //usingOrbitalCamera = true;
+            mainCamera.GetComponent<cakeslice.OutlineEffect>().enabled = false;
+            DetectiveBody.SetActive(false);
+            FighterBody.SetActive(true);
+            PlayerController.state = PlayerController.State.Fighter;
             mainCamera.cullingMask |= (1 << LayerMask.NameToLayer("playerSelf"));
         }
 
         else if (cinemachineThirdPerson == activeCamera)
         {
             SetCameraPriorities(cinemachineThirdPerson, cinemachineFirstPerson);
-            //usingOrbitalCamera = false;
+            mainCamera.GetComponent<cakeslice.OutlineEffect>().enabled = true;
+            DetectiveBody.SetActive(true);
+            FighterBody.SetActive(false);
+            PlayerController.state = PlayerController.State.Detective;
             mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("playerSelf"));
         }
 
