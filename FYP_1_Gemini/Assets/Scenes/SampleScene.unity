@@ -9710,7 +9710,10 @@ MonoBehaviour:
   cam: {fileID: 963194228}
   player: {fileID: 1947665872}
   gunTip: {fileID: 0}
-  gunRange: {fileID: 0}
+  shootRange: 100
+  shootObjects:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1954433827
 GameObject:
   m_ObjectHideFlags: 0
