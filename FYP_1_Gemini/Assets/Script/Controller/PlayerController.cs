@@ -119,6 +119,7 @@ public class PlayerController : MonoBehaviour
             default:
             case State.Detective:
                 playerMoveInput = PlayerGrapple();
+                PlayerShoot();
                 break;
 
             case State.Fighter:
@@ -348,7 +349,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange))
             {
-
+                Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
+                if(enemy != null)
+                {
+                    enemy.TakeDamage(1);
+                }
             }
         }
     }
