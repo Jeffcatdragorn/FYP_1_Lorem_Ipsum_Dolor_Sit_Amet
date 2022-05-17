@@ -8,7 +8,7 @@ public class Idle : Enemies_Abstract
     
     public override void EnterState(Enemies_Manager enemy)
     {
-        Debug.Log("Entered Idle State");
+        //Debug.Log("Entered Idle State");
 
         Animator anim = enemy.GetComponent<Animator>();
         anim.SetBool("walk", false);
@@ -41,6 +41,6 @@ public class Idle : Enemies_Abstract
 
     public override void ExitState(Enemies_Manager enemy)
     {
-        Debug.Log("Exited Idle State");
+        //Debug.Log("Exited Idle State");
     }
 }

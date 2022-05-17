@@ -6,7 +6,7 @@ public class teleport : Enemies_Abstract
 {
     public override void EnterState(Enemies_Manager enemy)
     {
-        Debug.Log("teleporting");
+        //Debug.Log("teleporting");
     }
 
     public override void UpdateState(Enemies_Manager enemy)
@@ -23,6 +23,6 @@ public class teleport : Enemies_Abstract
 
     public override void ExitState(Enemies_Manager enemy)
     {
-        Debug.Log("exit teleporting");
+        //Debug.Log("exit teleporting");
     }
 }

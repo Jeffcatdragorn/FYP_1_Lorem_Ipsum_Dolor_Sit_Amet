@@ -163,7 +163,6 @@ public class Enemies_Manager : MonoBehaviour
     public void Patrolling()
     {
         navmeshAgent.destination = waypoint[waypointIndex].position;
-        Debug.Log(navmeshAgent.remainingDistance);
     }
 
     public void StopPatrolling()

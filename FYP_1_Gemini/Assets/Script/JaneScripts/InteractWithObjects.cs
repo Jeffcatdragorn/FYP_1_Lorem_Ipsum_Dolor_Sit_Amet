@@ -110,6 +110,62 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""DetectivePath"",
+            ""id"": ""dfb2bfa3-ebbf-45a6-bd06-1e616d829665"",
+            ""actions"": [
+                {
+                    ""name"": ""SpamFToOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""caaeb18c-c0f7-4cc8-b74f-ee0b7b61caf5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""effaae95-2a0a-4a5d-ae28-2bbe9bccc3ec"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpamFToOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""tester"",
+            ""id"": ""3d918653-323a-4de5-9921-82cd7f9e0314"",
+            ""actions"": [
+                {
+                    ""name"": ""testAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""35596e18-81b3-496f-998d-0adfc3b75ed9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9fccff90-bdc7-40da-91da-226cd993360f"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""testAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -120,6 +176,12 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
         m_InteractWithObject_PutFuseIn = m_InteractWithObject.FindAction("PutFuseIn", throwIfNotFound: true);
         m_InteractWithObject_CollectKeycard = m_InteractWithObject.FindAction("CollectKeycard", throwIfNotFound: true);
         m_InteractWithObject_PutKeycardIn = m_InteractWithObject.FindAction("PutKeycardIn", throwIfNotFound: true);
+        // DetectivePath
+        m_DetectivePath = asset.FindActionMap("DetectivePath", throwIfNotFound: true);
+        m_DetectivePath_SpamFToOpen = m_DetectivePath.FindAction("SpamFToOpen", throwIfNotFound: true);
+        // tester
+        m_tester = asset.FindActionMap("tester", throwIfNotFound: true);
+        m_tester_testAction = m_tester.FindAction("testAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -232,11 +294,85 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
         }
     }
     public InteractWithObjectActions @InteractWithObject => new InteractWithObjectActions(this);
+
+    // DetectivePath
+    private readonly InputActionMap m_DetectivePath;
+    private IDetectivePathActions m_DetectivePathActionsCallbackInterface;
+    private readonly InputAction m_DetectivePath_SpamFToOpen;
+    public struct DetectivePathActions
+    {
+        private @InteractWithObjects m_Wrapper;
+        public DetectivePathActions(@InteractWithObjects wrapper) { m_Wrapper = wrapper; }
+        public InputAction @SpamFToOpen => m_Wrapper.m_DetectivePath_SpamFToOpen;
+        public InputActionMap Get() { return m_Wrapper.m_DetectivePath; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DetectivePathActions set) { return set.Get(); }
+        public void SetCallbacks(IDetectivePathActions instance)
+        {
+            if (m_Wrapper.m_DetectivePathActionsCallbackInterface != null)
+            {
+                @SpamFToOpen.started -= m_Wrapper.m_DetectivePathActionsCallbackInterface.OnSpamFToOpen;
+                @SpamFToOpen.performed -= m_Wrapper.m_DetectivePathActionsCallbackInterface.OnSpamFToOpen;
+                @SpamFToOpen.canceled -= m_Wrapper.m_DetectivePathActionsCallbackInterface.OnSpamFToOpen;
+            }
+            m_Wrapper.m_DetectivePathActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @SpamFToOpen.started += instance.OnSpamFToOpen;
+                @SpamFToOpen.performed += instance.OnSpamFToOpen;
+                @SpamFToOpen.canceled += instance.OnSpamFToOpen;
+            }
+        }
+    }
+    public DetectivePathActions @DetectivePath => new DetectivePathActions(this);
+
+    // tester
+    private readonly InputActionMap m_tester;
+    private ITesterActions m_TesterActionsCallbackInterface;
+    private readonly InputAction m_tester_testAction;
+    public struct TesterActions
+    {
+        private @InteractWithObjects m_Wrapper;
+        public TesterActions(@InteractWithObjects wrapper) { m_Wrapper = wrapper; }
+        public InputAction @testAction => m_Wrapper.m_tester_testAction;
+        public InputActionMap Get() { return m_Wrapper.m_tester; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TesterActions set) { return set.Get(); }
+        public void SetCallbacks(ITesterActions instance)
+        {
+            if (m_Wrapper.m_TesterActionsCallbackInterface != null)
+            {
+                @testAction.started -= m_Wrapper.m_TesterActionsCallbackInterface.OnTestAction;
+                @testAction.performed -= m_Wrapper.m_TesterActionsCallbackInterface.OnTestAction;
+                @testAction.canceled -= m_Wrapper.m_TesterActionsCallbackInterface.OnTestAction;
+            }
+            m_Wrapper.m_TesterActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @testAction.started += instance.OnTestAction;
+                @testAction.performed += instance.OnTestAction;
+                @testAction.canceled += instance.OnTestAction;
+            }
+        }
+    }
+    public TesterActions @tester => new TesterActions(this);
     public interface IInteractWithObjectActions
     {
         void OnCollectFuse(InputAction.CallbackContext context);
         void OnPutFuseIn(InputAction.CallbackContext context);
         void OnCollectKeycard(InputAction.CallbackContext context);
         void OnPutKeycardIn(InputAction.CallbackContext context);
+    }
+    public interface IDetectivePathActions
+    {
+        void OnSpamFToOpen(InputAction.CallbackContext context);
+    }
+    public interface ITesterActions
+    {
+        void OnTestAction(InputAction.CallbackContext context);
     }
 }

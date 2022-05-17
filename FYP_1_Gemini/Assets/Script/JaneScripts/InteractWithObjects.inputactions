@@ -88,6 +88,62 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DetectivePath",
+            "id": "dfb2bfa3-ebbf-45a6-bd06-1e616d829665",
+            "actions": [
+                {
+                    "name": "SpamFToOpen",
+                    "type": "Button",
+                    "id": "caaeb18c-c0f7-4cc8-b74f-ee0b7b61caf5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "effaae95-2a0a-4a5d-ae28-2bbe9bccc3ec",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpamFToOpen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "tester",
+            "id": "3d918653-323a-4de5-9921-82cd7f9e0314",
+            "actions": [
+                {
+                    "name": "testAction",
+                    "type": "Button",
+                    "id": "35596e18-81b3-496f-998d-0adfc3b75ed9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9fccff90-bdc7-40da-91da-226cd993360f",
+                    "path": "<Keyboard>/b",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "testAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

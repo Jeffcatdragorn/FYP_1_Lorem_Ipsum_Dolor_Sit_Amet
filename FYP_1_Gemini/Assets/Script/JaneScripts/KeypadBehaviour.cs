@@ -16,7 +16,7 @@ public class KeypadBehaviour : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("collectKeycard = " + KeycardBehaviour.collectedKeycard); //for testing only
+        //Debug.Log("collectKeycard = " + KeycardBehaviour.collectedKeycard); //for testing only
     }
 
     private void OnTriggerEnter(Collider other)

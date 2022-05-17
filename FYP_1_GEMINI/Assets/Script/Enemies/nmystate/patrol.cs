@@ -8,7 +8,7 @@ public class patrol : Enemies_Abstract
     Animator anim;
     public override void EnterState(Enemies_Manager enemy)
     {
-        Debug.Log("Entered Patrol State");
+        //Debug.Log("Entered Patrol State");
         anim = enemy.GetComponent<Animator>();
         anim.SetBool("walk", true);
         enemy.Patrolling();
@@ -49,7 +49,7 @@ public class patrol : Enemies_Abstract
         enemy.StopPatrolling();
         anim.SetBool("walk", false);
 
-        Debug.Log("exit patrol state");
+        //Debug.Log("exit patrol state");
 
     }
 
