@@ -106,10 +106,10 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    //private void LateUpdate()
-    //{
-    //    DrawLine();
-    //}
+    private void LateUpdate()
+    {
+        DrawLine();
+    }
 
     private Vector3 GetLookInput()
     {
@@ -282,37 +282,33 @@ public class PlayerController : MonoBehaviour
     private Vector3 PlayerGrapple()
     {
         Vector3 calculatedGrappleInput = playerMoveInput;
-        if (playerIsGrappling == true)
+
+        if (input.GrappleIsPressed)
         {
             if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit rayHit, maxGrappleDistance, grappleObjects) && grappleCastOnce == false)
             {
+                playerIsGrappling = true;
                 grapplePoint = rayHit.point;
                 debugGrapplePoint.position = rayHit.point;
-                
-                calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
                 grappleCastOnce = true;
             }
 
-            //lineRenderer.positionCount = 2;
-            
+            else if(playerIsGrappling == false)
+            {
+                return calculatedGrappleInput = playerMoveInput;
+            }
+
+            lineRenderer.positionCount = 2;
+            calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
         }
 
-        if (input.GrappleIsPressed == true && playerIsGrappling == false)
+        else
         {
-            playerIsGrappling = true;
-            //lineRenderer.positionCount = 2;
-            grappleCastOnce = false;
-            DrawLine();
-        }
-
-        if(input.GrappleIsPressed == false)
-        {
-            //lineRenderer.positionCount = 0;
             playerIsGrappling = false;
+            lineRenderer.positionCount = 0;
             grappleCastOnce = false;
         }
 
-        
         return calculatedGrappleInput;
     }
 
