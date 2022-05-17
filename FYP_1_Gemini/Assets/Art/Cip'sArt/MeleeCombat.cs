@@ -95,7 +95,6 @@ public class MeleeCombat : MonoBehaviour
     {
         if (combatInput.HumanoidActions.Actions.triggered)
         {
-            Debug.LogError("Input working fine");
             charAnimation.SetTrigger("SuperAttack");
             charAnimation.applyRootMotion = true; //to trigger root motion
             windowActive = false;
