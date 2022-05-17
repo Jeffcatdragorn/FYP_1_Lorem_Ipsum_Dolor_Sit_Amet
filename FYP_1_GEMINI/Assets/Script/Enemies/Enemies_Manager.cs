@@ -233,4 +233,16 @@ public class Enemies_Manager : MonoBehaviour
         #endregion
     }
     #endregion
+
+    #region health manager
+    public int health = 1;
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
 }
