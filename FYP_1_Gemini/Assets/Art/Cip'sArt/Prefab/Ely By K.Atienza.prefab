@@ -742,7 +742,8 @@ MonoBehaviour:
   dashSpeed: 80
   dashDuration: 0.25
   charAnimation: {fileID: 7626717229679065455}
-  windowActive: 0
+  atkSpeed: 0
+  playerRigidBody: {fileID: 0}
 --- !u!1 &3211957706175867264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1995,6 +1996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 827818222707238472}
   - component: {fileID: 100187942602289709}
+  - component: {fileID: 1465023154645660868}
   m_Layer: 0
   m_Name: LeftFist
   m_TagString: Fist
@@ -2030,6 +2032,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.36843556
   m_Center: {x: -0.00000000918164, y: 0.19734673, z: -0.000000012188431}
+--- !u!114 &1465023154645660868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7138134736205436793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcce8d62ab499d0488465f38d446a90c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7192807604907526590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2232,6 +2246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2890366689254731769}
   - component: {fileID: 3439772097942232316}
+  - component: {fileID: 7037554390945279950}
   m_Layer: 0
   m_Name: RightFist
   m_TagString: Fist
@@ -2267,6 +2282,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.36843556
   m_Center: {x: -0.00000000918164, y: 0.19734673, z: -0.000000012188431}
+--- !u!114 &7037554390945279950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7962026810343534072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcce8d62ab499d0488465f38d446a90c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8048439095787415402
 GameObject:
   m_ObjectHideFlags: 0
