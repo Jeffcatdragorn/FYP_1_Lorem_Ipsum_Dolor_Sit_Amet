@@ -42,7 +42,6 @@ public class DetectiveSolution : MonoBehaviour
     {
         if (check == true)
         {
-            //currentDoorPos = door.transform.position;
             Debug.Log("In");
             doorAnimator.enabled = false;
 
