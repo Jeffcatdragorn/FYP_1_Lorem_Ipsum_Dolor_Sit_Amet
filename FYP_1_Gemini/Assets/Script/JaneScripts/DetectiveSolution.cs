@@ -9,50 +9,63 @@ public class DetectiveSolution : MonoBehaviour
     private int inputCount = 0;
     private bool inputChecker;
     public Animator doorAnimator;
+    public bool grappleCheck = false;
 
-    private void Awake()
-    {
-        input = new InteractWithObjects();
-        input.DetectivePath.SpamFToOpen.performed += x => OpenDoorWithShooting(); //set which actions to be done
-    }
+    [SerializeField] HumanoidLandInput controllerInput;
 
-    #region OnEnable & OnDisable (For input)
+    //private void Awake()
+    //{
+    //    input = new InteractWithObjects();
+    //    input.DetectivePath.SpamFToOpen.performed += x => OpenDoorWithShooting(true); //set which actions to be done
+    //}
 
-    private void OnEnable()
-    {
-        input.DetectivePath.Enable();
-    }
+    //#region OnEnable & OnDisable (For input)
 
-    private void OnDisable()
-    {
-        input.DetectivePath.Disable();
-    }
+    //private void OnEnable()
+    //{
+    //    input.DetectivePath.Enable();
+    //}
 
-    #endregion
+    //private void OnDisable()
+    //{
+    //    input.DetectivePath.Disable();
+    //}
+
+    //#endregion
 
     private void Update()
     {
         Debug.Log("inputCount = " + inputCount);
     }
 
-    public void OpenDoorWithShooting() //grappling door & pulling it open
+    public void OpenDoorWithShooting(bool check) //grappling door & pulling it open
     {
-        //currentDoorPos = door.transform.position;
-        doorAnimator.enabled = false;
+        if (check == true)
+        {
+            //currentDoorPos = door.transform.position;
+            Debug.Log("In");
+            doorAnimator.enabled = false;
 
-        if (inputCount == 7) //if press 7 times already then stop opening the door
-        {
-            inputCount = 7;
-            door.transform.position = new Vector3(0.0f, 0.0f, 7.0f);
-            //Destroy(door);
+            if (inputCount == 7) //if press 7 times already then stop opening the door
+            {
+                inputCount = 7;
+                door.transform.position = new Vector3(0.0f, 0.0f, 7.0f);
+                //Destroy(door);
+            }
+
+            else if (inputCount < 7 && controllerInput.OpenDoorIsPressed)
+            {
+                inputCount++;
+                door.transform.position = new Vector3(door.transform.position.x, door.transform.position.y, door.transform.position.z + 1.0f);
+                Debug.Log("door.transform.position = " + door.transform.position);
+            }
+
+            Debug.Log("OpenDoorWithShooting ");
         }
-        else
+
+        else if(check == false && inputCount != 7)
         {
-            inputCount++;
-            door.transform.position = new Vector3(door.transform.position.x, door.transform.position.y, door.transform.position.z + 1.0f);
-            Debug.Log("door.transform.position = " + door.transform.position);
+            doorAnimator.enabled = true;
         }
-        
-        Debug.Log("OpenDoorWithShooting ");
     }
 }

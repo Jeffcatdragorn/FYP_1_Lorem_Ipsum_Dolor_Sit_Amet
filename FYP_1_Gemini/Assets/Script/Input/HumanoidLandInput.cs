@@ -14,6 +14,7 @@ public class HumanoidLandInput : MonoBehaviour
     public bool GrappleIsPressed { get; private set; } = false;
     public bool ShootIsPressed { get; private set; } = false;
     public bool DashIsPressed { get; private set; } = false;
+    public bool OpenDoorIsPressed { get; private set; } = false;
 
     public bool MoveIsPressed = false;
     InputActions input = null;
@@ -45,6 +46,9 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Dash.started += SetDash;
         input.HumanoidLand.Dash.canceled += SetDash;
 
+        input.HumanoidLand.OpenDoor.started += SetOpenDoor;
+        input.HumanoidLand.OpenDoor.canceled += SetOpenDoor;
+
         input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -71,6 +75,9 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Dash.started -= SetDash;
         input.HumanoidLand.Dash.canceled -= SetDash;
+
+        input.HumanoidLand.OpenDoor.started -= SetOpenDoor;
+        input.HumanoidLand.OpenDoor.canceled -= SetOpenDoor;
 
         input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
@@ -117,6 +124,11 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetDash(InputAction.CallbackContext ctx)
     {
         DashIsPressed = ctx.started;
+    }
+
+    private void SetOpenDoor(InputAction.CallbackContext ctx)
+    {
+        OpenDoorIsPressed = ctx.started;
     }
 
     private void SetZoomCamera(InputAction.CallbackContext ctx)

@@ -107,6 +107,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenDoor"",
+                    ""type"": ""Button"",
+                    ""id"": ""61d48eee-5886-469a-a17a-20627ac2763b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -318,6 +327,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8b38c4a-5a2f-4e7a-b897-9b0281154575"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenDoor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -335,6 +355,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_GrapplingHook = m_HumanoidLand.FindAction("GrapplingHook", throwIfNotFound: true);
         m_HumanoidLand_Shoot = m_HumanoidLand.FindAction("Shoot", throwIfNotFound: true);
         m_HumanoidLand_Dash = m_HumanoidLand.FindAction("Dash", throwIfNotFound: true);
+        m_HumanoidLand_OpenDoor = m_HumanoidLand.FindAction("OpenDoor", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -403,6 +424,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_GrapplingHook;
     private readonly InputAction m_HumanoidLand_Shoot;
     private readonly InputAction m_HumanoidLand_Dash;
+    private readonly InputAction m_HumanoidLand_OpenDoor;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -416,6 +438,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @GrapplingHook => m_Wrapper.m_HumanoidLand_GrapplingHook;
         public InputAction @Shoot => m_Wrapper.m_HumanoidLand_Shoot;
         public InputAction @Dash => m_Wrapper.m_HumanoidLand_Dash;
+        public InputAction @OpenDoor => m_Wrapper.m_HumanoidLand_OpenDoor;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -452,6 +475,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Dash.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnDash;
+                @OpenDoor.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnOpenDoor;
+                @OpenDoor.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnOpenDoor;
+                @OpenDoor.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnOpenDoor;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -483,6 +509,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @OpenDoor.started += instance.OnOpenDoor;
+                @OpenDoor.performed += instance.OnOpenDoor;
+                @OpenDoor.canceled += instance.OnOpenDoor;
             }
         }
     }
@@ -498,5 +527,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnGrapplingHook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnOpenDoor(InputAction.CallbackContext context);
     }
 }

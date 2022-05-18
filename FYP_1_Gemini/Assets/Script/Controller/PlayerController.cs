@@ -66,11 +66,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float grappleSpeed = 5.0f;
     [SerializeField] LineRenderer lineRenderer;
     private Vector3 grapplePoint;
+    private Vector3 triggerPoint;
     public LayerMask grappleObjects;
     public LayerMask triggerObjects;
     public Transform grappleTip, cam, player;
     private float maxGrappleDistance = 100f;
     private bool grappleCastOnce = false;
+    public DetectiveSolution detectiveController;
+    private bool triggerCheck;
 
     [Header("Shooting")]
     [SerializeField] Transform gunTip;
@@ -79,7 +82,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float shootCooldown = 1.0f;
     [SerializeField] float shootCooldownCounter = 0.0f;
-        public float bulletSpeed;
+    public ParticleSystem muzzleFlash;
+    public float bulletSpeed;
 
     [Header("Dashing")]
     [SerializeField] float initialDashForce = 750.0f;
@@ -325,41 +329,53 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit rayHit, maxGrappleDistance, grappleObjects) && grappleCastOnce == false)
             {
+                Debug.Log("Grappling");
                 playerIsGrappling = true;
                 grapplePoint = rayHit.point;
                 debugGrapplePoint.position = rayHit.point;
-                if (rayHit.transform.tag == "triggerGrapple")
-                {
+                //if (rayHit.transform.tag == "triggerGrapple")
+                //{
+                //    janjanController.grappleCheck = true;
+                //    return calculatedGrappleInput = playerMoveInput;
+                //}
+                grappleCastOnce = true;
+            }
 
-                    return calculatedGrappleInput = playerMoveInput;
-                }
+            else if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit triggerHit, maxGrappleDistance, triggerObjects) && grappleCastOnce == false)
+            {
+                Debug.Log("Triggering");
+                lineRenderer.positionCount = 2;
+                playerIsGrappling = true;
+                triggerCheck = true;
+                triggerPoint = triggerHit.point;
+                debugGrapplePoint.position = triggerHit.point;
                 grappleCastOnce = true;
             }
 
             else if(playerIsGrappling == false)
             {
+                detectiveController.OpenDoorWithShooting(false);
+                grapplePoint = Vector3.zero;
                 return calculatedGrappleInput = playerMoveInput;
             }
 
-            //else if (playerIsGrappling == true)
-            //{
+            if(grapplePoint != Vector3.zero)
+            {
                 lineRenderer.positionCount = 2;
                 calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
-            //}
+            }
 
-
-            //if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit triggerHit, maxGrappleDistance, triggerObjects) && grappleCastOnce == false)
-            //{
-            //    playerIsGrappling = true;
-            //    grapplePoint = triggerHit.point;
-            //    debugGrapplePoint.position = triggerHit.point;
-            //    grappleCastOnce = true;
-            //}
+            if(triggerCheck == true)
+            {
+                detectiveController.OpenDoorWithShooting(true);
+            }
         }
 
         else
         {
+            detectiveController.OpenDoorWithShooting(false);
             playerIsGrappling = false;
+            triggerCheck = false;
             lineRenderer.positionCount = 0;
             grappleCastOnce = false;
         }
@@ -378,6 +394,8 @@ public class PlayerController : MonoBehaviour
                 //newBullet.GetComponent<BulletBehaviour>().Travel(hit.point);
                 //newBullet.transform.position = Vector3.MoveTowards(newBullet.transform.position, hit.point, Time.deltaTime * bulletSpeed);
                 //newBullet.transform.Translate(hit.point * Time.deltaTime * bulletSpeed, Space.World);
+
+                muzzleFlash.Play();
 
                 Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
                 if(enemy != null)
@@ -443,8 +461,18 @@ public class PlayerController : MonoBehaviour
     void DrawLine()
     {
         if (!playerIsGrappling) return;
-        lineRenderer.SetPosition(index: 0, grappleTip.position);
-        lineRenderer.SetPosition(index: 1, grapplePoint);
+
+        if (playerIsGrappling)
+        {
+            lineRenderer.SetPosition(index: 0, grappleTip.position);
+            lineRenderer.SetPosition(index: 1, grapplePoint);
+        }
+
+        if(triggerCheck)
+        {
+            lineRenderer.SetPosition(index: 0, grappleTip.position);
+            lineRenderer.SetPosition(index: 1, triggerPoint);
+        }
     }
 
     private void SetJumpBufferCounter()
