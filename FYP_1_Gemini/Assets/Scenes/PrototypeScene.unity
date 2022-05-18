@@ -1266,7 +1266,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh95158
+  m_Name: pb_Mesh25182
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1513,7 +1513,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh94904
+  m_Name: pb_Mesh24896
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1671,6 +1671,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &730383754 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5749102972316466219, guid: f76445d6ad34e404691d81a30898d1b4, type: 3}
+  m_PrefabInstance: {fileID: 2053615684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &747088610
 GameObject:
   m_ObjectHideFlags: 0
@@ -17234,7 +17239,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh94890
+  m_Name: pb_Mesh24882
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17880,7 +17885,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh95024
+  m_Name: pb_Mesh25016
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18044,7 +18049,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh95092
+  m_Name: pb_Mesh25106
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18376,7 +18381,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.633833, y: 1}
+    m_SensorSize: {x: 3.6498516, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -18520,7 +18525,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh94866
+  m_Name: pb_Mesh24858
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23624,6 +23629,9 @@ MonoBehaviour:
   grappleObjects:
     serializedVersion: 2
     m_Bits: 512
+  triggerObjects:
+    serializedVersion: 2
+    m_Bits: 0
   grappleTip: {fileID: 315916867}
   cam: {fileID: 2012095097}
   player: {fileID: 2128715001}
@@ -23632,6 +23640,10 @@ MonoBehaviour:
   shootObjects:
     serializedVersion: 2
     m_Bits: 0
+  bulletPrefab: {fileID: 0}
+  shootCooldown: 1
+  shootCooldownCounter: 0
+  bulletSpeed: 0
   initialDashForce: 750
   continualDashForceMultiplier: 0.1
   dashTime: 0.175
@@ -23642,6 +23654,8 @@ MonoBehaviour:
   dashBufferTimeCounter: 0
   playerIsDashing: 0
   dashWasPressedLastFrame: 0
+  dashCooldown: 1
+  dashCooldownCounter: 0
   charAnimation: {fileID: 0}
 --- !u!136 &2128715003
 CapsuleCollider:
@@ -23685,6 +23699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a60b9c75f1f0149b000d2e9f65ff9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  door: {fileID: 730383754}
+  doorAnimator: {fileID: 1609565073}
 --- !u!1 &2133978615
 GameObject:
   m_ObjectHideFlags: 0
@@ -23778,7 +23794,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.633833, y: 1}
+    m_SensorSize: {x: 3.6498516, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
