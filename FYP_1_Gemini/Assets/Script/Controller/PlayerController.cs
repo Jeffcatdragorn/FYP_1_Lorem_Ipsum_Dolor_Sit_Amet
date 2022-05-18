@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform debugGrapplePoint;
     [SerializeField] float grappleSpeed = 5.0f;
     [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] GameObject pullSlider;
     private Vector3 grapplePoint;
     private Vector3 triggerPoint;
     public LayerMask grappleObjects;
@@ -74,16 +76,19 @@ public class PlayerController : MonoBehaviour
     private bool grappleCastOnce = false;
     public DetectiveSolution detectiveController;
     private bool triggerCheck;
+    
 
     [Header("Shooting")]
     [SerializeField] Transform gunTip;
     [SerializeField] float shootRange = 100f;
-    [SerializeField] LayerMask shootObjects;
+    [SerializeField] LayerMask shootLayer;
+    [SerializeField] LayerMask enemyLayer;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float shootCooldown = 1.0f;
     [SerializeField] float shootCooldownCounter = 0.0f;
     public ParticleSystem muzzleFlash;
     public float bulletSpeed;
+    public GameObjectController objectController;
 
     [Header("Dashing")]
     [SerializeField] float initialDashForce = 750.0f;
@@ -145,7 +150,8 @@ public class PlayerController : MonoBehaviour
 
     //private void Update()
     //{
-        
+        //Debug.Log(input.OpenDoorIsPressed);
+        //Debug.Log(input.JumpIsPressed);
     //}
 
     private void LateUpdate()
@@ -343,12 +349,12 @@ public class PlayerController : MonoBehaviour
 
             else if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit triggerHit, maxGrappleDistance, triggerObjects) && grappleCastOnce == false)
             {
-                Debug.Log("Triggering");
                 lineRenderer.positionCount = 2;
                 playerIsGrappling = true;
                 triggerCheck = true;
                 triggerPoint = triggerHit.point;
                 debugGrapplePoint.position = triggerHit.point;
+                //pullSlider.SetActive(true);
                 grappleCastOnce = true;
             }
 
@@ -367,6 +373,8 @@ public class PlayerController : MonoBehaviour
 
             if(triggerCheck == true)
             {
+                Debug.Log("Triggering");
+
                 detectiveController.OpenDoorWithShooting(true);
             }
         }
@@ -377,6 +385,7 @@ public class PlayerController : MonoBehaviour
             playerIsGrappling = false;
             triggerCheck = false;
             lineRenderer.positionCount = 0;
+            //spullSlider.SetActive(false);
             grappleCastOnce = false;
         }
 
@@ -388,7 +397,7 @@ public class PlayerController : MonoBehaviour
         SetShootCooldownCounter();
         if(input.ShootIsPressed == true)
         {
-            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange) && shootCooldownCounter == 0.0f)
+            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore) && shootCooldownCounter == 0.0f)
             {
                 //GameObject newBullet = Instantiate(bulletPrefab, new Vector3(gunTip.transform.position.x, gunTip.transform.position.y, gunTip.transform.position.z), Quaternion.identity);
                 //newBullet.GetComponent<BulletBehaviour>().Travel(hit.point);
@@ -402,6 +411,13 @@ public class PlayerController : MonoBehaviour
                 {
                     enemy.TakeDamage(1);
                 }
+                shootCooldownCounter = shootCooldown;
+            }
+
+            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer) && shootCooldownCounter == 0.0f)
+            {
+                muzzleFlash.Play();
+                objectController.changeForms(hit2.transform.name);
                 shootCooldownCounter = shootCooldown;
             }
         }

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class DetectiveSolution : MonoBehaviour
@@ -10,61 +9,63 @@ public class DetectiveSolution : MonoBehaviour
     private bool inputChecker;
     public Animator doorAnimator;
     public bool grappleCheck = false;
+    public bool keyCheck = true;
+    public Transform doorHandle, player;
 
     [SerializeField] HumanoidLandInput controllerInput;
 
-    //private void Awake()
+    [SerializeField] GameObject pullSlider;
+
+    //private void Update()
     //{
-    //    input = new InteractWithObjects();
-    //    input.DetectivePath.SpamFToOpen.performed += x => OpenDoorWithShooting(true); //set which actions to be done
+        //Debug.Log("inputCount = " + inputCount);
     //}
-
-    //#region OnEnable & OnDisable (For input)
-
-    //private void OnEnable()
-    //{
-    //    input.DetectivePath.Enable();
-    //}
-
-    //private void OnDisable()
-    //{
-    //    input.DetectivePath.Disable();
-    //}
-
-    //#endregion
-
-    private void Update()
-    {
-        Debug.Log("inputCount = " + inputCount);
-    }
 
     public void OpenDoorWithShooting(bool check) //grappling door & pulling it open
     {
         if (check == true)
         {
-            Debug.Log("In");
             doorAnimator.enabled = false;
 
             if (inputCount == 7) //if press 7 times already then stop opening the door
             {
                 inputCount = 7;
                 door.transform.position = new Vector3(0.0f, 0.0f, 7.0f);
-                //Destroy(door);
             }
 
-            else if (inputCount < 7 && controllerInput.OpenDoorIsPressed)
+            else if (inputCount < 7 && controllerInput.OpenDoorIsPressed && keyCheck == false && doorHandle.localPosition.z < player.localPosition.z)
             {
                 inputCount++;
-                door.transform.position = new Vector3(door.transform.position.x, door.transform.position.y, door.transform.position.z + 1.0f);
-                Debug.Log("door.transform.position = " + door.transform.position);
+                pullSlider.GetComponent<Slider>().value += 1.0f / 7.0f;
+
+                keyCheck = true;
+                //door.transform.position = new Vector3(door.transform.position.x, door.transform.position.y, door.transform.position.z + 1.0f);
             }
 
-            Debug.Log("OpenDoorWithShooting ");
+            else if(controllerInput.OpenDoorIsPressed == false)
+            {
+                keyCheck = false;
+            }
+
+            if (doorHandle.localPosition.z < player.localPosition.z)
+            {
+                pullSlider.SetActive(true);
+            }
+
+            else
+            {
+                inputCount = 0;
+                pullSlider.GetComponent<Slider>().value = 0.0f;
+                pullSlider.SetActive(false);
+            }
         }
 
-        else if(check == false && inputCount != 7)
+        else if(check == false)
         {
-            doorAnimator.enabled = true;
+            if(inputCount != 7)
+                doorAnimator.enabled = true;
+            pullSlider.SetActive(false);
+
         }
     }
 }

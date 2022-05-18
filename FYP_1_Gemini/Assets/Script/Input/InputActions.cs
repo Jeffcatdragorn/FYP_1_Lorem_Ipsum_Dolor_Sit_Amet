@@ -114,7 +114,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""id"": ""61d48eee-5886-469a-a17a-20627ac2763b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -332,7 +332,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""a8b38c4a-5a2f-4e7a-b897-9b0281154575"",
                     ""path"": ""<Keyboard>/f"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenDoor"",

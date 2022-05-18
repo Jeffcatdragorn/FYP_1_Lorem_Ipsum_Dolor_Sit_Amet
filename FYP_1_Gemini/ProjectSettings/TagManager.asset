@@ -18,8 +18,8 @@ TagManager:
   - playerSelf
   - grapplePoint
   - triggerGrapple
-  - 
-  - 
+  - shootObject
+  - enemy
   - 
   - 
   - 
