@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     float maxCameraZoomDistance = 12.0f;
     float maxOrbitCameraZoomDistance = 36.0f;
 
-    CinemachineVirtualCamera activeCamera;
+    public CinemachineVirtualCamera activeCamera;
     int activeCameraPriorityModifier = 31337;
 
     public Camera mainCamera;
