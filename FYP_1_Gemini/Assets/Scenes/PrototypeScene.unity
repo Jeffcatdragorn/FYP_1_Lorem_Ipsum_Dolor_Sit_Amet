@@ -233,7 +233,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -6062,6 +6062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83cc751161e0e854987a4b95c4d86d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
   IdleTime: 3
   PatrolTime: 5
   waypoint:
@@ -6081,7 +6082,7 @@ MonoBehaviour:
   attackRate: 3
   attack: 0
   attackRange: 4.64
-  health: 1
+  orbT1: {fileID: 0}
 --- !u!65 &480549699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6905,7 +6906,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &714264981
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22475,6 +22476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 324795313}
   cameraZoomModifier: 32
+  activeCamera: {fileID: 0}
   mainCamera: {fileID: 1533728249}
   cinemachineFirstPerson: {fileID: 1804772314}
   cinemachineThirdPerson: {fileID: 566312891}
@@ -31833,7 +31835,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 3.3064516, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
