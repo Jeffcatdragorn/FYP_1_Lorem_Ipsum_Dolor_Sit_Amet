@@ -18,6 +18,7 @@ public class FuseBehaviour : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             input.InteractWithObject.Enable(); //enable the input (can use input)
+            //input.InteractWithObject.CollectFuse.Enable(); //enable the input (can use input)
         }
     }
 
