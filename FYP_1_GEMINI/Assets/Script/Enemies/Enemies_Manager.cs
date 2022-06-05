@@ -7,6 +7,9 @@ public class Enemies_Manager : MonoBehaviour
 {
 
     Enemies_Abstract current_state;
+    [Header("Health")]
+    public int health = 1;
+    Animator anim;
 
     public Idle IdleState = new Idle();
     public patrol PatrolState = new patrol();
@@ -46,6 +49,9 @@ public class Enemies_Manager : MonoBehaviour
     public bool attack = false;
     public float attackRange = 2.0f;
 
+    [Header("Orbs")]
+    public GameObject orbT1;
+    private float deathAnimationSmootheringTime;
     public float DistToPoint 
     {
        get
@@ -66,7 +72,7 @@ public class Enemies_Manager : MonoBehaviour
     private void Awake()
     {
         input = new Tester();
-        //input.navmesh.testering.performed += x => IncreaseIndex();
+        input.navmesh.testering.performed += x => selfDamageTesting(); // A key
     }
 
     #region onEnable/disAble
@@ -80,6 +86,8 @@ public class Enemies_Manager : MonoBehaviour
     }
     #endregion
     #endregion
+
+
     void Start()
     {
         //starting state for the state machine
@@ -95,30 +103,50 @@ public class Enemies_Manager : MonoBehaviour
         //ignoring the unnessacary collision
         player = GameObject.FindGameObjectWithTag("Player");
         Physics.IgnoreCollision(player.GetComponent<CapsuleCollider>(), GetComponent<CapsuleCollider>());
+
+        //animator
+        anim = gameObject.GetComponent<Animator>();
+        
     }
     void Update()
     {
-        //will carry any logic from the current state every frame
-        current_state.UpdateState(this);
-
-        teleportCDTimer += Time.deltaTime;
-
-        if (stillNeedTeleport)
+        if (health > 0)
         {
-            if(teleportCount < teleportRandomCount)
+            //will carry any logic from the current state every frame
+            current_state.UpdateState(this);
+
+            teleportCDTimer += Time.deltaTime;
+
+            if (stillNeedTeleport)
             {
-                canTeleport = true;
+                if(teleportCount < teleportRandomCount)
+                {
+                    canTeleport = true;
+                }
+                else
+                {
+                    stillNeedTeleport = false;
+                    teleportCount = 0;
+                    teleportCDTimer = .0f;
+                }
             }
-            else
+            if (canTeleport)
             {
-                stillNeedTeleport = false;
-                teleportCount = 0;
-                teleportCDTimer = .0f;
+                Teleporting();
             }
         }
-        if (canTeleport)
+        else // ANIMATION - PLEASE GO AND EDIT THE DEATH ANIMATION PROPERLY INSTEAD OF USING A TIMER(CODING WAY) TO FIX THE ANIMATION. TQ 
         {
-            Teleporting();
+            deathAnimationSmootheringTime += Time.deltaTime;
+            if (deathAnimationSmootheringTime > 3)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, -1, gameObject.transform.position.z);
+
+                if (deathAnimationSmootheringTime > 6) // THIS PART IS TOO MESSY. PLEASE DECIDE ON WHERE DO YOU WANT TO DESTROY THE GAMEOBJECT. HERE OR THE BELOW FUNCTION
+                {
+                    Destroy(gameObject);
+                }
+            }
         }
     }
     void OnCollisionEnter(Collision collision)
@@ -234,14 +262,22 @@ public class Enemies_Manager : MonoBehaviour
     #endregion
 
     #region health manager
-    public int health = 1;
     public void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            anim.SetTrigger("deads");
+            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            Instantiate(orbT1, new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z), Quaternion.identity);
+            //Destroy(gameObject);
         }
+    }
+
+    public void selfDamageTesting()
+    {
+        Debug.Log("(taking 2 dmg)");
+        TakeDamage(2);
     }
     #endregion
 }

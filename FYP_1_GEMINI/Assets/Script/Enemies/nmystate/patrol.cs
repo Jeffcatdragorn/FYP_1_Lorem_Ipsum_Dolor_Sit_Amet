@@ -16,27 +16,9 @@ public class patrol : Enemies_Abstract
 
     public override void UpdateState(Enemies_Manager enemy)
     {
-        patrolTimer += Time.deltaTime;
-        if (patrolTimer > enemy.PatrolTime)
+        if (enemy.health > 0)
         {
-            patrolTimer = .0f;
-            enemy.StopPatrolling();
-            enemy.SwitchState(enemy.IdleState);
-        }
-        else if (enemy.DistToPoint < 1f && patrolTimer < 5.0f) 
-        {
-            enemy.IncreaseIndex(); 
-            enemy.Patrolling();
-        }
-
-        if (enemy.stillNeedTeleport)
-        {
-            enemy.SwitchState(enemy.TeleportState);
-        }
-
-        if (enemy.attack)
-        {
-            enemy.SwitchState(enemy.AttackState);
+            Patrol(enemy);
         }
     }
 
@@ -52,5 +34,29 @@ public class patrol : Enemies_Abstract
         //Debug.Log("exit patrol state");
 
     }
+    public void Patrol(Enemies_Manager enemy)
+    {
+        patrolTimer += Time.deltaTime;
+        if (patrolTimer > enemy.PatrolTime)
+        {
+            patrolTimer = .0f;
+            enemy.StopPatrolling();
+            enemy.SwitchState(enemy.IdleState);
+        }
+        else if (enemy.DistToPoint < 1f && patrolTimer < 5.0f)
+        {
+            enemy.IncreaseIndex();
+            enemy.Patrolling();
+        }
 
+        if (enemy.stillNeedTeleport)
+        {
+            enemy.SwitchState(enemy.TeleportState);
+        }
+
+        if (enemy.attack)
+        {
+            enemy.SwitchState(enemy.AttackState);
+        }
+    }
 }

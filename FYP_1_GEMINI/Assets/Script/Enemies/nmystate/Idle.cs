@@ -17,6 +17,23 @@ public class Idle : Enemies_Abstract
 
     public override void UpdateState(Enemies_Manager enemy)
     {
+        if (enemy.health > 0)
+        {
+            Idling(enemy);
+        }
+    }
+
+    public override void OnCollisionEnter(Enemies_Manager enemy, Collision collision)
+    {
+    }
+
+    public override void ExitState(Enemies_Manager enemy)
+    {
+        //Debug.Log("Exited Idle State");
+    }
+
+    public void Idling(Enemies_Manager enemy)
+    {
         idleTimer += Time.deltaTime;
         if (idleTimer > enemy.IdleTime)
         {
@@ -33,14 +50,5 @@ public class Idle : Enemies_Abstract
         {
             enemy.SwitchState(enemy.AttackState);
         }
-    }
-
-    public override void OnCollisionEnter(Enemies_Manager enemy, Collision collision)
-    {
-    }
-
-    public override void ExitState(Enemies_Manager enemy)
-    {
-        //Debug.Log("Exited Idle State");
     }
 }

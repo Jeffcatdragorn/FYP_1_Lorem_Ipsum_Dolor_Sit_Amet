@@ -17,6 +17,23 @@ public class attack : Enemies_Abstract
 
     public override void UpdateState(Enemies_Manager enemy)
     {
+        if (enemy.health > 0)
+        {
+            Attack(enemy);
+        }
+    }
+
+    public override void OnCollisionEnter(Enemies_Manager enemy, Collision collision)
+    {
+    }
+
+    public override void ExitState(Enemies_Manager enemy)
+    {
+        Debug.Log("done attack");
+
+    }
+    public void Attack(Enemies_Manager enemy)
+    {
         attackRateTimer += Time.deltaTime;
         //Debug.Log(enemy.DistToPlayer + " = Player");
         if (attackRateTimer > enemy.attackRate)
@@ -37,15 +54,5 @@ public class attack : Enemies_Abstract
             enemy.SwitchState(enemy.IdleState);
             enemy.attack = false;
         }
-    }
-
-    public override void OnCollisionEnter(Enemies_Manager enemy, Collision collision)
-    {
-    }
-
-    public override void ExitState(Enemies_Manager enemy)
-    {
-        Debug.Log("done attack");
-
     }
 }
