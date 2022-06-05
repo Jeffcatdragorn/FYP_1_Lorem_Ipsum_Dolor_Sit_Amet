@@ -186,6 +186,34 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Inventory"",
+            ""id"": ""fb8921ca-84bf-403d-aadc-4439627d238c"",
+            ""actions"": [
+                {
+                    ""name"": ""InventoryUIMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""ddfd2e9d-8554-4086-a347-5d0c1d71b818"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ed9ea3bd-13e9-4eeb-833f-5eefcf3e0e10"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryUIMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -203,6 +231,9 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
         // tester
         m_tester = asset.FindActionMap("tester", throwIfNotFound: true);
         m_tester_testAction = m_tester.FindAction("testAction", throwIfNotFound: true);
+        // Inventory
+        m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
+        m_Inventory_InventoryUIMenu = m_Inventory.FindAction("InventoryUIMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -389,6 +420,39 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
         }
     }
     public TesterActions @tester => new TesterActions(this);
+
+    // Inventory
+    private readonly InputActionMap m_Inventory;
+    private IInventoryActions m_InventoryActionsCallbackInterface;
+    private readonly InputAction m_Inventory_InventoryUIMenu;
+    public struct InventoryActions
+    {
+        private @InteractWithObjects m_Wrapper;
+        public InventoryActions(@InteractWithObjects wrapper) { m_Wrapper = wrapper; }
+        public InputAction @InventoryUIMenu => m_Wrapper.m_Inventory_InventoryUIMenu;
+        public InputActionMap Get() { return m_Wrapper.m_Inventory; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InventoryActions set) { return set.Get(); }
+        public void SetCallbacks(IInventoryActions instance)
+        {
+            if (m_Wrapper.m_InventoryActionsCallbackInterface != null)
+            {
+                @InventoryUIMenu.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnInventoryUIMenu;
+                @InventoryUIMenu.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnInventoryUIMenu;
+                @InventoryUIMenu.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnInventoryUIMenu;
+            }
+            m_Wrapper.m_InventoryActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @InventoryUIMenu.started += instance.OnInventoryUIMenu;
+                @InventoryUIMenu.performed += instance.OnInventoryUIMenu;
+                @InventoryUIMenu.canceled += instance.OnInventoryUIMenu;
+            }
+        }
+    }
+    public InventoryActions @Inventory => new InventoryActions(this);
     public interface IInteractWithObjectActions
     {
         void OnCollectFuse(InputAction.CallbackContext context);
@@ -404,5 +468,9 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
     public interface ITesterActions
     {
         void OnTestAction(InputAction.CallbackContext context);
+    }
+    public interface IInventoryActions
+    {
+        void OnInventoryUIMenu(InputAction.CallbackContext context);
     }
 }

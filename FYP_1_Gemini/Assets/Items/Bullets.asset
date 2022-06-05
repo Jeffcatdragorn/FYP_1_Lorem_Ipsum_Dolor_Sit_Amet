@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf953a10ca19d14b910837ff18467ab, type: 3}
-  m_Name: Test Item
+  m_Script: {fileID: 11500000, guid: 058a74496e11d61439772f3400e6f9c1, type: 3}
+  m_Name: Bullets
   m_EditorClassIdentifier: 
-  name: Syringe
-  icon: {fileID: 0}
+  name: Bullets
+  icon: {fileID: 21300000, guid: 969da6749c1cacd4e9a828b9f660bf26, type: 3}
   isDefaultItem: 0

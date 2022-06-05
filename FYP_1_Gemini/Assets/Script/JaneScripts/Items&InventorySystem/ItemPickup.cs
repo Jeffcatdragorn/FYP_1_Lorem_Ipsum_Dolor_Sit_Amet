@@ -51,4 +51,12 @@ public class ItemPickup : Interactable
             input.InteractWithObject.Enable(); //enable the input (can use input)
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            input.InteractWithObject.Disable(); //disable the input (cannot use the input)
+        }
+    }
 }
