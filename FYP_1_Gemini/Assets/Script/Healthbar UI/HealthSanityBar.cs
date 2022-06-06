@@ -12,8 +12,8 @@ public class HealthSanityBar : MonoBehaviour
     public float sanityIncrement = 0.01f;
     private float currHealth;
     private float currSanity;
-    public bool startCorouA;
-    public bool startCorouB;
+    private bool startCorouA;
+    private bool startCorouB;
 
     public Image healthBar;
     public Image sanityBar;
