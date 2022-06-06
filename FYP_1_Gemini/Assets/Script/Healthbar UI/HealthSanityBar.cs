@@ -7,34 +7,58 @@ using Cinemachine;
 public class HealthSanityBar : MonoBehaviour
 {
     public float maxHealth = 100;
-    public float maxSanity = 100;
+    public float maxSanity;
 
     public float sanityIncrement = 0.01f;
     private float currHealth;
     private float currSanity;
+    public bool startCorouA;
+    public bool startCorouB;
 
     public Image healthBar;
     public Image sanityBar;
+    private Coroutine regen;
+    private Coroutine degen;
 
     CinemachineVirtualCamera activeCamera;
     public CameraController cc;
     public CinemachineVirtualCamera cinemachineFirstPerson;
     public CinemachineVirtualCamera cinemachineThirdPerson;
+
     void Start()
     {
         currHealth = maxHealth;
+        maxSanity = 100;
         currSanity = 0;
+        startCorouA = true;
+        startCorouB = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //FIX !
         if(cinemachineThirdPerson == cc.activeCamera)
         {
-            if(currSanity < 100)
-                currSanity += sanityIncrement * Time.deltaTime;
+            if(startCorouA == true)
+            {
+                if(degen != null)
+                {
+                    StopCoroutine(SanityDecrease());
+                }
+                regen = StartCoroutine(SanityIncrease());
+            }
         }
-
+        else if(cinemachineFirstPerson == cc.activeCamera)
+        {
+            if(startCorouB == true)
+            {
+               if(degen != null)
+                {
+                    StopCoroutine(SanityDecrease());
+                }
+                degen = StartCoroutine(SanityDecrease());
+            }
+        }
         HealthFiller();
         SanityFiller();
     }
@@ -49,5 +73,44 @@ public class HealthSanityBar : MonoBehaviour
         sanityBar.fillAmount = currSanity / maxSanity;
     }
 
+    //Call function if we take damage
+    public float HealthDamage(float damageTaken)
+    {
+        currHealth -= damageTaken;
+        return currHealth;
+    }
 
+    IEnumerator SanityIncrease()
+    {
+        float delay = Time.deltaTime * 2;
+        if (degen != null)
+        {
+            StopCoroutine(SanityDecrease());
+        }
+        while (currSanity < maxSanity)
+        {
+            currSanity += sanityIncrement;
+            startCorouA = false;
+            yield return new WaitForSeconds(delay);
+            startCorouA = true;
+        }
+        regen = null;
+    }
+
+    IEnumerator SanityDecrease()
+    {
+        float delay = Time.deltaTime * 2;
+        if(regen != null)
+        {
+            StopCoroutine(SanityIncrease());
+        }
+        while (currSanity > 0)
+        {
+            currSanity -= sanityIncrement;
+            startCorouB = false;
+            yield return new WaitForSeconds(delay);
+            startCorouB = true;
+        }
+        degen = null;
+    }
 }
