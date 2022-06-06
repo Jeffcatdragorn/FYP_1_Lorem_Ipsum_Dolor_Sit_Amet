@@ -17,6 +17,9 @@ public class HumanoidLandInput : MonoBehaviour
     public bool OpenDoorIsPressed { get; private set; } = false;
 
     public bool MoveIsPressed = false;
+
+    public bool TeleportIsPressed = false;
+
     InputActions input = null;
 
 
@@ -48,9 +51,12 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.OpenDoor.started += SetOpenDoor;
         input.HumanoidLand.OpenDoor.canceled += SetOpenDoor;
+        
+        input.HumanoidLand.Teleport.started += SetTeleport;
+        input.HumanoidLand.Teleport.canceled += SetTeleport;
 
-        input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
-        input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
+        //input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
+        //input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
 
     private void OnDisable()
@@ -79,8 +85,11 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.OpenDoor.started -= SetOpenDoor;
         input.HumanoidLand.OpenDoor.canceled -= SetOpenDoor;
 
-        input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
-        input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
+        input.HumanoidLand.Teleport.started -= SetTeleport;
+        input.HumanoidLand.Teleport.canceled -= SetTeleport;
+
+        //input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
+        //input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
 
         input.HumanoidLand.Disable();
     }
@@ -131,8 +140,14 @@ public class HumanoidLandInput : MonoBehaviour
         OpenDoorIsPressed = ctx.started;
     }
 
-    private void SetZoomCamera(InputAction.CallbackContext ctx)
+    private void SetTeleport(InputAction.CallbackContext ctx)
     {
-        ZoomCameraInput = ctx.ReadValue<float>();
+        TeleportIsPressed = ctx.started;
     }
+
+
+    //private void SetZoomCamera(InputAction.CallbackContext ctx)
+    //{
+    //    ZoomCameraInput = ctx.ReadValue<float>();
+    //}
 }

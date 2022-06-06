@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -86,6 +86,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float shootCooldown = 1.0f;
     [SerializeField] float shootCooldownCounter = 0.0f;
+    [SerializeField] bool isUsingShotgun = true;
+    [SerializeField] int bulletsPerShot = 6;
+    [SerializeField] GameObject impactEffect;
+    [SerializeField] float inaccuracyDistance = 5.0f;
     public ParticleSystem muzzleFlash;
     public float bulletSpeed;
     public GameObjectController objectController;
@@ -104,6 +108,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float dashCooldown = 1.0f;
     [SerializeField] float dashCooldownCounter = 0.0f;
     public Animator charAnimation;
+
+    [Header("Teleporting")]
+    [SerializeField] float teleportDistance = 1.0f;
+    [SerializeField] float teleportForce = 750.0f;
+    [SerializeField] float teleportTime = 0.175f;
+    [SerializeField] float teleportTimeCounter = 0.0f;
+    [SerializeField] float coyoteteleportTime = 0.15f;
+    [SerializeField] float coyoteteleportTimeCounter = 0.0f;
+    [SerializeField] float teleportBufferTime = 0.2f;
+    [SerializeField] float teleportBufferTimeCounter = 0.0f;
+    [SerializeField] bool playerIsTeleporting = false;
+    [SerializeField] bool teleportWasPressedLastFrame = false;
+    [SerializeField] float teleportCooldown = 1.0f;
+    [SerializeField] float teleportCooldownCounter = 0.0f;
 
     private void Awake()
     {
@@ -134,12 +152,13 @@ public class PlayerController : MonoBehaviour
         {
             default:
             case State.Detective:
-                playerMoveInput = PlayerGrapple();
+                playerMoveInput = PlayerDash();
                 PlayerShoot();
                 break;
 
             case State.Fighter:
-                playerMoveInput = PlayerDash();
+                playerMoveInput = PlayerGrapple();
+                PlayerTeleport();
                 break;
         }
 
@@ -150,8 +169,9 @@ public class PlayerController : MonoBehaviour
 
     //private void Update()
     //{
-        //Debug.Log(input.OpenDoorIsPressed);
-        //Debug.Log(input.JumpIsPressed);
+    //    Debug.Log("X : " + playerMoveInput.x);
+    //    Debug.Log("Y : " + playerMoveInput.y);
+    //    Debug.Log("Z : " + playerMoveInput.z);
     //}
 
     private void LateUpdate()
@@ -360,7 +380,8 @@ public class PlayerController : MonoBehaviour
 
             else if(playerIsGrappling == false)
             {
-                detectiveController.OpenDoorWithShooting(false);
+                if (detectiveController != null)
+                    detectiveController.OpenDoorWithShooting(false);
                 grapplePoint = Vector3.zero;
                 return calculatedGrappleInput = playerMoveInput;
             }
@@ -374,14 +395,15 @@ public class PlayerController : MonoBehaviour
             if(triggerCheck == true)
             {
                 Debug.Log("Triggering");
-
-                detectiveController.OpenDoorWithShooting(true);
+                if (detectiveController != null)
+                    detectiveController.OpenDoorWithShooting(true);
             }
         }
 
         else
         {
-            detectiveController.OpenDoorWithShooting(false);
+            if(detectiveController != null)
+                detectiveController.OpenDoorWithShooting(false);
             playerIsGrappling = false;
             triggerCheck = false;
             lineRenderer.positionCount = 0;
@@ -397,28 +419,64 @@ public class PlayerController : MonoBehaviour
         SetShootCooldownCounter();
         if(input.ShootIsPressed == true)
         {
-            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore) && shootCooldownCounter == 0.0f)
+            if (isUsingShotgun == true)
             {
-                //GameObject newBullet = Instantiate(bulletPrefab, new Vector3(gunTip.transform.position.x, gunTip.transform.position.y, gunTip.transform.position.z), Quaternion.identity);
-                //newBullet.GetComponent<BulletBehaviour>().Travel(hit.point);
-                //newBullet.transform.position = Vector3.MoveTowards(newBullet.transform.position, hit.point, Time.deltaTime * bulletSpeed);
-                //newBullet.transform.Translate(hit.point * Time.deltaTime * bulletSpeed, Space.World);
-
-                muzzleFlash.Play();
-
-                Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
-                if(enemy != null)
+                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore) && shootCooldownCounter == 0.0f)
                 {
-                    enemy.TakeDamage(1);
+                    //GameObject newBullet = Instantiate(bulletPrefab, new Vector3(gunTip.transform.position.x, gunTip.transform.position.y, gunTip.transform.position.z), Quaternion.identity);
+                    //newBullet.GetComponent<BulletBehaviour>().Travel(hit.point);
+                    //newBullet.transform.position = Vector3.MoveTowards(newBullet.transform.position, hit.point, Time.deltaTime * bulletSpeed);
+                    //newBullet.transform.Translate(hit.point * Time.deltaTime * bulletSpeed, Space.World);
+
+                    muzzleFlash.Play();
+
+                    Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
+                    if (enemy != null)
+                    {
+                        enemy.TakeDamage(1);
+                    }
+
+
+                    shootCooldownCounter = shootCooldown;
                 }
-                shootCooldownCounter = shootCooldown;
+
+                for(int i = 0; i < bulletsPerShot; i++)
+                {
+                    if (Physics.Raycast(origin: cam.position, direction: GetShootingDirection(), out RaycastHit hit2, shootRange, shootLayer) && shootCooldownCounter == 0.0f)
+                    {
+                        muzzleFlash.Play();
+                        Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
+                        if (objectController != null)
+                            objectController.changeForms(hit2.transform.name);
+                        shootCooldownCounter = shootCooldown;
+                    }
+                }
             }
 
-            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer) && shootCooldownCounter == 0.0f)
+            else
             {
-                muzzleFlash.Play();
-                objectController.changeForms(hit2.transform.name);
-                shootCooldownCounter = shootCooldown;
+                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore) && shootCooldownCounter == 0.0f)
+                {
+                    muzzleFlash.Play();
+
+                    Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
+                    if (enemy != null)
+                    {
+                        enemy.TakeDamage(1);
+                    }
+
+
+                    shootCooldownCounter = shootCooldown;
+                }
+
+                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer) && shootCooldownCounter == 0.0f)
+                {
+                    muzzleFlash.Play();
+                    Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
+                    if (objectController != null)
+                        objectController.changeForms(hit2.transform.name);
+                    shootCooldownCounter = shootCooldown;
+                }
             }
         }
     }
@@ -472,6 +530,47 @@ public class PlayerController : MonoBehaviour
         }
 
         return calculatedDashInput;
+    }
+
+    private Vector3 PlayerTeleport()
+    {
+
+        Vector3 calculatedTeleportInput = playerMoveInput;
+
+        SetTeleportTimeCounter();
+        SetCoyoteTeleportTimeCounter();
+        SetTeleportBufferCounter();
+        SetTeleportCooldownCounter();
+
+        if (teleportBufferTimeCounter > 0.0f && !playerIsTeleporting && coyoteteleportTimeCounter > 0.0f && teleportCooldownCounter == 0.0f)
+        {
+            if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
+            {
+                calculatedTeleportInput = new Vector3(playerMoveInput.x * teleportForce,
+                                                   playerMoveInput.y,
+                                                   playerMoveInput.z * teleportForce);
+                playerIsTeleporting = true;
+                teleportBufferTimeCounter = 0.0f;
+                coyoteteleportTimeCounter = 0.0f;
+                //charAnimation.SetTrigger("Dash");
+                MeleeCombat.windowActive = true;
+                teleportCooldownCounter = teleportCooldown;
+            }
+        }
+
+        else if (input.TeleportIsPressed && playerIsTeleporting && !playerIsGrounded && teleportTimeCounter > 0.0f)
+        {
+            calculatedTeleportInput = new Vector3(playerMoveInput.x * teleportForce,
+                                                   playerMoveInput.y,
+                                                   playerMoveInput.z * teleportForce);
+        }
+
+        else if (playerIsTeleporting && playerIsGrounded)
+        {
+            playerIsTeleporting = false;
+        }
+
+        return calculatedTeleportInput;
     }
 
     void DrawLine()
@@ -588,6 +687,67 @@ public class PlayerController : MonoBehaviour
         if (shootCooldownCounter <= 0)
         {
             shootCooldownCounter = 0.0f;
+        }
+    }
+
+    Vector3 GetShootingDirection()
+    {
+        Vector3 targetPos = cam.position + cam.forward * shootRange;
+        targetPos = new Vector3(targetPos.x + Random.Range(-inaccuracyDistance, inaccuracyDistance), 
+            targetPos.y + Random.Range(-inaccuracyDistance, inaccuracyDistance), 
+            targetPos.z + Random.Range(-inaccuracyDistance, inaccuracyDistance));
+
+        Vector3 direction = targetPos - cam.position;
+        return direction.normalized;
+    }
+
+    private void SetTeleportBufferCounter()
+    {
+        if (!teleportWasPressedLastFrame && input.TeleportIsPressed)
+        {
+            teleportBufferTimeCounter = teleportBufferTime;
+        }
+        else if (teleportBufferTimeCounter > 0.0f)
+        {
+            teleportBufferTimeCounter -= Time.fixedDeltaTime;
+        }
+        teleportWasPressedLastFrame = input.TeleportIsPressed;
+    }
+
+    private void SetCoyoteTeleportTimeCounter()
+    {
+        if (playerIsGrounded)
+        {
+            coyoteteleportTimeCounter = coyoteteleportTime;
+        }
+        else
+        {
+            coyoteteleportTimeCounter -= Time.fixedDeltaTime;
+        }
+    }
+
+    private void SetTeleportTimeCounter()
+    {
+        if (playerIsTeleporting && !playerIsGrounded)
+        {
+            teleportTimeCounter -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            teleportTimeCounter = teleportTime;
+        }
+    }
+
+    private void SetTeleportCooldownCounter()
+    {
+        if (teleportCooldownCounter > 0)
+        {
+            teleportCooldownCounter -= Time.deltaTime;
+        }
+
+        if (teleportCooldownCounter <= 0)
+        {
+            teleportCooldownCounter = 0.0f;
         }
     }
 }

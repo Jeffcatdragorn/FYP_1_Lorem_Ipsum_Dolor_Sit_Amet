@@ -116,6 +116,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Teleport"",
+                    ""type"": ""Button"",
+                    ""id"": ""c81236a5-a0a8-4d40-bdd8-4f58b7eebcf7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -338,6 +347,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""OpenDoor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56d974a8-6f4b-430a-8952-e5344de6f1fc"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Teleport"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -356,6 +376,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_Shoot = m_HumanoidLand.FindAction("Shoot", throwIfNotFound: true);
         m_HumanoidLand_Dash = m_HumanoidLand.FindAction("Dash", throwIfNotFound: true);
         m_HumanoidLand_OpenDoor = m_HumanoidLand.FindAction("OpenDoor", throwIfNotFound: true);
+        m_HumanoidLand_Teleport = m_HumanoidLand.FindAction("Teleport", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -425,6 +446,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_Shoot;
     private readonly InputAction m_HumanoidLand_Dash;
     private readonly InputAction m_HumanoidLand_OpenDoor;
+    private readonly InputAction m_HumanoidLand_Teleport;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -439,6 +461,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_HumanoidLand_Shoot;
         public InputAction @Dash => m_Wrapper.m_HumanoidLand_Dash;
         public InputAction @OpenDoor => m_Wrapper.m_HumanoidLand_OpenDoor;
+        public InputAction @Teleport => m_Wrapper.m_HumanoidLand_Teleport;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -478,6 +501,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @OpenDoor.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnOpenDoor;
                 @OpenDoor.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnOpenDoor;
                 @OpenDoor.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnOpenDoor;
+                @Teleport.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTeleport;
+                @Teleport.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTeleport;
+                @Teleport.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTeleport;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -512,6 +538,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @OpenDoor.started += instance.OnOpenDoor;
                 @OpenDoor.performed += instance.OnOpenDoor;
                 @OpenDoor.canceled += instance.OnOpenDoor;
+                @Teleport.started += instance.OnTeleport;
+                @Teleport.performed += instance.OnTeleport;
+                @Teleport.canceled += instance.OnTeleport;
             }
         }
     }
@@ -528,5 +557,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnOpenDoor(InputAction.CallbackContext context);
+        void OnTeleport(InputAction.CallbackContext context);
     }
 }

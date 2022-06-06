@@ -2594,6 +2594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveIsPressed: 0
+  TeleportIsPressed: 0
 --- !u!4 &354918394
 Transform:
   m_ObjectHideFlags: 0
@@ -5749,7 +5750,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.0276244, y: 1}
+    m_SensorSize: {x: 2.3048246, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6332,8 +6333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a37016572c561f4abe53cad22b4527f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thirdPersonCamShader: {fileID: 4800000, guid: 13c6f8a16921c7e49857b0022de03b46, type: 3}
-  firstPersonCamShader: {fileID: 4800000, guid: e2fa12020580207459695a325d246edb, type: 3}
+  thirdPersonCamShader: {fileID: 4800000, guid: e2fa12020580207459695a325d246edb, type: 3}
+  firstPersonCamShader: {fileID: 4800000, guid: 13c6f8a16921c7e49857b0022de03b46, type: 3}
   camController: {fileID: 1220906358}
 --- !u!114 &963194231
 MonoBehaviour:
@@ -6383,6 +6384,8 @@ MonoBehaviour:
   maxHealth: 100
   maxSanity: 0
   sanityIncrement: 0.1
+  startCorouA: 0
+  startCorouB: 0
   healthBar: {fileID: 612241663}
   sanityBar: {fileID: 1618734672}
   cc: {fileID: 1220906358}
@@ -11831,7 +11834,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 354918393}
-  cameraZoomModifier: 32
   activeCamera: {fileID: 0}
   mainCamera: {fileID: 963194227}
   cinemachineFirstPerson: {fileID: 851437316}
@@ -14686,7 +14688,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.0276244, y: 1}
+    m_SensorSize: {x: 2.3048246, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -14979,6 +14981,11 @@ Transform:
   m_Father: {fileID: 1588656932}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1929520699 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2890366689254731769, guid: 2f6592a64af5f744b99353758a8ffee3, type: 3}
+  m_PrefabInstance: {fileID: 1962928619}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1947665871
 GameObject:
   m_ObjectHideFlags: 0
@@ -15099,7 +15106,7 @@ MonoBehaviour:
   triggerObjects:
     serializedVersion: 2
     m_Bits: 0
-  grappleTip: {fileID: 1906051377}
+  grappleTip: {fileID: 1929520699}
   cam: {fileID: 963194228}
   player: {fileID: 1947665872}
   detectiveController: {fileID: 0}
@@ -15114,6 +15121,10 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8887101740111250753, guid: 72f8b39773f6e794caf0b824ded267cb, type: 3}
   shootCooldown: 1
   shootCooldownCounter: 0
+  isUsingShotgun: 1
+  bulletsPerShot: 6
+  impactEffect: {fileID: 0}
+  inaccuracyDistance: 5
   muzzleFlash: {fileID: 1177753674}
   bulletSpeed: 2
   objectController: {fileID: 0}
@@ -15130,6 +15141,18 @@ MonoBehaviour:
   dashCooldown: 0.8
   dashCooldownCounter: 0
   charAnimation: {fileID: 691928741}
+  teleportDistance: 2
+  teleportForce: 750
+  teleportTime: 0.175
+  teleportTimeCounter: 0
+  coyoteteleportTime: 0.15
+  coyoteteleportTimeCounter: 0
+  teleportBufferTime: 0.2
+  teleportBufferTimeCounter: 0
+  playerIsTeleporting: 0
+  teleportWasPressedLastFrame: 0
+  teleportCooldown: 1
+  teleportCooldownCounter: 0
 --- !u!1 &1954433827
 GameObject:
   m_ObjectHideFlags: 0
