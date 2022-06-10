@@ -41,9 +41,9 @@ public class HealthSanityBar : MonoBehaviour
         {
             if(startCorouA == true)
             {
-                if(degen != null)
+                if(regen != null)
                 {
-                    StopCoroutine(SanityDecrease());
+                    StopCoroutine(SanityIncrease());
                 }
                 regen = StartCoroutine(SanityIncrease());
             }

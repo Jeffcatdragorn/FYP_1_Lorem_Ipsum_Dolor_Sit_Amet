@@ -26,17 +26,20 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] GameObject DetectiveBody;
     [SerializeField] GameObject FighterBody;
+    public GameObject parasiteVision; //remove later
     //[SerializeField] PlayerController playerController;
 
     private void Awake()
     { 
         cinemachineFramingTransposerThirdPerson = cinemachineThirdPerson.GetCinemachineComponent<CinemachineFramingTransposer>();
         cinemachineFramingTransposerOrbit = cinemachineOrbit.GetCinemachineComponent<CinemachineFramingTransposer>();
+
     }
 
     private void Start()
     {
         ChangeCamera(); //first time
+        parasiteVision.SetActive(false);
     }
 
     private void Update()
@@ -77,6 +80,7 @@ public class CameraController : MonoBehaviour
         {
             SetCameraPriorities(cinemachineFirstPerson, cinemachineThirdPerson);
             mainCamera.GetComponent<cakeslice.OutlineEffect>().enabled = false;
+            parasiteVision.SetActive(true);
             DetectiveBody.SetActive(false);
             FighterBody.SetActive(true);
             PlayerController.state = PlayerController.State.Fighter;
@@ -87,6 +91,7 @@ public class CameraController : MonoBehaviour
         {
             SetCameraPriorities(cinemachineThirdPerson, cinemachineFirstPerson);
             mainCamera.GetComponent<cakeslice.OutlineEffect>().enabled = true;
+            parasiteVision.SetActive(false);
             DetectiveBody.SetActive(true);
             FighterBody.SetActive(false);
             PlayerController.state = PlayerController.State.Detective;
