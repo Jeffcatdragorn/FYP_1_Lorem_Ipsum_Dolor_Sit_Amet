@@ -125,6 +125,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PickUpObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""461cf661-4715-4765-8ddd-7d78a83134a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -358,6 +367,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Teleport"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31bf602d-a3dd-427c-b49d-3926f28445a6"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUpObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -377,6 +397,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_Dash = m_HumanoidLand.FindAction("Dash", throwIfNotFound: true);
         m_HumanoidLand_OpenDoor = m_HumanoidLand.FindAction("OpenDoor", throwIfNotFound: true);
         m_HumanoidLand_Teleport = m_HumanoidLand.FindAction("Teleport", throwIfNotFound: true);
+        m_HumanoidLand_PickUpObject = m_HumanoidLand.FindAction("PickUpObject", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -447,6 +468,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_Dash;
     private readonly InputAction m_HumanoidLand_OpenDoor;
     private readonly InputAction m_HumanoidLand_Teleport;
+    private readonly InputAction m_HumanoidLand_PickUpObject;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -462,6 +484,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_HumanoidLand_Dash;
         public InputAction @OpenDoor => m_Wrapper.m_HumanoidLand_OpenDoor;
         public InputAction @Teleport => m_Wrapper.m_HumanoidLand_Teleport;
+        public InputAction @PickUpObject => m_Wrapper.m_HumanoidLand_PickUpObject;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -504,6 +527,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Teleport.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTeleport;
                 @Teleport.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTeleport;
                 @Teleport.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTeleport;
+                @PickUpObject.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPickUpObject;
+                @PickUpObject.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPickUpObject;
+                @PickUpObject.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPickUpObject;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -541,6 +567,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Teleport.started += instance.OnTeleport;
                 @Teleport.performed += instance.OnTeleport;
                 @Teleport.canceled += instance.OnTeleport;
+                @PickUpObject.started += instance.OnPickUpObject;
+                @PickUpObject.performed += instance.OnPickUpObject;
+                @PickUpObject.canceled += instance.OnPickUpObject;
             }
         }
     }
@@ -558,5 +587,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnOpenDoor(InputAction.CallbackContext context);
         void OnTeleport(InputAction.CallbackContext context);
+        void OnPickUpObject(InputAction.CallbackContext context);
     }
 }

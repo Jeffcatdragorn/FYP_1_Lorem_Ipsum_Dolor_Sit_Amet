@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float gravityFallCurrent = -100.0f;
     [SerializeField] float gravityFallMin = -100.0f;
     [SerializeField] float gravityFallMax = -500.0f;
-    [SerializeField] [Range(-5.0f, -35.0f)] float gravityFallIncrementAmount= -20.0f;
+    [SerializeField][Range(-5.0f, -35.0f)] float gravityFallIncrementAmount = -20.0f;
     [SerializeField] float gravityFallIncrementTime = 0.05f;
     [SerializeField] float playerFallTimer = 0.0f;
     [SerializeField] float groundedGravity = -1.0f;
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     private bool grappleCastOnce = false;
     public DetectiveSolution detectiveController;
     private bool triggerCheck;
-    
+
 
     [Header("Shooting")]
     [SerializeField] Transform gunTip;
@@ -110,16 +110,7 @@ public class PlayerController : MonoBehaviour
     public Animator charAnimation;
 
     [Header("Teleporting")]
-    [SerializeField] float teleportDistance = 1.0f;
-    [SerializeField] float teleportForce = 750.0f;
-    [SerializeField] float teleportTime = 0.175f;
-    [SerializeField] float teleportTimeCounter = 0.0f;
-    [SerializeField] float coyoteteleportTime = 0.15f;
-    [SerializeField] float coyoteteleportTimeCounter = 0.0f;
-    [SerializeField] float teleportBufferTime = 0.2f;
-    [SerializeField] float teleportBufferTimeCounter = 0.0f;
-    [SerializeField] bool playerIsTeleporting = false;
-    [SerializeField] bool teleportWasPressedLastFrame = false;
+    [SerializeField] float teleportDistance = 0.5f;
     [SerializeField] float teleportCooldown = 1.0f;
     [SerializeField] float teleportCooldownCounter = 0.0f;
 
@@ -131,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!cameraController.usingOrbitalCamera)
+        if (!cameraController.usingOrbitalCamera)
         {
             playerLookInput = GetLookInput();
             PlayerLook();
@@ -144,7 +135,7 @@ public class PlayerController : MonoBehaviour
         playerMoveInput = PlayerMove();
         playerMoveInput = PlayerSlope();
         playerMoveInput = PlayerRun();
-        
+
         playerMoveInput.y = PlayerFallGravity();
         playerMoveInput.y = PlayerJump();
 
@@ -236,7 +227,7 @@ public class PlayerController : MonoBehaviour
             Vector3 localGroundCheckHitNormal = rigidbody.transform.InverseTransformDirection(groundCheckHit.normal);
 
             float groundSlopeAngle = Vector3.Angle(localGroundCheckHitNormal, rigidbody.transform.up);
-            if(groundSlopeAngle == 0.0f)
+            if (groundSlopeAngle == 0.0f)
             {
                 if (input.MoveIsPressed)
                 {
@@ -267,7 +258,7 @@ public class PlayerController : MonoBehaviour
                 float relativeSlopeAngle = Vector3.Angle(calculatedPlayerMovement, rigidbody.transform.up) - 90.0f;
                 calculatedPlayerMovement += calculatedPlayerMovement * (relativeSlopeAngle / 90.0f);
 
-                if(groundSlopeAngle < maxSlopeAngle)
+                if (groundSlopeAngle < maxSlopeAngle)
                 {
                     if (input.MoveIsPressed)
                     {
@@ -277,7 +268,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     float calculatedSlopeGravity = groundSlopeAngle * 0.2f;
-                    if(calculatedSlopeGravity < calculatedPlayerMovement.y)
+                    if (calculatedSlopeGravity < calculatedPlayerMovement.y)
                     {
                         calculatedPlayerMovement.y = calculatedSlopeGravity;
                     }
@@ -302,9 +293,9 @@ public class PlayerController : MonoBehaviour
         else
         {
             playerFallTimer -= Time.fixedDeltaTime;
-            if(playerFallTimer < 0.0f)
+            if (playerFallTimer < 0.0f)
             {
-                if(gravityFallCurrent > gravityFallMax) //negative values
+                if (gravityFallCurrent > gravityFallMax) //negative values
                 {
                     gravityFallCurrent += gravityFallIncrementAmount;
                 }
@@ -334,12 +325,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        else if(input.JumpIsPressed && playerIsJumping && !playerIsGrounded && jumpTimeCounter > 0.0f)
+        else if (input.JumpIsPressed && playerIsJumping && !playerIsGrounded && jumpTimeCounter > 0.0f)
         {
             calculatedJumpInput = initialJumpForce * continualJumpForceMultiplier;
         }
 
-        else if(playerIsJumping && playerIsGrounded)
+        else if (playerIsJumping && playerIsGrounded)
         {
             playerIsJumping = false;
         }
@@ -378,7 +369,7 @@ public class PlayerController : MonoBehaviour
                 grappleCastOnce = true;
             }
 
-            else if(playerIsGrappling == false)
+            else if (playerIsGrappling == false)
             {
                 if (detectiveController != null)
                     detectiveController.OpenDoorWithShooting(false);
@@ -386,13 +377,13 @@ public class PlayerController : MonoBehaviour
                 return calculatedGrappleInput = playerMoveInput;
             }
 
-            if(grapplePoint != Vector3.zero)
+            if (grapplePoint != Vector3.zero)
             {
                 lineRenderer.positionCount = 2;
                 calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
             }
 
-            if(triggerCheck == true)
+            if (triggerCheck == true)
             {
                 Debug.Log("Triggering");
                 if (detectiveController != null)
@@ -402,7 +393,7 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            if(detectiveController != null)
+            if (detectiveController != null)
                 detectiveController.OpenDoorWithShooting(false);
             playerIsGrappling = false;
             triggerCheck = false;
@@ -417,7 +408,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerShoot()
     {
         SetShootCooldownCounter();
-        if(input.ShootIsPressed == true)
+        if (input.ShootIsPressed == true)
         {
             if (isUsingShotgun == true)
             {
@@ -440,7 +431,7 @@ public class PlayerController : MonoBehaviour
                     shootCooldownCounter = shootCooldown;
                 }
 
-                for(int i = 0; i < bulletsPerShot; i++)
+                for (int i = 0; i < bulletsPerShot; i++)
                 {
                     if (Physics.Raycast(origin: cam.position, direction: GetShootingDirection(), out RaycastHit hit2, shootRange, shootLayer) && shootCooldownCounter == 0.0f)
                     {
@@ -505,7 +496,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
             {
-                calculatedDashInput = new Vector3 (playerMoveInput.x * initialDashForce,
+                calculatedDashInput = new Vector3(playerMoveInput.x * initialDashForce,
                                                    playerMoveInput.y,
                                                    playerMoveInput.z * initialDashForce);
                 playerIsDashing = true;
@@ -532,45 +523,21 @@ public class PlayerController : MonoBehaviour
         return calculatedDashInput;
     }
 
-    private Vector3 PlayerTeleport()
+    private void PlayerTeleport()
     {
+        Vector3 calculatedPlayerMovement = playerMoveInput;
+        //Vector3 teleportPoint = transform.position;
 
-        Vector3 calculatedTeleportInput = playerMoveInput;
-
-        SetTeleportTimeCounter();
-        SetCoyoteTeleportTimeCounter();
-        SetTeleportBufferCounter();
         SetTeleportCooldownCounter();
 
-        if (teleportBufferTimeCounter > 0.0f && !playerIsTeleporting && coyoteteleportTimeCounter > 0.0f && teleportCooldownCounter == 0.0f)
+        if (input.TeleportIsPressed && teleportCooldownCounter == 0.0f)
         {
-            if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
-            {
-                calculatedTeleportInput = new Vector3(playerMoveInput.x * teleportForce,
-                                                   playerMoveInput.y,
-                                                   playerMoveInput.z * teleportForce);
-                playerIsTeleporting = true;
-                teleportBufferTimeCounter = 0.0f;
-                coyoteteleportTimeCounter = 0.0f;
-                //charAnimation.SetTrigger("Dash");
-                MeleeCombat.windowActive = true;
-                teleportCooldownCounter = teleportCooldown;
-            }
+            Physics.Raycast(transform.position, rigidbody.transform.TransformDirection(calculatedPlayerMovement), out RaycastHit teleportRay, teleportDistance);
+            Vector3 teleportPoint = player.position + rigidbody.transform.TransformDirection(calculatedPlayerMovement) * teleportDistance;
+            transform.position = teleportPoint;
+            teleportCooldownCounter = teleportCooldown;
         }
-
-        else if (input.TeleportIsPressed && playerIsTeleporting && !playerIsGrounded && teleportTimeCounter > 0.0f)
-        {
-            calculatedTeleportInput = new Vector3(playerMoveInput.x * teleportForce,
-                                                   playerMoveInput.y,
-                                                   playerMoveInput.z * teleportForce);
-        }
-
-        else if (playerIsTeleporting && playerIsGrounded)
-        {
-            playerIsTeleporting = false;
-        }
-
-        return calculatedTeleportInput;
+        Debug.DrawRay(transform.position, rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, teleportDistance);
     }
 
     void DrawLine()
@@ -583,7 +550,7 @@ public class PlayerController : MonoBehaviour
             lineRenderer.SetPosition(index: 1, grapplePoint);
         }
 
-        if(triggerCheck)
+        if (triggerCheck)
         {
             lineRenderer.SetPosition(index: 0, grappleTip.position);
             lineRenderer.SetPosition(index: 1, triggerPoint);
@@ -617,7 +584,7 @@ public class PlayerController : MonoBehaviour
 
     private void SetJumpTimeCounter()
     {
-        if(playerIsJumping && !playerIsGrounded)
+        if (playerIsJumping && !playerIsGrounded)
         {
             jumpTimeCounter -= Time.fixedDeltaTime;
         }
@@ -666,12 +633,12 @@ public class PlayerController : MonoBehaviour
 
     private void SetDashCooldownCounter()
     {
-        if(dashCooldownCounter > 0)
+        if (dashCooldownCounter > 0)
         {
             dashCooldownCounter -= Time.deltaTime;
         }
 
-        if(dashCooldownCounter <= 0)
+        if (dashCooldownCounter <= 0)
         {
             dashCooldownCounter = 0.0f;
         }
@@ -693,49 +660,12 @@ public class PlayerController : MonoBehaviour
     Vector3 GetShootingDirection()
     {
         Vector3 targetPos = cam.position + cam.forward * shootRange;
-        targetPos = new Vector3(targetPos.x + Random.Range(-inaccuracyDistance, inaccuracyDistance), 
-            targetPos.y + Random.Range(-inaccuracyDistance, inaccuracyDistance), 
+        targetPos = new Vector3(targetPos.x + Random.Range(-inaccuracyDistance, inaccuracyDistance),
+            targetPos.y + Random.Range(-inaccuracyDistance, inaccuracyDistance),
             targetPos.z + Random.Range(-inaccuracyDistance, inaccuracyDistance));
 
         Vector3 direction = targetPos - cam.position;
         return direction.normalized;
-    }
-
-    private void SetTeleportBufferCounter()
-    {
-        if (!teleportWasPressedLastFrame && input.TeleportIsPressed)
-        {
-            teleportBufferTimeCounter = teleportBufferTime;
-        }
-        else if (teleportBufferTimeCounter > 0.0f)
-        {
-            teleportBufferTimeCounter -= Time.fixedDeltaTime;
-        }
-        teleportWasPressedLastFrame = input.TeleportIsPressed;
-    }
-
-    private void SetCoyoteTeleportTimeCounter()
-    {
-        if (playerIsGrounded)
-        {
-            coyoteteleportTimeCounter = coyoteteleportTime;
-        }
-        else
-        {
-            coyoteteleportTimeCounter -= Time.fixedDeltaTime;
-        }
-    }
-
-    private void SetTeleportTimeCounter()
-    {
-        if (playerIsTeleporting && !playerIsGrounded)
-        {
-            teleportTimeCounter -= Time.fixedDeltaTime;
-        }
-        else
-        {
-            teleportTimeCounter = teleportTime;
-        }
     }
 
     private void SetTeleportCooldownCounter()

@@ -79,7 +79,6 @@ public class CameraController : MonoBehaviour
         if (cinemachineFirstPerson == activeCamera)
         {
             SetCameraPriorities(cinemachineFirstPerson, cinemachineThirdPerson);
-            mainCamera.GetComponent<cakeslice.OutlineEffect>().enabled = false;
             parasiteVision.SetActive(true);
             DetectiveBody.SetActive(false);
             FighterBody.SetActive(true);
@@ -90,7 +89,6 @@ public class CameraController : MonoBehaviour
         else if (cinemachineThirdPerson == activeCamera)
         {
             SetCameraPriorities(cinemachineThirdPerson, cinemachineFirstPerson);
-            mainCamera.GetComponent<cakeslice.OutlineEffect>().enabled = true;
             parasiteVision.SetActive(false);
             DetectiveBody.SetActive(true);
             FighterBody.SetActive(false);
@@ -105,7 +103,7 @@ public class CameraController : MonoBehaviour
         //    usingOrbitalCamera = false;
         //}
 
-        else //for first time or if error
+        else 
         {
             mainCamera.cullingMask |= (1 << LayerMask.NameToLayer("playerSelf"));
             cinemachineFirstPerson.Priority += activeCameraPriorityModifier;

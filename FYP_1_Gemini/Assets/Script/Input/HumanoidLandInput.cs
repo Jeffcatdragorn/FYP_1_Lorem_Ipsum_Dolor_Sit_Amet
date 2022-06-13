@@ -15,10 +15,9 @@ public class HumanoidLandInput : MonoBehaviour
     public bool ShootIsPressed { get; private set; } = false;
     public bool DashIsPressed { get; private set; } = false;
     public bool OpenDoorIsPressed { get; private set; } = false;
-
-    public bool MoveIsPressed = false;
-
-    public bool TeleportIsPressed = false;
+    public bool MoveIsPressed { get; private set; } = false;
+    public bool TeleportIsPressed { get; private set; } = false;
+    public bool PickUpObjectIsPressed { get; private set; } = false;
 
     InputActions input = null;
 
@@ -55,6 +54,9 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Teleport.started += SetTeleport;
         input.HumanoidLand.Teleport.canceled += SetTeleport;
 
+        input.HumanoidLand.PickUpObject.started += SetPickUpObject;
+        input.HumanoidLand.PickUpObject.canceled += SetPickUpObject;
+
         //input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -87,6 +89,9 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Teleport.started -= SetTeleport;
         input.HumanoidLand.Teleport.canceled -= SetTeleport;
+
+        input.HumanoidLand.PickUpObject.started -= SetPickUpObject;
+        input.HumanoidLand.PickUpObject.canceled -= SetPickUpObject;
 
         //input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
@@ -143,6 +148,10 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetTeleport(InputAction.CallbackContext ctx)
     {
         TeleportIsPressed = ctx.started;
+    }
+    private void SetPickUpObject(InputAction.CallbackContext ctx)
+    {
+        PickUpObjectIsPressed = ctx.started;
     }
 
 
