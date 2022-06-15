@@ -71,6 +71,15 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScanKeycard"",
+                    ""type"": ""Button"",
+                    ""id"": ""901fe2a7-d248-4604-8902-67754f8a1ce1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -126,6 +135,17 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PickUpItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""166461cc-58bc-4bfd-9412-9c304d98f2e3"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScanKeycard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -225,6 +245,7 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
         m_InteractWithObject_CollectKeycard = m_InteractWithObject.FindAction("CollectKeycard", throwIfNotFound: true);
         m_InteractWithObject_PutKeycardIn = m_InteractWithObject.FindAction("PutKeycardIn", throwIfNotFound: true);
         m_InteractWithObject_PickUpItem = m_InteractWithObject.FindAction("PickUpItem", throwIfNotFound: true);
+        m_InteractWithObject_ScanKeycard = m_InteractWithObject.FindAction("ScanKeycard", throwIfNotFound: true);
         // DetectivePath
         m_DetectivePath = asset.FindActionMap("DetectivePath", throwIfNotFound: true);
         m_DetectivePath_SpamFToOpen = m_DetectivePath.FindAction("SpamFToOpen", throwIfNotFound: true);
@@ -298,6 +319,7 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
     private readonly InputAction m_InteractWithObject_CollectKeycard;
     private readonly InputAction m_InteractWithObject_PutKeycardIn;
     private readonly InputAction m_InteractWithObject_PickUpItem;
+    private readonly InputAction m_InteractWithObject_ScanKeycard;
     public struct InteractWithObjectActions
     {
         private @InteractWithObjects m_Wrapper;
@@ -307,6 +329,7 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
         public InputAction @CollectKeycard => m_Wrapper.m_InteractWithObject_CollectKeycard;
         public InputAction @PutKeycardIn => m_Wrapper.m_InteractWithObject_PutKeycardIn;
         public InputAction @PickUpItem => m_Wrapper.m_InteractWithObject_PickUpItem;
+        public InputAction @ScanKeycard => m_Wrapper.m_InteractWithObject_ScanKeycard;
         public InputActionMap Get() { return m_Wrapper.m_InteractWithObject; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -331,6 +354,9 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                 @PickUpItem.started -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnPickUpItem;
                 @PickUpItem.performed -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnPickUpItem;
                 @PickUpItem.canceled -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnPickUpItem;
+                @ScanKeycard.started -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnScanKeycard;
+                @ScanKeycard.performed -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnScanKeycard;
+                @ScanKeycard.canceled -= m_Wrapper.m_InteractWithObjectActionsCallbackInterface.OnScanKeycard;
             }
             m_Wrapper.m_InteractWithObjectActionsCallbackInterface = instance;
             if (instance != null)
@@ -350,6 +376,9 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                 @PickUpItem.started += instance.OnPickUpItem;
                 @PickUpItem.performed += instance.OnPickUpItem;
                 @PickUpItem.canceled += instance.OnPickUpItem;
+                @ScanKeycard.started += instance.OnScanKeycard;
+                @ScanKeycard.performed += instance.OnScanKeycard;
+                @ScanKeycard.canceled += instance.OnScanKeycard;
             }
         }
     }
@@ -460,6 +489,7 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
         void OnCollectKeycard(InputAction.CallbackContext context);
         void OnPutKeycardIn(InputAction.CallbackContext context);
         void OnPickUpItem(InputAction.CallbackContext context);
+        void OnScanKeycard(InputAction.CallbackContext context);
     }
     public interface IDetectivePathActions
     {
