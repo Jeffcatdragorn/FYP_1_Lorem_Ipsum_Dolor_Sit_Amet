@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DoorController : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class DoorController : MonoBehaviour
     [SerializeField] private string pressurePlateReleased = "PPlateReleased";
 
     private bool doorIsOpen = false;
+    public string currentSceneName;
+
+    private void Awake()
+    {
+       currentSceneName = SceneManager.GetActiveScene().name;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -48,12 +55,24 @@ public class DoorController : MonoBehaviour
 
     private void Solution1() //if player steps on pressure plate, inserted fuse to fuse box, inserted keycard to keypad & when door is closed, then door opens
     {
-        if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
+        if (currentSceneName == "FloatingLevel")
         {
-            door.Play(doorSlideOpen, 0, 0.0f);
-            pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
-            doorIsOpen = true;
+            //if( && doorIsOpen == false) //create a boolean to check if the scanner card is in the inventory
+            //{
+            //    door.Play(doorSlideOpen, 0, 0.0f);
+            //    doorIsOpen = true;
+            //}
         }
+        else
+        {
+            if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
+            {
+                door.Play(doorSlideOpen, 0, 0.0f);
+                pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
+                doorIsOpen = true;
+            }
+        }
+        
     }
     private void Update()
     {

@@ -38,6 +38,23 @@ public class Inventory : MonoBehaviour
                 return false;
             }
 
+            //Item copyItem = Instantiate(item);
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].name == item.name)
+                {
+                    ++items[i].itemAmount;
+
+                    if (onItemChangedCallback != null)
+                    {
+                        onItemChangedCallback.Invoke();
+                    }
+
+                    return true;
+                }
+            }
+
             items.Add(item);
 
 
