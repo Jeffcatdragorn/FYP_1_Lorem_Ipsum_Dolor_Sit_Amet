@@ -141,7 +141,7 @@ public partial class @InteractWithObjects : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""166461cc-58bc-4bfd-9412-9c304d98f2e3"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",

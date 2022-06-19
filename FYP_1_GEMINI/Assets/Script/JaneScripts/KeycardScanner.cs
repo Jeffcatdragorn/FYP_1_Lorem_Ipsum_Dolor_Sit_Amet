@@ -8,7 +8,7 @@ public class KeycardScanner : MonoBehaviour
     //public GameObject keycardObj;
     public static bool keycardScanned = false;
 
-    public List<Item> items = new List<Item>();
+    public Inventory inventory;// List<Item> items = new List<Item>();
 
     private void Awake()
     {
@@ -39,9 +39,9 @@ public class KeycardScanner : MonoBehaviour
 
     private void ScanKeycard()
     {
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < inventory.items.Count; i++)
         {
-            if (items[i].name == "Keycard01")
+            if (inventory.items[i].name == "Keycard01")
             {
                 keycardScanned = true;
                 Debug.Log("Keycard scanned!");

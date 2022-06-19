@@ -31,11 +31,24 @@ public class DoorController : MonoBehaviour
        currentSceneName = SceneManager.GetActiveScene().name;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //JANE's NOTES: Do I need to use ONTRIGGERENTER or just ONTRIGGERSTAY??????????????????????????????????????????????????
     {
-        if(other.CompareTag("Player")) //change the tag to the object that is going to be placed on the pressure plate
+        if (other.CompareTag("Player")) //change the tag to the object that is going to be placed on the pressure plate
         {
             Solution1();
+
+            
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player")) //change the tag to the object that is going to be placed on the pressure plate
+        {
+            if (currentSceneName == "FloatingLevel")
+            {
+                Solution2();
+            }
         }
     }
 
@@ -55,25 +68,41 @@ public class DoorController : MonoBehaviour
 
     private void Solution1() //if player steps on pressure plate, inserted fuse to fuse box, inserted keycard to keypad & when door is closed, then door opens
     {
-        if (currentSceneName == "FloatingLevel")
+        //if (currentSceneName == "FloatingLevel")
+        //{
+        //    //if( && doorIsOpen == false) //create a boolean to check if the scanner card is in the inventory
+        //    //{
+        //    //    door.Play(doorSlideOpen, 0, 0.0f);
+        //    //    doorIsOpen = true;
+        //    //}
+        //}
+        //else
+        //{
+        //    if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
+        //    {
+        //        door.Play(doorSlideOpen, 0, 0.0f);
+        //        pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
+        //        doorIsOpen = true;
+        //    }
+        //}
+
+        if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
         {
-            //if( && doorIsOpen == false) //create a boolean to check if the scanner card is in the inventory
-            //{
-            //    door.Play(doorSlideOpen, 0, 0.0f);
-            //    doorIsOpen = true;
-            //}
+            door.Play(doorSlideOpen, 0, 0.0f);
+            pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
+            doorIsOpen = true;
         }
-        else
-        {
-            if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
-            {
-                door.Play(doorSlideOpen, 0, 0.0f);
-                pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
-                doorIsOpen = true;
-            }
-        }
-        
     }
+
+    private void Solution2() //currentSceneName == "FloatingLevel"
+    {
+        if (KeycardScanner.keycardScanned == true && doorIsOpen == false)
+        {
+            door.Play(doorSlideOpen, 0, 0.0f);
+            doorIsOpen = true;
+        }
+    }
+
     private void Update()
     {
         //Debug.Log("doorIsOpen = " + doorIsOpen);
