@@ -1290,8 +1290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7d8c68d3bba4546a81937bdf388e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveIsPressed: 0
-  TeleportIsPressed: 0
 --- !u!4 &324795314
 Transform:
   m_ObjectHideFlags: 0
@@ -6690,6 +6688,10 @@ PrefabInstance:
       propertyPath: m_WarningMessage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6420742162798960526, guid: b801c0245aa851848bb783c6a3370452, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a89e2d457a13c754c83d9c0e5f6c4878, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b801c0245aa851848bb783c6a3370452, type: 3}
 --- !u!4 &480549695 stripped
@@ -7507,15 +7509,6 @@ MonoBehaviour:
   dashCooldownCounter: 0
   charAnimation: {fileID: 2018422401}
   teleportDistance: 1
-  teleportForce: 750
-  teleportTime: 0.175
-  teleportTimeCounter: 0
-  coyoteteleportTime: 0.15
-  coyoteteleportTimeCounter: 0
-  teleportBufferTime: 0.2
-  teleportBufferTimeCounter: 0
-  playerIsTeleporting: 0
-  teleportWasPressedLastFrame: 0
   teleportCooldown: 1
   teleportCooldownCounter: 0
 --- !u!136 &620517296
@@ -7573,7 +7566,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh94194
+  m_Name: pb_Mesh77574
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7981,7 +7974,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cb67e180a5fd19645a1fcf3912cb1c00, type: 2}
+  - {fileID: 2100000, guid: dc1b81e0fa97fe34da2bfc306f05c016, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9194,6 +9187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 850861329}
   - component: {fileID: 850861330}
+  - component: {fileID: 850861331}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -9278,6 +9272,26 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &850861331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850861328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &851711048
 GameObject:
   m_ObjectHideFlags: 0
@@ -9424,7 +9438,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fbfc5914d8df6c64998a658891be552e, type: 2}
+  - {fileID: 2100000, guid: 965d291209cc87b4fa43633351344cd8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17627,7 +17641,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 394800f30b2c665459741d1b93fa4f1e, type: 2}
+  - {fileID: 2100000, guid: f630c03bf1f5d5849a56597ef7a869d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22758,7 +22772,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh94444
+  m_Name: pb_Mesh77826
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23317,6 +23331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 985524646}
   - component: {fileID: 985524645}
+  - component: {fileID: 985524647}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -23401,6 +23416,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &985524647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985524644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1001 &1052944133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24298,7 +24333,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh94180
+  m_Name: pb_Mesh77560
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -24727,7 +24762,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ef1365d7359ca9444bd5fac7184e0b1d, type: 2}
+  - {fileID: 2100000, guid: e870da297a553c04a8d7019bcbec02d8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25210,7 +25245,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh94508
+  m_Name: pb_Mesh77890
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -26231,7 +26266,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e1fe16326445c894e8070efd7de65e54, type: 2}
+  - {fileID: 2100000, guid: f630c03bf1f5d5849a56597ef7a869d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -31345,7 +31380,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh94142
+  m_Name: pb_Mesh77522
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -33813,7 +33848,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.1733067, y: 1}
+    m_SensorSize: {x: 1.959276, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
