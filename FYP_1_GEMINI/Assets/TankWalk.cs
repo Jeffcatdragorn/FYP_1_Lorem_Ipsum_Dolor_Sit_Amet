@@ -14,6 +14,7 @@ public class TankWalk : StateMachineBehaviour
     {
         Debug.Log("walking");
         player = GameObject.FindWithTag("Player").transform;
+        animator.applyRootMotion = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -25,6 +26,7 @@ public class TankWalk : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.applyRootMotion = true;
 
     }
 

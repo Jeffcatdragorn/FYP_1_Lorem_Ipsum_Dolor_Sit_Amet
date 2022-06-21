@@ -15,6 +15,8 @@ public class TankManager : MonoBehaviour
     {
         if(anim.GetBool("walk") == true)
         {
+            if (target == null) return;
+            else
             Vector3.MoveTowards(transform.position, target.transform.position, 2f);
         }
     }
