@@ -8194,11 +8194,14 @@ MonoBehaviour:
   bulletsPerShot: 6
   impactEffect: {fileID: 0}
   inaccuracyDistance: 5
-  maxBullets: 6
-  currentBullets: 6
   muzzleFlash: {fileID: 337999809}
   bulletSpeed: 2
   objectController: {fileID: 1973262786}
+  maxBullets: 6
+  currentBulletCount: 6
+  GunReloadCooldown: 1.5
+  GunReloadCooldownCounter: 0
+  BulletCountText: {fileID: 0}
   initialDashForce: 100
   continualDashForceMultiplier: 0.1
   dashTime: 0.175
@@ -25863,7 +25866,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh92184
+  m_Name: pb_Mesh63568
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35815,7 +35818,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 2.2865732, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
