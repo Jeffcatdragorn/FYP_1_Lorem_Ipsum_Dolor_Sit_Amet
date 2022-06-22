@@ -134,6 +134,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""9172d801-03a8-4541-981e-01cfb108bcc3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -411,6 +420,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""PickUpObject"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b44e27d2-887c-4788-bae4-320939ce4505"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -431,6 +451,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_OpenDoor = m_HumanoidLand.FindAction("OpenDoor", throwIfNotFound: true);
         m_HumanoidLand_Teleport = m_HumanoidLand.FindAction("Teleport", throwIfNotFound: true);
         m_HumanoidLand_PickUpObject = m_HumanoidLand.FindAction("PickUpObject", throwIfNotFound: true);
+        m_HumanoidLand_PauseGame = m_HumanoidLand.FindAction("PauseGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -502,6 +523,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_OpenDoor;
     private readonly InputAction m_HumanoidLand_Teleport;
     private readonly InputAction m_HumanoidLand_PickUpObject;
+    private readonly InputAction m_HumanoidLand_PauseGame;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -518,6 +540,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @OpenDoor => m_Wrapper.m_HumanoidLand_OpenDoor;
         public InputAction @Teleport => m_Wrapper.m_HumanoidLand_Teleport;
         public InputAction @PickUpObject => m_Wrapper.m_HumanoidLand_PickUpObject;
+        public InputAction @PauseGame => m_Wrapper.m_HumanoidLand_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -563,6 +586,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @PickUpObject.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPickUpObject;
                 @PickUpObject.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPickUpObject;
                 @PickUpObject.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPickUpObject;
+                @PauseGame.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPauseGame;
+                @PauseGame.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPauseGame;
+                @PauseGame.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPauseGame;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -603,6 +629,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @PickUpObject.started += instance.OnPickUpObject;
                 @PickUpObject.performed += instance.OnPickUpObject;
                 @PickUpObject.canceled += instance.OnPickUpObject;
+                @PauseGame.started += instance.OnPauseGame;
+                @PauseGame.performed += instance.OnPauseGame;
+                @PauseGame.canceled += instance.OnPauseGame;
             }
         }
     }
@@ -621,5 +650,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnOpenDoor(InputAction.CallbackContext context);
         void OnTeleport(InputAction.CallbackContext context);
         void OnPickUpObject(InputAction.CallbackContext context);
+        void OnPauseGame(InputAction.CallbackContext context);
     }
 }

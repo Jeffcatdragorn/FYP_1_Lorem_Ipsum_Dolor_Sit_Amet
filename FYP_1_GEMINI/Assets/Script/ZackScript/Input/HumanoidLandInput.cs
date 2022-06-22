@@ -18,6 +18,7 @@ public class HumanoidLandInput : MonoBehaviour
     public bool MoveIsPressed { get; private set; } = false;
     public bool TeleportIsPressed { get; private set; } = false;
     public bool PickUpObjectIsPressed { get; private set; } = false;
+    public bool EscapeIsPressed { get; private set; } = false;
 
     InputActions input = null;
 
@@ -57,6 +58,9 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.PickUpObject.started += SetPickUpObject;
         input.HumanoidLand.PickUpObject.canceled += SetPickUpObject;
 
+        input.HumanoidLand.PauseGame.started += SetPauseGame;
+        input.HumanoidLand.PauseGame.canceled += SetPauseGame;
+
         //input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -92,6 +96,9 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.PickUpObject.started -= SetPickUpObject;
         input.HumanoidLand.PickUpObject.canceled -= SetPickUpObject;
+
+        input.HumanoidLand.PauseGame.started -= SetPauseGame;
+        input.HumanoidLand.PauseGame.canceled -= SetPauseGame;
 
         //input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
@@ -154,6 +161,10 @@ public class HumanoidLandInput : MonoBehaviour
         PickUpObjectIsPressed = ctx.started;
     }
 
+    private void SetPauseGame(InputAction.CallbackContext ctx)
+    {
+        EscapeIsPressed = ctx.started;
+    }
 
     //private void SetZoomCamera(InputAction.CallbackContext ctx)
     //{
