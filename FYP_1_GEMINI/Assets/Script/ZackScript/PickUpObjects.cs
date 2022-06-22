@@ -15,7 +15,6 @@ public class PickUpObjects : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(pickUpCooldownCounter);
 
         SetPickUpCooldown();
         if (input.PickUpObjectIsPressed && pickUpCheck == false)

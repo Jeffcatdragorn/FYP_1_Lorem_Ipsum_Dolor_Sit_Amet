@@ -84,12 +84,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask shootLayer;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] float shootCooldown = 1.0f;
+    [SerializeField] float shootCooldown = 0.5f;
     [SerializeField] float shootCooldownCounter = 0.0f;
     [SerializeField] bool isUsingShotgun = true;
     [SerializeField] int bulletsPerShot = 6;
     [SerializeField] GameObject impactEffect;
     [SerializeField] float inaccuracyDistance = 5.0f;
+    [SerializeField] int maxBullets = 6;
+    [SerializeField] int currentBullets = 6;
     public ParticleSystem muzzleFlash;
     public float bulletSpeed;
     public GameObjectController objectController;
@@ -410,16 +412,12 @@ public class PlayerController : MonoBehaviour
         SetShootCooldownCounter();
         if (input.ShootIsPressed == true)
         {
-            if (isUsingShotgun == true)
+            if (shootCooldownCounter == 0.0f)
             {
-                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore) && shootCooldownCounter == 0.0f)
-                {
-                    //GameObject newBullet = Instantiate(bulletPrefab, new Vector3(gunTip.transform.position.x, gunTip.transform.position.y, gunTip.transform.position.z), Quaternion.identity);
-                    //newBullet.GetComponent<BulletBehaviour>().Travel(hit.point);
-                    //newBullet.transform.position = Vector3.MoveTowards(newBullet.transform.position, hit.point, Time.deltaTime * bulletSpeed);
-                    //newBullet.transform.Translate(hit.point * Time.deltaTime * bulletSpeed, Space.World);
+                muzzleFlash.Play();
 
-                    muzzleFlash.Play();
+                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore))
+                {
 
                     Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
                     if (enemy != null)
@@ -431,38 +429,8 @@ public class PlayerController : MonoBehaviour
                     shootCooldownCounter = shootCooldown;
                 }
 
-                for (int i = 0; i < bulletsPerShot; i++)
+                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer))
                 {
-                    if (Physics.Raycast(origin: cam.position, direction: GetShootingDirection(), out RaycastHit hit2, shootRange, shootLayer) && shootCooldownCounter == 0.0f)
-                    {
-                        muzzleFlash.Play();
-                        Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
-                        if (objectController != null)
-                            objectController.changeForms(hit2.transform.name);
-                        shootCooldownCounter = shootCooldown;
-                    }
-                }
-            }
-
-            else
-            {
-                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore) && shootCooldownCounter == 0.0f)
-                {
-                    muzzleFlash.Play();
-
-                    Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
-                    if (enemy != null)
-                    {
-                        enemy.TakeDamage(1);
-                    }
-
-
-                    shootCooldownCounter = shootCooldown;
-                }
-
-                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer) && shootCooldownCounter == 0.0f)
-                {
-                    muzzleFlash.Play();
                     Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
                     if (objectController != null)
                         objectController.changeForms(hit2.transform.name);
@@ -502,7 +470,7 @@ public class PlayerController : MonoBehaviour
                 playerIsDashing = true;
                 dashBufferTimeCounter = 0.0f;
                 coyotedashTimeCounter = 0.0f;
-                charAnimation.SetTrigger("Dash");
+                //charAnimation.SetTrigger("Dash");
                 MeleeCombat.windowActive = true;
                 dashCooldownCounter = dashCooldown;
             }
