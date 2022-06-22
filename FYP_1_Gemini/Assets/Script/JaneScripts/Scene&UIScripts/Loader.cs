@@ -16,6 +16,7 @@ public static class Loader
         JaneScene,
         MainMenu,
         PrototypeScene,
+        ShootingRange,
         SampleScene
     }
 

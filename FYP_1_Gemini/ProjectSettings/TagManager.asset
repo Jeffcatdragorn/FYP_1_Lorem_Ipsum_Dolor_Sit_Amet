@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Fist
   - triggerGrapple
+  - music
+  - sound
   layers:
   - Default
   - TransparentFX

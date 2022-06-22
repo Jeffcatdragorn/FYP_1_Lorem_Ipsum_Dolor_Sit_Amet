@@ -29,13 +29,27 @@ public class ButtonManager : MonoBehaviour
         AudioManager.instance.PlaySound("buttonSound");
     }
 
-    public void Play()
+    //public void Play()
+    //{
+    //    PlayButtonSound();
+    //    //Debug.Log("Loading to Level Selection Scene...");
+    //    //usedcom = false;
+    //    //PlayerPrefs.SetInt("spawnInfrontTerminal", 1);
+    //    //PlayerPrefs.SetInt("usedCom", 0); // 0 is false
+    //    Time.timeScale = 1f;
+    //    Loader.Load(Loader.Scene.PrototypeScene);
+    //}
+
+    public void ShootingRange()
     {
         PlayButtonSound();
-        //Debug.Log("Loading to Level Selection Scene...");
-        //usedcom = false;
-        //PlayerPrefs.SetInt("spawnInfrontTerminal", 1);
-        //PlayerPrefs.SetInt("usedCom", 0); // 0 is false
+        Time.timeScale = 1f;
+        Loader.Load(Loader.Scene.ShootingRange);
+    }
+
+    public void PrototypeScene()
+    {
+        PlayButtonSound();
         Time.timeScale = 1f;
         Loader.Load(Loader.Scene.PrototypeScene);
     }
