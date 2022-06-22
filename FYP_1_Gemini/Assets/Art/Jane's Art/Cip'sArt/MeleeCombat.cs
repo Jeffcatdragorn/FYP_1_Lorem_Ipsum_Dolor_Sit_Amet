@@ -11,13 +11,13 @@ public class MeleeCombat : MonoBehaviour
     public float dashDuration;
     #endregion
 
-    public Animator charAnimation;
-    private bool isAttacking;
-    private bool canAttack = true;
-    private bool isDashing;
-    public float atkSpeed;
+    //public Animator charAnimation;
+    //private bool isAttacking;
+    //private bool canAttack = true;
+    //private bool isDashing;
+    //public float atkSpeed;
     CombatControls combatInput;
-    public Rigidbody playerRigidBody;
+
 
     #region ComboWindow
     [SerializeField]
@@ -28,20 +28,20 @@ public class MeleeCombat : MonoBehaviour
 
     private void Awake()
     {
-        combatInput = new CombatControls();
-        comboWindow = defaultComboWindow;
-        combatInput.HumanoidActions.Actions.performed += x => Attack();
+        //combatInput = new CombatControls();
+        //comboWindow = defaultComboWindow;
+        //combatInput.HumanoidActions.Actions.performed += x => Attack();
         //combatInput.HumanoidActions.Dash.performed += x => Dash(); //x is a var so to speak/reference point?
     }
 
-    private void Update()
-    {
-        //combatInput.HumanoidActions.Dash.performed += x => Dash();
-        if (windowActive == true)
-        {
-            ComboAttack();
-        }
-    }
+    //private void Update()
+    //{
+    //    //combatInput.HumanoidActions.Dash.performed += x => Dash();
+    //    if (windowActive == true)
+    //    {
+    //        ComboAttack();
+    //    }
+    //}
 
     #region Enable/Disable
     private void OnEnable()
@@ -55,23 +55,27 @@ public class MeleeCombat : MonoBehaviour
     }
     #endregion
 
-    public void Attack()
+    public void ChangeLayers()
     {
-        #region BasicAttack
-        StartAttack();
-        if (windowActive == false)
-        {
-            if(canAttack == true)
-            {
-                var attack = Random.Range(1, 3);
-                charAnimation.SetTrigger("Attack" + attack);
-                StartCoroutine(attackSpeed());
-            }
-
-            //charAnimation.applyRootMotion = true; //to trigger root motion
-        }
-        #endregion
+        
     }
+    //public void Attack()
+    //{
+    //    #region BasicAttack
+    //    StartAttack();
+    //    if (windowActive == false)
+    //    {
+    //        if(canAttack == true)
+    //        {
+    //            var attack = Random.Range(1, 3);
+    //            charAnimation.SetTrigger("Attack" + attack);
+    //            StartCoroutine(attackSpeed());
+    //        }
+
+    //        //charAnimation.applyRootMotion = true; //to trigger root motion
+    //    }
+    //    #endregion
+    //}
 
     //public void Dash()
     //{
@@ -81,42 +85,29 @@ public class MeleeCombat : MonoBehaviour
     //    #endregion
     //}
 
-    public void StartAttack()
-    {
-        isAttacking = true;
-    }
-
-    public void StopAttack()
-    {
-        isAttacking = false;
-    }
-
-    public void ComboAttack()
-    {
-        if (combatInput.HumanoidActions.Actions.triggered)
-        {
-            charAnimation.SetTrigger("SuperAttack");
-            charAnimation.applyRootMotion = true; //to trigger root motion
-            windowActive = false;
-        }
-    }
-    IEnumerator attackSpeed()
-    {
-        canAttack = false;
-        yield return new WaitForSeconds(atkSpeed);
-        canAttack = true;
-    }
-    //IEnumerator dashCoroutine()
-    //{
-    //    float startTime = Time.time;
-    //    float dashTime = startTime + dashDuration;
-    //    Debug.LogWarning(dashTime);
-    //    while (Time.time < dashTime)
+    //    public void StartAttack()
     //    {
-    //        playerRigidBody.AddRelativeForce(new Vector3(0,0,input.LookInput.x +  dashSpeed), ForceMode.Impulse);
-    //        charAnimation.SetTrigger("Dash");
-    //        yield return null;
+    //        isAttacking = true;
     //    }
-    //    windowActive = true;
-    //}
+
+    //    public void StopAttack()
+    //    {
+    //        isAttacking = false;
+    //    }
+
+    //    public void ComboAttack()
+    //    {
+    //        if (combatInput.HumanoidActions.Actions.triggered)
+    //        {
+    //            charAnimation.SetTrigger("SuperAttack");
+    //            charAnimation.applyRootMotion = true; //to trigger root motion
+    //            windowActive = false;
+    //        }
+    //    }
+    //    IEnumerator attackSpeed()
+    //    {
+    //        canAttack = false;
+    //        yield return new WaitForSeconds(atkSpeed);
+    //        canAttack = true;
+    //    }
 }

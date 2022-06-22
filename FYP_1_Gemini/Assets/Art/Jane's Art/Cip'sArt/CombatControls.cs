@@ -81,7 +81,7 @@ public partial class @CombatControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""87aa2e8f-057a-43ff-92e8-09ffde48352d"",
-                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""path"": ""<Keyboard>/k"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
