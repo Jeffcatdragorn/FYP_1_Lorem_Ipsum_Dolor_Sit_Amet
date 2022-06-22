@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -90,11 +91,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int bulletsPerShot = 6;
     [SerializeField] GameObject impactEffect;
     [SerializeField] float inaccuracyDistance = 5.0f;
-    [SerializeField] int maxBullets = 6;
-    [SerializeField] int currentBullets = 6;
     public ParticleSystem muzzleFlash;
     public float bulletSpeed;
     public GameObjectController objectController;
+
+    [Header("GunReload")]
+    [SerializeField] int maxBullets = 6;
+    [SerializeField] int currentBulletCount = 6;
+    [SerializeField] float GunReloadCooldown = 1.5f;
+    [SerializeField] float GunReloadCooldownCounter = 0.0f;
+    [SerializeField] TextMeshProUGUI BulletCountText;
 
     [Header("Dashing")]
     [SerializeField] float initialDashForce = 750.0f;
@@ -124,6 +130,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        BulletCountText.text = currentBulletCount.ToString();
+
         if (!cameraController.usingOrbitalCamera)
         {
             playerLookInput = GetLookInput();
@@ -147,6 +155,7 @@ public class PlayerController : MonoBehaviour
             case State.Detective:
                 playerMoveInput = PlayerDash();
                 PlayerShoot();
+                PlayerGunReload();
                 break;
 
             case State.Fighter:
@@ -412,9 +421,11 @@ public class PlayerController : MonoBehaviour
         SetShootCooldownCounter();
         if (input.ShootIsPressed == true)
         {
-            if (shootCooldownCounter == 0.0f)
+            if (shootCooldownCounter == 0.0f && currentBulletCount != 0)
             {
                 muzzleFlash.Play();
+                AudioManager.instance.PlaySound("revolverShoot");
+                currentBulletCount -= 1;
 
                 if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore))
                 {
@@ -424,9 +435,6 @@ public class PlayerController : MonoBehaviour
                     {
                         enemy.TakeDamage(1);
                     }
-
-
-                    shootCooldownCounter = shootCooldown;
                 }
 
                 if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer))
@@ -434,9 +442,22 @@ public class PlayerController : MonoBehaviour
                     Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
                     if (objectController != null)
                         objectController.changeForms(hit2.transform.name);
-                    shootCooldownCounter = shootCooldown;
                 }
+
+                shootCooldownCounter = shootCooldown;
             }
+        }
+    }
+
+    private void PlayerGunReload()
+    {
+        SetGunReloadCooldownCounter();
+
+        if (input.GunReloadIsPressed && currentBulletCount < 6 && GunReloadCooldownCounter == 0.0f)
+        {
+            AudioManager.instance.PlaySound("revolverReload");
+            currentBulletCount++;
+            GunReloadCooldownCounter = GunReloadCooldown;
         }
     }
 
@@ -537,7 +558,6 @@ public class PlayerController : MonoBehaviour
         }
         jumpWasPressedLastFrame = input.JumpIsPressed;
     }
-
     private void SetCoyoteTimeCounter()
     {
         if (playerIsGrounded)
@@ -549,7 +569,6 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter -= Time.fixedDeltaTime;
         }
     }
-
     private void SetJumpTimeCounter()
     {
         if (playerIsJumping && !playerIsGrounded)
@@ -561,7 +580,6 @@ public class PlayerController : MonoBehaviour
             jumpTimeCounter = jumpTime;
         }
     }
-
     private void SetDashBufferCounter()
     {
         if (!dashWasPressedLastFrame && input.DashIsPressed)
@@ -574,7 +592,6 @@ public class PlayerController : MonoBehaviour
         }
         dashWasPressedLastFrame = input.DashIsPressed;
     }
-
     private void SetCoyoteDashTimeCounter()
     {
         if (playerIsGrounded)
@@ -586,7 +603,6 @@ public class PlayerController : MonoBehaviour
             coyotedashTimeCounter -= Time.fixedDeltaTime;
         }
     }
-
     private void SetDashTimeCounter()
     {
         if (playerIsDashing && !playerIsGrounded)
@@ -598,7 +614,6 @@ public class PlayerController : MonoBehaviour
             dashTimeCounter = dashTime;
         }
     }
-
     private void SetDashCooldownCounter()
     {
         if (dashCooldownCounter > 0)
@@ -611,7 +626,6 @@ public class PlayerController : MonoBehaviour
             dashCooldownCounter = 0.0f;
         }
     }
-
     private void SetShootCooldownCounter()
     {
         if (shootCooldownCounter > 0)
@@ -625,6 +639,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void SetGunReloadCooldownCounter()
+    {
+        if (GunReloadCooldownCounter > 0)
+        {
+            GunReloadCooldownCounter -= Time.deltaTime;
+        }
+
+        if (GunReloadCooldownCounter <= 0)
+        {
+            GunReloadCooldownCounter = 0.0f;
+        }
+    }
+
     Vector3 GetShootingDirection()
     {
         Vector3 targetPos = cam.position + cam.forward * shootRange;
@@ -635,7 +662,6 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = targetPos - cam.position;
         return direction.normalized;
     }
-
     private void SetTeleportCooldownCounter()
     {
         if (teleportCooldownCounter > 0)

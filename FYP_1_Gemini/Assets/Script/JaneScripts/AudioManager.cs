@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip mainMenuMusic; //bgm
 
-    public AudioClip buttonSound, doorOpening, walkingFootstep, terminalOpening; //sfx
+    public AudioClip buttonSound, doorOpening, walkingFootstep, terminalOpening, revolverReload, revolverShoot; //sfx
 
     private GameObject currentMusicObject;
 
@@ -130,6 +130,12 @@ public class AudioManager : MonoBehaviour
                     break;
                 case "terminalOpening":
                     SoundObjectCreate(terminalOpening);
+                    break;
+                case "revolverReload":
+                    SoundObjectCreate(revolverReload);
+                    break;
+                case "revolverShoot":
+                    SoundObjectCreate(revolverShoot);
                     break;
                 default:
                     break;

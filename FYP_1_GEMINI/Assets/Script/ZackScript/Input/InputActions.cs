@@ -143,6 +143,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GunReload"",
+                    ""type"": ""Button"",
+                    ""id"": ""e130ed35-fe48-4acf-88a8-3e7a1f757df4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -431,6 +440,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ecb5864-a55a-4de9-95f7-7796b111add4"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GunReload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -452,6 +472,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_Teleport = m_HumanoidLand.FindAction("Teleport", throwIfNotFound: true);
         m_HumanoidLand_PickUpObject = m_HumanoidLand.FindAction("PickUpObject", throwIfNotFound: true);
         m_HumanoidLand_PauseGame = m_HumanoidLand.FindAction("PauseGame", throwIfNotFound: true);
+        m_HumanoidLand_GunReload = m_HumanoidLand.FindAction("GunReload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -524,6 +545,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_Teleport;
     private readonly InputAction m_HumanoidLand_PickUpObject;
     private readonly InputAction m_HumanoidLand_PauseGame;
+    private readonly InputAction m_HumanoidLand_GunReload;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -541,6 +563,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Teleport => m_Wrapper.m_HumanoidLand_Teleport;
         public InputAction @PickUpObject => m_Wrapper.m_HumanoidLand_PickUpObject;
         public InputAction @PauseGame => m_Wrapper.m_HumanoidLand_PauseGame;
+        public InputAction @GunReload => m_Wrapper.m_HumanoidLand_GunReload;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -589,6 +612,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @PauseGame.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPauseGame;
                 @PauseGame.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPauseGame;
                 @PauseGame.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnPauseGame;
+                @GunReload.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGunReload;
+                @GunReload.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGunReload;
+                @GunReload.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGunReload;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -632,6 +658,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
+                @GunReload.started += instance.OnGunReload;
+                @GunReload.performed += instance.OnGunReload;
+                @GunReload.canceled += instance.OnGunReload;
             }
         }
     }
@@ -651,5 +680,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnTeleport(InputAction.CallbackContext context);
         void OnPickUpObject(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
+        void OnGunReload(InputAction.CallbackContext context);
     }
 }
