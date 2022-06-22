@@ -271,7 +271,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 289401402}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -1524,10 +1524,9 @@ MonoBehaviour:
   rendererData: {fileID: 11400000, guid: f9b2883a575f5bd439355ad74f0bf0d7, type: 2}
   features:
   - feature: {fileID: -6932276738689296820, guid: f9b2883a575f5bd439355ad74f0bf0d7, type: 2}
-    Enable: 1
+    Enable: 0
   - feature: {fileID: 1299326052232911214, guid: f9b2883a575f5bd439355ad74f0bf0d7, type: 2}
-    Enable: 1
-  input: {fileID: 939894722}
+    Enable: 0
 --- !u!1 &969716281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,6 +1721,11 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   bulletSpeed: 0
   objectController: {fileID: 0}
+  maxBullets: 6
+  currentBulletCount: 6
+  GunReloadCooldown: 1.5
+  GunReloadCooldownCounter: 0
+  BulletCountText: {fileID: 0}
   initialDashForce: 750
   continualDashForceMultiplier: 0.1
   dashTime: 0.175

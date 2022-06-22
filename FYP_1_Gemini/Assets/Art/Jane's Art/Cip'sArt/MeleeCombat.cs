@@ -43,17 +43,17 @@ public class MeleeCombat : MonoBehaviour
     //    }
     //}
 
-    #region Enable/Disable
-    private void OnEnable()
-    {
-        combatInput.HumanoidActions.Enable();
-    }
+    //#region Enable/Disable
+    //private void OnEnable()
+    //{
+    //    combatInput.HumanoidActions.Enable();
+    //}
 
-    private void OnDisable()
-    {
-        combatInput.HumanoidActions.Disable();
-    }
-    #endregion
+    //private void OnDisable()
+    //{
+    //    combatInput.HumanoidActions.Disable();
+    //}
+    //#endregion
 
     public void ChangeLayers()
     {
