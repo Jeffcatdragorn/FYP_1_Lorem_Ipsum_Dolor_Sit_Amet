@@ -21,7 +21,7 @@ public class RenderToggle : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("ToggleEnemyEnable", 2.0f, 1.5f);
+        //InvokeRepeating("ToggleEnemyEnable", 2.0f, 1.5f);
     }
 
     public void ToggleEnemyEnable()

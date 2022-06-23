@@ -5814,7 +5814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   maxSanity: 0
-  sanityIncrement: 0.1
+  sanityIncrement: 5
   healthBar: {fileID: 621396660}
   sanityBar: {fileID: 1038061784}
   cc: {fileID: 787180574}

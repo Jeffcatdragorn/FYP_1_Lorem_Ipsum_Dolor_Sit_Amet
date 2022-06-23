@@ -12,8 +12,9 @@ public class HealthSanityBar : MonoBehaviour
     public float sanityIncrement = 0.01f;
     private float currHealth;
     private float currSanity;
-    private bool startCorouA;
-    private bool startCorouB;
+    public bool isCD;
+    private bool healed;
+    private bool canHeal;
 
     public Image healthBar;
     public Image sanityBar;
@@ -30,8 +31,7 @@ public class HealthSanityBar : MonoBehaviour
         currHealth = maxHealth;
         maxSanity = 100;
         currSanity = 0;
-        startCorouA = true;
-        startCorouB = true;
+
     }
 
     void Update()
@@ -39,25 +39,20 @@ public class HealthSanityBar : MonoBehaviour
         //FIX !
         if(cinemachineThirdPerson == cc.activeCamera)
         {
-            if(startCorouA == true)
+            if (currSanity < maxSanity)
             {
-                if(regen != null)
+                if (isCD == false)
                 {
-                    StopCoroutine(SanityIncrease());
+                    isCD = true;
+                    StartCoroutine(SanityIncrease(10));
+
                 }
-                regen = StartCoroutine(SanityIncrease());
-            }
+            }   
         }
+
         else if(cinemachineFirstPerson == cc.activeCamera)
         {
-            if(startCorouB == true)
-            {
-               if(degen != null)
-                {
-                    StopCoroutine(SanityDecrease());
-                }
-                degen = StartCoroutine(SanityDecrease());
-            }
+            HealingHealth(5, 2);
         }
         HealthFiller();
         SanityFiller();
@@ -76,41 +71,40 @@ public class HealthSanityBar : MonoBehaviour
     //Call function if we take damage
     public float HealthDamage(float damageTaken)
     {
+        canHeal = true;
         currHealth -= damageTaken;
         return currHealth;
     }
 
-    IEnumerator SanityIncrease()
+    public float HealingHealth(float healAmount, float healDuration)
     {
-        float delay = Time.deltaTime * 2;
-        if (degen != null)
+        if(currHealth < maxHealth && canHeal == true)
         {
-            StopCoroutine(SanityDecrease());
+            currHealth += healAmount;
+            ParasiteDamage(healAmount);
+            StartCoroutine(Healing(healDuration));
         }
-        while (currSanity < maxSanity)
-        {
-            currSanity += sanityIncrement;
-            startCorouA = false;
-            yield return new WaitForSeconds(delay);
-            startCorouA = true;
-        }
-        regen = null;
+        return currHealth;
+    }
+    public float ParasiteDamage(float decrement)
+    {
+        currSanity -= decrement;
+        return currSanity;
+    }
+    IEnumerator SanityIncrease(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Debug.Log("1111");
+        HealthDamage(5);
+        currSanity += sanityIncrement;
+        isCD = false;
     }
 
-    IEnumerator SanityDecrease()
+    IEnumerator Healing(float healduration)
     {
-        float delay = Time.deltaTime * 2;
-        if(regen != null)
-        {
-            StopCoroutine(SanityIncrease());
-        }
-        while (currSanity > 0)
-        {
-            currSanity -= sanityIncrement;
-            startCorouB = false;
-            yield return new WaitForSeconds(delay);
-            startCorouB = true;
-        }
-        degen = null;
+        canHeal = false;
+        yield return new WaitForSeconds(healduration);
+        Debug.Log("Healing");
+        canHeal = true;
     }
 }
