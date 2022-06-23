@@ -9,25 +9,23 @@ public class TankWalk : StateMachineBehaviour
     float distance;
     float radius_within_the_player = 4;
 
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Debug.Log("walking");
         player = GameObject.FindWithTag("Player").transform;
-        animator.applyRootMotion = false;
+        //animator.applyRootMotion = false;
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         walking(animator);
     }
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.applyRootMotion = true;
-
+        //animator.applyRootMotion = true;
+        Debug.Log("done walking");
+        walkcd = 0;
     }
 
     void walking(Animator animator)
@@ -35,17 +33,16 @@ public class TankWalk : StateMachineBehaviour
         distance = Vector3.Distance(player.transform.position, animator.transform.position);
         if (distance < radius_within_the_player)
         {
-            Debug.Log(distance);
-
-            Debug.Log("im within range to attack");
+            //Debug.Log(distance);
+            //Debug.Log("im within range to attack");
             animator.SetTrigger("attack");
-
         }
         else
         {
-            if ((walkcd % 5) < 1)
+            walkcd += Time.deltaTime;
+            if (walkcd > 5.0f)
             {
-                Debug.Log("done walking");
+                animator.GetComponent<TankManager>().walking();
                 animator.SetBool("walk", false);
             }
         }

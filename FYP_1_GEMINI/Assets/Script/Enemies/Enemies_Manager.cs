@@ -72,7 +72,7 @@ public class Enemies_Manager : MonoBehaviour
     private void Awake()
     {
         input = new Tester();
-        input.navmesh.testering.performed += x => selfDamageTesting(); // A key
+        //input.navmesh.testering.performed += x => selfDamageTesting(); // A key
     }
 
     #region onEnable/disAble
@@ -267,6 +267,7 @@ public class Enemies_Manager : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            Debug.Log("meow meow");
             anim.SetTrigger("deads");
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             Instantiate(orbT1, new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z), Quaternion.identity);

@@ -22,22 +22,23 @@ public class TankIdle : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        Debug.Log("done idling");
+        idling_cd = 0;
     }
     void idling(Animator animator)
     {
         distance = Vector3.Distance(player.transform.position, animator.transform.position);
         if (distance < radius_within_the_player)
         {
-            Debug.Log(distance);
-            Debug.Log("im within range to attack");
+            //Debug.Log(distance);
+            //Debug.Log("im within range to attack");
             animator.SetBool("walk", true);
         }
         else
         {
-            if ((idling_cd % 5) < 1)
+            idling_cd += Time.deltaTime;
+            if (idling_cd > 5.0f)
             {
-                Debug.Log("done idling");
                 animator.SetBool("walk", true);
             }
         }
