@@ -5815,11 +5815,13 @@ MonoBehaviour:
   maxHealth: 100
   maxSanity: 0
   sanityIncrement: 5
+  isCD: 0
   healthBar: {fileID: 621396660}
   sanityBar: {fileID: 1038061784}
   cc: {fileID: 787180574}
   cinemachineFirstPerson: {fileID: 2060474741}
   cinemachineThirdPerson: {fileID: 1532000124}
+  rt: {fileID: 939894724}
 --- !u!1 &1559388287
 GameObject:
   m_ObjectHideFlags: 3
@@ -6869,7 +6871,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9422777, y: 1}
+    m_SensorSize: {x: 1.9407176, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

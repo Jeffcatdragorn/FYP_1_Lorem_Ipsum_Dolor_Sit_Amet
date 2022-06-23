@@ -26,6 +26,7 @@ public class HealthSanityBar : MonoBehaviour
     public CinemachineVirtualCamera cinemachineFirstPerson;
     public CinemachineVirtualCamera cinemachineThirdPerson;
 
+    public RenderToggle rt;
     void Start()
     {
         currHealth = maxHealth;
@@ -39,6 +40,8 @@ public class HealthSanityBar : MonoBehaviour
         //FIX !
         if(cinemachineThirdPerson == cc.activeCamera)
         {
+            rt.ToggleEnemyEnable();
+            rt.TogglePickDisable();
             if (currSanity < maxSanity)
             {
                 if (isCD == false)
@@ -52,6 +55,8 @@ public class HealthSanityBar : MonoBehaviour
 
         else if(cinemachineFirstPerson == cc.activeCamera)
         {
+            rt.ToggleEnemyDisable();
+            rt.TogglePickEnable();
             HealingHealth(5, 2);
         }
         HealthFiller();

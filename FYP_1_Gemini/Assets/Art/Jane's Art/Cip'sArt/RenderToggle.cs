@@ -21,30 +21,39 @@ public class RenderToggle : MonoBehaviour
 
     private void Start()
     {
-        //InvokeRepeating("ToggleEnemyEnable", 2.0f, 1.5f);
+        //InvokeRepeating("ToggleEnemyEnable", 2.0f, 1.5f); ,
+
     }
 
     public void ToggleEnemyEnable()
     {
-        if(features[0].Enable == true)
+        if(features[0].Enable == false)
         {
-            features[0].Enable = false;
-            features[0].feature.SetActive(features[0].Enable);
-        }
-        else
             features[0].Enable = true;
             features[0].feature.SetActive(features[0].Enable);
+        }
     }
     
+    public void ToggleEnemyDisable()
+    {
+            features[0].Enable = false;
+            features[0].feature.SetActive(features[0].Enable);
+    }
     public void TogglePickEnable()
     {
-        if (features[1].Enable == true)
+        if (features[1].Enable == false)
+        {
+            features[1].Enable = true;
+            features[1].feature.SetActive(features[1].Enable);
+        }
+    }
+
+    public void TogglePickDisable()
+    {
+        if(features[1].Enable == true)
         {
             features[1].Enable = false;
             features[1].feature.SetActive(features[1].Enable);
-        }
-        else
-            features[1].Enable = true;
-            features[1].feature.SetActive(features[1].Enable);
+        }   
     }
 }
