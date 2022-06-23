@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
     [Header("GunReload")]
     [SerializeField] int maxBullets = 6;
     [SerializeField] int currentBulletCount = 6;
-    [SerializeField] float GunReloadCooldown = 1.5f;
+    public float GunReloadCooldown;
     [SerializeField] float GunReloadCooldownCounter = 0.0f;
     [SerializeField] TextMeshProUGUI BulletCountText;
 
