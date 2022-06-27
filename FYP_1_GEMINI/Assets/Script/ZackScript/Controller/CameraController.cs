@@ -27,12 +27,12 @@ public class CameraController : MonoBehaviour
     [SerializeField] GameObject DetectiveBody;
     [SerializeField] GameObject FighterBody;
     public GameObject parasiteVision; //remove later
-    //[SerializeField] PlayerController playerController;
 
     private void Awake()
     { 
         cinemachineFramingTransposerThirdPerson = cinemachineThirdPerson.GetCinemachineComponent<CinemachineFramingTransposer>();
         cinemachineFramingTransposerOrbit = cinemachineOrbit.GetCinemachineComponent<CinemachineFramingTransposer>();
+        PlayerController.cameraFollow = cinemachineFirstPerson.Follow;
 
     }
 
@@ -83,6 +83,7 @@ public class CameraController : MonoBehaviour
             DetectiveBody.SetActive(false);
             FighterBody.SetActive(true);
             PlayerController.state = PlayerController.State.Fighter;
+            PlayerController.cameraFollow = cinemachineThirdPerson.Follow;
             mainCamera.cullingMask |= (1 << LayerMask.NameToLayer("playerSelf"));
         }
 
@@ -93,6 +94,7 @@ public class CameraController : MonoBehaviour
             DetectiveBody.SetActive(true);
             FighterBody.SetActive(false);
             PlayerController.state = PlayerController.State.Detective;
+            PlayerController.cameraFollow = cinemachineFirstPerson.Follow;
             mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("playerSelf"));
         }
 

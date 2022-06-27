@@ -5,7 +5,7 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform cameraFollow;
+    [SerializeField] public static Transform cameraFollow;
 
     [SerializeField] HumanoidLandInput input;
     [SerializeField] CameraController cameraController;
