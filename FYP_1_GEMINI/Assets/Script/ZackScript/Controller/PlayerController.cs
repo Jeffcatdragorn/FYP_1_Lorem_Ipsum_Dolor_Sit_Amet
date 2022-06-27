@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     public static State state;
 
+    [SerializeField] Animator animator;
+
     [Header("Movement")]
     [SerializeField] float movementMultiplier = 30.0f;
     [SerializeField] float notGroundedMovementMultiplier = 1.25f;
@@ -161,6 +163,8 @@ public class PlayerController : MonoBehaviour
             case State.Fighter:
                 playerMoveInput = PlayerGrapple();
                 PlayerTeleport();
+                ParasiteRunning();
+                ParasiteAttack();
                 break;
         }
 
@@ -527,6 +531,25 @@ public class PlayerController : MonoBehaviour
             teleportCooldownCounter = teleportCooldown;
         }
         Debug.DrawRay(transform.position, rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, teleportDistance);
+    }
+
+    private void ParasiteRunning()
+    {
+        if (playerMoveInput != new Vector3(0,0,0))
+        {
+            animator.SetBool("Walking", true);
+        }
+
+        else
+            animator.SetBool("Walking", false);
+    }
+
+    private void ParasiteAttack()
+    {
+        if(input.ShootIsPressed)
+        {
+            animator.SetTrigger("Attack");
+        }
     }
 
     void DrawLine()
