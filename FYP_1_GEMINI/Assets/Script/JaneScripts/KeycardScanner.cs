@@ -6,7 +6,8 @@ public class KeycardScanner : MonoBehaviour
 {
     InteractWithObjects input;
     //public GameObject keycardObj;
-    public static bool keycardScanned = false;
+    //public static bool keycardScanned = false;
+    public bool keycardScanned = false;
 
     public Inventory inventory;// List<Item> items = new List<Item>();
 

@@ -24,11 +24,24 @@ public class DoorController : MonoBehaviour
     [SerializeField] private string pressurePlateReleased = "PPlateReleased";
 
     private bool doorIsOpen = false;
+    private bool open2ndDDoor;
+    bool booleanChecker = false;
+    public GameObject secondDoubleDoor;
+    //public bool keypad1 = false;
+    //public bool keypad2 = false;
     public string currentSceneName;
+    private KeycardScanner keycardScanner;
 
     private void Awake()
     {
        currentSceneName = SceneManager.GetActiveScene().name;
+    }
+
+    private void Start()
+    {
+        keycardScanner = gameObject.GetComponent<KeycardScanner>();
+        open2ndDDoor = secondDoubleDoor.gameObject.GetComponent<DoorController>().booleanChecker;
+
     }
 
     private void OnTriggerEnter(Collider other) //JANE's NOTES: Do I need to use ONTRIGGERENTER or just ONTRIGGERSTAY??????????????????????????????????????????????????
@@ -96,15 +109,28 @@ public class DoorController : MonoBehaviour
 
     private void Solution2() //currentSceneName == "FloatingLevel"
     {
-        if (KeycardScanner.keycardScanned == true && doorIsOpen == false)
+        if (keycardScanner.keycardScanned == true && doorIsOpen == false)
         {
+            //if (keypad2 == true)
+            //{
+            //    door.SetBool("scanned", true);
+            //}
             door.Play(doorSlideOpen, 0, 0.0f);
             doorIsOpen = true;
         }
     }
 
+    public void BooleanChecker()
+    {
+        booleanChecker = true;
+        Debug.Log("sorry");
+    }
+
     private void Update()
     {
-        //Debug.Log("doorIsOpen = " + doorIsOpen);
+        if (open2ndDDoor == true)
+        {
+            door.SetBool("open", true);
+        }
     }
 }
