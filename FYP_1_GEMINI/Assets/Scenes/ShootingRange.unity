@@ -2837,14 +2837,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7003176049790429485, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.619648
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003176050505343534, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: parasiteVision
-      value: 
-      objectReference: {fileID: 1887861447}
     - target: {fileID: 7100156567205749859, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
       propertyPath: m_Name
       value: Player Prefabs
