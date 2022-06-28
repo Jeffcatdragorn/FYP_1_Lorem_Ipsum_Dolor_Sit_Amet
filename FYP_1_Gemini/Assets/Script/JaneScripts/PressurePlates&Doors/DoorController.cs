@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class DoorController : MonoBehaviour
 {
-    [SerializeField] private Animator door = null;
+    [SerializeField] private Animator normalDoorAnimator = null;
+    [SerializeField] private Animator doubleDoorAnimator = null;
     [SerializeField] private Animator pressurePlate = null;
 
     [Header("Door type")] //only tick one door type in the inspector
@@ -14,6 +15,16 @@ public class DoorController : MonoBehaviour
     [Header("Pressure Plate Type")] //only tick one pressure plate type in the inspector
     [SerializeField] private bool openDoorTrigger = false;
     //[SerializeField] private bool closeDoorTrigger = false;
+
+    [Header("Keypad Type")]
+    public bool doubleDoorKeypad = false;
+
+    [Header("For Double Door Only")]
+    public GameObject secondDoubleDoor;
+    [SerializeField] private string open2ndDDoor = "SlideOpen2ndDDoor";
+
+    [Header("Current Scene Name")]
+    public string currentSceneName;
 
     [Header ("Animation names")] //just in case got different animations for doors and pressure plates
     //[SerializeField] private string doorOpen = "DoorOpening";
@@ -24,12 +35,6 @@ public class DoorController : MonoBehaviour
     [SerializeField] private string pressurePlateReleased = "PPlateReleased";
 
     private bool doorIsOpen = false;
-    private bool open2ndDDoor;
-    bool booleanChecker = false;
-    public GameObject secondDoubleDoor;
-    //public bool keypad1 = false;
-    //public bool keypad2 = false;
-    public string currentSceneName;
     private KeycardScanner keycardScanner;
 
     private void Awake()
@@ -40,7 +45,7 @@ public class DoorController : MonoBehaviour
     private void Start()
     {
         keycardScanner = gameObject.GetComponent<KeycardScanner>();
-        open2ndDDoor = secondDoubleDoor.gameObject.GetComponent<DoorController>().booleanChecker;
+        //open2ndDDoor = secondDoubleDoor.gameObject.GetComponent<DoorController>().booleanChecker;
 
     }
 
@@ -49,8 +54,6 @@ public class DoorController : MonoBehaviour
         if (other.CompareTag("Player")) //change the tag to the object that is going to be placed on the pressure plate
         {
             Solution1();
-
-            
         }
     }
 
@@ -72,7 +75,7 @@ public class DoorController : MonoBehaviour
             //closeDoorTrigger = true;
             if(openOnceOnlyDoor == false && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true)
             {
-                door.Play(doorSlideClose, 0, 0.0f);
+                normalDoorAnimator.Play(doorSlideClose, 0, 0.0f);
                 pressurePlate.Play(pressurePlateReleased, 0, 0.0f);
                 doorIsOpen = false;
             }
@@ -101,7 +104,7 @@ public class DoorController : MonoBehaviour
 
         if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
         {
-            door.Play(doorSlideOpen, 0, 0.0f);
+            normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
             pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
             doorIsOpen = true;
         }
@@ -111,26 +114,19 @@ public class DoorController : MonoBehaviour
     {
         if (keycardScanner.keycardScanned == true && doorIsOpen == false)
         {
-            //if (keypad2 == true)
-            //{
-            //    door.SetBool("scanned", true);
-            //}
-            door.Play(doorSlideOpen, 0, 0.0f);
+            normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
             doorIsOpen = true;
         }
     }
 
-    public void BooleanChecker()
-    {
-        booleanChecker = true;
-        Debug.Log("sorry");
-    }
-
     private void Update()
     {
-        if (open2ndDDoor == true)
+        if (doubleDoorKeypad == true)
         {
-            door.SetBool("open", true);
+            if(normalDoorAnimator.GetCurrentAnimatorStateInfo(0).IsName(doorSlideOpen))
+            {
+                doubleDoorAnimator.Play(open2ndDDoor, 0, 0.0f);
+            }
         }
     }
 }
