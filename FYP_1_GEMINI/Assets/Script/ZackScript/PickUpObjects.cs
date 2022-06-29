@@ -12,6 +12,7 @@ public class PickUpObjects : MonoBehaviour
     [SerializeField] float pickUpCooldownCounter = 0.0f;
     [SerializeField] float pickUpCooldown = 1.0f;
     [SerializeField] bool pickUpCheck = false;
+    [SerializeField] LayerMask pickUpObjectLayer;
 
     void Update()
     {
@@ -23,7 +24,7 @@ public class PickUpObjects : MonoBehaviour
             if (heldObject == null && pickUpCooldownCounter == 0.0f)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange, pickUpObjectLayer))
                 {
                     PickUpObject(hit.transform.gameObject);
                 }
