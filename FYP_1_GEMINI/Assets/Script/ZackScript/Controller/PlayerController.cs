@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool playerIsGrounded = true;
     [SerializeField][Range(0.0f, 1.8f)] float groundCheckRadiusMultiplier = 0.9f;
     [SerializeField][Range(-0.95f, 1.05f)] float groundCheckerExtraDistance = 0.05f;
+    [SerializeField] LayerMask groundLayer;
     RaycastHit groundCheckHit = new RaycastHit();
 
     [Header("Gravity")]
@@ -215,7 +216,7 @@ public class PlayerController : MonoBehaviour
     {
         float sphereCastRadius = capsuleCollider.radius * groundCheckRadiusMultiplier;
         float sphereCastTravelDistance = capsuleCollider.bounds.extents.y - sphereCastRadius + groundCheckerExtraDistance;
-        return Physics.SphereCast(rigidbody.position, sphereCastRadius, Vector3.down, out groundCheckHit, sphereCastTravelDistance);
+        return Physics.SphereCast(rigidbody.position, sphereCastRadius, Vector3.down, out groundCheckHit, sphereCastTravelDistance, groundLayer);
     }
 
     private Vector3 PlayerMove()

@@ -6,38 +6,39 @@ public class PickUpObjects : MonoBehaviour
 {
     [SerializeField] float pickUpRange = 5f;
     [SerializeField] float moveForce = 255f;
-    [SerializeField] Transform holdParent;
+    [SerializeField] Transform holdSmallParent;
+    [SerializeField] Transform holdBigParent;
+
     [SerializeField] GameObject heldObject;
     [SerializeField] HumanoidLandInput input;
     [SerializeField] float pickUpCooldownCounter = 0.0f;
     [SerializeField] float pickUpCooldown = 1.0f;
-    [SerializeField] bool pickUpCheck = false;
     [SerializeField] LayerMask pickUpObjectLayer;
+    [SerializeField] float moveSpeed;
 
     void Update()
     {
-
         SetPickUpCooldown();
-        if (input.PickUpObjectIsPressed && pickUpCheck == false)
+        if (input.PickUpObjectIsPressed && pickUpCooldownCounter == 0.0f)
         {
-
-            if (heldObject == null && pickUpCooldownCounter == 0.0f)
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange, pickUpObjectLayer))
             {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange, pickUpObjectLayer))
+                if (heldObject == null)
                 {
                     PickUpObject(hit.transform.gameObject);
+                    pickUpCooldownCounter = pickUpCooldown;
                 }
-                pickUpCooldownCounter = pickUpCooldown;
+
+                else
+                {
+                    DropObject();
+                    pickUpCooldownCounter = pickUpCooldown;
+                }
             }
 
-            else
-            {
-                DropObject();
-            }
         }
-
-        if(heldObject != null)
+        if (heldObject != null)
         {
             MoveObject();
         }
@@ -45,10 +46,32 @@ public class PickUpObjects : MonoBehaviour
 
     void MoveObject()
     {
-        if(Vector3.Distance(heldObject.transform.position, holdParent.position) > 0.1f)
+        if (heldObject.tag == "tile")
         {
-            Vector3 moveDirection = (holdParent.position - heldObject.transform.position);
-            heldObject.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
+            Debug.Log("Moveing");
+            //heldObject.transform.position = holdBigParent.transform.position;
+            //heldObject.transform.rotation = holdBigParent.transform.rotation;
+
+
+            if (Vector3.Distance(heldObject.transform.position, holdBigParent.position) > 0.1f)
+            {
+                Vector3 moveDirection = (holdBigParent.position - heldObject.transform.position);
+                heldObject.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
+                // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
+            }
+            //else
+            //{
+            //    heldObject.transform.position = holdBigParent.position;
+            //}
+        }
+
+        else
+        {
+            if (Vector3.Distance(heldObject.transform.position, holdSmallParent.position) > 0.1f)
+            {
+                Vector3 moveDirection = (holdSmallParent.position - heldObject.transform.position);
+                heldObject.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
+            }
         }
     }
 
@@ -56,12 +79,29 @@ public class PickUpObjects : MonoBehaviour
     {
         if (pickedObj.GetComponent<Rigidbody>())
         {
-            Rigidbody objRig = pickedObj.GetComponent<Rigidbody>();
-            objRig.useGravity = false;
-            objRig.drag = 10;
+            if(pickedObj.tag == "tile")
+            {
+                Rigidbody objRig = pickedObj.GetComponent<Rigidbody>();
+                objRig.useGravity = false;
+                objRig.drag = 10;
+                objRig.constraints = RigidbodyConstraints.FreezeRotation;
+                objRig.isKinematic = false;
 
-            objRig.transform.parent = holdParent;
-            heldObject = pickedObj;
+                //pickedObj.transform.parent = holdBigParent;
+                heldObject = pickedObj;
+            }
+
+            else
+            {
+                Rigidbody objRig = pickedObj.GetComponent<Rigidbody>();
+                objRig.useGravity = false;
+                objRig.drag = 10;
+                objRig.constraints = RigidbodyConstraints.FreezeRotation;
+                objRig.isKinematic = false;
+
+                pickedObj.transform.parent = holdSmallParent;
+                heldObject = pickedObj;
+            }
         }
     }
 
@@ -70,6 +110,18 @@ public class PickUpObjects : MonoBehaviour
         Rigidbody heldRig = heldObject.GetComponent<Rigidbody>();
         heldRig.GetComponent<Rigidbody>().useGravity = true;
         heldRig.drag = 1;
+        heldRig.constraints = RigidbodyConstraints.None;
+        heldRig.isKinematic = false;
+
+        heldObject.transform.parent = null;
+        heldObject = null;
+    }
+
+    public void LetGoOfObject()
+    {
+        //Rigidbody heldRig = heldObject.GetComponent<Rigidbody>();
+        //heldRig.drag = 1;
+        //heldRig.constraints = RigidbodyConstraints.None;
 
         heldObject.transform.parent = null;
         heldObject = null;

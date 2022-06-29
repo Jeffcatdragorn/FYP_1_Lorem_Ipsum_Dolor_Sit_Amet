@@ -8,6 +8,8 @@ TagManager:
   - triggerGrapple
   - music
   - sound
+  - FxTemporaire
+  - tile
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - UI
   - ground
   - movable
-  - playerSelf
+  - 
   - grapplePoint
   - triggerGrapple
   - shootObject
@@ -25,8 +27,8 @@ TagManager:
   - postFX
   - darkness
   - highlightable
-  - 
-  - 
+  - tiles
+  - playerSelf
   - 
   - 
   - 
