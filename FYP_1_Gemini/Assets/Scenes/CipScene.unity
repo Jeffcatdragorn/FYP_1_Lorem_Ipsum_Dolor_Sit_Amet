@@ -9516,6 +9516,9 @@ MonoBehaviour:
   playerIsGrounded: 1
   groundCheckRadiusMultiplier: 0.9
   groundCheckerExtraDistance: 0.05
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   gravityFallCurrent: -100
   gravityFallMin: -100
   gravityFallMax: -500
@@ -10042,7 +10045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1207921627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11455,7 +11458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1709436140
 Transform:
   m_ObjectHideFlags: 0
