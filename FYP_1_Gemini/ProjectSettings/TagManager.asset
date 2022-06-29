@@ -10,6 +10,8 @@ TagManager:
   - sound
   - FxTemporaire
   - tile
+  - gen1
+  - gen2
   layers:
   - Default
   - TransparentFX
