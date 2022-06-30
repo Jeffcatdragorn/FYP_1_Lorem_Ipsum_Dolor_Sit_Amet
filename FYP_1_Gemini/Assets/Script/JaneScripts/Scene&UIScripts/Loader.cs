@@ -17,6 +17,7 @@ public static class Loader
         MainMenu,
         PrototypeScene,
         ShootingRange,
+        Maze,
         SampleScene
     }
 

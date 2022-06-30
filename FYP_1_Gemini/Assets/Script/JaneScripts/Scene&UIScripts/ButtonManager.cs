@@ -54,6 +54,20 @@ public class ButtonManager : MonoBehaviour
         Loader.Load(Loader.Scene.PrototypeScene);
     }
 
+    public void FloatingPuzzleScene()
+    {
+        PlayButtonSound();
+        Time.timeScale = 1f;
+        Loader.Load(Loader.Scene.FloatingLevel);
+    }
+
+    public void MazeScene()
+    {
+        PlayButtonSound();
+        Time.timeScale = 1f;
+        Loader.Load(Loader.Scene.Maze);
+    }
+
     public void Exit()
     {
         PlayButtonSound();

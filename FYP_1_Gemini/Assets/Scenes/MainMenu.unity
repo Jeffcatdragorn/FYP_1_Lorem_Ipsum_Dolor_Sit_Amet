@@ -452,6 +452,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 72976363, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FloatingPuzzleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 730094132, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1657819371, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MazeScene
+      objectReference: {fileID: 0}
     - target: {fileID: 235530136487901208, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -468,10 +480,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 2085371743}
-    - target: {fileID: 8703064159920505124, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8703064159920505125, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_Pivot.x
       value: 0

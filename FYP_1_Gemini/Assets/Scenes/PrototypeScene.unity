@@ -7437,10 +7437,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5855d1a1167c9ce4e88a4c7052564a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraFollow: {fileID: 1894024354}
   input: {fileID: 324795313}
   cameraController: {fileID: 983935835}
   playerLookInputLerpTime: 0.5
+  animator: {fileID: 0}
   movementMultiplier: 30
   notGroundedMovementMultiplier: 1.25
   rotationSpeedMultiplier: 700
@@ -7449,6 +7449,9 @@ MonoBehaviour:
   playerIsGrounded: 1
   groundCheckRadiusMultiplier: 0.9
   groundCheckerExtraDistance: 0.05
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   gravityFallCurrent: -100
   gravityFallMin: -100
   gravityFallMax: -500
@@ -7576,7 +7579,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh92198
+  m_Name: pb_Mesh148830
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9399,7 +9402,7 @@ GameObject:
   - component: {fileID: 882684563}
   - component: {fileID: 882684562}
   - component: {fileID: 882684561}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FightingRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17602,7 +17605,7 @@ GameObject:
   - component: {fileID: 899849614}
   - component: {fileID: 899849613}
   - component: {fileID: 899849612}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22793,7 +22796,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh92508
+  m_Name: pb_Mesh149086
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -24355,7 +24358,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh63568
+  m_Name: pb_Mesh148816
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -25267,7 +25270,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh92574
+  m_Name: pb_Mesh149152
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -25891,11 +25894,13 @@ MonoBehaviour:
   maxHealth: 100
   maxSanity: 0
   sanityIncrement: 0.1
+  isCD: 0
   healthBar: {fileID: 1624977654}
   sanityBar: {fileID: 1955813887}
   cc: {fileID: 983935835}
   cinemachineFirstPerson: {fileID: 1804772314}
   cinemachineThirdPerson: {fileID: 566312891}
+  rt: {fileID: 0}
 --- !u!114 &1533728251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26239,7 +26244,7 @@ GameObject:
   - component: {fileID: 1595948649}
   - component: {fileID: 1595948648}
   - component: {fileID: 1595948647}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TutorialRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31402,7 +31407,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh92140
+  m_Name: pb_Mesh148776
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -33927,7 +33932,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2865732, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -34283,7 +34288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1881297263
 MonoBehaviour:
   m_ObjectHideFlags: 0
