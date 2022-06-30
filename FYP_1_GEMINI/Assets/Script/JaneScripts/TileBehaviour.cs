@@ -27,7 +27,7 @@ public class TileBehaviour : MonoBehaviour
         if (playerTouched == true)
          SetBreakingTime();
 
-        if(breakingTimeCounter <= 0)
+        if(type == 2 && breakingTimeCounter <= 0)
             Destroy(gameObject);
     }
 
