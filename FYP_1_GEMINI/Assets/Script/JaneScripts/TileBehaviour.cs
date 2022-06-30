@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileBehaviour : MonoBehaviour
 {
-    public int type;
+    public int type, shape;
     public bool isConnectedTile;
     public bool playerTouched = false;
     public static bool startBreakable = false;
@@ -27,7 +27,7 @@ public class TileBehaviour : MonoBehaviour
         if (playerTouched == true)
          SetBreakingTime();
 
-        if(type == 2 && breakingTimeCounter <= 0)
+        if(type == 2 && playerTouched == true && breakingTimeCounter <= 0) //type == 2 is breakable tile
             Destroy(gameObject);
     }
 

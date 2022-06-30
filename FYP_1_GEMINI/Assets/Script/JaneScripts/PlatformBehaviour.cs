@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatformBehaviour : MonoBehaviour
 {
     [SerializeField] GameObject level1, level2, level3; //level1 is ground floor
-    [SerializeField] int type;
+    [SerializeField] int type, shape;
     [SerializeField] GameObject connectedTile;
     public PickUpObjects pickUpObjects;
     public static bool generator1State;
@@ -13,9 +13,9 @@ public class PlatformBehaviour : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.GetComponent<TileBehaviour>().type == this.type) //tile can only be snapped when generators are off
+        if(other.GetComponent<TileBehaviour>().type == this.type && other.GetComponent<TileBehaviour>().shape == this.shape) //same type & same shape tile only can snap
         {
-            if (connectedTile == null && generator1State == false && generator2State == false)
+            if (connectedTile == null && generator1State == false && generator2State == false) //tile can only be snapped when generators are off
             {
                 pickUpObjects.LetGoOfObject();
                 other.gameObject.GetComponent<Rigidbody>().useGravity = false;
@@ -38,11 +38,17 @@ public class PlatformBehaviour : MonoBehaviour
             connectedTile.transform.rotation = level2.transform.rotation;
         }
 
-        if (generator1State == true && generator2State == true && connectedTile != null)
+        if (generator1State == true && generator2State == true && connectedTile != null ) // if player at second floor 
         {
             connectedTile.transform.position = level3.transform.position;
             connectedTile.transform.rotation = level3.transform.rotation;
         }
+
+        //if (generator1State == true && generator2State == true && connectedTile != null) // if player at ground floor
+        //{
+        //    connectedTile.transform.position = level3.transform.position;
+        //    connectedTile.transform.rotation = level3.transform.rotation;
+        //}
 
         if (generator1State == false && generator2State == true && connectedTile != null)
         {
