@@ -60,7 +60,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "GrapplingHook",
+                    "name": "Shield",
                     "type": "Button",
                     "id": "5e339728-cce3-4553-85bc-beed6187d4db",
                     "expectedControlType": "Button",
@@ -148,6 +148,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "29a2d01e-e9bf-4ab9-8af0-2afef7dc0d79",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -330,11 +339,11 @@
                 {
                     "name": "",
                     "id": "34bf5f3d-b3e9-433f-9e69-6f624c6b60ec",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GrapplingHook",
+                    "action": "Shield",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -478,6 +487,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7460f3d-92a4-4c46-abad-43c698ca0de3",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -28,6 +28,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] GameObject FighterBody;
     public GameObject parasiteVision; //remove later
 
+    public LayerMask playerbody;
+
     private void Awake()
     { 
         cinemachineFramingTransposerThirdPerson = cinemachineThirdPerson.GetCinemachineComponent<CinemachineFramingTransposer>();
@@ -84,7 +86,6 @@ public class CameraController : MonoBehaviour
             FighterBody.SetActive(true);
             PlayerController.state = PlayerController.State.Fighter;
             PlayerController.cameraFollow = cinemachineThirdPerson.Follow;
-            mainCamera.cullingMask |= (1 << LayerMask.NameToLayer("playerSelf"));
         }
 
         else if (cinemachineThirdPerson == activeCamera)
@@ -95,7 +96,6 @@ public class CameraController : MonoBehaviour
             FighterBody.SetActive(false);
             PlayerController.state = PlayerController.State.Detective;
             PlayerController.cameraFollow = cinemachineFirstPerson.Follow;
-            mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("playerSelf"));
         }
 
         //else if (cinemachineOrbit == activeCamera)
@@ -107,7 +107,6 @@ public class CameraController : MonoBehaviour
 
         else 
         {
-            mainCamera.cullingMask |= (1 << LayerMask.NameToLayer("playerSelf"));
             cinemachineFirstPerson.Priority += activeCameraPriorityModifier;
             activeCamera = cinemachineFirstPerson;
         }

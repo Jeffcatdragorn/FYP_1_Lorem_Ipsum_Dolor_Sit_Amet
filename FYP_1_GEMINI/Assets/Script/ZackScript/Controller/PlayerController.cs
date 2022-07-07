@@ -36,6 +36,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float pitchSpeedMultiplier = 180.0f;
     [SerializeField] float runMultiplier = 2.5f;
 
+    [Header("Health / Sanity")]
+    [SerializeField] int maxhealth = 100;
+    [SerializeField] Slider statusBar;
+    [SerializeField] int tickRate = 1;
+    [SerializeField] int tickTime = 1;
+
     [Header("GroundChecker")]
     [SerializeField] bool playerIsGrounded = true;
     [SerializeField][Range(0.0f, 1.8f)] float groundCheckRadiusMultiplier = 0.9f;
@@ -65,24 +71,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool playerIsJumping = false;
     [SerializeField] bool jumpWasPressedLastFrame = false;
 
-    [Header("Grappling")]
-    [SerializeField] bool playerIsGrappling = false;
-    [SerializeField] Transform debugGrapplePoint;
-    [SerializeField] float grappleSpeed = 5.0f;
-    [SerializeField] LineRenderer lineRenderer;
-    [SerializeField] GameObject pullSlider;
-    private Vector3 grapplePoint;
-    private Vector3 triggerPoint;
-    public LayerMask grappleObjects;
-    public LayerMask triggerObjects;
-    public Transform grappleTip, cam, player;
-    private float maxGrappleDistance = 100f;
-    private bool grappleCastOnce = false;
-    public DetectiveSolution detectiveController;
-    private bool triggerCheck;
+    //[Header("Grappling")]
+    //[SerializeField] bool playerIsGrappling = false;
+    //[SerializeField] Transform debugGrapplePoint;
+    //[SerializeField] float grappleSpeed = 5.0f;
+    //[SerializeField] LineRenderer lineRenderer;
+    //[SerializeField] GameObject pullSlider;
+    //private Vector3 grapplePoint;
+    //private Vector3 triggerPoint;
+    //public LayerMask grappleObjects;
+    //public LayerMask triggerObjects;
+    //private float maxGrappleDistance = 100f;
+    //private bool grappleCastOnce = false;
+    //public DetectiveSolution detectiveController;
+    //private bool triggerCheck;
 
 
     [Header("Shooting")]
+    [SerializeField] Transform cam;
+    [SerializeField] Transform player;
     [SerializeField] Transform gunTip;
     [SerializeField] float shootRange = 100f;
     [SerializeField] LayerMask shootLayer;
@@ -97,6 +104,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public float bulletSpeed;
     public GameObjectController objectController;
+    public GameObject gunModel;
 
     [Header("GunReload")]
     [SerializeField] int maxBullets = 6;
@@ -124,6 +132,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float teleportDistance = 0.5f;
     [SerializeField] float teleportCooldown = 1.0f;
     [SerializeField] float teleportCooldownCounter = 0.0f;
+
+    [Header("Shield")]
+    [SerializeField] GameObject shieldObject;
+
+    [Header("Crouch")]
+    [SerializeField] float crouchHeight;
 
     private void Awake()
     {
@@ -159,13 +173,16 @@ public class PlayerController : MonoBehaviour
                 playerMoveInput = PlayerDash();
                 PlayerShoot();
                 PlayerGunReload();
+                gunModel.SetActive(true);
                 break;
 
             case State.Fighter:
-                playerMoveInput = PlayerGrapple();
-                PlayerTeleport();
+                gunModel.SetActive(false); ;
+                ParasiteTeleport();
                 ParasiteRunning();
                 ParasiteAttack();
+                ParasiteShield();
+                HeaalthTickDown();
                 break;
         }
 
@@ -181,10 +198,10 @@ public class PlayerController : MonoBehaviour
     //    Debug.Log("Z : " + playerMoveInput.z);
     //}
 
-    private void LateUpdate()
-    {
-        DrawLine();
-    }
+    //private void LateUpdate()
+    //{
+    //    DrawLine();
+    //}
 
     private Vector3 GetLookInput()
     {
@@ -354,72 +371,72 @@ public class PlayerController : MonoBehaviour
         return calculatedJumpInput;
     }
 
-    private Vector3 PlayerGrapple()
-    {
-        Vector3 calculatedGrappleInput = playerMoveInput;
+    //private Vector3 PlayerGrapple()
+    //{
+    //    Vector3 calculatedGrappleInput = playerMoveInput;
 
-        if (input.GrappleIsPressed)
-        {
-            if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit rayHit, maxGrappleDistance, grappleObjects) && grappleCastOnce == false)
-            {
-                Debug.Log("Grappling");
-                playerIsGrappling = true;
-                grapplePoint = rayHit.point;
-                debugGrapplePoint.position = rayHit.point;
-                //if (rayHit.transform.tag == "triggerGrapple")
-                //{
-                //    janjanController.grappleCheck = true;
-                //    return calculatedGrappleInput = playerMoveInput;
-                //}
-                grappleCastOnce = true;
-            }
+    //    if (input.GrappleIsPressed)
+    //    {
+    //        if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit rayHit, maxGrappleDistance, grappleObjects) && grappleCastOnce == false)
+    //        {
+    //            Debug.Log("Grappling");
+    //            playerIsGrappling = true;
+    //            grapplePoint = rayHit.point;
+    //            debugGrapplePoint.position = rayHit.point;
+    //            //if (rayHit.transform.tag == "triggerGrapple")
+    //            //{
+    //            //    janjanController.grappleCheck = true;
+    //            //    return calculatedGrappleInput = playerMoveInput;
+    //            //}
+    //            grappleCastOnce = true;
+    //        }
 
-            else if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit triggerHit, maxGrappleDistance, triggerObjects) && grappleCastOnce == false)
-            {
-                lineRenderer.positionCount = 2;
-                playerIsGrappling = true;
-                triggerCheck = true;
-                triggerPoint = triggerHit.point;
-                debugGrapplePoint.position = triggerHit.point;
-                //pullSlider.SetActive(true);
-                grappleCastOnce = true;
-            }
+    //        else if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit triggerHit, maxGrappleDistance, triggerObjects) && grappleCastOnce == false)
+    //        {
+    //            lineRenderer.positionCount = 2;
+    //            playerIsGrappling = true;
+    //            triggerCheck = true;
+    //            triggerPoint = triggerHit.point;
+    //            debugGrapplePoint.position = triggerHit.point;
+    //            //pullSlider.SetActive(true);
+    //            grappleCastOnce = true;
+    //        }
 
-            else if (playerIsGrappling == false)
-            {
-                if (detectiveController != null)
-                    detectiveController.OpenDoorWithShooting(false);
-                grapplePoint = Vector3.zero;
-                return calculatedGrappleInput = playerMoveInput;
-            }
+    //        else if (playerIsGrappling == false)
+    //        {
+    //            if (detectiveController != null)
+    //                detectiveController.OpenDoorWithShooting(false);
+    //            grapplePoint = Vector3.zero;
+    //            return calculatedGrappleInput = playerMoveInput;
+    //        }
 
-            if (grapplePoint != Vector3.zero)
-            {
-                lineRenderer.positionCount = 2;
-                calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
-            }
+    //        if (grapplePoint != Vector3.zero)
+    //        {
+    //            lineRenderer.positionCount = 2;
+    //            calculatedGrappleInput = (grapplePoint - transform.position).normalized * grappleSpeed;
+    //        }
 
-            if (triggerCheck == true)
-            {
-                Debug.Log("Triggering");
-                if (detectiveController != null)
-                    detectiveController.OpenDoorWithShooting(true);
-            }
-        }
+    //        if (triggerCheck == true)
+    //        {
+    //            Debug.Log("Triggering");
+    //            if (detectiveController != null)
+    //                detectiveController.OpenDoorWithShooting(true);
+    //        }
+    //    }
 
-        else
-        {
-            if (detectiveController != null)
-                detectiveController.OpenDoorWithShooting(false);
-            playerIsGrappling = false;
-            triggerCheck = false;
-            lineRenderer.positionCount = 0;
-            //spullSlider.SetActive(false);
-            grappleCastOnce = false;
-        }
+    //    else
+    //    {
+    //        if (detectiveController != null)
+    //            detectiveController.OpenDoorWithShooting(false);
+    //        playerIsGrappling = false;
+    //        triggerCheck = false;
+    //        lineRenderer.positionCount = 0;
+    //        //spullSlider.SetActive(false);
+    //        grappleCastOnce = false;
+    //    }
 
-        return calculatedGrappleInput;
-    }
+    //    return calculatedGrappleInput;
+    //}
 
     private void PlayerShoot()
     {
@@ -517,7 +534,7 @@ public class PlayerController : MonoBehaviour
         return calculatedDashInput;
     }
 
-    private void PlayerTeleport()
+    private void ParasiteTeleport()
     {
         Vector3 calculatedPlayerMovement = playerMoveInput;
         //Vector3 teleportPoint = transform.position;
@@ -532,6 +549,14 @@ public class PlayerController : MonoBehaviour
             teleportCooldownCounter = teleportCooldown;
         }
         Debug.DrawRay(transform.position, rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, teleportDistance);
+    }
+
+    private void ParasiteShield()
+    {
+        if (input.ShieldIsPressed)
+            shieldObject.SetActive(true);
+        else
+            shieldObject.SetActive(false);
     }
 
     private void ParasiteRunning()
@@ -553,22 +578,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void DrawLine()
+    private void HeaalthTickDown()
     {
-        if (!playerIsGrappling) return;
-
-        if (playerIsGrappling)
-        {
-            lineRenderer.SetPosition(index: 0, grappleTip.position);
-            lineRenderer.SetPosition(index: 1, grapplePoint);
-        }
-
-        if (triggerCheck)
-        {
-            lineRenderer.SetPosition(index: 0, grappleTip.position);
-            lineRenderer.SetPosition(index: 1, triggerPoint);
-        }
+        if(Time.time % tickTime == 0)
+            statusBar.value -= tickRate;
     }
+
+    //void DrawLine()
+    //{
+    //    if (!playerIsGrappling) return;
+
+    //    if (playerIsGrappling)
+    //    {
+    //        lineRenderer.SetPosition(index: 0, grappleTip.position);
+    //        lineRenderer.SetPosition(index: 1, grapplePoint);
+    //    }
+
+    //    if (triggerCheck)
+    //    {
+    //        lineRenderer.SetPosition(index: 0, grappleTip.position);
+    //        lineRenderer.SetPosition(index: 1, triggerPoint);
+    //    }
+    //}
 
     private void SetJumpBufferCounter()
     {

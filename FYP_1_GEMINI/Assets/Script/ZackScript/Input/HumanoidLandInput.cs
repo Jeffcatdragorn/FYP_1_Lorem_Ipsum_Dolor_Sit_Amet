@@ -11,7 +11,7 @@ public class HumanoidLandInput : MonoBehaviour
     public bool InvertScroll { get; private set; } = true;
     public bool RunIsPressed { get; private set; } = false;
     public bool JumpIsPressed { get; private set; } = false;
-    public bool GrappleIsPressed { get; private set; } = false;
+    public bool ShieldIsPressed { get; private set; } = false;
     public bool ShootIsPressed { get; private set; } = false;
     public bool DashIsPressed { get; private set; } = false;
     public bool OpenDoorIsPressed { get; private set; } = false;
@@ -22,6 +22,8 @@ public class HumanoidLandInput : MonoBehaviour
     public bool GunReloadIsPressed { get; private set; } = false;
     public bool InteractIsPressed { get; private set; } = false;
     public Vector2 MousePosition { get; private set; } = Vector2.zero;
+    public bool CrouchIsPressed { get; private set; } = false;
+
 
     InputActions input = null;
 
@@ -43,8 +45,8 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Jump.started += SetJump;
         input.HumanoidLand.Jump.canceled += SetJump;
 
-        input.HumanoidLand.GrapplingHook.started += SetGrapplingHook;
-        input.HumanoidLand.GrapplingHook.canceled += SetGrapplingHook;
+        input.HumanoidLand.Shield.started += SetShield;
+        input.HumanoidLand.Shield.canceled += SetShield;
 
         input.HumanoidLand.Shoot.started += SetShoot;
         input.HumanoidLand.Shoot.canceled += SetShoot;
@@ -72,6 +74,10 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.MousePosition.performed += SetMousePosition;
         input.HumanoidLand.MousePosition.canceled += SetMousePosition;
+
+        input.HumanoidLand.Crouch.started += SetCrouch;
+        input.HumanoidLand.Crouch.canceled += SetCrouch;
+
         //input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -90,8 +96,8 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Jump.started -= SetJump;
         input.HumanoidLand.Jump.canceled -= SetJump;
 
-        input.HumanoidLand.GrapplingHook.started -= SetGrapplingHook;
-        input.HumanoidLand.GrapplingHook.canceled -= SetGrapplingHook;
+        input.HumanoidLand.Shield.started -= SetShield;
+        input.HumanoidLand.Shield.canceled -= SetShield;
 
         input.HumanoidLand.Shoot.started -= SetShoot;
         input.HumanoidLand.Shoot.canceled -= SetShoot;
@@ -119,6 +125,9 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.MousePosition.performed -= SetMousePosition;
         input.HumanoidLand.MousePosition.canceled -= SetMousePosition;
+
+        input.HumanoidLand.Crouch.started -= SetCrouch;
+        input.HumanoidLand.Crouch.canceled -= SetCrouch;
 
         //input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
@@ -152,9 +161,9 @@ public class HumanoidLandInput : MonoBehaviour
         JumpIsPressed = ctx.started;
     }
 
-    private void SetGrapplingHook(InputAction.CallbackContext ctx)
+    private void SetShield(InputAction.CallbackContext ctx)
     {
-        GrappleIsPressed = ctx.started;
+        ShieldIsPressed = ctx.started;
     } 
     
     private void SetShoot(InputAction.CallbackContext ctx)
@@ -200,6 +209,12 @@ public class HumanoidLandInput : MonoBehaviour
     {
         MousePosition = ctx.ReadValue<Vector2>();
     }
+
+    private void SetCrouch(InputAction.CallbackContext ctx)
+    {
+        CrouchIsPressed = ctx.started;
+    }
+
     //private void SetZoomCamera(InputAction.CallbackContext ctx)
     //{
     //    ZoomCameraInput = ctx.ReadValue<float>();

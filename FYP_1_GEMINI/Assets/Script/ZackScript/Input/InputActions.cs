@@ -82,7 +82,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""GrapplingHook"",
+                    ""name"": ""Shield"",
                     ""type"": ""Button"",
                     ""id"": ""5e339728-cce3-4553-85bc-beed6187d4db"",
                     ""expectedControlType"": ""Button"",
@@ -170,6 +170,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""29a2d01e-e9bf-4ab9-8af0-2afef7dc0d79"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -352,11 +361,11 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""34bf5f3d-b3e9-433f-9e69-6f624c6b60ec"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GrapplingHook"",
+                    ""action"": ""Shield"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -502,6 +511,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7460f3d-92a4-4c46-abad-43c698ca0de3"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -516,7 +536,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_ZoomCamera = m_HumanoidLand.FindAction("ZoomCamera", throwIfNotFound: true);
         m_HumanoidLand_Run = m_HumanoidLand.FindAction("Run", throwIfNotFound: true);
         m_HumanoidLand_Jump = m_HumanoidLand.FindAction("Jump", throwIfNotFound: true);
-        m_HumanoidLand_GrapplingHook = m_HumanoidLand.FindAction("GrapplingHook", throwIfNotFound: true);
+        m_HumanoidLand_Shield = m_HumanoidLand.FindAction("Shield", throwIfNotFound: true);
         m_HumanoidLand_Shoot = m_HumanoidLand.FindAction("Shoot", throwIfNotFound: true);
         m_HumanoidLand_Dash = m_HumanoidLand.FindAction("Dash", throwIfNotFound: true);
         m_HumanoidLand_OpenDoor = m_HumanoidLand.FindAction("OpenDoor", throwIfNotFound: true);
@@ -526,6 +546,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_GunReload = m_HumanoidLand.FindAction("GunReload", throwIfNotFound: true);
         m_HumanoidLand_Interact = m_HumanoidLand.FindAction("Interact", throwIfNotFound: true);
         m_HumanoidLand_MousePosition = m_HumanoidLand.FindAction("MousePosition", throwIfNotFound: true);
+        m_HumanoidLand_Crouch = m_HumanoidLand.FindAction("Crouch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -591,7 +612,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_ZoomCamera;
     private readonly InputAction m_HumanoidLand_Run;
     private readonly InputAction m_HumanoidLand_Jump;
-    private readonly InputAction m_HumanoidLand_GrapplingHook;
+    private readonly InputAction m_HumanoidLand_Shield;
     private readonly InputAction m_HumanoidLand_Shoot;
     private readonly InputAction m_HumanoidLand_Dash;
     private readonly InputAction m_HumanoidLand_OpenDoor;
@@ -601,6 +622,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_GunReload;
     private readonly InputAction m_HumanoidLand_Interact;
     private readonly InputAction m_HumanoidLand_MousePosition;
+    private readonly InputAction m_HumanoidLand_Crouch;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -611,7 +633,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @ZoomCamera => m_Wrapper.m_HumanoidLand_ZoomCamera;
         public InputAction @Run => m_Wrapper.m_HumanoidLand_Run;
         public InputAction @Jump => m_Wrapper.m_HumanoidLand_Jump;
-        public InputAction @GrapplingHook => m_Wrapper.m_HumanoidLand_GrapplingHook;
+        public InputAction @Shield => m_Wrapper.m_HumanoidLand_Shield;
         public InputAction @Shoot => m_Wrapper.m_HumanoidLand_Shoot;
         public InputAction @Dash => m_Wrapper.m_HumanoidLand_Dash;
         public InputAction @OpenDoor => m_Wrapper.m_HumanoidLand_OpenDoor;
@@ -621,6 +643,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @GunReload => m_Wrapper.m_HumanoidLand_GunReload;
         public InputAction @Interact => m_Wrapper.m_HumanoidLand_Interact;
         public InputAction @MousePosition => m_Wrapper.m_HumanoidLand_MousePosition;
+        public InputAction @Crouch => m_Wrapper.m_HumanoidLand_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -648,9 +671,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnJump;
-                @GrapplingHook.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGrapplingHook;
-                @GrapplingHook.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGrapplingHook;
-                @GrapplingHook.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnGrapplingHook;
+                @Shield.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnShield;
+                @Shield.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnShield;
+                @Shield.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnShield;
                 @Shoot.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnShoot;
@@ -678,6 +701,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @MousePosition.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnMousePosition;
+                @Crouch.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnCrouch;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -700,9 +726,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @GrapplingHook.started += instance.OnGrapplingHook;
-                @GrapplingHook.performed += instance.OnGrapplingHook;
-                @GrapplingHook.canceled += instance.OnGrapplingHook;
+                @Shield.started += instance.OnShield;
+                @Shield.performed += instance.OnShield;
+                @Shield.canceled += instance.OnShield;
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
@@ -730,6 +756,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
             }
         }
     }
@@ -742,7 +771,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnZoomCamera(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnGrapplingHook(InputAction.CallbackContext context);
+        void OnShield(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnOpenDoor(InputAction.CallbackContext context);
@@ -752,5 +781,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnGunReload(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
 }
