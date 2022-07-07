@@ -12,6 +12,7 @@ TagManager:
   - tile
   - gen1
   - gen2
+  - Walls
   layers:
   - Default
   - TransparentFX

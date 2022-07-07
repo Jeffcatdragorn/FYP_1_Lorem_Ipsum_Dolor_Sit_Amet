@@ -55,17 +55,17 @@ public class MeleeCombat : MonoBehaviour
     //}
     //#endregion
 
-    public void ChangeLayers()
-    {
+    //public void ChangeLayers()
+    //{
         
-    }
+    //}
     //public void Attack()
     //{
     //    #region BasicAttack
     //    StartAttack();
     //    if (windowActive == false)
     //    {
-    //        if(canAttack == true)
+    //        if (canAttack == true)
     //        {
     //            var attack = Random.Range(1, 3);
     //            charAnimation.SetTrigger("Attack" + attack);
@@ -104,10 +104,10 @@ public class MeleeCombat : MonoBehaviour
     //            windowActive = false;
     //        }
     //    }
-    //    IEnumerator attackSpeed()
-    //    {
-    //        canAttack = false;
-    //        yield return new WaitForSeconds(atkSpeed);
-    //        canAttack = true;
-    //    }
+    //IEnumerator attackSpeed()
+    //{
+    //    canAttack = false;
+    //    yield return new WaitForSeconds(atkSpeed);
+    //    canAttack = true;
+    //}
 }
