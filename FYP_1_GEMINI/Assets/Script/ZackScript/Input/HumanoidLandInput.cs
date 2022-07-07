@@ -21,6 +21,7 @@ public class HumanoidLandInput : MonoBehaviour
     public bool EscapeIsPressed { get; private set; } = false;
     public bool GunReloadIsPressed { get; private set; } = false;
     public bool InteractIsPressed { get; private set; } = false;
+    public Vector2 MousePosition { get; private set; } = Vector2.zero;
 
     InputActions input = null;
 
@@ -69,6 +70,8 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Interact.started += SetInteract;
         input.HumanoidLand.Interact.canceled += SetInteract;
 
+        input.HumanoidLand.MousePosition.performed += SetMousePosition;
+        input.HumanoidLand.MousePosition.canceled += SetMousePosition;
         //input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -113,6 +116,9 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Interact.started -= SetInteract;
         input.HumanoidLand.Interact.canceled -= SetInteract;
+
+        input.HumanoidLand.MousePosition.performed -= SetMousePosition;
+        input.HumanoidLand.MousePosition.canceled -= SetMousePosition;
 
         //input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
@@ -190,6 +196,10 @@ public class HumanoidLandInput : MonoBehaviour
         InteractIsPressed = ctx.started;
     }
 
+    private void SetMousePosition(InputAction.CallbackContext ctx)
+    {
+        MousePosition = ctx.ReadValue<Vector2>();
+    }
     //private void SetZoomCamera(InputAction.CallbackContext ctx)
     //{
     //    ZoomCameraInput = ctx.ReadValue<float>();

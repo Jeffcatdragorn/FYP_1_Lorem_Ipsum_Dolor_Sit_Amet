@@ -161,6 +161,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""5928c221-c13d-4659-90dd-7f54f9c27767"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -482,6 +491,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3594999-508f-46a3-98d6-487ecdb2afa0"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -505,6 +525,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_PauseGame = m_HumanoidLand.FindAction("PauseGame", throwIfNotFound: true);
         m_HumanoidLand_GunReload = m_HumanoidLand.FindAction("GunReload", throwIfNotFound: true);
         m_HumanoidLand_Interact = m_HumanoidLand.FindAction("Interact", throwIfNotFound: true);
+        m_HumanoidLand_MousePosition = m_HumanoidLand.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -579,6 +600,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_PauseGame;
     private readonly InputAction m_HumanoidLand_GunReload;
     private readonly InputAction m_HumanoidLand_Interact;
+    private readonly InputAction m_HumanoidLand_MousePosition;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -598,6 +620,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @PauseGame => m_Wrapper.m_HumanoidLand_PauseGame;
         public InputAction @GunReload => m_Wrapper.m_HumanoidLand_GunReload;
         public InputAction @Interact => m_Wrapper.m_HumanoidLand_Interact;
+        public InputAction @MousePosition => m_Wrapper.m_HumanoidLand_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -652,6 +675,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnInteract;
+                @MousePosition.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -701,6 +727,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -722,5 +751,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnPauseGame(InputAction.CallbackContext context);
         void OnGunReload(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }

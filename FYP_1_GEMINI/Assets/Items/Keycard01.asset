@@ -16,3 +16,4 @@ MonoBehaviour:
   icon: {fileID: 7482667652216324306, guid: 61fe1377f417f964b89ad8864664a448, type: 3}
   isDefaultItem: 0
   itemAmount: 0
+  tooltipMessage: 'KEYCARD 01: use to scan on keypad'

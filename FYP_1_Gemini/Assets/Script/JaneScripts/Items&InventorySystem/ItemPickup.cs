@@ -9,6 +9,8 @@ public class ItemPickup : Interactable
 
     public Item item;
 
+    
+
     private void Awake()
     {
         input = new InteractWithObjects();
@@ -28,6 +30,7 @@ public class ItemPickup : Interactable
 
         //Add to inventory
         bool wasPickedUp = Inventory.instance.Add(item);
+       
 
         if(wasPickedUp)
         {
