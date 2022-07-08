@@ -95,8 +95,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask shootLayer;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] float shootCooldown = 0.5f;
+    [SerializeField] float shootCooldown = 0.1f;
     [SerializeField] float shootCooldownCounter = 0.0f;
+    [SerializeField] float shootChargingCounter = 0.0f;
     [SerializeField] bool isUsingShotgun = true;
     [SerializeField] int bulletsPerShot = 6;
     [SerializeField] GameObject impactEffect;
@@ -132,6 +133,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float teleportDistance = 0.5f;
     [SerializeField] float teleportCooldown = 1.0f;
     [SerializeField] float teleportCooldownCounter = 0.0f;
+    [SerializeField] LayerMask teleportStopLayer;
 
     [Header("Shield")]
     [SerializeField] GameObject shieldObject;
@@ -441,34 +443,41 @@ public class PlayerController : MonoBehaviour
     private void PlayerShoot()
     {
         SetShootCooldownCounter();
+
         if (input.ShootIsPressed == true)
         {
-            if (shootCooldownCounter == 0.0f && currentBulletCount != 0)
+            SetShootChargeIncrease();
+            if (shootChargingCounter > 1.0f)
             {
-                muzzleFlash.Play();
-                AudioManager.instance.PlaySound("revolverShoot");
-                currentBulletCount -= 1;
-
-                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore))
+                if (shootCooldownCounter == 0.0f && currentBulletCount != 0)
                 {
+                    muzzleFlash.Play();
+                    AudioManager.instance.PlaySound("revolverShoot");
+                    currentBulletCount -= 1;
 
-                    Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
-                    if (enemy != null)
+                    if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore))
                     {
-                        enemy.TakeDamage(1);
+
+                        Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
+                        if (enemy != null)
+                        {
+                            enemy.TakeDamage(1);
+                        }
                     }
-                }
 
-                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer))
-                {
-                    Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
-                    if (objectController != null)
-                        objectController.changeForms(hit2.transform.name);
-                }
+                    if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer))
+                    {
+                        Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
+                        if (objectController != null)
+                            objectController.changeForms(hit2.transform.name);
+                    }
 
-                shootCooldownCounter = shootCooldown;
+                    shootCooldownCounter = shootCooldown;
+                }
             }
         }
+
+        else SetShootChargeDecrease();
     }
 
     private void PlayerGunReload()
@@ -536,19 +545,24 @@ public class PlayerController : MonoBehaviour
 
     private void ParasiteTeleport()
     {
-        Vector3 calculatedPlayerMovement = playerMoveInput;
-        //Vector3 teleportPoint = transform.position;
-
         SetTeleportCooldownCounter();
 
         if (input.TeleportIsPressed && teleportCooldownCounter == 0.0f)
         {
-            Physics.Raycast(transform.position, rigidbody.transform.TransformDirection(calculatedPlayerMovement), out RaycastHit teleportRay, teleportDistance);
-            Vector3 teleportPoint = player.position + rigidbody.transform.TransformDirection(calculatedPlayerMovement) * teleportDistance;
-            transform.position = teleportPoint;
-            teleportCooldownCounter = teleportCooldown;
+            if (Physics.Raycast(transform.position, rigidbody.transform.TransformDirection(playerMoveInput), out RaycastHit teleportRay, teleportDistance, teleportStopLayer))
+            {
+                Vector3 teleportPoint = player.position + rigidbody.transform.TransformDirection(playerMoveInput) * teleportDistance;
+                transform.position = teleportPoint;
+                teleportCooldownCounter = teleportCooldown;
+            }
+            else
+            {
+                Vector3 teleportPoint = player.position + rigidbody.transform.TransformDirection(playerMoveInput) * teleportDistance;
+                transform.position = teleportPoint;
+                teleportCooldownCounter = teleportCooldown;
+            }
+            Debug.DrawRay(transform.position, rigidbody.transform.TransformDirection(playerMoveInput), Color.red, teleportDistance);
         }
-        Debug.DrawRay(transform.position, rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, teleportDistance);
     }
 
     private void ParasiteShield()
@@ -691,6 +705,40 @@ public class PlayerController : MonoBehaviour
         if (shootCooldownCounter <= 0)
         {
             shootCooldownCounter = 0.0f;
+        }
+    }
+
+    private void SetShootChargeIncrease()
+    {
+        if(shootChargingCounter < 5.0f)
+        {
+            if(Time.time % 1 == 0)
+            {
+                Debug.Log("Yea");
+                shootChargingCounter += 1.0f;
+            }
+        }
+
+        if(shootChargingCounter > 5.0f)
+        {
+            shootChargingCounter = 5.0f;
+        }
+    }
+
+    private void SetShootChargeDecrease()
+    {
+        if (shootChargingCounter > 0.0f)
+        {
+            if (Time.time % 1 == 0)
+            {
+                Debug.Log("Yea1");
+                shootChargingCounter -= 1.0f;
+            }
+        }
+
+        if (shootChargingCounter < 0.0f)
+        {
+            shootChargingCounter = 0.0f;
         }
     }
 
