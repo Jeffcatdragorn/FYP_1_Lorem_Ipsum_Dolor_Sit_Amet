@@ -53,9 +53,6 @@ public class PauseMenu : MonoBehaviour
                 GameIsPaused = false;
             }
         }
-
-        Debug.Log("GameIsPaused: " + GameIsPaused);
-        Debug.Log("CurrentlyInOtherMenus = " + CurrentlyInOtherMenus);
     }
 
     public void Resume()
