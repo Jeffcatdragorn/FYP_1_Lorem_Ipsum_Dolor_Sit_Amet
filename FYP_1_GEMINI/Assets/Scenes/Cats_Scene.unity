@@ -274,6 +274,70 @@ CapsuleCollider:
   m_Height: 2.21
   m_Direction: 1
   m_Center: {x: 0, y: 1.13, z: 0}
+--- !u!114 &105866358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105866349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83cc751161e0e854987a4b95c4d86d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  IdleTime: 3
+  PatrolTime: 5
+  waypoint:
+  - {fileID: 510061999}
+  - {fileID: 254015971}
+  - {fileID: 17253411}
+  teleportTime: 3
+  teleportCDTime: 20
+  canTeleport: 0
+  stillNeedTeleport: 0
+  teleportCount: 0
+  teleportRandomCount: 0
+  xRange: 3
+  yRange: 5
+  zRange: 3
+  attackTime: 3
+  attackRate: 3
+  attack: 0
+  attackRange: 4.64
+  orbT1: {fileID: 1973458593265535634, guid: ac375712fa9e50a4e9b22165766b710e, type: 3}
+--- !u!114 &105866360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105866349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d376337c83d2148beef1a64bdc79dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  IdleCd: 0
+  PatrolCd: 5
+  AttackCd: 0
+  AttackRange: 0
+  MeleeRate: 0
+  MeleeCd: 0
+  TeleportCounter: 100
+  teleportTimer: 0
+  teleportCd: 0
+  TeleportCdIn: 2
+  TeleportCdOut: 2
+  xRange: 5
+  yRange: 5
+  zRange: 5
+  waypoint:
+  - {fileID: 510061999}
+  - {fileID: 17253411}
+  - {fileID: 254015971}
 --- !u!1 &254015969
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,39 +685,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b801c0245aa851848bb783c6a3370452, type: 3}
   m_PrefabInstance: {fileID: 849670497}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &627775266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 627775264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83cc751161e0e854987a4b95c4d86d87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1
-  IdleTime: 3
-  PatrolTime: 5
-  waypoint:
-  - {fileID: 510061999}
-  - {fileID: 254015971}
-  - {fileID: 17253411}
-  teleportTime: 3
-  teleportCDTime: 20
-  canTeleport: 0
-  stillNeedTeleport: 0
-  teleportCount: 0
-  teleportRandomCount: 0
-  xRange: 3
-  yRange: 5
-  zRange: 3
-  attackTime: 3
-  attackRate: 3
-  attack: 0
-  attackRange: 4.64
-  orbT1: {fileID: 1973458593265535634, guid: ac375712fa9e50a4e9b22165766b710e, type: 3}
 --- !u!136 &627775271
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -719,6 +750,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.041395, y: 0.10763025, z: 2.2749343}
   m_Center: {x: -0.06473407, y: 1.9265311, z: 1.1096907}
+--- !u!114 &627775278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627775264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d376337c83d2148beef1a64bdc79dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  IdleCd: 3
+  PatrolCd: 5
+  AttackCd: 20
+  AttackRange: 5
+  MeleeRate: 5
+  MeleeCd: 5
+  TeleportCounter: 3
+  teleportTimer: 0
+  teleportCd: 10
+  TeleportCdIn: 2
+  TeleportCdOut: 2
+  xRange: 5
+  yRange: 5
+  zRange: 5
+  waypoint:
+  - {fileID: 510061999}
+  - {fileID: 17253411}
+  - {fileID: 254015971}
 --- !u!1 &703142145
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,11 +859,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b801c0245aa851848bb783c6a3370452, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b801c0245aa851848bb783c6a3370452, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.276
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b801c0245aa851848bb783c6a3370452, type: 3}
       propertyPath: m_LocalPosition.z
@@ -858,6 +920,10 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: b801c0245aa851848bb783c6a3370452, type: 3}
       propertyPath: m_WarningMessage
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6420742162798960526, guid: b801c0245aa851848bb783c6a3370452, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6420742162798960526, guid: b801c0245aa851848bb783c6a3370452, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1046,7 +1112,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!136 &1302020798
 CapsuleCollider:
@@ -1387,7 +1453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1679741543
 MonoBehaviour:
   m_ObjectHideFlags: 0
