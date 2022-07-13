@@ -139,7 +139,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject shieldObject;
 
     [Header("Crouch")]
-    [SerializeField] float crouchHeight;
+    //[SerializeField] float crouchColliderSize;
+    [SerializeField] CapsuleCollider playerCollider;
+    [SerializeField] GameObject firstPersonCameraFollow;
+    [SerializeField] Transform normalCamera;
+    [SerializeField] Transform crouchCamera;
+    [SerializeField] float crouchSpeed = 0.0f;
 
     private void Awake()
     {
@@ -167,6 +172,8 @@ public class PlayerController : MonoBehaviour
 
         playerMoveInput.y = PlayerFallGravity();
         playerMoveInput.y = PlayerJump();
+
+        PlayerCrouch();
 
         switch (state)
         {
@@ -541,6 +548,31 @@ public class PlayerController : MonoBehaviour
         }
 
         return calculatedDashInput;
+    }
+
+    private void PlayerCrouch()
+    {
+        if(input.CrouchIsPressed == true)
+        {
+            playerCollider.height = 1;
+            if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
+            {
+                Vector3 moveDirection = (crouchCamera.position - firstPersonCameraFollow.transform.position);
+                firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
+                // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
+            }
+        }
+
+        else
+        {
+            playerCollider.height = 2;
+            if (Vector3.Distance(firstPersonCameraFollow.transform.position, normalCamera.position) > 0.1f)
+            {
+                Vector3 moveDirection = (normalCamera.position - firstPersonCameraFollow.transform.position);
+                firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
+                // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
+            }
+        }
     }
 
     private void ParasiteTeleport()
