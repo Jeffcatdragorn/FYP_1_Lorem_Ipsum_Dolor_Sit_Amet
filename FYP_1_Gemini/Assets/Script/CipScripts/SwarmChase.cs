@@ -55,7 +55,8 @@ public class SwarmChase : SwarmBaseStates
 
         chaseVelo.y = 0.0f;
 
-        //states.transform.LookAt(SwarmToPlayer);
+        Quaternion lookRotation = Quaternion.LookRotation((SwarmToPlayer - states.swarmPos).normalized); // GET ROTATION ANGLE
+        states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, Time.deltaTime * 4.0f); // ROTATE FACE NEW DIRECTION
 
         return chaseVelo;
     }

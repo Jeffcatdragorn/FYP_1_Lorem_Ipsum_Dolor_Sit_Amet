@@ -41,6 +41,8 @@ public class SwarmAvoidObstacles : SwarmBaseStates
 
         Vector3 movement = (SwarmPatrol.wallsPos - SwarmPatrol.movementVelo).normalized * -1;
         Vector3 runVelocity = movement * 5.0f;
+        Quaternion lookRotation = Quaternion.LookRotation(movement - states.swarmPos); // GET ROTATION ANGLE
+        states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, Time.deltaTime * 4.0f); // ROTATE FACE NEW DIRECTION
         states.transform.Translate(runVelocity * Time.deltaTime, Space.World);
     }
     #endregion

@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 1
@@ -24,9 +24,9 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 2.3
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 110c4631f21b8ba4d97979ac2b1b108c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -35,10 +35,10 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0.15
+  m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 60d1856cd41fa114bb1a909a0e91d03b, type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: acf6424186c7f1948a8ef85e432e1ddd, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: dc74a3c07e8f34e489b44d177e22c042, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1399,8 +1399,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.6792453, g: 0.6336491, b: 0.5286579, a: 1}
-  m_Intensity: 35
-  m_Range: 79
+  m_Intensity: 33.15
+  m_Range: 4.3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -2858,6 +2858,9 @@ MonoBehaviour:
   DetectiveBody: {fileID: 0}
   FighterBody: {fileID: 0}
   parasiteVision: {fileID: 1920071261}
+  playerbody:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &787180575
 Transform:
   m_ObjectHideFlags: 0
@@ -9180,6 +9183,10 @@ MonoBehaviour:
   rotationSpeedMultiplier: 180
   pitchSpeedMultiplier: 180
   runMultiplier: 5
+  maxhealth: 100
+  statusBar: {fileID: 0}
+  tickRate: 1
+  tickTime: 1
   playerIsGrounded: 1
   groundCheckRadiusMultiplier: 0.9
   groundCheckerExtraDistance: 0.05
@@ -9204,21 +9211,8 @@ MonoBehaviour:
   jumpBufferTimeCounter: 0
   playerIsJumping: 0
   jumpWasPressedLastFrame: 0
-  playerIsGrappling: 0
-  debugGrapplePoint: {fileID: 0}
-  grappleSpeed: 5
-  lineRenderer: {fileID: 0}
-  pullSlider: {fileID: 0}
-  grappleObjects:
-    serializedVersion: 2
-    m_Bits: 0
-  triggerObjects:
-    serializedVersion: 2
-    m_Bits: 0
-  grappleTip: {fileID: 0}
   cam: {fileID: 0}
   player: {fileID: 0}
-  detectiveController: {fileID: 0}
   gunTip: {fileID: 0}
   shootRange: 100
   shootLayer:
@@ -9230,6 +9224,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   shootCooldown: 1
   shootCooldownCounter: 0
+  shootChargingCounter: 0
   isUsingShotgun: 1
   bulletsPerShot: 6
   impactEffect: {fileID: 0}
@@ -9237,6 +9232,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   bulletSpeed: 0
   objectController: {fileID: 0}
+  gunModel: {fileID: 0}
   maxBullets: 6
   currentBulletCount: 6
   GunReloadCooldown: 1.5
@@ -9258,6 +9254,11 @@ MonoBehaviour:
   teleportDistance: 1
   teleportCooldown: 1
   teleportCooldownCounter: 0
+  teleportStopLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  shieldObject: {fileID: 0}
+  crouchHeight: 0
 --- !u!136 &1080452676
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10824,7 +10825,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.6509434, g: 0.7353249, b: 0.8679245, a: 0}
+  m_BackGroundColor: {r: 0.31016374, g: 0.31440014, b: 0.3207547, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -12363,7 +12364,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.9921976, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
