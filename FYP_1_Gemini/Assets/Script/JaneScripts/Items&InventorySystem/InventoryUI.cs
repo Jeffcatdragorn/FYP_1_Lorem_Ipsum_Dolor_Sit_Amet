@@ -9,13 +9,9 @@ public class InventoryUI : MonoBehaviour
 
     InventorySlot[] slots;
 
-    InteractWithObjects input;
-
-    private void Awake()
-    {
-        input = new InteractWithObjects();
-        input.Inventory.InventoryUIMenu.performed += x => InventoryUIMenu(); //set which actions to be done
-    }
+    public HumanoidLandInput input;
+    [SerializeField] float inventoryUICooldownCounter;
+    [SerializeField] float inventoryUICooldown;
 
     // Start is called before the first frame update
     void Start()
@@ -26,11 +22,24 @@ public class InventoryUI : MonoBehaviour
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    private void Update()
+    {
+        if(input.InventoryIsPressed == true && Inventory.tabletObtained == true && inventoryUICooldownCounter == 0.0f)
+        {
+            InventoryUIMenu();
+            inventoryUICooldownCounter = inventoryUICooldown;
+        }
+
+        if (inventoryUICooldownCounter > 0)
+        {
+            inventoryUICooldownCounter -= Time.deltaTime;
+        }
+
+        if (inventoryUICooldownCounter <= 0)
+        {
+            inventoryUICooldownCounter = 0.0f;
+        }
+    }
 
     void UpdateUI ()
     {
@@ -47,18 +56,9 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        input.Inventory.Enable();
-    }
-
-    private void OnDisable()
-    {
-        input.Inventory.Disable();
-    }
-
     private void InventoryUIMenu()
     {
         inventoryUI.SetActive(!inventoryUI.activeSelf);
+        AudioManager.instance.PlaySound("tabletOning");
     }
 }

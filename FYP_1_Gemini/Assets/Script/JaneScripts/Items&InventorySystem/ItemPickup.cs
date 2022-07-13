@@ -30,9 +30,9 @@ public class ItemPickup : Interactable
 
         //Add to inventory
         bool wasPickedUp = Inventory.instance.Add(item);
-       
+        AudioManager.instance.PlaySound("itemPickUp");
 
-        if(wasPickedUp)
+        if (wasPickedUp)
         {
             Destroy(gameObject);
         }

@@ -23,6 +23,8 @@ public class HumanoidLandInput : MonoBehaviour
     public bool InteractIsPressed { get; private set; } = false;
     public Vector2 MousePosition { get; private set; } = Vector2.zero;
     public bool CrouchIsPressed { get; private set; } = false;
+    public bool TabletIsPressed { get; private set; } = false;
+    public bool InventoryIsPressed { get; private set; } = false;
 
 
     InputActions input = null;
@@ -78,6 +80,12 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Crouch.started += SetCrouch;
         input.HumanoidLand.Crouch.canceled += SetCrouch;
 
+        input.HumanoidLand.Tablet.started += SetTablet;
+        input.HumanoidLand.Tablet.canceled += SetTablet;
+
+        input.HumanoidLand.Inventory.started += SetInventory;
+        input.HumanoidLand.Inventory.canceled += SetInventory;
+
         //input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -128,6 +136,12 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Crouch.started -= SetCrouch;
         input.HumanoidLand.Crouch.canceled -= SetCrouch;
+
+        input.HumanoidLand.Tablet.started -= SetTablet;
+        input.HumanoidLand.Tablet.canceled -= SetTablet;
+
+        input.HumanoidLand.Inventory.started -= SetInventory;
+        input.HumanoidLand.Inventory.canceled -= SetInventory;
 
         //input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
@@ -213,6 +227,16 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetCrouch(InputAction.CallbackContext ctx)
     {
         CrouchIsPressed = ctx.started;
+    }
+
+    private void SetTablet(InputAction.CallbackContext ctx)
+    {
+        TabletIsPressed = ctx.started;
+    }
+
+    private void SetInventory(InputAction.CallbackContext ctx)
+    {
+        InventoryIsPressed = ctx.started;
     }
 
     //private void SetZoomCamera(InputAction.CallbackContext ctx)

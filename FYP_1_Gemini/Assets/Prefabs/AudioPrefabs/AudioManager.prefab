@@ -48,9 +48,10 @@ MonoBehaviour:
   buttonSound: {fileID: 8300000, guid: 22c8b9c1b9fe14543b02f9ef0ac19011, type: 3}
   doorOpening: {fileID: 8300000, guid: cf8240c310d97f442978f09a6f9e96ff, type: 3}
   walkingFootstep: {fileID: 8300000, guid: 1fbc480ec887bf74c95c3ae543363c24, type: 3}
-  terminalOpening: {fileID: 8300000, guid: 248da8b836740d04483d911b8debb2c7, type: 3}
+  tabletOning: {fileID: 8300000, guid: 2f4c351f94dac1140901f02d35cfb082, type: 3}
   revolverReload: {fileID: 8300000, guid: a54ab3bfefb83344bbad500dc7bf6a38, type: 3}
   revolverShoot: {fileID: 8300000, guid: 3b16d33b662da094ca8a612540b20df5, type: 3}
+  itemPickUp: {fileID: 8300000, guid: a75468c8e9d617b44a6dd633ebc2ff9e, type: 3}
   soundObject: {fileID: 7314115016610703002, guid: e75bbbc6eb4294e44b17b9628720ff85, type: 3}
   SFXButton: {fileID: 7527728289082795968, guid: 5beb20db36f21154096b07d9b40db9c7, type: 3}
   musicObject: {fileID: 6222479523295503680, guid: 02401aecb908fdb4dadeae45ddf2db6e, type: 3}

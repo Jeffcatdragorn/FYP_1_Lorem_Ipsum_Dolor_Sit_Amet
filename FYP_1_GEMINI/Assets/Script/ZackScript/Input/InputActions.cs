@@ -179,6 +179,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Tablet"",
+                    ""type"": ""Button"",
+                    ""id"": ""6aedee41-1ff3-4ccf-94ef-e52ced742376"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa6e2fc6-d90b-478f-ac30-1ca40ccc912a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -522,6 +540,28 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0b15310-9422-4c4c-a056-e7be3ce86f70"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tablet"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3774005-6a94-4a02-ac58-b5455f297998"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -547,6 +587,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_Interact = m_HumanoidLand.FindAction("Interact", throwIfNotFound: true);
         m_HumanoidLand_MousePosition = m_HumanoidLand.FindAction("MousePosition", throwIfNotFound: true);
         m_HumanoidLand_Crouch = m_HumanoidLand.FindAction("Crouch", throwIfNotFound: true);
+        m_HumanoidLand_Tablet = m_HumanoidLand.FindAction("Tablet", throwIfNotFound: true);
+        m_HumanoidLand_Inventory = m_HumanoidLand.FindAction("Inventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -623,6 +665,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_Interact;
     private readonly InputAction m_HumanoidLand_MousePosition;
     private readonly InputAction m_HumanoidLand_Crouch;
+    private readonly InputAction m_HumanoidLand_Tablet;
+    private readonly InputAction m_HumanoidLand_Inventory;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -644,6 +688,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_HumanoidLand_Interact;
         public InputAction @MousePosition => m_Wrapper.m_HumanoidLand_MousePosition;
         public InputAction @Crouch => m_Wrapper.m_HumanoidLand_Crouch;
+        public InputAction @Tablet => m_Wrapper.m_HumanoidLand_Tablet;
+        public InputAction @Inventory => m_Wrapper.m_HumanoidLand_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -704,6 +750,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnCrouch;
+                @Tablet.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTablet;
+                @Tablet.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTablet;
+                @Tablet.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTablet;
+                @Inventory.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnInventory;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -759,6 +811,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Tablet.started += instance.OnTablet;
+                @Tablet.performed += instance.OnTablet;
+                @Tablet.canceled += instance.OnTablet;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
             }
         }
     }
@@ -782,5 +840,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnTablet(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
 }

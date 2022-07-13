@@ -28,6 +28,32 @@ public class Inventory : MonoBehaviour
 
     public List<Item> items = new List<Item>();
 
+    public GameObject tabletUI;
+    public GameObject canvas;
+    public static bool tabletObtained;
+    public HumanoidLandInput input;
+    [SerializeField] float tabletUICooldownCounter;
+    [SerializeField] float tabletUICooldown;
+
+    private void Update()
+    {
+        if(input.TabletIsPressed == true && tabletObtained == true && tabletUICooldownCounter == 0.0f)
+        {
+            TabletUIMenu(); 
+            tabletUICooldownCounter = tabletUICooldown;
+        }
+
+        if (tabletUICooldownCounter > 0)
+        {
+            tabletUICooldownCounter -= Time.deltaTime;
+        }
+
+        if (tabletUICooldownCounter <= 0)
+        {
+            tabletUICooldownCounter = 0.0f;
+        }
+    }
+
     public bool Add (Item item)
     {
         if (!item.isDefaultItem)
@@ -40,7 +66,7 @@ public class Inventory : MonoBehaviour
 
             //Item copyItem = Instantiate(item);
 
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < items.Count; i++) //stackable items (FIX NEEDED)
             {
                 if (items[i].name == item.name)
                 {
@@ -63,9 +89,18 @@ public class Inventory : MonoBehaviour
                 onItemChangedCallback.Invoke();
             }
         }
+        else //item is default item (e.g. tablet)
+        {
+            if(item.name == "Tablet")
+            {
+                tabletObtained = true;
+                canvas.GetComponent<InventoryUI>().enabled = true;
+            }
+        }
 
         return true;
     }
+    
 
     public void Remove (Item item)
     {
@@ -74,6 +109,15 @@ public class Inventory : MonoBehaviour
         if (onItemChangedCallback != null)
         {
             onItemChangedCallback.Invoke();
+        }
+    }
+
+    private void TabletUIMenu()
+    {
+        if(tabletObtained == true)
+        {
+            tabletUI.SetActive(!tabletUI.activeSelf);
+            AudioManager.instance.PlaySound("tabletOning");
         }
     }
 }
