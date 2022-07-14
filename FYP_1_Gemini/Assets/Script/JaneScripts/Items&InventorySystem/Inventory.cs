@@ -32,6 +32,7 @@ public class Inventory : MonoBehaviour
     public GameObject canvas;
     public static bool tabletObtained;
     public HumanoidLandInput input;
+    public ButtonManager buttonManager;
     [SerializeField] float tabletUICooldownCounter;
     [SerializeField] float tabletUICooldown;
 
@@ -120,6 +121,15 @@ public class Inventory : MonoBehaviour
         {
             tabletUI.SetActive(!tabletUI.activeSelf);
             AudioManager.instance.PlaySound("tabletOning", cameraObject.position);
+
+            if(tabletUI.activeInHierarchy == true)
+            {
+                buttonManager.EnableMouseCursor();
+            }
+            else
+            {
+                buttonManager.DisableMouseCursor();
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI, optionsMenuUI;
     private string currentSceneName;
     public Transform cameraObject;
+    public ButtonManager buttonManager;
     //public Button pauseButton;
 
     private void Start()
@@ -58,6 +59,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        buttonManager.DisableMouseCursor();
         AudioManager.instance.PlaySound("buttonSound", cameraObject.position);
         pauseMenuUI.SetActive(false);
         optionsMenuUI.SetActive(false);
@@ -66,6 +68,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        buttonManager.EnableMouseCursor();
         AudioManager.instance.PlaySound("buttonSound", cameraObject.position);
         pauseMenuUI.SetActive(true);
         if(CurrentlyInOtherMenus == true)

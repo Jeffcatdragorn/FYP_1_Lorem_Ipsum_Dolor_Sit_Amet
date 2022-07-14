@@ -11,6 +11,7 @@ public class InventoryUI : MonoBehaviour
     InventorySlot[] slots;
 
     public HumanoidLandInput input;
+    public ButtonManager buttonManager;
     [SerializeField] float inventoryUICooldownCounter;
     [SerializeField] float inventoryUICooldown;
 
@@ -61,5 +62,14 @@ public class InventoryUI : MonoBehaviour
     {
         inventoryUI.SetActive(!inventoryUI.activeSelf);
         AudioManager.instance.PlaySound("tabletOning", cameraObject.position);
+
+        if (inventoryUI.activeInHierarchy == true)
+        {
+            buttonManager.EnableMouseCursor();
+        }
+        else
+        {
+            buttonManager.DisableMouseCursor();
+        }
     }
 }

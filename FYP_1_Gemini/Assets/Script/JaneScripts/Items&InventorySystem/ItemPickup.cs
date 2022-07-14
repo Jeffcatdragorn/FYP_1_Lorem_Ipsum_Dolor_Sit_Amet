@@ -1,71 +1,46 @@
-//using UnityEngine;
+using UnityEngine;
 
-//public class ItemPickup : Interactable
-//{
-//    //Interactable item;
-//    public GameObject cameraObject;
+public class ItemPickup : Interactable
+{
+    //Interactable item;
+    public GameObject cameraObject;
+    public GameObject player;
 
-//    //InteractWithObjects input;
-//    HumanoidLandInput input;
+    public HumanoidLandInput input;
 
+    public Item item;
 
-//    public Item item;
+    public override void Interact()
+    {
+        base.Interact();
 
-    
+        PickUp();
+    }
 
-//    //private void Awake()
-//    //{
-//    //    input = new InteractWithObjects();
-//    //    input.InteractWithObject.PickUpItem.performed += x => Interact(); //set which actions to be done
-//    //}
+    void PickUp()
+    {
+        Debug.Log("Picking up " + item.name);
 
-//    public override void Interact()
-//    {
-//        base.Interact();
+        //Add to inventory
+        bool wasPickedUp = Inventory.instance.Add(item);
+        AudioManager.instance.PlaySound("itemPickUp", cameraObject.transform.position);
 
-//        PickUp();
-//    }
+        if (wasPickedUp)
+        {
+            Destroy(gameObject);
+        }
+    }
 
-//    void PickUp()
-//    {
-//        Debug.Log("Picking up " + item.name);
-
-//        //Add to inventory
-//        bool wasPickedUp = Inventory.instance.Add(item);
-//        AudioManager.instance.PlaySound("itemPickUp", cameraObject.transform.position);
-
-//        if (wasPickedUp)
-//        {
-//            Destroy(gameObject);
-//        }
-//    }
-
-//    //private void Update()
-//    //{
-//    //    float dist = Vector3.Distance(player.transform.position, gameObject.transform.position); //distance between player and the item
-//    //    if (dist < item.radius)
-//    //    {
-//    //        Interact();
-//    //    }
-//    //}
-
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        if (other.CompareTag("Player"))
-//        {
-//            if(input.InteractIsPressed == true)
-//            {
-
-//            }
-//            input.InteractWithObject.Enable(); //enable the input (can use input)
-//        }
-//    }
-
-//    private void OnTriggerExit(Collider other)
-//    {
-//        if (other.CompareTag("Player"))
-//        {
-//            input.InteractWithObject.Disable(); //disable the input (cannot use the input)
-//        }
-//    }
-//}
+    private void Update()
+    {
+        float dist = Vector3.Distance(player.transform.position, gameObject.transform.position); //distance between player and the item
+        if (dist < radius)
+        {
+            Debug.Log("fuckery fuck");
+            if (input.InteractIsPressed == true)
+            {
+                Interact();
+            }
+        }
+    }
+}

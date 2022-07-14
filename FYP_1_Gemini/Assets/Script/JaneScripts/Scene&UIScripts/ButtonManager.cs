@@ -86,4 +86,16 @@ public class ButtonManager : MonoBehaviour
         Loader.Load(Loader.Scene.MainMenu);
     }
 
+    public void EnableMouseCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void DisableMouseCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
 }

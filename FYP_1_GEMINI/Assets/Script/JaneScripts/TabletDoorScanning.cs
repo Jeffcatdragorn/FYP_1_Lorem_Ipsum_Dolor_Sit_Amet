@@ -10,6 +10,7 @@ public class TabletDoorScanning : MonoBehaviour
     public string doorName;
     public TextMeshProUGUI doorText;
     public GameObject doorPanel;
+    public ButtonManager buttonManager;
     [SerializeField] float ScannerCooldownCounter;
     [SerializeField] float ScannerUICooldown;
     [SerializeField] private Animator normalDoorAnimator = null;
@@ -48,8 +49,7 @@ public class TabletDoorScanning : MonoBehaviour
             if(input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f)
             {
                 doorPanel.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                buttonManager.EnableMouseCursor();
                 ScannerCooldownCounter = ScannerUICooldown;
             }
         }
