@@ -145,6 +145,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform normalCamera;
     [SerializeField] Transform crouchCamera;
     [SerializeField] float crouchSpeed = 0.0f;
+    public static bool forceCrouch = false;
 
     [Header("Flashlight")]
     [SerializeField] GameObject flashlight;
@@ -559,7 +560,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerCrouch()
     {
-        if(input.CrouchIsPressed == true)
+        if(input.CrouchIsPressed == true || forceCrouch == true)
         {
             playerCollider.height = 1;
             if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
