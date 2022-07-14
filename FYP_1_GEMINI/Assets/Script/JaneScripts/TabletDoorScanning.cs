@@ -8,8 +8,10 @@ public class TabletDoorScanning : MonoBehaviour
 {
     public HumanoidLandInput input;
     public string doorName;
+    //private string currentDoorName;
     public TextMeshProUGUI doorText;
     public GameObject doorPanel;
+    //public GameObject connectedDoor;
     public ButtonManager buttonManager;
     [SerializeField] float ScannerCooldownCounter;
     [SerializeField] float ScannerUICooldown;
@@ -21,6 +23,7 @@ public class TabletDoorScanning : MonoBehaviour
     void Start()
     {
         doorText.text = doorName;
+        //currentDoorName = doorText.text;
     }
 
     // Update is called once per frame
@@ -36,9 +39,12 @@ public class TabletDoorScanning : MonoBehaviour
             ScannerCooldownCounter = 0.0f;
         }
 
-        if(doorIsOpen == true)
+        
+
+        if (doorIsOpen == true)
         {
             doorPanel.GetComponentInChildren<Button>().interactable = false;
+            //doorIsOpen = false;
         }
     }
 
@@ -48,6 +54,13 @@ public class TabletDoorScanning : MonoBehaviour
         {
             if(input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f)
             {
+                //if(doorText.text != currentDoorName)
+                //{
+                //    doorText.text = doorName;
+                //    doorPanel.GetComponentInChildren<Button>().interactable = true;
+                //    doorPanel.GetComponentInChildren<Button>()
+                //}
+                
                 doorPanel.SetActive(true);
                 buttonManager.EnableMouseCursor();
                 ScannerCooldownCounter = ScannerUICooldown;
@@ -58,7 +71,7 @@ public class TabletDoorScanning : MonoBehaviour
     public void OpenDoor()
     {
         normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
-        //AudioManager.instance.PlaySound("doorOpening", gameObject.transform);
+        AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.GetComponentInParent<Transform>().position);
         doorIsOpen = true;
     }
 }
