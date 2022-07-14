@@ -113,32 +113,32 @@ public class AudioManager : MonoBehaviour
         currentMusicObject.GetComponent<AudioSource>().Play();
     }
 
-    public void PlaySound(string soundName)
+    public void PlaySound(string soundName, Transform spawnPosition)
     {
         if(SFXCheck == true)
         {
             switch (soundName)
             {
                 case "buttonSound":
-                    SoundObjectCreate(buttonSound);
+                    SoundObjectCreate(buttonSound, spawnPosition);
                     break;
                 case "doorOpening":
-                    SoundObjectCreate(doorOpening); 
+                    SoundObjectCreate(doorOpening, spawnPosition); 
                     break;
                 case "walkingFootstep":
-                    SoundObjectCreate(walkingFootstep); 
+                    SoundObjectCreate(walkingFootstep, spawnPosition); 
                     break;
                 case "tabletOning":
-                    SoundObjectCreate(tabletOning);
+                    SoundObjectCreate(tabletOning, spawnPosition);
                     break;
                 case "revolverReload":
-                    SoundObjectCreate(revolverReload);
+                    SoundObjectCreate(revolverReload, spawnPosition);
                     break;
                 case "revolverShoot":
-                    SoundObjectCreate(revolverShoot);
+                    SoundObjectCreate(revolverShoot, spawnPosition);
                     break;
                 case "itemPickUp":
-                    SoundObjectCreate(itemPickUp);
+                    SoundObjectCreate(itemPickUp, spawnPosition);
                     break;
                 default:
                     break;
@@ -146,9 +146,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void SoundObjectCreate(AudioClip clip)
+    void SoundObjectCreate(AudioClip clip, Transform spawnPosition)
     {
-        GameObject newObject = Instantiate(soundObject);
+        GameObject newObject = Instantiate(soundObject, spawnPosition);
 
         newObject.GetComponent<AudioSource>().clip = clip;
 

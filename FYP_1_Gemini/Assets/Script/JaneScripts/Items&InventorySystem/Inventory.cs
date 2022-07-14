@@ -35,6 +35,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] float tabletUICooldownCounter;
     [SerializeField] float tabletUICooldown;
 
+    public Transform cameraObject;
+
     private void Update()
     {
         if(input.TabletIsPressed == true && tabletObtained == true && tabletUICooldownCounter == 0.0f)
@@ -117,7 +119,7 @@ public class Inventory : MonoBehaviour
         if(tabletObtained == true)
         {
             tabletUI.SetActive(!tabletUI.activeSelf);
-            AudioManager.instance.PlaySound("tabletOning");
+            AudioManager.instance.PlaySound("tabletOning", cameraObject);
         }
     }
 }

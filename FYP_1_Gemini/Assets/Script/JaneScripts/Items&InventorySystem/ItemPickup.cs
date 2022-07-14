@@ -3,7 +3,7 @@ using UnityEngine;
 public class ItemPickup : Interactable
 {
     //Interactable item;
-    public GameObject player;
+    public GameObject cameraObject;
 
     InteractWithObjects input;
 
@@ -30,7 +30,7 @@ public class ItemPickup : Interactable
 
         //Add to inventory
         bool wasPickedUp = Inventory.instance.Add(item);
-        AudioManager.instance.PlaySound("itemPickUp");
+        AudioManager.instance.PlaySound("itemPickUp", cameraObject.transform);
 
         if (wasPickedUp)
         {

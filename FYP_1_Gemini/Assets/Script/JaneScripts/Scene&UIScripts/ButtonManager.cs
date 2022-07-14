@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
 {
+    public Transform cameraObject;
     //public static bool usedCom;
 
     //public static ButtonManager instance;
@@ -26,7 +27,7 @@ public class ButtonManager : MonoBehaviour
 
     public void PlayButtonSound()
     {
-        AudioManager.instance.PlaySound("buttonSound");
+        AudioManager.instance.PlaySound("buttonSound", cameraObject);
     }
 
     //public void Play()

@@ -35,6 +35,7 @@ public class DoorController : MonoBehaviour
     [SerializeField] private string pressurePlateReleased = "PPlateReleased";
 
     private bool doorIsOpen = false;
+    public Transform cameraObject;
     private KeycardScanner keycardScanner;
 
     private void Awake()
@@ -76,7 +77,7 @@ public class DoorController : MonoBehaviour
             if(openOnceOnlyDoor == false && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true)
             {
                 normalDoorAnimator.Play(doorSlideClose, 0, 0.0f);
-                AudioManager.instance.PlaySound("doorOpening");
+                AudioManager.instance.PlaySound("doorOpening", cameraObject);
                 pressurePlate.Play(pressurePlateReleased, 0, 0.0f);
                 doorIsOpen = false;
             }
@@ -106,7 +107,7 @@ public class DoorController : MonoBehaviour
         if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
         {
             normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
-            AudioManager.instance.PlaySound("doorOpening");
+            AudioManager.instance.PlaySound("doorOpening", cameraObject);
             pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
             doorIsOpen = true;
         }
@@ -117,7 +118,7 @@ public class DoorController : MonoBehaviour
         if (keycardScanner.keycardScanned == true && doorIsOpen == false)
         {
             normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
-            AudioManager.instance.PlaySound("doorOpening");
+            AudioManager.instance.PlaySound("doorOpening", cameraObject);
             doorIsOpen = true;
         }
     }

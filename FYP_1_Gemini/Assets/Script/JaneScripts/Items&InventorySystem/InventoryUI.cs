@@ -3,6 +3,7 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
+    public Transform cameraObject;
     public GameObject inventoryUI;
 
     Inventory inventory;
@@ -59,6 +60,6 @@ public class InventoryUI : MonoBehaviour
     private void InventoryUIMenu()
     {
         inventoryUI.SetActive(!inventoryUI.activeSelf);
-        AudioManager.instance.PlaySound("tabletOning");
+        AudioManager.instance.PlaySound("tabletOning", cameraObject);
     }
 }
