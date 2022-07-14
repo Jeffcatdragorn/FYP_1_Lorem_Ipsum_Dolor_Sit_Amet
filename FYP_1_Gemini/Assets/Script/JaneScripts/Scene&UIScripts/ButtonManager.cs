@@ -27,7 +27,7 @@ public class ButtonManager : MonoBehaviour
 
     public void PlayButtonSound()
     {
-        AudioManager.instance.PlaySound("buttonSound", cameraObject);
+        AudioManager.instance.PlaySound("buttonSound", cameraObject.position);
     }
 
     //public void Play()

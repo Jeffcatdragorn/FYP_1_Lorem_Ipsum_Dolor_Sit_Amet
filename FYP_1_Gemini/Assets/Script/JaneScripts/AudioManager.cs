@@ -113,7 +113,7 @@ public class AudioManager : MonoBehaviour
         currentMusicObject.GetComponent<AudioSource>().Play();
     }
 
-    public void PlaySound(string soundName, Transform spawnPosition)
+    public void PlaySound(string soundName, Vector3 spawnPosition)
     {
         if(SFXCheck == true)
         {
@@ -146,9 +146,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void SoundObjectCreate(AudioClip clip, Transform spawnPosition)
+    void SoundObjectCreate(AudioClip clip, Vector3 spawnPosition)
     {
-        GameObject newObject = Instantiate(soundObject, spawnPosition);
+        GameObject newObject = Instantiate(soundObject, spawnPosition, Quaternion.identity);
 
         newObject.GetComponent<AudioSource>().clip = clip;
 

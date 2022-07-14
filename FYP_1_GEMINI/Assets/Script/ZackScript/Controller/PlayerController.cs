@@ -466,7 +466,7 @@ public class PlayerController : MonoBehaviour
                 if (shootCooldownCounter == 0.0f && currentBulletCount != 0)
                 {
                     muzzleFlash.Play();
-                    AudioManager.instance.PlaySound("revolverShoot", cameraFollow);
+                    AudioManager.instance.PlaySound("revolverShoot", cameraFollow.position);
                     currentBulletCount -= 1;
 
                     if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore))
@@ -500,7 +500,7 @@ public class PlayerController : MonoBehaviour
 
         if (input.GunReloadIsPressed && currentBulletCount < 6 && GunReloadCooldownCounter == 0.0f)
         {
-            AudioManager.instance.PlaySound("revolverReload", cameraFollow);
+            AudioManager.instance.PlaySound("revolverReload", cameraFollow.position);
             currentBulletCount++;
             GunReloadCooldownCounter = GunReloadCooldown;
         }

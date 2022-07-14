@@ -58,7 +58,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        AudioManager.instance.PlaySound("buttonSound", cameraObject);
+        AudioManager.instance.PlaySound("buttonSound", cameraObject.position);
         pauseMenuUI.SetActive(false);
         optionsMenuUI.SetActive(false);
         Time.timeScale = 1f;
@@ -66,7 +66,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        AudioManager.instance.PlaySound("buttonSound", cameraObject);
+        AudioManager.instance.PlaySound("buttonSound", cameraObject.position);
         pauseMenuUI.SetActive(true);
         if(CurrentlyInOtherMenus == true)
         {
@@ -77,7 +77,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Options()
     {
-        AudioManager.instance.PlaySound("buttonSound", cameraObject);
+        AudioManager.instance.PlaySound("buttonSound", cameraObject.position);
         pauseMenuUI.SetActive(false);
         optionsMenuUI.SetActive(true);
         Time.timeScale = 0f;

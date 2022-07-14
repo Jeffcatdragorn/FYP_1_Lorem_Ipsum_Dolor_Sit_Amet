@@ -119,7 +119,7 @@ public class Inventory : MonoBehaviour
         if(tabletObtained == true)
         {
             tabletUI.SetActive(!tabletUI.activeSelf);
-            AudioManager.instance.PlaySound("tabletOning", cameraObject);
+            AudioManager.instance.PlaySound("tabletOning", cameraObject.position);
         }
     }
 }

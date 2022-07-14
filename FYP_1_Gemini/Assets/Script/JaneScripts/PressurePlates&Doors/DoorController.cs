@@ -64,7 +64,7 @@ public class DoorController : MonoBehaviour
         {
             if (currentSceneName == "FloatingLevel")
             {
-                Solution2();
+                //Solution2();
             }
         }
     }
@@ -77,7 +77,7 @@ public class DoorController : MonoBehaviour
             if(openOnceOnlyDoor == false && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true)
             {
                 normalDoorAnimator.Play(doorSlideClose, 0, 0.0f);
-                AudioManager.instance.PlaySound("doorOpening", cameraObject);
+                AudioManager.instance.PlaySound("doorOpening", cameraObject.position);
                 pressurePlate.Play(pressurePlateReleased, 0, 0.0f);
                 doorIsOpen = false;
             }
@@ -107,21 +107,21 @@ public class DoorController : MonoBehaviour
         if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
         {
             normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
-            AudioManager.instance.PlaySound("doorOpening", cameraObject);
+            AudioManager.instance.PlaySound("doorOpening", cameraObject.position);
             pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
             doorIsOpen = true;
         }
     }
 
-    private void Solution2() //currentSceneName == "FloatingLevel"
-    {
-        if (keycardScanner.keycardScanned == true && doorIsOpen == false)
-        {
-            normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
-            AudioManager.instance.PlaySound("doorOpening", cameraObject);
-            doorIsOpen = true;
-        }
-    }
+    //private void Solution2() //currentSceneName == "FloatingLevel"
+    //{
+    //    if (keycardScanner.keycardScanned == true && doorIsOpen == false)
+    //    {
+    //        normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
+    //        AudioManager.instance.PlaySound("doorOpening", cameraObject.position);
+    //        doorIsOpen = true;
+    //    }
+    //}
 
     private void Update()
     {
