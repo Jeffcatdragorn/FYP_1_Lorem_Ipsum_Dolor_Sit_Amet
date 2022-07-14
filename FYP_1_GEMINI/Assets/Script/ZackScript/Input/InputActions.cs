@@ -197,6 +197,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Flashlight"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b149bdf-6385-432c-aafa-3137a0c6e276"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -562,6 +571,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46c99e30-0772-4c05-852a-25752d7eb6f0"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Flashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -589,6 +609,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_Crouch = m_HumanoidLand.FindAction("Crouch", throwIfNotFound: true);
         m_HumanoidLand_Tablet = m_HumanoidLand.FindAction("Tablet", throwIfNotFound: true);
         m_HumanoidLand_Inventory = m_HumanoidLand.FindAction("Inventory", throwIfNotFound: true);
+        m_HumanoidLand_Flashlight = m_HumanoidLand.FindAction("Flashlight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -667,6 +688,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_Crouch;
     private readonly InputAction m_HumanoidLand_Tablet;
     private readonly InputAction m_HumanoidLand_Inventory;
+    private readonly InputAction m_HumanoidLand_Flashlight;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -690,6 +712,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_HumanoidLand_Crouch;
         public InputAction @Tablet => m_Wrapper.m_HumanoidLand_Tablet;
         public InputAction @Inventory => m_Wrapper.m_HumanoidLand_Inventory;
+        public InputAction @Flashlight => m_Wrapper.m_HumanoidLand_Flashlight;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -756,6 +779,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Inventory.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnInventory;
+                @Flashlight.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnFlashlight;
+                @Flashlight.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnFlashlight;
+                @Flashlight.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnFlashlight;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -817,6 +843,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @Flashlight.started += instance.OnFlashlight;
+                @Flashlight.performed += instance.OnFlashlight;
+                @Flashlight.canceled += instance.OnFlashlight;
             }
         }
     }
@@ -842,5 +871,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnTablet(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnFlashlight(InputAction.CallbackContext context);
     }
 }

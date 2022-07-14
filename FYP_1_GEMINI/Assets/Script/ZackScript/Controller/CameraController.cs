@@ -24,10 +24,6 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera cinemachineOrbit;
     CinemachineFramingTransposer cinemachineFramingTransposerOrbit;
 
-    [SerializeField] GameObject DetectiveBody;
-    [SerializeField] GameObject FighterBody;
-    public GameObject parasiteVision; //remove later
-
     public LayerMask playerbody;
 
     private void Awake()
@@ -41,7 +37,6 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         ChangeCamera(); //first time
-        parasiteVision.SetActive(false);
     }
 
     private void Update()
@@ -51,10 +46,10 @@ public class CameraController : MonoBehaviour
         //    ZoomCamera();
         //}
 
-        if (input.ChangeCameraWasPressedThisFrame)
-        {
-            ChangeCamera();
-        }
+        //if (input.ChangeCameraWasPressedThisFrame)
+        //{
+        //    ChangeCamera();
+        //}
     }
 
     //private void ZoomCamera()
@@ -81,9 +76,6 @@ public class CameraController : MonoBehaviour
         if (cinemachineFirstPerson == activeCamera)
         {
             SetCameraPriorities(cinemachineFirstPerson, cinemachineThirdPerson);
-            parasiteVision.SetActive(true);
-            DetectiveBody.SetActive(false);
-            FighterBody.SetActive(true);
             PlayerController.state = PlayerController.State.Fighter;
             PlayerController.cameraFollow = cinemachineThirdPerson.Follow;
         }
@@ -91,9 +83,6 @@ public class CameraController : MonoBehaviour
         else if (cinemachineThirdPerson == activeCamera)
         {
             SetCameraPriorities(cinemachineThirdPerson, cinemachineFirstPerson);
-            parasiteVision.SetActive(false);
-            DetectiveBody.SetActive(true);
-            FighterBody.SetActive(false);
             PlayerController.state = PlayerController.State.Detective;
             PlayerController.cameraFollow = cinemachineFirstPerson.Follow;
         }

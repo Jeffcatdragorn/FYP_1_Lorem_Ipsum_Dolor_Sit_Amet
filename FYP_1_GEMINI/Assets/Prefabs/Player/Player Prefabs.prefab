@@ -973,7 +973,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 10
+  m_Intensity: 3.58
   m_Range: 35
   m_SpotAngle: 40
   m_InnerSpotAngle: 9.6
@@ -3434,55 +3434,6 @@ Transform:
   m_Father: {fileID: 7003176049956187255}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2059194258
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2059194259}
-  - component: {fileID: 2059194260}
-  m_Layer: 0
-  m_Name: Global Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2059194259
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059194258}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1010714, y: 5.6551585, z: 78.16843}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3601798308805109862}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2059194260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059194258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 847ccecb67741aa4faaedfc9d4df3b22, type: 2}
 --- !u!1 &298399013662628683
 GameObject:
   m_ObjectHideFlags: 0
@@ -4374,6 +4325,7 @@ MonoBehaviour:
   normalCamera: {fileID: 1292129969}
   crouchCamera: {fileID: 264352341}
   crouchSpeed: 10
+  flashlight: {fileID: 788358325}
 --- !u!1 &7003176049019966671
 GameObject:
   m_ObjectHideFlags: 0
@@ -5139,7 +5091,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7003176049452550738}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.524515, y: 11.782099, z: -26.118256}
+  m_LocalPosition: {x: 10.524495, y: 11.782099, z: -26.118261}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6143,9 +6095,6 @@ MonoBehaviour:
   cinemachineFirstPerson: {fileID: 7003176049790429486}
   cinemachineThirdPerson: {fileID: 7003176049452550741}
   cinemachineOrbit: {fileID: 7003176048936579907}
-  DetectiveBody: {fileID: 0}
-  FighterBody: {fileID: 298399013662628683}
-  parasiteVision: {fileID: 2059194258}
   playerbody:
     serializedVersion: 2
     m_Bits: 131072
@@ -6267,7 +6216,6 @@ Transform:
   - {fileID: 7003176050505343535}
   - {fileID: 7003176050079056124}
   - {fileID: 7003176049207518329}
-  - {fileID: 2059194259}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

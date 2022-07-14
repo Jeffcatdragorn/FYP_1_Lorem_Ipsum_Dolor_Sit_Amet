@@ -146,8 +146,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform crouchCamera;
     [SerializeField] float crouchSpeed = 0.0f;
 
+    [Header("Flashlight")]
+    [SerializeField] GameObject flashlight;
+
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         rigidbody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
     }
@@ -183,10 +188,12 @@ public class PlayerController : MonoBehaviour
                 PlayerShoot();
                 PlayerGunReload();
                 gunModel.SetActive(true);
+                PlayerFlashlight();
                 break;
 
             case State.Fighter:
                 gunModel.SetActive(false); ;
+                flashlight.SetActive(false);
                 ParasiteTeleport();
                 ParasiteRunning();
                 ParasiteAttack();
@@ -572,6 +579,19 @@ public class PlayerController : MonoBehaviour
                 firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
                 // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
             }
+        }
+    }
+
+    private void PlayerFlashlight()
+    {
+        if(input.FlashlightIsPressed == true)
+        {
+            flashlight.SetActive(true);
+        }
+
+        else
+        {
+            flashlight.SetActive(false);
         }
     }
 

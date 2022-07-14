@@ -25,6 +25,7 @@ public class HumanoidLandInput : MonoBehaviour
     public bool CrouchIsPressed { get; private set; } = false;
     public bool TabletIsPressed { get; private set; } = false;
     public bool InventoryIsPressed { get; private set; } = false;
+    public bool FlashlightIsPressed { get; private set; } = false;
 
 
     InputActions input = null;
@@ -86,6 +87,9 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Inventory.started += SetInventory;
         input.HumanoidLand.Inventory.canceled += SetInventory;
 
+        input.HumanoidLand.Flashlight.started += SetFlashlight;
+        input.HumanoidLand.Flashlight.canceled += SetFlashlight;
+
         //input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -142,6 +146,9 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Inventory.started -= SetInventory;
         input.HumanoidLand.Inventory.canceled -= SetInventory;
+
+        input.HumanoidLand.Flashlight.started -= SetFlashlight;
+        input.HumanoidLand.Flashlight.canceled -= SetFlashlight;
 
         //input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
@@ -237,6 +244,11 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetInventory(InputAction.CallbackContext ctx)
     {
         InventoryIsPressed = ctx.started;
+    }
+
+    private void SetFlashlight(InputAction.CallbackContext ctx)
+    {
+        FlashlightIsPressed = ctx.started;
     }
 
     //private void SetZoomCamera(InputAction.CallbackContext ctx)
