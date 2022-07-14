@@ -6,12 +6,20 @@ public class VentBehaviour : MonoBehaviour
 {
     [SerializeField] HumanoidLandInput input;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.tag == "Player" && input.InteractIsPressed == true)
+        if(other.tag == "Player" )
         {
-            PlayerController.forceCrouch = true;
-            other.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            if(input.InteractIsPressed == true)
+            {
+                PlayerController.forceCrouch = true;
+                other.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            }
+
+            else
+            {
+                PlayerController.forceCrouch = false;
+            }
         }
     }
 }

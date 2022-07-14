@@ -563,23 +563,30 @@ public class PlayerController : MonoBehaviour
         if(input.CrouchIsPressed == true || forceCrouch == true)
         {
             playerCollider.height = 1;
-            if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
-            {
-                Vector3 moveDirection = (crouchCamera.position - firstPersonCameraFollow.transform.position);
-                firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
-                // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
-            }
+
+            firstPersonCameraFollow.transform.position = crouchCamera.position;
+
+            //if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
+            //{
+            //    Vector3 moveDirection = (crouchCamera.position - firstPersonCameraFollow.transform.position);
+            //    firstPersonCameraFollow.GetComponent<Rigidbody>().isKinematic = false;
+            //    firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
+            //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
+            //}
         }
 
         else
         {
             playerCollider.height = 2;
-            if (Vector3.Distance(firstPersonCameraFollow.transform.position, normalCamera.position) > 0.1f)
-            {
-                Vector3 moveDirection = (normalCamera.position - firstPersonCameraFollow.transform.position);
-                firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
-                // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
-            }
+
+            firstPersonCameraFollow.transform.position = normalCamera.position;
+
+            //if (Vector3.Distance(firstPersonCameraFollow.transform.position, normalCamera.position) > 0.1f)
+            //{
+            //    Vector3 moveDirection = (normalCamera.position - firstPersonCameraFollow.transform.position);
+            //    firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
+            //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
+            //}
         }
     }
 
