@@ -18,7 +18,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 50
+    value: 30
   threshold:
     overrideState: 0
     value: 1
@@ -268,10 +268,10 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 0
-    value: -65
+    value: -34.8
   tint:
     overrideState: 0
-    value: -100
+    value: -32.6
   colorFilter:
     overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
