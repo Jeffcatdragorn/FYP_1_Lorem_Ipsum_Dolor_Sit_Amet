@@ -15,5 +15,5 @@ MonoBehaviour:
   name: SnackBar
   icon: {fileID: 21300000, guid: 61533dc0a5acf174a9c40d5c36143905, type: 3}
   isDefaultItem: 0
-  itemAmount: 0
+  itemAmount: 1
   tooltipMessage: 'SNACK BAR: heal 10% of player''s health'

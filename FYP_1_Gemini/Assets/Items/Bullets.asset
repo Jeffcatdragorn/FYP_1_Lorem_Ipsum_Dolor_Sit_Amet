@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Bullets
   icon: {fileID: 21300000, guid: 969da6749c1cacd4e9a828b9f660bf26, type: 3}
   isDefaultItem: 0
-  itemAmount: 0
+  itemAmount: 10
   tooltipMessage: 'GUN BULLET: for gun reloading'

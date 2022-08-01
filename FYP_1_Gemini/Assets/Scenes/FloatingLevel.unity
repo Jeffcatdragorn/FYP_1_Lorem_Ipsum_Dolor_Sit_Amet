@@ -508,7 +508,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh121594
+  m_Name: pb_Mesh42768
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1546,7 +1546,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh121284
+  m_Name: pb_Mesh42458
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3231,42 +3231,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 838020746}
-    - target: {fileID: 7003176049017336339, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 22.06036
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003176049017336339, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.5200005
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003176049017336339, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.72657
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003176049790429485, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 31.226025
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003176049790429485, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 12.310648
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003176049790429485, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -14.482827
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003176049956187255, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 31.226025
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003176049956187255, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 12.310648
-      objectReference: {fileID: 0}
-    - target: {fileID: 7003176049956187255, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -14.482827
-      objectReference: {fileID: 0}
     - target: {fileID: 7100156567205749859, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
       propertyPath: m_Name
       value: Player Prefabs
@@ -7351,7 +7315,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh121606
+  m_Name: pb_Mesh42780
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

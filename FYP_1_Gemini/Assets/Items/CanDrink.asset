@@ -15,5 +15,5 @@ MonoBehaviour:
   name: CanDrink
   icon: {fileID: 21300000, guid: 240a437f8695c55419f06c392611a234, type: 3}
   isDefaultItem: 0
-  itemAmount: 0
+  itemAmount: 1
   tooltipMessage: 'CAN DRINK: heal 10% of player''s health'

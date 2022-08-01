@@ -36,7 +36,6 @@ public class ItemPickup : Interactable
         float dist = Vector3.Distance(player.transform.position, gameObject.transform.position); //distance between player and the item
         if (dist < radius)
         {
-            Debug.Log("fuckery fuck");
             if (input.InteractIsPressed == true)
             {
                 Interact();

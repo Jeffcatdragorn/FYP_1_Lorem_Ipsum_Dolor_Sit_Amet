@@ -73,7 +73,7 @@ public class Inventory : MonoBehaviour
             {
                 if (items[i].name == item.name)
                 {
-                    ++items[i].itemAmount;
+                    items[i].itemAmount += item.itemAmount; //how to add bullets item amount?
 
                     if (onItemChangedCallback != null)
                     {
@@ -85,7 +85,6 @@ public class Inventory : MonoBehaviour
             }
 
             items.Add(item);
-
 
             if(onItemChangedCallback != null)
             {
