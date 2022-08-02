@@ -40,8 +40,8 @@ public class ObjectInspection : MonoBehaviour
         else if (input.ShootIsPressed == true && check == true) {
             float CurrentDistanceBetweenMousePositionsX = (Mouse.current.position.ReadValue() - PressPoint).x;
             float CurrentDistanceBetweenMousePositionsY = (Mouse.current.position.ReadValue() - PressPoint).y;
-            transform.rotation = StartRotation * Quaternion.Euler(Vector3.down * (CurrentDistanceBetweenMousePositionsX / SceneWidth) * 360)
-                                               * Quaternion.Euler(Vector3.back * (CurrentDistanceBetweenMousePositionsY / SceneWidth) * 360); ;
+            transform.rotation = StartRotation * Quaternion.Euler(Vector3.down * (CurrentDistanceBetweenMousePositionsX / SceneWidth) * rotationSpeed)
+                                               * Quaternion.Euler(Vector3.right * (CurrentDistanceBetweenMousePositionsY / SceneWidth) * rotationSpeed); ;
         }
 
         if(input.ShootIsPressed == false && check == true)
