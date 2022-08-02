@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -233,6 +233,13 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
     GateFit: 2
     m_SensorSize: {x: 3.16763, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -338,7 +345,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &123104157
 MonoBehaviour:
@@ -352,14 +359,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8125551ef4805fb4f8a01003908b2da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 2032465159}
+  normalDoorAnimator: {fileID: 0}
+  doubleDoorAnimator: {fileID: 0}
   pressurePlate: {fileID: 123104158}
   openOnceOnlyDoor: 0
   openDoorTrigger: 1
-  doorOpen: DoorOpening
-  doorClose: DoorClosing
+  doubleDoorKeypad: 0
+  secondDoubleDoor: {fileID: 0}
+  open2ndDDoor: SlideOpen2ndDDoor
+  currentSceneName: 
+  doorSlideOpen: DoorSlideOpen
+  doorSlideClose: DoorSlideClose
   pressurePlatePressed: PressurePlatePressed
   pressurePlateReleased: PressurePlateReleased
+  cameraObject: {fileID: 0}
 --- !u!95 &123104158
 Animator:
   serializedVersion: 4
@@ -566,7 +579,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &381748262
 GameObject:
@@ -597,7 +610,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7d8c68d3bba4546a81937bdf388e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveIsPressed: 0
 --- !u!4 &381748264
 Transform:
   m_ObjectHideFlags: 0
@@ -611,7 +623,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &508481406
 GameObject:
@@ -706,7 +718,14 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.16763, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -943,7 +962,14 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.16763, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1795,6 +1821,63 @@ Transform:
   m_Father: {fileID: 1961165779}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1469734486
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.008098
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 23.13
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -27.135042
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
+      propertyPath: m_Name
+      value: Tank Fully Textured
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 00f3501e47f7b464eae33666a1bc0291, type: 3}
 --- !u!1 &1501709277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,7 +1911,7 @@ Transform:
   - {fileID: 508481407}
   - {fileID: 15627289}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1573456868
 GameObject:
@@ -2095,11 +2178,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 381748263}
-  cameraZoomModifier: 32
+  activeCamera: {fileID: 0}
   mainCamera: {fileID: 887278002}
   cinemachineFirstPerson: {fileID: 779418355}
   cinemachineThirdPerson: {fileID: 508481409}
   cinemachineOrbit: {fileID: 15627292}
+  playerbody:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &1883040242
 Transform:
   m_ObjectHideFlags: 0
@@ -2113,7 +2199,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1961165775
 GameObject:
@@ -2146,24 +2232,96 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5855d1a1167c9ce4e88a4c7052564a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraFollow: {fileID: 1453425039}
   input: {fileID: 381748263}
   cameraController: {fileID: 1883040241}
   playerLookInputLerpTime: 0.5
+  animator: {fileID: 0}
   movementMultiplier: 30
+  notGroundedMovementMultiplier: 1.25
   rotationSpeedMultiplier: 180
   pitchSpeedMultiplier: 180
   runMultiplier: 5
+  maxhealth: 100
+  statusBar: {fileID: 0}
+  tickRate: 1
+  tickTime: 1
   playerIsGrounded: 1
   groundCheckRadiusMultiplier: 0.9
   groundCheckerExtraDistance: 0.05
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   gravityFallCurrent: -100
   gravityFallMin: -100
   gravityFallMax: -500
   gravityFallIncrementAmount: -20
   gravityFallIncrementTime: 0.05
   playerFallTimer: 0
-  gravity: 0
+  groundedGravity: -1
+  maxSlopeAngle: 47.5
+  initialJumpForce: 750
+  continualJumpForceMultiplier: 0.1
+  jumpTime: 0.175
+  jumpTimeCounter: 0
+  coyoteTime: 0.15
+  coyoteTimeCounter: 0
+  jumpBufferTime: 0.2
+  jumpBufferTimeCounter: 0
+  playerIsJumping: 0
+  jumpWasPressedLastFrame: 0
+  cam: {fileID: 0}
+  player: {fileID: 0}
+  gunTip: {fileID: 0}
+  shootRange: 100
+  shootLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  bulletPrefab: {fileID: 0}
+  shootCooldown: 0.1
+  shootCooldownCounter: 0
+  shootChargingCounter: 0
+  isUsingShotgun: 1
+  bulletsPerShot: 6
+  impactEffect: {fileID: 0}
+  inaccuracyDistance: 5
+  muzzleFlash: {fileID: 0}
+  bulletSpeed: 0
+  objectController: {fileID: 0}
+  gunModel: {fileID: 0}
+  maxBullets: 6
+  currentBulletCount: 6
+  GunReloadCooldown: 0
+  GunReloadCooldownCounter: 0
+  BulletCountText: {fileID: 0}
+  initialDashForce: 750
+  continualDashForceMultiplier: 0.1
+  dashTime: 0.175
+  dashTimeCounter: 0
+  coyotedashTime: 0.15
+  coyotedashTimeCounter: 0
+  dashBufferTime: 0.2
+  dashBufferTimeCounter: 0
+  playerIsDashing: 0
+  dashWasPressedLastFrame: 0
+  dashCooldown: 1
+  dashCooldownCounter: 0
+  charAnimation: {fileID: 0}
+  teleportDistance: 0.5
+  teleportCooldown: 1
+  teleportCooldownCounter: 0
+  teleportStopLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  shieldObject: {fileID: 0}
+  playerCollider: {fileID: 0}
+  firstPersonCameraFollow: {fileID: 0}
+  normalCamera: {fileID: 0}
+  crouchCamera: {fileID: 0}
+  crouchSpeed: 0
+  flashlight: {fileID: 0}
 --- !u!136 &1961165777
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2209,7 +2367,7 @@ Transform:
   - {fileID: 168055516}
   - {fileID: 1453425039}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2032465158
 GameObject:
@@ -2262,5 +2420,5 @@ Transform:
   m_Children:
   - {fileID: 1367866104}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
