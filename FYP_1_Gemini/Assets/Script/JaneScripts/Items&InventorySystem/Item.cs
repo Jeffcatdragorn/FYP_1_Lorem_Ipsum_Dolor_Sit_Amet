@@ -10,7 +10,6 @@ public class Item : ScriptableObject
     public int itemAmount = 1;
     public string tooltipMessage;
     
-
     public virtual void Use ()
     {
         //Use the item

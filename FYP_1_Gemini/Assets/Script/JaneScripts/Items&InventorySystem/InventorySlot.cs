@@ -65,6 +65,10 @@ public class InventorySlot : MonoBehaviour
             {
                 playerController.HealthIncrease(25);
             }
+            else if (item.name == "Medkit")
+            {
+                playerController.HealthIncrease(50);
+            }
         }
 
         if(item.itemAmount <= 0)
