@@ -113,32 +113,32 @@ public class AudioManager : MonoBehaviour
         currentMusicObject.GetComponent<AudioSource>().Play();
     }
 
-    public void PlaySound(string soundName, Vector3 spawnPosition)
+    public void PlaySound(string soundName, Vector3 spawnPosition, bool is3D)
     {
         if(SFXCheck == true)
         {
             switch (soundName)
             {
                 case "buttonSound":
-                    SoundObjectCreate(buttonSound, spawnPosition);
+                    SoundObjectCreate(buttonSound, spawnPosition, is3D);
                     break;
                 case "doorOpening":
-                    SoundObjectCreate(doorOpening, spawnPosition); 
+                    SoundObjectCreate(doorOpening, spawnPosition, is3D); 
                     break;
                 case "walkingFootstep":
-                    SoundObjectCreate(walkingFootstep, spawnPosition); 
+                    SoundObjectCreate(walkingFootstep, spawnPosition, is3D); 
                     break;
                 case "tabletOning":
-                    SoundObjectCreate(tabletOning, spawnPosition);
+                    SoundObjectCreate(tabletOning, spawnPosition, is3D);
                     break;
                 case "revolverReload":
-                    SoundObjectCreate(revolverReload, spawnPosition);
+                    SoundObjectCreate(revolverReload, spawnPosition, is3D);
                     break;
                 case "revolverShoot":
-                    SoundObjectCreate(revolverShoot, spawnPosition);
+                    SoundObjectCreate(revolverShoot, spawnPosition, is3D);
                     break;
                 case "itemPickUp":
-                    SoundObjectCreate(itemPickUp, spawnPosition);
+                    SoundObjectCreate(itemPickUp, spawnPosition, is3D);
                     break;
                 default:
                     break;
@@ -146,9 +146,19 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void SoundObjectCreate(AudioClip clip, Vector3 spawnPosition)
+    void SoundObjectCreate(AudioClip clip, Vector3 spawnPosition, bool is3D)
     {
         GameObject newObject = Instantiate(soundObject, spawnPosition, Quaternion.identity);
+
+        if(is3D == true)
+        {
+            newObject.GetComponent<AudioSource>().spatialBlend = 1;
+        }
+
+        else if(is3D == false)
+        {
+            newObject.GetComponent<AudioSource>().spatialBlend = 0;
+        }
 
         newObject.GetComponent<AudioSource>().clip = clip;
 
