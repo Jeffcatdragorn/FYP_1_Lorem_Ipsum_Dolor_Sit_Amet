@@ -145,6 +145,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform normalCamera;
     [SerializeField] Transform crouchCamera;
     [SerializeField] float crouchSpeed = 0.0f;
+    [SerializeField] float originalMoveSpeed;
     public static bool forceCrouch = false;
 
     [Header("Flashlight")]
@@ -157,6 +158,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         rigidbody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+        originalMoveSpeed = movementMultiplier;
     }
 
     private void FixedUpdate()
@@ -556,12 +558,12 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerCrouch()
     {
-        if(input.CrouchIsPressed == true || forceCrouch == true)
+        if(input.CrouchIsPressed == true)
         {
             playerCollider.height = 1;
-
             firstPersonCameraFollow.transform.position = crouchCamera.position;
-
+            movementMultiplier = originalMoveSpeed * 0.4f;
+            forceCrouch = true;
             //if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
             //{
             //    Vector3 moveDirection = (crouchCamera.position - firstPersonCameraFollow.transform.position);
@@ -574,9 +576,9 @@ public class PlayerController : MonoBehaviour
         else
         {
             playerCollider.height = 2;
-
             firstPersonCameraFollow.transform.position = normalCamera.position;
-
+            movementMultiplier = originalMoveSpeed;
+            forceCrouch = false;
             //if (Vector3.Distance(firstPersonCameraFollow.transform.position, normalCamera.position) > 0.1f)
             //{
             //    Vector3 moveDirection = (normalCamera.position - firstPersonCameraFollow.transform.position);

@@ -36,7 +36,7 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    value: {r: 0.509434, g: 0.47338912, b: 0.47338912, a: 1}
   fastMode:
     overrideState: 0
     value: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
     value: 1.5
   color:
     overrideState: 0
-    value: {r: 0, g: 0, b: 0, a: 1}
+    value: {r: 0.20754719, g: 0.18503028, b: 0.18503028, a: 1}
   ambientOnly:
     overrideState: 0
     value: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
     value: -32.6
   colorFilter:
     overrideState: 1
-    value: {r: 0.13283195, g: 0.13349944, b: 0.14150941, a: 1}
+    value: {r: 0.06666667, g: 0.06666667, b: 0.07058824, a: 1}
   hueShift:
     overrideState: 0
     value: 0
