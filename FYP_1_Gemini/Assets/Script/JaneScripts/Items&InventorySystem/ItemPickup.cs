@@ -23,7 +23,7 @@ public class ItemPickup : Interactable
 
         //Add to inventory
         bool wasPickedUp = Inventory.instance.Add(item);
-        AudioManager.instance.PlaySound("itemPickUp", cameraObject.transform.position);
+        AudioManager.instance.PlaySound("itemPickUp", cameraObject.transform.position, false);
 
         if (wasPickedUp)
         {

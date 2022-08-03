@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     public bool isDefaultItem = false;      //Is the item default wear?
     public int itemAmount = 1;
     public string tooltipMessage;
+    
 
     public virtual void Use ()
     {

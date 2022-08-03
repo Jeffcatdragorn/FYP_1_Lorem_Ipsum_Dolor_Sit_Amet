@@ -7,6 +7,7 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public Button removeButton;
     public TextMeshProUGUI numberOfItems;
+    public PlayerController playerController;
 
     [SerializeField]Item item;
 
@@ -51,6 +52,19 @@ public class InventorySlot : MonoBehaviour
         {
             item.Use();
             numberOfItems.text = item.itemAmount.ToString("" + item.itemAmount);
+
+            if (item.name == "CanDrink")
+            {
+                playerController.HealthIncrease(5);
+            }
+            else if (item.name == "SnackBar")
+            {
+                playerController.HealthIncrease(10);
+            }
+            else if (item.name == "Syringe")
+            {
+                playerController.HealthIncrease(25);
+            }
         }
 
         if(item.itemAmount <= 0)

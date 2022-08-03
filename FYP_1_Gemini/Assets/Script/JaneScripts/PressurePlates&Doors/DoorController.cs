@@ -77,7 +77,7 @@ public class DoorController : MonoBehaviour
             if(openOnceOnlyDoor == false && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true)
             {
                 normalDoorAnimator.Play(doorSlideClose, 0, 0.0f);
-                AudioManager.instance.PlaySound("doorOpening", cameraObject.position);
+                AudioManager.instance.PlaySound("doorOpening", cameraObject.position, true);
                 pressurePlate.Play(pressurePlateReleased, 0, 0.0f);
                 doorIsOpen = false;
             }
@@ -107,7 +107,7 @@ public class DoorController : MonoBehaviour
         if (openDoorTrigger == true && FuseBoxBehaviour.fuseInserted == true && KeypadBehaviour.keycardInserted == true && doorIsOpen == false)
         {
             normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
-            AudioManager.instance.PlaySound("doorOpening", cameraObject.position);
+            AudioManager.instance.PlaySound("doorOpening", cameraObject.position, true);
             pressurePlate.Play(pressurePlatePressed, 0, 0.0f);
             doorIsOpen = true;
         }

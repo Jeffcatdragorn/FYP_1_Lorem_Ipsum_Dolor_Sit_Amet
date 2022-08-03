@@ -61,7 +61,7 @@ public class InventoryUI : MonoBehaviour
     private void InventoryUIMenu()
     {
         inventoryUI.SetActive(!inventoryUI.activeSelf);
-        AudioManager.instance.PlaySound("tabletOning", cameraObject.position);
+        AudioManager.instance.PlaySound("tabletOning", cameraObject.position, false);
 
         if (inventoryUI.activeInHierarchy == true)
         {
