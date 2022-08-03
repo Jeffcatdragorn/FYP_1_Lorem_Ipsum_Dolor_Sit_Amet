@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
                 ParasiteRunning();
                 ParasiteAttack();
                 ParasiteShield();
-                HeaalthTickDown();
+                HealthTickDown();
                 break;
         }
 
@@ -652,10 +652,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HeaalthTickDown()
+    private void HealthTickDown()
     {
         if(Time.time % tickTime == 0)
             statusBar.value -= tickRate;
+    }
+
+    public void HealthIncrease(int amount)
+    {
+        if (statusBar.value < 100)
+        {
+            statusBar.value += amount;
+        }
+    }
+
+    public void HealthDecrease(int amount)
+    {
+        if (statusBar.value > 0)
+        {
+            statusBar.value -= amount;
+        }
     }
 
     //void DrawLine()
