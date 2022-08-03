@@ -30,7 +30,8 @@ public class Inventory : MonoBehaviour
 
     public GameObject tabletUI;
     public GameObject canvas;
-    public static bool tabletObtained;
+    public static bool tabletObtained = false;
+    public static bool flashlightObtained = false;
     public HumanoidLandInput input;
     public ButtonManager buttonManager;
     [SerializeField] float tabletUICooldownCounter;
@@ -97,6 +98,11 @@ public class Inventory : MonoBehaviour
             {
                 tabletObtained = true;
                 canvas.GetComponent<InventoryUI>().enabled = true;
+            }
+
+            if (item.name == "Flashlight")
+            {
+                flashlightObtained = true;
             }
         }
 

@@ -148,7 +148,8 @@ public class PlayerController : MonoBehaviour
     public static bool forceCrouch = false;
 
     [Header("Flashlight")]
-    [SerializeField] GameObject flashlight;
+    [SerializeField] GameObject flLight;
+    [SerializeField] GameObject flashlightModel;
 
     private void Awake()
     {
@@ -186,15 +187,12 @@ public class PlayerController : MonoBehaviour
             default:
             case State.Detective:
                 playerMoveInput = PlayerDash();
-                PlayerShoot();
+                //PlayerShoot();
                 PlayerGunReload();
-                gunModel.SetActive(true);
                 PlayerFlashlight();
                 break;
 
             case State.Fighter:
-                gunModel.SetActive(false); ;
-                flashlight.SetActive(false);
                 ParasiteTeleport();
                 ParasiteRunning();
                 ParasiteAttack();
@@ -210,9 +208,7 @@ public class PlayerController : MonoBehaviour
 
     //private void Update()
     //{
-    //    Debug.Log("X : " + playerMoveInput.x);
-    //    Debug.Log("Y : " + playerMoveInput.y);
-    //    Debug.Log("Z : " + playerMoveInput.z);
+    //    Debug.Log(input.FlashlightIsPressed);
     //}
 
     //private void LateUpdate()
@@ -592,14 +588,23 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerFlashlight()
     {
-        if(input.FlashlightIsPressed == true)
+        if(Inventory.flashlightObtained == true)
         {
-            flashlight.SetActive(true);
+            flashlightModel.SetActive(true);
+            if (input.FlashlightIsPressed == true)
+            {
+                flLight.SetActive(true);
+            }
+
+            else if (input.FlashlightIsPressed == false)
+            {
+                flLight.SetActive(false);
+            }
         }
 
-        else
+        else if(Inventory.flashlightObtained == false)
         {
-            flashlight.SetActive(false);
+            flashlightModel.SetActive(false);
         }
     }
 
