@@ -29,7 +29,6 @@ public class AudioManager : MonoBehaviour
 
     GameObject[] obj1, obj2;
 
-
     private void Update()
     {
         obj1 = GameObject.FindGameObjectsWithTag("music");
