@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip mainMenuMusic; //bgm
 
-    public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp; //sfx
+    public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound; //sfx
 
     private GameObject currentMusicObject;
 
@@ -138,6 +138,12 @@ public class AudioManager : MonoBehaviour
                     break;
                 case "itemPickUp":
                     SoundObjectCreate(itemPickUp, spawnPosition, is3D);
+                    break;
+                case "jumpScareSound":
+                    SoundObjectCreate(jumpScareSound, spawnPosition, is3D);
+                    break; 
+                case "alarmSound":
+                    SoundObjectCreate(alarmSound, spawnPosition, is3D);
                     break;
                 default:
                     break;

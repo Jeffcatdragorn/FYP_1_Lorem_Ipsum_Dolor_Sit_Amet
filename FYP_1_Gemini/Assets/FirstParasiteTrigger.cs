@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class FirstParasiteTrigger : MonoBehaviour
 {
+
     private void OnTriggerStay(Collider player)
     {
-        if(player.tag == "Player" && PlayerController.forceCrouch == true)
+
+        if (player.tag == "Player" && PlayerController.forceCrouch == true)
+        {
+            FirstParasite.Check = true;
+        }
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "SammySammy")
         {
             Debug.Log("Yes");
-            FirstParasite.Check = true;
+            AudioManager.instance.PlaySound("jumpScareSound", transform.position, false);
         }
     }
 }
