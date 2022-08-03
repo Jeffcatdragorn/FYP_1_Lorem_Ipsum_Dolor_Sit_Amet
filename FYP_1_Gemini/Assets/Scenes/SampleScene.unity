@@ -5045,7 +5045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &930850088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5060,7 +5060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   check: 0
-  rotationSpeed: 100
+  rotationSpeed: 360
   timer: 3
   input: {fileID: 594362553}
 --- !u!4 &930850089
@@ -7377,6 +7377,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1108629125, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2902824919538706223, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -7440,6 +7444,10 @@ PrefabInstance:
     - target: {fileID: 5348369258189150687, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7003176049017336340, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7100156567205749859, guid: 06ef565aaeba19d4cb35f036b28a247d, type: 3}
       propertyPath: m_Name
