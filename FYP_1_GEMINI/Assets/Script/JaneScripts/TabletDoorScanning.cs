@@ -70,6 +70,12 @@ public class TabletDoorScanning : MonoBehaviour
             if (input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f)
             {
                 OpenDoor();
+
+                if(doorName == "Prison Dome Gate")
+                {
+                    TVTriggerBehaviour.tvCheck = true;
+                }
+
                 ScannerCooldownCounter = ScannerUICooldown;
             }
         }

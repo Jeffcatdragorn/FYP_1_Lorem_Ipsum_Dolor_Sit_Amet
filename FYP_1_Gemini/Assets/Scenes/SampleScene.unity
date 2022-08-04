@@ -1014,7 +1014,7 @@ GameObject:
   - component: {fileID: 184214479}
   - component: {fileID: 184214478}
   - component: {fileID: 184214477}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slope 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4830,7 +4830,7 @@ GameObject:
   - component: {fileID: 886366027}
   - component: {fileID: 886366026}
   - component: {fileID: 886366025}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slope 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5045,7 +5045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &930850088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5063,6 +5063,8 @@ MonoBehaviour:
   rotationSpeed: 360
   timer: 3
   playerController: {fileID: 1743361854}
+  inspectUI: {fileID: 0}
+  inspectCamera: {fileID: 0}
   input: {fileID: 594362553}
 --- !u!4 &930850089
 Transform:
@@ -7189,7 +7191,7 @@ GameObject:
   - component: {fileID: 1584731249}
   - component: {fileID: 1584731248}
   - component: {fileID: 1584731247}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8801,7 +8803,7 @@ GameObject:
   - component: {fileID: 2022070026}
   - component: {fileID: 2022070025}
   - component: {fileID: 2022070024}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slope (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

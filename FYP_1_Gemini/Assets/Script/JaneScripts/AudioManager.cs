@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip mainMenuMusic, pressureAmbienceMusic; //bgm
 
     public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound,
-                     normalMetalFootstep1, normalMetalFootstep2, normalMetalFootstep3, normalMetalFootstep4, ventCoverFalling, ventCrawling; //sfx
+                     normalMetalFootstep1, normalMetalFootstep2, normalMetalFootstep3, normalMetalFootstep4, ventCoverFalling, ventCrawling, tvAudio; //sfx
 
     private GameObject currentMusicObject;
 
@@ -155,6 +155,9 @@ public class AudioManager : MonoBehaviour
                     break;
                 case "ventCrawling":
                     SoundObjectCreate(ventCrawling, spawnPosition, is3D);
+                    break;                
+                case "tvAudio":
+                    SoundObjectCreate(tvAudio, spawnPosition, is3D);
                     break;
                 default:
                     break;

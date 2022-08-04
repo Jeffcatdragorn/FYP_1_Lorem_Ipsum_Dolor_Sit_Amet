@@ -61,6 +61,7 @@ MonoBehaviour:
   normalMetalFootstep4: {fileID: 8300000, guid: 98dabde6c08c16147bd245f9a29dd6eb, type: 3}
   ventCoverFalling: {fileID: 8300000, guid: d8d7f750e1e02ed4a8ce937b50ce4d3f, type: 3}
   ventCrawling: {fileID: 8300000, guid: e50931e73272468499aadbb832444d9b, type: 3}
+  tvAudio: {fileID: 8300000, guid: 4a460cf3adb100846a111b658f3843a8, type: 3}
   soundObject: {fileID: 7314115016610703002, guid: e75bbbc6eb4294e44b17b9628720ff85, type: 3}
   SFXButton: {fileID: 7527728289082795968, guid: 5beb20db36f21154096b07d9b40db9c7, type: 3}
   musicObject: {fileID: 6222479523295503680, guid: 02401aecb908fdb4dadeae45ddf2db6e, type: 3}

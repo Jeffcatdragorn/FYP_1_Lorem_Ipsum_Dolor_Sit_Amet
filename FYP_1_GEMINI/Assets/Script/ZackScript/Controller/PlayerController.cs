@@ -572,7 +572,7 @@ public class PlayerController : MonoBehaviour
     {
         if(input.CrouchIsPressed == true)
         {
-            playerCollider.height = 1;
+            playerCollider.height = 0.5f;
             firstPersonCamera.Follow = crouchCamera;
             movementMultiplier = originalMoveSpeed * 0.4f;
             forceCrouch = true;
