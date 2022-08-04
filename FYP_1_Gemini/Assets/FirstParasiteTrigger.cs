@@ -8,7 +8,7 @@ public class FirstParasiteTrigger : MonoBehaviour
     private void OnTriggerStay(Collider player)
     {
 
-        if (player.tag == "Player" && PlayerController.forceCrouch == true)
+        if (player.tag == "Player" && PlayerController.crouchCheck == true)
         {
             FirstParasite.Check = true;
         }

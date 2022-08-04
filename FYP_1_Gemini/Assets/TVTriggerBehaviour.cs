@@ -9,12 +9,13 @@ public class TVTriggerBehaviour : MonoBehaviour
     public Transform tvObject;
     public GameObject tvMask;
 
-    private void OnTriggerStay(Collider player)
+    private void OnTriggerEnter(Collider player)
     {
-        if(player.tag == "Player" && tvCheck == true){
+        if(player.tag == "Player" && tvCheck == true && Inventory.flashlightObtained == true){
             tvMask.SetActive(false);
             tvVideo.Play();
             AudioManager.instance.PlaySound("tvAudio", tvObject.position, true);
+            Destroy(gameObject);
         }
     }
 }

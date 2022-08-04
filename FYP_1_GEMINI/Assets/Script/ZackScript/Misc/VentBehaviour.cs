@@ -12,13 +12,13 @@ public class VentBehaviour : MonoBehaviour
         {
             if(input.InteractIsPressed == true)
             {
-                PlayerController.forceCrouch = true;
+                PlayerController.crouchCheck = true;
                 other.transform.SetPositionAndRotation(transform.position, transform.rotation);
             }
 
             else
             {
-                PlayerController.forceCrouch = false;
+                PlayerController.crouchCheck = false;
             }
         }
     }

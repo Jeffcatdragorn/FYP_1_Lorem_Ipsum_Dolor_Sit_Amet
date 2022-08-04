@@ -213,6 +213,11 @@ public class AudioManager : MonoBehaviour
             newObject.GetComponent<AudioSource>().priority = 200;
         }
 
+        if (clip == tvAudio)
+        {
+            newObject.GetComponent<AudioSource>().minDistance = 5.0f;
+        }
+
         newObject.GetComponent<AudioSource>().clip = clip;
 
         newObject.GetComponent<AudioSource>().Play();

@@ -7812,7 +7812,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 1
-  m_Value: 100
+  m_Value: 70
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8476,8 +8476,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7003176049017336338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.9, y: -15.6, z: 134.7}
-  m_LocalScale: {x: 4.6, y: 5.78, z: 4.6}
+  m_LocalPosition: {x: -52.44, y: -14.89, z: 134.7}
+  m_LocalScale: {x: 4.6, y: 5.96, z: 4.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 264352341}
@@ -8618,6 +8618,7 @@ MonoBehaviour:
   crouchCamera: {fileID: 264352341}
   crouchSpeed: 255
   originalMoveSpeed: 0
+  forceCrouch: 0
   flLight: {fileID: 788358325}
   flashlightModel: {fileID: 4991888116011802411}
   footstepWalkingInterval: 0.6
@@ -9635,7 +9636,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7003176049790429484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.73432, y: -0.14632225, z: 123.116745}
+  m_LocalPosition: {x: -169.14432, y: 1.9139385, z: 123.116745}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9718,7 +9719,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7003176049956187254}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.73432, y: -0.14632225, z: 123.116745}
+  m_LocalPosition: {x: -169.14432, y: 1.9139385, z: 123.116745}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10499,7 +10500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7458975703152121753}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.111, z: 0}
+  m_LocalPosition: {x: 0, y: 1.192, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

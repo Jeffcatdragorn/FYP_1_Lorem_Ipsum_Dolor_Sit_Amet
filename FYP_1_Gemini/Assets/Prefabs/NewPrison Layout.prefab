@@ -256,7 +256,7 @@ VideoPlayer:
   - 1
   m_Url: 
   m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
+  m_DirectAudioMutes: 01
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 0
   m_SkipOnDrop: 1
@@ -6614,7 +6614,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4908466518764624633}
   m_LocalRotation: {x: 0.698595, y: 0.10938511, z: -0.10938511, w: 0.698595}
-  m_LocalPosition: {x: 5.23763, y: 0.573, z: -0.31}
+  m_LocalPosition: {x: 5.182, y: 0.573, z: -0.552}
   m_LocalScale: {x: 2.4404309, y: 0.34076545, z: 1.9539597}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6793,6 +6793,7 @@ GameObject:
   - component: {fileID: 3323093076887578668}
   - component: {fileID: 8298080531076603157}
   - component: {fileID: 6914911453091034503}
+  - component: {fileID: 1550520190}
   m_Layer: 0
   m_Name: Cube__9_005
   m_TagString: Untagged
@@ -6865,6 +6866,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1550520190
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5002095398744697347}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 126.780846, y: 22.07174, z: 0.8530617}
+  m_Center: {x: 60.70428, y: 11.035868, z: 0.4265213}
 --- !u!1 &5061944683219926681
 GameObject:
   m_ObjectHideFlags: 0
@@ -9863,6 +9877,7 @@ Transform:
   - {fileID: 4908466518749451959}
   - {fileID: 4908466517008033251}
   - {fileID: 4908466518716698447}
+  - {fileID: 7446059173567819505}
   m_Father: {fileID: 4869755930997334738}
   m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10240,6 +10255,51 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -763536842175340324, guid: dc505123e454dd441b0f04b8340ee847, type: 3}
+--- !u!1 &8344347536795359591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7446059173567819505}
+  - component: {fileID: 739950316291352618}
+  m_Layer: 6
+  m_Name: crouch collider
+  m_TagString: crouchZone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7446059173567819505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8344347536795359591}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.93, y: 1.67, z: 1.33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4485356932018896108}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &739950316291352618
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8344347536795359591}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 22.1, y: 5.56, z: 2.91}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8469865859962352933
 GameObject:
   m_ObjectHideFlags: 0

@@ -147,7 +147,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform crouchCamera;
     [SerializeField] float crouchSpeed = 0.0f;
     [SerializeField] float originalMoveSpeed;
-    public static bool forceCrouch = false;
+    [SerializeField] bool forceCrouch = false;
+    public static bool crouchCheck = false;
 
     [Header("Flashlight")]
     [SerializeField] GameObject flLight;
@@ -570,12 +571,12 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerCrouch()
     {
-        if(input.CrouchIsPressed == true)
+        if(input.CrouchIsPressed == true || forceCrouch == true)
         {
             playerCollider.height = 0.5f;
             firstPersonCamera.Follow = crouchCamera;
             movementMultiplier = originalMoveSpeed * 0.4f;
-            forceCrouch = true;
+            crouchCheck = true;
             //if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
             //{
             //    Vector3 moveDirection = (crouchCamera.position - firstPersonCameraFollow.transform.position);
@@ -590,7 +591,7 @@ public class PlayerController : MonoBehaviour
             playerCollider.height = 2;
             firstPersonCamera.Follow = normalCamera;
             movementMultiplier = originalMoveSpeed;
-            forceCrouch = false;
+            crouchCheck = false;
             //if (Vector3.Distance(firstPersonCameraFollow.transform.position, normalCamera.position) > 0.1f)
             //{
             //    Vector3 moveDirection = (normalCamera.position - firstPersonCameraFollow.transform.position);
@@ -786,6 +787,22 @@ public class PlayerController : MonoBehaviour
         if (statusBar.value > 0)
         {
             statusBar.value -= amount;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.tag == "crouchZone")
+        {
+            forceCrouch = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "crouchZone")
+        {
+            forceCrouch = false;
         }
     }
 

@@ -15,6 +15,7 @@ TagManager:
   - Walls
   - SammySammy
   - capsule
+  - crouchZone
   layers:
   - Default
   - TransparentFX
