@@ -87,8 +87,11 @@ public class ButtonManager : MonoBehaviour
     {
         PlayButtonSound();
         //Debug.Log("Loading to Main Menu...");
+        Inventory.tabletObtained = false;
+        Inventory.flashlightObtained = false;
+        FirstParasite.Check = false;
+        TVTriggerBehaviour.tvCheck = false;
         Time.timeScale = 1f;
-        //PauseMenu.dragMovement = true;
         //PauseMenu.GameIsPaused = false;
         Loader.Load(Loader.Scene.MainMenu);
     }

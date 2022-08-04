@@ -102,7 +102,9 @@ public class TabletDoorScanning : MonoBehaviour
     public void OpenDoor()
     {
         normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
+        
         AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
+        //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
         //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
         doorIsOpen = true;
     }
