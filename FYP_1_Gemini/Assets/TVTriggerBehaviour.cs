@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Video;
 public class TVTriggerBehaviour : MonoBehaviour
 {
-    public static bool tvCheck= false;
+    public static bool tvCheck = false;
     public VideoPlayer tvVideo;
     public Transform tvObject;
     public GameObject tvMask;

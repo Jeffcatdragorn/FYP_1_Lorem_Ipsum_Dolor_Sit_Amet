@@ -103,7 +103,7 @@ public class Inventory : MonoBehaviour
                     {
                         onItemChangedCallback.Invoke();
                     }
-
+                    
                     return true;
                 }
             }
