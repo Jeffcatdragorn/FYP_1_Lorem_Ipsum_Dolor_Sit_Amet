@@ -18,6 +18,7 @@ public static class Loader
         PrototypeScene,
         ShootingRange,
         Maze,
+        PrisonDomeLayout,
         SampleScene
     }
 

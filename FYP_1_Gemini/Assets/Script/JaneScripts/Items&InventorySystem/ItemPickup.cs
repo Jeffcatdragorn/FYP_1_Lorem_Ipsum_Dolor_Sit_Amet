@@ -10,6 +10,8 @@ public class ItemPickup : Interactable
 
     public Item item;
 
+
+
     public override void Interact()
     {
         base.Interact();
@@ -22,7 +24,7 @@ public class ItemPickup : Interactable
         Debug.Log("Picking up " + item.name);
 
         //Add to inventory
-        bool wasPickedUp = Inventory.instance.Add(item);
+        bool wasPickedUp = Inventory.instance.Add(item, gameObject);
         AudioManager.instance.PlaySound("itemPickUp", cameraObject.transform.position, false);
 
         if (wasPickedUp)

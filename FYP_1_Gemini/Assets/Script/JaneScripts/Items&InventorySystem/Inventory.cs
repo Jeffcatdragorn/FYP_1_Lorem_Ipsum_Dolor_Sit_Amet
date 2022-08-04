@@ -39,6 +39,11 @@ public class Inventory : MonoBehaviour
 
     public Transform cameraObject;
 
+    public Transform inspectTransform;
+    public GameObject inspectUI;
+    public GameObject inspectObject;
+    public GameObject inspectCamera;
+
     private void Update()
     {
         if(input.TabletIsPressed == true && tabletObtained == true && tabletUICooldownCounter == 0.0f)
@@ -58,8 +63,26 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool Add (Item item)
+    public bool Add (Item item, GameObject itemObject)
     {
+        inspectUI.SetActive(true);
+        inspectCamera.SetActive(true);
+        if (inspectObject == null)
+        {
+            inspectObject = Instantiate(itemObject, inspectTransform);
+            inspectObject.GetComponent<Rigidbody>().useGravity = false;
+            inspectObject.transform.parent = inspectTransform;
+            inspectObject.transform.position = inspectTransform.transform.position;
+        }
+        else
+        {
+            Destroy(inspectObject);
+            inspectObject = Instantiate(itemObject, inspectTransform);
+            inspectObject.GetComponent<Rigidbody>().useGravity = false;
+            inspectObject.transform.parent = inspectTransform;
+            inspectObject.transform.position = inspectTransform.transform.position;
+        }
+
         if (!item.isDefaultItem)
         {
             if (items.Count >= space)

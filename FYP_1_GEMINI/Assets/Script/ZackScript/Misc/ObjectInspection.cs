@@ -13,6 +13,8 @@ public class ObjectInspection : MonoBehaviour
     public float rotationSpeed;
     public float timer = 3f;
     public PlayerController playerController;
+    public GameObject inspectUI;
+    public GameObject inspectCamera;
 
     [SerializeField] HumanoidLandInput input;
 
@@ -27,9 +29,20 @@ public class ObjectInspection : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            playerController.enabled = false;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            if (input.FlashlightIsPressed == true)
+            {
+                inspectUI.SetActive(false);
+                playerController.enabled = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                inspectCamera.SetActive(false);
+            }
+            else
+            {
+                playerController.enabled = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
 
         else
