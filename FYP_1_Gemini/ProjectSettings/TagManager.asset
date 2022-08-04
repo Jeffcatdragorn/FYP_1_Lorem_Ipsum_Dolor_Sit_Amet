@@ -14,6 +14,7 @@ TagManager:
   - gen2
   - Walls
   - SammySammy
+  - capsule
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using Cinemachine;
 using TMPro;
 
 public class PlayerController : MonoBehaviour
@@ -141,7 +142,7 @@ public class PlayerController : MonoBehaviour
     [Header("Crouch")]
     //[SerializeField] float crouchColliderSize;
     [SerializeField] CapsuleCollider playerCollider;
-    [SerializeField] GameObject firstPersonCameraFollow;
+    [SerializeField] CinemachineVirtualCamera firstPersonCamera;
     [SerializeField] Transform normalCamera;
     [SerializeField] Transform crouchCamera;
     [SerializeField] float crouchSpeed = 0.0f;
@@ -152,6 +153,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject flLight;
     [SerializeField] GameObject flashlightModel;
 
+    [Header("Footsteps")]
+    [SerializeField] float footstepWalkingInterval = 0.0f;
+    [SerializeField] float footstepRunningInterval = 0.0f;
+    [SerializeField] float footstepCrouchingInterval = 0.0f;
+    [SerializeField] float footstepTimer;
+    [SerializeField] int phase = 0;
+    [SerializeField] GameObject footObject;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -159,6 +168,7 @@ public class PlayerController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalMoveSpeed = movementMultiplier;
+        AudioManager.instance.PlayMusic("pressureAmbienceMusic");
     }
 
     private void FixedUpdate()
@@ -181,6 +191,8 @@ public class PlayerController : MonoBehaviour
 
         playerMoveInput.y = PlayerFallGravity();
         playerMoveInput.y = PlayerJump();
+
+        PlayerFootSteps();
 
         PlayerCrouch();
 
@@ -561,7 +573,7 @@ public class PlayerController : MonoBehaviour
         if(input.CrouchIsPressed == true)
         {
             playerCollider.height = 1;
-            firstPersonCameraFollow.transform.position = crouchCamera.position;
+            firstPersonCamera.Follow = crouchCamera;
             movementMultiplier = originalMoveSpeed * 0.4f;
             forceCrouch = true;
             //if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
@@ -576,7 +588,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             playerCollider.height = 2;
-            firstPersonCameraFollow.transform.position = normalCamera.position;
+            firstPersonCamera.Follow = normalCamera;
             movementMultiplier = originalMoveSpeed;
             forceCrouch = false;
             //if (Vector3.Distance(firstPersonCameraFollow.transform.position, normalCamera.position) > 0.1f)
@@ -607,6 +619,102 @@ public class PlayerController : MonoBehaviour
         else if(Inventory.flashlightObtained == false)
         {
             flashlightModel.SetActive(false);
+        }
+    }
+
+    private void PlayerFootSteps()
+    {
+        if (playerMoveInput.x != 0.0f || playerMoveInput.z != 0.0f)
+        {
+
+            footstepTimer += Time.deltaTime;
+            if (input.RunIsPressed == true)
+            {
+                if (footstepTimer >= footstepRunningInterval)
+                {
+                    if (phase == 0)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep1", footObject, true);
+                        phase = 1;
+                    }
+
+                    else if (phase == 1)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep2", footObject, true);
+                        phase = 2;
+                    }
+
+                    else if (phase == 2)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep3", footObject, true);
+                        phase = 3;
+                    }
+                    else if (phase == 3)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep4", footObject, true);
+                        phase = 0;
+                    }
+                    footstepTimer = 0.0f;
+                }
+            }
+            if (input.CrouchIsPressed == true)
+            {
+                if (footstepTimer >= footstepCrouchingInterval)
+                {
+                    if (phase == 0)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep1", footObject, true);
+                        phase = 1;
+                    }
+
+                    else if (phase == 1)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep2", footObject, true);
+                        phase = 2;
+                    }
+
+                    else if (phase == 2)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep3", footObject, true);
+                        phase = 3;
+                    }
+                    else if (phase == 3)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep4", footObject, true);
+                        phase = 0;
+                    }
+                    footstepTimer = 0.0f;
+                }
+            }
+            else
+            {
+                if (footstepTimer >= footstepWalkingInterval)
+                {
+                    if (phase == 0)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep1", footObject, true);
+                        phase = 1;
+                    }
+
+                    else if (phase == 1)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep2", footObject, true);
+                        phase = 2;
+                    }
+
+                    else if (phase == 2)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep3", footObject, true);
+                        phase = 3;
+                    }
+                    else if (phase == 3)
+                    {
+                        AudioManager.instance.PlaySoundParent("normalMetalFootstep4", footObject, true);
+                        phase = 0;
+                    }
+                    footstepTimer = 0.0f;
+                }
+            }
         }
     }
 

@@ -13,9 +13,10 @@ public class AudioManager : MonoBehaviour
 
     //public AudioClip ;
 
-    public AudioClip mainMenuMusic; //bgm
+    public AudioClip mainMenuMusic, pressureAmbienceMusic; //bgm
 
-    public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound; //sfx
+    public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound,
+                     normalMetalFootstep1, normalMetalFootstep2, normalMetalFootstep3, normalMetalFootstep4, ventCoverFalling, ventCrawling; //sfx
 
     private GameObject currentMusicObject;
 
@@ -28,6 +29,7 @@ public class AudioManager : MonoBehaviour
     //private GameObject check;
 
     GameObject[] obj1, obj2;
+    private GameObject footstepObject;
 
     private void Update()
     {
@@ -90,6 +92,9 @@ public class AudioManager : MonoBehaviour
                 case "mainMenuMusic":
                     MusicObjectCreate(mainMenuMusic);
                     break;
+                case "pressureAmbienceMusic":
+                    MusicObjectCreate(pressureAmbienceMusic);
+                    break;
                 default:
                     break;
             }
@@ -145,6 +150,36 @@ public class AudioManager : MonoBehaviour
                 case "alarmSound":
                     SoundObjectCreate(alarmSound, spawnPosition, is3D);
                     break;
+                case "ventCoverFalling":
+                    SoundObjectCreate(ventCoverFalling, spawnPosition, is3D);
+                    break;
+                case "ventCrawling":
+                    SoundObjectCreate(ventCrawling, spawnPosition, is3D);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void PlaySoundParent(string soundName, GameObject spawnParent, bool is3D)
+    {
+        if (SFXCheck == true)
+        {
+            switch (soundName)
+            {
+                case "normalMetalFootstep1":
+                    SoundObjectCreateParent(normalMetalFootstep1, spawnParent, is3D);
+                    break;
+                case "normalMetalFootstep2":
+                    SoundObjectCreateParent(normalMetalFootstep2, spawnParent, is3D);
+                    break;
+                case "normalMetalFootstep3":
+                    SoundObjectCreateParent(normalMetalFootstep3, spawnParent, is3D);
+                    break;
+                case "normalMetalFootstep4":
+                    SoundObjectCreateParent(normalMetalFootstep4, spawnParent, is3D);
+                    break;
                 default:
                     break;
             }
@@ -170,9 +205,37 @@ public class AudioManager : MonoBehaviour
             newObject.GetComponent<AudioSource>().loop = true;
         }
 
+        if(clip == ventCrawling)
+        {
+            newObject.GetComponent<AudioSource>().priority = 200;
+        }
+
         newObject.GetComponent<AudioSource>().clip = clip;
 
         newObject.GetComponent<AudioSource>().Play();
+    }
+
+    void SoundObjectCreateParent(AudioClip clip, GameObject spawnParent, bool is3D)
+    {
+
+        footstepObject = Instantiate(soundObject);
+        footstepObject.transform.parent = spawnParent.transform;
+        footstepObject.transform.position = spawnParent.transform.position;
+        footstepObject.transform.rotation = spawnParent.transform.rotation;
+
+        if (is3D == true)
+        {
+            footstepObject.GetComponent<AudioSource>().spatialBlend = 1;
+        }
+
+        else
+        {
+            footstepObject.GetComponent<AudioSource>().spatialBlend = 0;
+        }
+
+        footstepObject.GetComponent<AudioSource>().clip = clip;
+
+        footstepObject.GetComponent<AudioSource>().Play();
     }
 
     public void SFXOff()

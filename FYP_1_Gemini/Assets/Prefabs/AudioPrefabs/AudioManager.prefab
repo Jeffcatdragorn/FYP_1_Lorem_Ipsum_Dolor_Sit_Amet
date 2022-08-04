@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuMusic: {fileID: 8300000, guid: 7bacfe4d88753e347a3e1d3893cb1c9c, type: 3}
+  pressureAmbienceMusic: {fileID: 8300000, guid: 71b7c0b184b1b934b89829a51ff9721f, type: 3}
   buttonSound: {fileID: 8300000, guid: 22c8b9c1b9fe14543b02f9ef0ac19011, type: 3}
   doorOpening: {fileID: 8300000, guid: cf8240c310d97f442978f09a6f9e96ff, type: 3}
   walkingFootstep: {fileID: 8300000, guid: 1fbc480ec887bf74c95c3ae543363c24, type: 3}
@@ -52,8 +53,14 @@ MonoBehaviour:
   revolverReload: {fileID: 8300000, guid: a54ab3bfefb83344bbad500dc7bf6a38, type: 3}
   revolverShoot: {fileID: 8300000, guid: 3b16d33b662da094ca8a612540b20df5, type: 3}
   itemPickUp: {fileID: 8300000, guid: a75468c8e9d617b44a6dd633ebc2ff9e, type: 3}
-  jumpScareSound: {fileID: 8300000, guid: 2224a3e10a54d234ea7c5b5cfedae006, type: 3}
+  jumpScareSound: {fileID: 8300000, guid: ed409e3d54612f94a9ebc1be9c3ce3dc, type: 3}
   alarmSound: {fileID: 8300000, guid: 85ea1c58ab171d84d82e277821c80b17, type: 3}
+  normalMetalFootstep1: {fileID: 8300000, guid: 6057189b8ae30c447ab44747d9e23a71, type: 3}
+  normalMetalFootstep2: {fileID: 8300000, guid: 5ccea509bfddaa04282dcd3420447944, type: 3}
+  normalMetalFootstep3: {fileID: 8300000, guid: fdc3e85544eb85b47bd1fd39aece1724, type: 3}
+  normalMetalFootstep4: {fileID: 8300000, guid: 98dabde6c08c16147bd245f9a29dd6eb, type: 3}
+  ventCoverFalling: {fileID: 8300000, guid: d8d7f750e1e02ed4a8ce937b50ce4d3f, type: 3}
+  ventCrawling: {fileID: 8300000, guid: e50931e73272468499aadbb832444d9b, type: 3}
   soundObject: {fileID: 7314115016610703002, guid: e75bbbc6eb4294e44b17b9628720ff85, type: 3}
   SFXButton: {fileID: 7527728289082795968, guid: 5beb20db36f21154096b07d9b40db9c7, type: 3}
   musicObject: {fileID: 6222479523295503680, guid: 02401aecb908fdb4dadeae45ddf2db6e, type: 3}

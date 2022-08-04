@@ -35,4 +35,13 @@ public class FirstParasite : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "capsule")
+        {
+            AudioManager.instance.PlaySound("ventCoverFalling", gameObject.transform.position, true);
+            AudioManager.instance.PlaySound("ventCrawling", gameObject.transform.position, true);
+        }
+    }
 }
