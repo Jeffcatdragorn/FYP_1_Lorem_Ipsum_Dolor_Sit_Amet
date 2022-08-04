@@ -88,7 +88,9 @@ public class PauseMenu : MonoBehaviour
 
     public void ResetScene()
     {
-        SceneManager.LoadScene(currentSceneName);
+        Inventory.tabletObtained = false;
+        Inventory.flashlightObtained = false;
         Time.timeScale = 1f;
+        SceneManager.LoadScene(currentSceneName);
     }
 }

@@ -69,6 +69,13 @@ public class ButtonManager : MonoBehaviour
         Loader.Load(Loader.Scene.Maze);
     }
 
+    public void PrisonScene()
+    {
+        PlayButtonSound();
+        Time.timeScale = 1f;
+        Loader.Load(Loader.Scene.PrisonDomeLayout);
+    }
+
     public void Exit()
     {
         PlayButtonSound();

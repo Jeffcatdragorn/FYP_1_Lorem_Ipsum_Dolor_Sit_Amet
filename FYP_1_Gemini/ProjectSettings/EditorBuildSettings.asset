@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maze.unity
     guid: 21a1e2dc44d634e49a1834c94df62d45
+  - enabled: 1
+    path: Assets/Scenes/PrisonDomeLayout.unity
+    guid: f854793e9d699f5429a31ed3b0d6fe69
   m_configObjects: {}
