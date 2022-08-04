@@ -41,6 +41,11 @@ public class InventoryUI : MonoBehaviour
         {
             inventoryUICooldownCounter = 0.0f;
         }
+
+        if (inventoryUI.activeInHierarchy == true)
+        {
+            buttonManager.EnableMouseCursor();
+        }
     }
 
     void UpdateUI ()

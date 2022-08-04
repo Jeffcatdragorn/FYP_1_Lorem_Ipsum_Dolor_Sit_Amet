@@ -191,7 +191,11 @@ public class PlayerController : MonoBehaviour
         playerMoveInput = PlayerRun();
 
         playerMoveInput.y = PlayerFallGravity();
-        playerMoveInput.y = PlayerJump();
+
+        if(forceCrouch == false || input.CrouchIsPressed == false)
+        {
+            playerMoveInput.y = PlayerJump();
+        }
 
         PlayerFootSteps();
 

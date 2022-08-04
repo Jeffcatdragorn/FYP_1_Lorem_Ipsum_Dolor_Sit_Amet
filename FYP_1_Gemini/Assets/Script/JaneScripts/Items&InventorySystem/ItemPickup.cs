@@ -1,4 +1,6 @@
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class ItemPickup : Interactable
 {
@@ -10,7 +12,8 @@ public class ItemPickup : Interactable
 
     public Item item;
 
-
+    public GameObject pickupPrompt;
+    public TextMeshProUGUI itemNameText;
 
     public override void Interact()
     {
@@ -30,7 +33,6 @@ public class ItemPickup : Interactable
 
         if (wasPickedUp)
         {
-            
             Destroy(gameObject);
         }
     }
@@ -40,10 +42,22 @@ public class ItemPickup : Interactable
         float dist = Vector3.Distance(player.transform.position, gameObject.transform.position); //distance between player and the item
         if (dist < radius)
         {
+            itemNameText.text = item.name;
+            pickupPrompt.SetActive(true);
+
             if (input.InteractIsPressed == true)
             {
                 Interact();
+                pickupPrompt.SetActive(false);
             }
+        }
+        else
+        {
+            if (itemNameText.text == item.name) //this doesn't work if there's more than 1 same item in the scene
+            {
+                pickupPrompt.SetActive(false);
+            }
+            
         }
     }
 }

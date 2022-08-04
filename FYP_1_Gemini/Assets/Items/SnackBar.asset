@@ -17,4 +17,3 @@ MonoBehaviour:
   isDefaultItem: 0
   itemAmount: 1
   tooltipMessage: 'SNACK BAR: +10 player''s health'
-  playerController: {fileID: 0}

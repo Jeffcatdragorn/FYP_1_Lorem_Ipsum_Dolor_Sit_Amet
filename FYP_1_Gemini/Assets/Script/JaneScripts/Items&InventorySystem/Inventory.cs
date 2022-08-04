@@ -61,6 +61,11 @@ public class Inventory : MonoBehaviour
         {
             tabletUICooldownCounter = 0.0f;
         }
+
+        if (tabletUI.activeInHierarchy == true)
+        {
+            buttonManager.EnableMouseCursor();
+        }
     }
 
     public bool Add (Item item, GameObject itemObject)

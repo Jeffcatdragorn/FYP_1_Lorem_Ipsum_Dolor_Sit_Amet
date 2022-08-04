@@ -132,3 +132,5 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: 0}
   item: {fileID: 11400000, guid: f0c52a8db85d3694bb372752114ed839, type: 2}
+  pickupPrompt: {fileID: 0}
+  itemNameText: {fileID: 0}

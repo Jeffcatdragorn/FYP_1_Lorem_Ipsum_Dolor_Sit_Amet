@@ -90,6 +90,8 @@ public class PauseMenu : MonoBehaviour
     {
         Inventory.tabletObtained = false;
         Inventory.flashlightObtained = false;
+        FirstParasite.Check = false;
+        TVTriggerBehaviour.tvCheck = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(currentSceneName);
     }
