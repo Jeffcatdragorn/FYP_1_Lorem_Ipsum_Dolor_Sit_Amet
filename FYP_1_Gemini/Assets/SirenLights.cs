@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class SirenLights : MonoBehaviour
 {
+    //private void Start()
+    //{
+    //    AudioManager.instance.PlaySound("alarmSound", transform.position, false);
+    //}
+
     void Update()
     {
-        AudioManager.instance.PlaySound("alarmSound",transform.position,false);
         transform.Rotate(new Vector3(0, -100, 0) * Time.deltaTime);
     }
 }

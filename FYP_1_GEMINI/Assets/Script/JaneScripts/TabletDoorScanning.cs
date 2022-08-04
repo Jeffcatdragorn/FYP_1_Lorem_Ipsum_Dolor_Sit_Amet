@@ -43,29 +43,54 @@ public class TabletDoorScanning : MonoBehaviour
 
         if (doorIsOpen == true)
         {
-            doorPanel.GetComponentInChildren<Button>().interactable = false;
+            doorPanel.SetActive(false);
+            //doorPanel.GetComponentInChildren<Button>().interactable = false; // for clicking button UI opening door only
             //doorIsOpen = false;
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other) 
     {
         if (other.CompareTag("Player"))
         {
-            if(input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f)
+            //if (input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f)//for clicking button UI opening door only
+            //{
+            //    //if(doorText.text != currentDoorName)
+            //    //{
+            //    //    doorText.text = doorName;
+            //    //    doorPanel.GetComponentInChildren<Button>().interactable = true;
+            //    //    doorPanel.GetComponentInChildren<Button>()
+            //    //}
+
+            //    doorPanel.SetActive(true);
+            //    buttonManager.EnableMouseCursor(); 
+            //    ScannerCooldownCounter = ScannerUICooldown;
+            //}
+
+            if (input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f)
             {
-                //if(doorText.text != currentDoorName)
-                //{
-                //    doorText.text = doorName;
-                //    doorPanel.GetComponentInChildren<Button>().interactable = true;
-                //    doorPanel.GetComponentInChildren<Button>()
-                //}
-                
-                doorPanel.SetActive(true);
-                buttonManager.EnableMouseCursor();
+                OpenDoor();
                 ScannerCooldownCounter = ScannerUICooldown;
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            doorText.text = doorName;
+
+            if(Inventory.tabletObtained == true)
+            {
+                doorPanel.SetActive(true);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        doorPanel.SetActive(false);
     }
 
     public void OpenDoor()

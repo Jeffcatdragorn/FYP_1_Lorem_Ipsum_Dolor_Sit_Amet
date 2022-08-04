@@ -160,9 +160,14 @@ public class AudioManager : MonoBehaviour
             newObject.GetComponent<AudioSource>().spatialBlend = 1;
         }
 
-        else if(is3D == false)
+        else
         {
             newObject.GetComponent<AudioSource>().spatialBlend = 0;
+        }
+
+        if(clip == alarmSound)
+        {
+            newObject.GetComponent<AudioSource>().loop = true;
         }
 
         newObject.GetComponent<AudioSource>().clip = clip;
