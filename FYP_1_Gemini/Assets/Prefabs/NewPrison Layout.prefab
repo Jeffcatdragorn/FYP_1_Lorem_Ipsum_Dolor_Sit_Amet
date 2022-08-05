@@ -4303,7 +4303,7 @@ GameObject:
   - component: {fileID: 1965240641607161832}
   - component: {fileID: 5999606950805167015}
   - component: {fileID: 3619371229709438925}
-  - component: {fileID: 4908466516993166729}
+  - component: {fileID: 6112397873958426602}
   m_Layer: 0
   m_Name: TVTrigger
   m_TagString: Untagged
@@ -4389,7 +4389,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4908466516993166729
+--- !u!114 &6112397873958426602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10688,6 +10688,7 @@ GameObject:
   - component: {fileID: 2512922208061610670}
   - component: {fileID: 2481987612485511325}
   - component: {fileID: 7951889940530210745}
+  - component: {fileID: 4908466516993166729}
   m_Layer: 0
   m_Name: Box093
   m_TagString: Untagged
@@ -10760,6 +10761,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4908466516993166729
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9047967266132392318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5137751575643769850, guid: dc505123e454dd441b0f04b8340ee847, type: 3}
 --- !u!1 &9212730231495354992
 GameObject:
   m_ObjectHideFlags: 0

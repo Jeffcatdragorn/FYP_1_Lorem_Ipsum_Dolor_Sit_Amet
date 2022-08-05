@@ -1429,7 +1429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 0}
-  doorName: Security Room Door 2
+  doorName: Prison Dome Gate
   doorText: {fileID: 1502806802}
   doorPanel: {fileID: 1590818854}
   buttonManager: {fileID: 0}
