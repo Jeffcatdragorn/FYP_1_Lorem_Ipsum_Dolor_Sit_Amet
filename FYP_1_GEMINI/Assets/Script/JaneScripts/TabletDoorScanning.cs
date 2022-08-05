@@ -162,7 +162,6 @@ public class TabletDoorScanning : MonoBehaviour
                 AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
                 //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
                 //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
-                TVTriggerBehaviour.tvCheck = true;
                 doorIsOpen = true;
             }
         }

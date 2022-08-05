@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
 
     public List<Item> items = new List<Item>();
 
-    public GameObject tabletUI;
+    public GameObject tabletMainScreenUI;
     public GameObject canvas;
     public static bool tabletObtained = false;
     public static bool flashlightObtained = false;
@@ -46,7 +46,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if(input.TabletIsPressed == true && tabletObtained == true && tabletUICooldownCounter == 0.0f)
+        if(input.TabletIsPressed == true && tabletObtained == true && tabletUICooldownCounter == 0.0f && PauseMenu.GameIsPaused == false)
         {
             TabletUIMenu(); 
             tabletUICooldownCounter = tabletUICooldown;
@@ -62,7 +62,7 @@ public class Inventory : MonoBehaviour
             tabletUICooldownCounter = 0.0f;
         }
 
-        if (tabletUI.activeInHierarchy == true)
+        if (tabletMainScreenUI.activeInHierarchy == true)
         {
             buttonManager.EnableMouseCursor();
         }
@@ -152,10 +152,10 @@ public class Inventory : MonoBehaviour
     {
         if(tabletObtained == true)
         {
-            tabletUI.SetActive(!tabletUI.activeSelf);
+            tabletMainScreenUI.SetActive(!tabletMainScreenUI.activeSelf);
             AudioManager.instance.PlaySound("tabletOning", cameraObject.position, false);
 
-            if(tabletUI.activeInHierarchy == true)
+            if(tabletMainScreenUI.activeInHierarchy == true)
             {
                 buttonManager.EnableMouseCursor();
             }
