@@ -1429,7 +1429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 0}
-  doorName: Prison Dome Gate
+  doorName: Security Room Door 2
   doorText: {fileID: 1502806802}
   doorPanel: {fileID: 1590818854}
   buttonManager: {fileID: 0}
@@ -1438,3 +1438,4 @@ MonoBehaviour:
   normalDoorAnimator: {fileID: 0}
   doorSlideOpen: DomeGateOpen
   flashlightText: {fileID: 0}
+  tabletText: {fileID: 0}
