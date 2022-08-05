@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122ceffbdc12ee64abc52248be5b4176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 7
+  radius: 8
   cameraObject: {fileID: 0}
   player: {fileID: 0}
   input: {fileID: 0}
