@@ -18,6 +18,8 @@ public class TabletDoorScanning : MonoBehaviour
     [SerializeField] private Animator normalDoorAnimator = null;
     [SerializeField] private string doorSlideOpen = "DoorSlideOpen";
     private bool doorIsOpen = false;
+    public GameObject flashlightText;
+    private bool flashlightCheck;
 
     // Start is called before the first frame update
     void Start()
@@ -73,7 +75,9 @@ public class TabletDoorScanning : MonoBehaviour
 
                 if(doorName == "Prison Dome Gate")
                 {
+
                     TVTriggerBehaviour.tvCheck = true;
+                   
                 }
 
                 ScannerCooldownCounter = ScannerUICooldown;
@@ -89,23 +93,55 @@ public class TabletDoorScanning : MonoBehaviour
 
             if(Inventory.tabletObtained == true)
             {
-                doorPanel.SetActive(true);
+                if (doorName == "Prison Dome Gate")
+                {
+                    if (Inventory.flashlightObtained == false)
+                    {
+                        flashlightText.SetActive(true);
+                        doorPanel.SetActive(false);
+                        flashlightCheck = false;
+                    }
+                    else
+                    {
+                        doorPanel.SetActive(true);
+                        flashlightCheck = true;
+                    }
+                }
+                else
+                    doorPanel.SetActive(true);
             }
+
+
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         doorPanel.SetActive(false);
+        flashlightText.SetActive(false);
     }
 
     public void OpenDoor()
     {
-        normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
-        
-        AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
-        //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
-        //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
-        doorIsOpen = true;
+        if (doorName == "Prison Dome Gate")
+        {
+            if(flashlightCheck == true) {
+                normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
+
+                AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
+                //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
+                //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
+                doorIsOpen = true;
+            }
+        }
+        else
+        {
+            normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
+
+            AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
+            //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
+            //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
+            doorIsOpen = true;
+        }
     }
 }

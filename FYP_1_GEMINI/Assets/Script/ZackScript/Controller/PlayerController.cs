@@ -192,10 +192,8 @@ public class PlayerController : MonoBehaviour
 
         playerMoveInput.y = PlayerFallGravity();
 
-        if(forceCrouch == false || input.CrouchIsPressed == false)
-        {
-            playerMoveInput.y = PlayerJump();
-        }
+        playerMoveInput.y = PlayerJump();
+        
 
         PlayerFootSteps();
 
@@ -227,7 +225,8 @@ public class PlayerController : MonoBehaviour
 
     //private void Update()
     //{
-    //    Debug.Log(input.FlashlightIsPressed);
+    //    Debug.Log("force: " + forceCrouch);
+    //    Debug.Log("Coruch" + input.CrouchIsPressed);
     //}
 
     //private void LateUpdate()
@@ -375,32 +374,37 @@ public class PlayerController : MonoBehaviour
     {
         float calculatedJumpInput = playerMoveInput.y;
 
-        SetJumpTimeCounter();
-        SetCoyoteTimeCounter();
-        SetJumpBufferCounter();
-
-        if (jumpBufferTimeCounter > 0.0f && !playerIsJumping && coyoteTimeCounter > 0.0f)
+        if (forceCrouch == false && input.CrouchIsPressed == false)
         {
-            if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
+            
+            SetJumpTimeCounter();
+            //SetCoyoteTimeCounter();
+            SetJumpBufferCounter();
+
+            if (jumpBufferTimeCounter > 0.0f && !playerIsJumping/* && coyoteTimeCounter > 0.0f*/)
             {
-                calculatedJumpInput = initialJumpForce;
-                playerIsJumping = true;
-                jumpBufferTimeCounter = 0.0f;
-                coyoteTimeCounter = 0.0f;
+                if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
+                {
+                    calculatedJumpInput = initialJumpForce;
+                    playerIsJumping = true;
+                    jumpBufferTimeCounter = 0.0f;
+                    coyoteTimeCounter = 0.0f;
+                }
             }
-        }
 
-        else if (input.JumpIsPressed && playerIsJumping && !playerIsGrounded && jumpTimeCounter > 0.0f)
-        {
-            calculatedJumpInput = initialJumpForce * continualJumpForceMultiplier;
-        }
+            else if (input.JumpIsPressed && playerIsJumping && !playerIsGrounded && jumpTimeCounter > 0.0f)
+            {
+                calculatedJumpInput = initialJumpForce * continualJumpForceMultiplier;
+            }
 
-        else if (playerIsJumping && playerIsGrounded)
-        {
-            playerIsJumping = false;
+            else if (playerIsJumping && playerIsGrounded)
+            {
+                playerIsJumping = false;
+            }
+            return calculatedJumpInput;
         }
-
         return calculatedJumpInput;
+
     }
 
     //private Vector3 PlayerGrapple()

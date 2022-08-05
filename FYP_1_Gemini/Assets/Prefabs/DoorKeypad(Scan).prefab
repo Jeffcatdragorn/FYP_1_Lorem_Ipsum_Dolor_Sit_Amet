@@ -1429,11 +1429,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 0}
-  doorName: Security Room 1 Door
+  doorName: Prison Dome Gate
   doorText: {fileID: 1502806802}
   doorPanel: {fileID: 1590818854}
   buttonManager: {fileID: 0}
   ScannerCooldownCounter: 0
   ScannerUICooldown: 0.5
   normalDoorAnimator: {fileID: 0}
-  doorSlideOpen: DoorSlideRight
+  doorSlideOpen: DomeGateOpen
+  flashlightText: {fileID: 0}
