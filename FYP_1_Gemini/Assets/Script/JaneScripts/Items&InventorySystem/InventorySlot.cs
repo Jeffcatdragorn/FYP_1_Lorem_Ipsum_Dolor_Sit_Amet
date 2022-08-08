@@ -8,10 +8,16 @@ public class InventorySlot : MonoBehaviour
     public Button removeButton;
     public TextMeshProUGUI numberOfItems;
     public PlayerController playerController;
+    public static pop_up_script popUpScript;
 
     [SerializeField]Item item;
 
     public string tooltipMessage;
+
+    private void Awake()
+    {
+        popUpScript = GameObject.FindObjectOfType<pop_up_script>();
+    }
 
     private void Start()
     {
@@ -51,6 +57,8 @@ public class InventorySlot : MonoBehaviour
         if (item != null)
         {
             item.Use();
+            popUpScript.InstantiatePopUpNoti("Used " + item.name);
+
             numberOfItems.text = item.itemAmount.ToString("" + item.itemAmount);
 
             if (item.name == "CanDrink")

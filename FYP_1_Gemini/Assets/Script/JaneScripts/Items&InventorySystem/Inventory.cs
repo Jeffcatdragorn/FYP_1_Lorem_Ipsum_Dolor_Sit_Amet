@@ -4,23 +4,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    #region Singleton
-
-    public static Inventory instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("More than one instance of Inventory found!");
-            return;
-        }
-
-        instance = this; //you should only have one inventory at all times!
-    }
-
-    #endregion
-
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
@@ -43,6 +26,26 @@ public class Inventory : MonoBehaviour
     public GameObject inspectUI;
     public GameObject inspectObject;
     public GameObject inspectCamera;
+    public static pop_up_script popUpScript;
+
+    #region Singleton
+
+    public static Inventory instance;
+
+    private void Awake()
+    {
+        popUpScript = GameObject.FindObjectOfType<pop_up_script>();
+
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of Inventory found!");
+            return;
+        }
+
+        instance = this; //you should only have one inventory at all times!
+    }
+
+    #endregion
 
     private void Update()
     {
@@ -141,6 +144,7 @@ public class Inventory : MonoBehaviour
     public void Remove (Item item)
     {
         items.Remove(item);
+        popUpScript.InstantiatePopUpNoti("Removed " + item.name);
 
         if (onItemChangedCallback != null)
         {

@@ -9,19 +9,17 @@ public class pop_up_script : MonoBehaviour
     [SerializeField] private GameObject content;
     private Animator popupAnimator;
 
-
-
     void Start()
     {
         popupAnimator = this.transform.GetComponent<Animator>();
     }
 
-    public void InstantiateButton(string text)
+    public void InstantiatePopUpNoti(string text)
     {
         GameObject popUpNoti = Instantiate(button, content.transform,false);
         popUpNoti.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
         popupAnimator.Play("PopPopAnimation");
         
-        Destroy(popUpNoti,2);
+        Destroy(popUpNoti,5);
     }
 }

@@ -14,6 +14,12 @@ public class ItemPickup : Interactable
 
     public GameObject pickupPrompt;
     public TextMeshProUGUI itemNameText;
+    public static pop_up_script popUpScript;
+
+    private void Awake()
+    {
+        popUpScript = GameObject.FindObjectOfType<pop_up_script>();
+    }
 
     public override void Interact()
     {
@@ -33,6 +39,8 @@ public class ItemPickup : Interactable
 
         if (wasPickedUp)
         {
+            popUpScript.InstantiatePopUpNoti("Obtained " + itemNameText.text);
+
             Destroy(gameObject);
         }
     }
