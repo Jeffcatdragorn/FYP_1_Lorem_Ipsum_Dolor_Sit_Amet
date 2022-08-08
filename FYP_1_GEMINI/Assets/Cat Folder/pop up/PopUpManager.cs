@@ -5,7 +5,6 @@ using TMPro;
 public class PopUpManager : MonoBehaviour
 {
     public TMP_Text popupText;
-
     private GameObject window;
     private Animator popupAnimator;
 
@@ -25,8 +24,11 @@ public class PopUpManager : MonoBehaviour
     {
         popupQueue.Enqueue(text);
         if (queueChecker == null)
+        {
             queueChecker = StartCoroutine(CheckQueue());
+        }
     }
+
 
     private void ShowPopUp(string text) // parameter the same type as queue 
     {
