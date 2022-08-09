@@ -3,7 +3,92 @@ guid: 00f3501e47f7b464eae33666a1bc0291
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01 - Default
+    second: {fileID: 2100000, guid: 893a6e6da3e0279469ed1028496ba3f7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #51
+    second: {fileID: 2100000, guid: 2c911147b920ea74392c8bc6ddedbfec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #72
+    second: {fileID: 2100000, guid: 55a8f80c38ce8704e96013a9f167354d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #73
+    second: {fileID: 2100000, guid: 5d76a96ad10914d4fa3567d7bcdab8fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #74
+    second: {fileID: 2100000, guid: 8fd31f99950348f4a8df6ea708e4b46a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #75
+    second: {fileID: 2100000, guid: d369a56687b5cab4685b2519748e3463, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #76
+    second: {fileID: 2100000, guid: d65b6817586d1a445a1d66fadafaae7f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #77
+    second: {fileID: 2100000, guid: e4103440668dc9b43aed82b03cc56fde, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #78
+    second: {fileID: 2100000, guid: edd417ec439e27347b007ad277661b13, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #79
+    second: {fileID: 2100000, guid: 26b6a8a1f1141d747937e39a1e182ef8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #80
+    second: {fileID: 2100000, guid: 5a15f966f08bca543ad85dcf68776e14, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #81
+    second: {fileID: 2100000, guid: 9ae51d15406410347bed598b392f4d4a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #82
+    second: {fileID: 2100000, guid: 4fca4d92191af354c9a3468efea87a84, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #83
+    second: {fileID: 2100000, guid: df9f9163370dde245b194d597e0eac2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #84
+    second: {fileID: 2100000, guid: 4bea95f44f95519429a7146b007a1921, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #85
+    second: {fileID: 2100000, guid: 1224653d784f8ee42af8fa9a302eaab0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shoulder Pad
+    second: {fileID: 2100000, guid: 09019faf207637e40967b24d2971b3a1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
