@@ -5,6 +5,7 @@ public class InventoryUI : MonoBehaviour
     public Transform itemsParent;
     public Transform cameraObject;
     public GameObject inventoryUI;
+    public GameObject tabletMainScreenUI;
 
     Inventory inventory;
 
@@ -26,7 +27,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        if(input.InventoryIsPressed == true && Inventory.tabletObtained == true && inventoryUICooldownCounter == 0.0f)
+        if(input.InventoryIsPressed == true && Inventory.tabletObtained == true && tabletMainScreenUI.activeInHierarchy == false && inventoryUICooldownCounter == 0.0f)
         {
             InventoryUIMenu();
             inventoryUICooldownCounter = inventoryUICooldown;

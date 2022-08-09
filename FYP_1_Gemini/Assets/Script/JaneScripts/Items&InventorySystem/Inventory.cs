@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour
     public List<Item> items = new List<Item>();
 
     public GameObject tabletMainScreenUI;
+    public GameObject inventoryUI;
     public GameObject canvas;
     public static bool tabletObtained = false;
     public static bool flashlightObtained = false;
@@ -49,7 +50,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if(input.TabletIsPressed == true && tabletObtained == true && tabletUICooldownCounter == 0.0f && PauseMenu.GameIsPaused == false)
+        if(input.TabletIsPressed == true && tabletObtained == true && inventoryUI.activeInHierarchy == false && tabletUICooldownCounter == 0.0f && PauseMenu.GameIsPaused == false)
         {
             TabletUIMenu(); 
             tabletUICooldownCounter = tabletUICooldown;
@@ -154,19 +155,16 @@ public class Inventory : MonoBehaviour
 
     private void TabletUIMenu()
     {
-        if(tabletObtained == true)
-        {
-            tabletMainScreenUI.SetActive(!tabletMainScreenUI.activeSelf);
-            AudioManager.instance.PlaySound("tabletOning", cameraObject.position, false);
+        tabletMainScreenUI.SetActive(!tabletMainScreenUI.activeSelf);
+        AudioManager.instance.PlaySound("tabletOning", cameraObject.position, false);
 
-            if(tabletMainScreenUI.activeInHierarchy == true)
-            {
-                buttonManager.EnableMouseCursor();
-            }
-            else
-            {
-                buttonManager.DisableMouseCursor();
-            }
+        if (tabletMainScreenUI.activeInHierarchy == true)
+        {
+            buttonManager.EnableMouseCursor();
+        }
+        else
+        {
+            buttonManager.DisableMouseCursor();
         }
     }
 }
