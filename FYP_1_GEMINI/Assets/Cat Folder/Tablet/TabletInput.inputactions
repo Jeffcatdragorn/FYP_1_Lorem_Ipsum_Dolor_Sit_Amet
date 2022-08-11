@@ -1,0 +1,54 @@
+{
+    "name": "TabletInput",
+    "maps": [
+        {
+            "name": "wheel",
+            "id": "4b5ad719-2b33-4422-8ab3-fb46c426e661",
+            "actions": [
+                {
+                    "name": "Scroll/y",
+                    "type": "PassThrough",
+                    "id": "d30ab6c9-e725-44f2-ac46-ee035b6530fa",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "d514c811-2afb-404f-a6bc-124b552848ae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ef7c96c1-09ca-4d6b-bf63-060180c03cce",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scroll/y",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a09f3682-ee62-4017-9b6b-1ccb781c1f3e",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
