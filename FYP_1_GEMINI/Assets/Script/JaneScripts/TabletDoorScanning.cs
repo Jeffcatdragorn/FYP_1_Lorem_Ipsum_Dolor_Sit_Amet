@@ -9,6 +9,7 @@ public class TabletDoorScanning : MonoBehaviour
     [Header("Managers")]
     public HumanoidLandInput input;
     public ButtonManager buttonManager;
+    public PlayerController playerController;
     public GameObject tabletObj;
     public GameObject flashlightText = null;
     public GameObject tabletText = null;
@@ -80,6 +81,7 @@ public class TabletDoorScanning : MonoBehaviour
 
             if (input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f) 
             {
+                playerController.enabled = false;
                 DoorOpeningProcess();
 
                 ScannerCooldownCounter = ScannerUICooldown;
@@ -177,6 +179,8 @@ public class TabletDoorScanning : MonoBehaviour
 
     private void DoorOpens()
     {
+        playerController.enabled = true;
+
         tabletObj.SetActive(false);
         normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
 
