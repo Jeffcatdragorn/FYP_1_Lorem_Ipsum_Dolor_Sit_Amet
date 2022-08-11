@@ -20,7 +20,8 @@ public class TabletDoorScanning : MonoBehaviour
     public string doorName;
     public TextMeshProUGUI doorText;
     public GameObject doorPanel;
-
+    public MeshRenderer doorLightMeshRenderer;
+    public Material greenDoorLightMaterial;
     [SerializeField] private Animator normalDoorAnimator = null;
     [SerializeField] private string doorSlideOpen = "DoorSlideOpen";
 
@@ -172,6 +173,7 @@ public class TabletDoorScanning : MonoBehaviour
 
     private void TabletSlotOut()
     {
+        doorLightMeshRenderer.material = greenDoorLightMaterial;
         scannerAnimator.Play("TabletSlotOut", 0, 0.0f);
 
         Invoke("DoorOpens", 2.5f);
