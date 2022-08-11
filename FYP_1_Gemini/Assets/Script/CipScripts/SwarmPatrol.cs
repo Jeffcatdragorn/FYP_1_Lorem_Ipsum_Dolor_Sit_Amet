@@ -14,7 +14,6 @@ public class SwarmPatrol : SwarmBaseStates
 
     public override void EnterState(SwarmStates states)
     {
-        Debug.Log("Patrolling");
     }
 
     public override void UpdateState(SwarmStates states)
@@ -36,7 +35,6 @@ public class SwarmPatrol : SwarmBaseStates
         else if (other.CompareTag("Walls"))
         {
             wallsPos = other.transform.localPosition;
-            Debug.Log(wallsPos);
             states.SwitchStates(states.AvoidState);
         }
     }
@@ -51,7 +49,7 @@ public class SwarmPatrol : SwarmBaseStates
          movementVelo = Vector3.zero;
 
          Vector3 randomVec = Random.insideUnitSphere.normalized;
-         float PatrolRadius = 4.0f;
+         float PatrolRadius = 10.0f;
 
          Vector3 currentSwarmPos = states.swarmPos;
          randomVec.y = 0.0f;
@@ -59,7 +57,16 @@ public class SwarmPatrol : SwarmBaseStates
          randomVec *= PatrolRadius;
 
          wanderLocation = states.transform.position + (states.transform.forward.normalized) + randomVec;
-         movementVelo = (wanderLocation - currentSwarmPos).normalized * Random.Range(1.0f,5.0f);
+
+        if(Vector3.Distance(states.transform.position, wanderLocation) <= 0.5)
+        {
+            states.SwitchStates(states.IdleState);//speed
+            movementVelo = Vector3.zero;
+        }
+        else
+        {
+            movementVelo = (wanderLocation - currentSwarmPos).normalized * Random.Range(1.0f, 3.0f);//speed
+        } 
 
          return movementVelo;
     }
@@ -68,15 +75,16 @@ public class SwarmPatrol : SwarmBaseStates
     {
         if (timetoSwitch > states.switchPatrolLocation) //switch after every 3 seconds
         {
-            Debug.Log("Switched");
+            //states.SwitchStates(states.IdleState);
             x = RandomizeLocation(states);
+            //Debug.Log("Switched to next pos " + x);
             timetoSwitch = 0.0f;
         }
 
-        timetoSwitch += Time.deltaTime;
-        Quaternion lookRotation = Quaternion.LookRotation(wanderLocation - states.swarmPos); // GET ROTATION ANGLE
-        states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, Time.deltaTime * 4.0f); // ROTATE FACE NEW DIRECTION
+        timetoSwitch += (Time.deltaTime);
         states.transform.Translate(x * Time.deltaTime, Space.World);
+        Quaternion lookRotation = Quaternion.LookRotation(wanderLocation - states.transform.position); // GET ROTATION ANGLE
+        states.transform.rotation = Quaternion.RotateTowards(states.transform.rotation, lookRotation, timetoSwitch); // ROTATE FACE NEW DIRECTION  
     }
     #endregion
 }

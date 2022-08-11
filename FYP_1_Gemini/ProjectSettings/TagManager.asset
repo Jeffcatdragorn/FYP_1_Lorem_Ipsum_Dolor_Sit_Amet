@@ -16,6 +16,7 @@ TagManager:
   - SammySammy
   - capsule
   - crouchZone
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -35,7 +36,7 @@ TagManager:
   - highlightable
   - tiles
   - playerSelf
-  - 
+  - weakPoint
   - 
   - 
   - 

@@ -8,7 +8,6 @@ public class SwarmAvoidObstacles : SwarmBaseStates
     float timeInState;
     public override void EnterState(SwarmStates states)
     {
-        Debug.Log("Hello from avoiding");
     }
 
     public override void UpdateState(SwarmStates states)
@@ -37,7 +36,7 @@ public class SwarmAvoidObstacles : SwarmBaseStates
             timeInState = 0.0f;
         }
         timeInState += Time.deltaTime;
-        Debug.Log("Wall coordinates: " + SwarmPatrol.wallsPos);
+
 
         Vector3 movement = (SwarmPatrol.wallsPos - SwarmPatrol.movementVelo).normalized * -1;
         Vector3 runVelocity = movement * 5.0f;

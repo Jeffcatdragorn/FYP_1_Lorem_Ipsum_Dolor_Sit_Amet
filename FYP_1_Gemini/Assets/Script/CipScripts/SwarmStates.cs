@@ -13,7 +13,9 @@ public class SwarmStates : MonoBehaviour
 
     public bool testingStates;
     public float timeswitchState = 3.0f;
-    public float switchPatrolLocation = 3.0f;
+    public float switchPatrolLocation = 10.0f;
+    public int swarmMaxHealth;
+    int swarmCurrHealth;
 
     public Vector3 swarmPos;
 
@@ -22,6 +24,8 @@ public class SwarmStates : MonoBehaviour
         currentSwarmState = IdleState;
         
         currentSwarmState.EnterState(this);
+
+        swarmMaxHealth = 4;
     }
 
     void Update()
@@ -46,5 +50,14 @@ public class SwarmStates : MonoBehaviour
     {
         currentSwarmState = states;
         states.EnterState(this);
+    }
+
+    public void takeDmg(int dmg)
+    {
+        swarmCurrHealth = swarmMaxHealth - 1;
+        if(swarmCurrHealth == 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
