@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour
 
     public static State state;
 
-    [SerializeField] Animator animator;
-
     [Header("Movement")]
     [SerializeField] float movementMultiplier = 30.0f;
     [SerializeField] float notGroundedMovementMultiplier = 1.25f;
@@ -148,6 +146,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float crouchSpeed = 0.0f;
     [SerializeField] float originalMoveSpeed;
     [SerializeField] bool forceCrouch = false;
+    [SerializeField] bool crouchToggle = false;
+    [SerializeField] float crouchCooldownTime = 1f;
+    [SerializeField] float crouchCooldownTimeCounter = 0.0f;
     public static bool crouchCheck = false;
 
     [Header("Flashlight")]
@@ -211,8 +212,6 @@ public class PlayerController : MonoBehaviour
 
             case State.Fighter:
                 ParasiteTeleport();
-                ParasiteRunning();
-                ParasiteAttack();
                 ParasiteShield();
                 HealthTickDown();
                 break;
@@ -579,33 +578,41 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerCrouch()
     {
-        if(input.CrouchIsPressed == true || forceCrouch == true)
-        {
-            playerCollider.height = 0.5f;
-            firstPersonCamera.Follow = crouchCamera;
-            movementMultiplier = originalMoveSpeed * 0.4f;
-            crouchCheck = true;
-            //if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
-            //{
-            //    Vector3 moveDirection = (crouchCamera.position - firstPersonCameraFollow.transform.position);
-            //    firstPersonCameraFollow.GetComponent<Rigidbody>().isKinematic = false;
-            //    firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
-            //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
-            //}
-        }
+        SetCrouchCooldownCounter();
 
-        else
+        if(input.CrouchIsPressed == true && forceCrouch == false)
         {
-            playerCollider.height = 2;
-            firstPersonCamera.Follow = normalCamera;
-            movementMultiplier = originalMoveSpeed;
-            crouchCheck = false;
-            //if (Vector3.Distance(firstPersonCameraFollow.transform.position, normalCamera.position) > 0.1f)
-            //{
-            //    Vector3 moveDirection = (normalCamera.position - firstPersonCameraFollow.transform.position);
-            //    firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
-            //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
-            //}
+            if(crouchCooldownTimeCounter <= 0.0f && crouchToggle == false)
+            {
+                playerCollider.height = 0.5f;
+                firstPersonCamera.Follow = crouchCamera;
+                movementMultiplier = originalMoveSpeed * 0.4f;
+                crouchToggle = true;
+                crouchCooldownTimeCounter = crouchCooldownTime;
+                crouchCheck = true;
+                //if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
+                //{
+                //    Vector3 moveDirection = (crouchCamera.position - firstPersonCameraFollow.transform.position);
+                //    firstPersonCameraFollow.GetComponent<Rigidbody>().isKinematic = false;
+                //    firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
+                //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
+                //}
+            }
+            else if(crouchCooldownTimeCounter <= 0.0f && crouchToggle == true)
+            {
+                playerCollider.height = 2f;
+                firstPersonCamera.Follow = normalCamera;
+                movementMultiplier = originalMoveSpeed;
+                crouchToggle = false;
+                crouchCooldownTimeCounter = crouchCooldownTime;
+                crouchCheck = false;
+                //if (Vector3.Distance(firstPersonCameraFollow.transform.position, normalCamera.position) > 0.1f)
+                //{
+                //    Vector3 moveDirection = (normalCamera.position - firstPersonCameraFollow.transform.position);
+                //    firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
+                //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
+                //}
+            }
         }
     }
 
@@ -755,25 +762,6 @@ public class PlayerController : MonoBehaviour
             shieldObject.SetActive(true);
         else
             shieldObject.SetActive(false);
-    }
-
-    private void ParasiteRunning()
-    {
-        if (playerMoveInput != new Vector3(0,0,0))
-        {
-            animator.SetBool("Walking", true);
-        }
-
-        else
-            animator.SetBool("Walking", false);
-    }
-
-    private void ParasiteAttack()
-    {
-        if(input.ShootIsPressed)
-        {
-            animator.SetTrigger("Attack");
-        }
     }
 
     private void HealthTickDown()
@@ -968,6 +956,19 @@ public class PlayerController : MonoBehaviour
         if (GunReloadCooldownCounter <= 0)
         {
             GunReloadCooldownCounter = 0.0f;
+        }
+    }
+
+    private void SetCrouchCooldownCounter()
+    {
+        if (crouchCooldownTimeCounter > 0)
+        {
+            crouchCooldownTimeCounter -= Time.deltaTime;
+        }
+
+        if (crouchCooldownTimeCounter <= 0)
+        {
+            crouchCooldownTimeCounter = 0.0f;
         }
     }
 

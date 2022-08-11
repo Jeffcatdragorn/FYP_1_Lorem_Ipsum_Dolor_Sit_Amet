@@ -18,7 +18,6 @@ public class FirstParasiteTrigger : MonoBehaviour
     {
         if (other.tag == "SammySammy")
         {
-            Debug.Log("Yes");
             AudioManager.instance.PlaySound("jumpScareSound", transform.position, false);
         }
     }
