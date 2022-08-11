@@ -2342,8 +2342,9 @@ GameObject:
   - component: {fileID: 6338368253436533607}
   - component: {fileID: 8506317375303073073}
   - component: {fileID: 7106105399991266863}
+  - component: {fileID: 2141352924499636011}
   m_Layer: 0
-  m_Name: Object047
+  m_Name: Object047 DuckDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2357,8 +2358,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016563866111507944}
   m_LocalRotation: {x: 0.000000057601167, y: 0.7071067, z: -0.000000057601156, w: 0.7071068}
-  m_LocalPosition: {x: 62.791843, y: -12.45, z: 50.999134}
-  m_LocalScale: {x: 2.54, y: 2.54, z: 2.54}
+  m_LocalPosition: {x: 62.791832, y: -3.7600002, z: 50.99913}
+  m_LocalScale: {x: 2.5399995, y: 2.54, z: 2.5399995}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4869755930997334738}
@@ -2414,6 +2415,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &2141352924499636011
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016563866111507944}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 852cc989ff445904f8e2d78149f6f95f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2044043725125581679
 GameObject:
   m_ObjectHideFlags: 0
