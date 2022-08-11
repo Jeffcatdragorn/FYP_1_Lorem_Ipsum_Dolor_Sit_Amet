@@ -6,28 +6,37 @@ using UnityEngine.UI;
 
 public class TabletDoorScanning : MonoBehaviour
 {
+    [Header("Managers")]
     public HumanoidLandInput input;
-    public string doorName;
-    //private string currentDoorName;
-    public TextMeshProUGUI doorText;
-    public GameObject doorPanel;
-    //public GameObject connectedDoor;
     public ButtonManager buttonManager;
-    [SerializeField] float ScannerCooldownCounter;
-    [SerializeField] float ScannerUICooldown;
-    [SerializeField] private Animator normalDoorAnimator = null;
-    [SerializeField] private string doorSlideOpen = "DoorSlideOpen";
-    private bool doorIsOpen = false;
-    public GameObject flashlightText;
-    public GameObject tabletText;
+    public GameObject tabletObj;
+    public GameObject flashlightText = null;
+    public GameObject tabletText = null;
     private bool flashlightCheck;
     private bool tabletCheck;
+
+    [Header("Door")]
+    public string doorName;
+    public TextMeshProUGUI doorText;
+    public GameObject doorPanel;
+
+    [SerializeField] private Animator normalDoorAnimator = null;
+    [SerializeField] private string doorSlideOpen = "DoorSlideOpen";
+
+    private bool doorIsOpen = false;
+
+    [Header("Scanner")]
+    [SerializeField] float ScannerCooldownCounter;
+    [SerializeField] float ScannerUICooldown;
+    [SerializeField] private Animator scannerAnimator = null;
+    public float scanningTime = 3.0f;
+    public BoxCollider scannerTrigger;
 
     // Start is called before the first frame update
     void Start()
     {
+        tabletObj.SetActive(false);
         doorText.text = doorName;
-        //currentDoorName = doorText.text;
     }
 
     // Update is called once per frame
@@ -42,8 +51,6 @@ public class TabletDoorScanning : MonoBehaviour
         {
             ScannerCooldownCounter = 0.0f;
         }
-
-        
 
         if (doorIsOpen == true)
         {
@@ -71,9 +78,9 @@ public class TabletDoorScanning : MonoBehaviour
             //    ScannerCooldownCounter = ScannerUICooldown;
             //}
 
-            if (input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f)
+            if (input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f) 
             {
-                OpenDoor();
+                DoorOpeningProcess();
 
                 ScannerCooldownCounter = ScannerUICooldown;
             }
@@ -85,7 +92,6 @@ public class TabletDoorScanning : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             doorText.text = doorName;
-
 
             if (doorName == "Prison Dome Gate")
             {
@@ -107,7 +113,6 @@ public class TabletDoorScanning : MonoBehaviour
                 {
                     doorPanel.SetActive(false);
                 }
-
             }
             else
             {
@@ -123,8 +128,6 @@ public class TabletDoorScanning : MonoBehaviour
                     tabletCheck = true;
                 }
             }
-
-
         }
     }
 
@@ -135,18 +138,18 @@ public class TabletDoorScanning : MonoBehaviour
         tabletText.SetActive(false);
     }
 
-    public void OpenDoor()
+    public void DoorOpeningProcess()
     {
         if (doorName == "Prison Dome Gate")
         {
-            if(flashlightCheck == true) {
-                normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
+            if(flashlightCheck == true) 
+            {
+                tabletObj.SetActive(true);
+                scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
 
-                AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
-                //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
-                //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
+                Invoke("TabletSlotOut", scanningTime);
+               
                 TVTriggerBehaviour.tvCheck = true;
-                doorIsOpen = true;
             }
             else
             {
@@ -157,13 +160,30 @@ public class TabletDoorScanning : MonoBehaviour
         {
             if (tabletCheck == true)
             {
-                normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
+                tabletObj.SetActive(true);
+                scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
 
-                AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
-                //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
-                //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
-                doorIsOpen = true;
+                Invoke("TabletSlotOut", scanningTime);
             }
         }
+    }
+
+    private void TabletSlotOut()
+    {
+        scannerAnimator.Play("TabletSlotOut", 0, 0.0f);
+
+        Invoke("DoorOpens", 2.5f);
+    }
+
+    private void DoorOpens()
+    {
+        tabletObj.SetActive(false);
+        normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
+
+        AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
+        //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
+        //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
+        doorIsOpen = true;
+        scannerTrigger.enabled = false; //to prevent player from opening the door again
     }
 }
