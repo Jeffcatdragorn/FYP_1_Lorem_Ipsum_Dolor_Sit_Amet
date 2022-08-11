@@ -17,10 +17,5 @@ public class ParisiteWall : MonoBehaviour
         {
             Debug.Log("Dmg Player");
         }
-        else if (other.tag == "enemy")
-        {
-            Debug.Log("Collided with enemy");
-            destroyedHeart();
-        }
     }
 }

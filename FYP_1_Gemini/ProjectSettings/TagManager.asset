@@ -17,6 +17,7 @@ TagManager:
   - capsule
   - crouchZone
   - enemy
+  - weakPoint
   layers:
   - Default
   - TransparentFX

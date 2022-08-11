@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
             default:
             case State.Detective:
                 playerMoveInput = PlayerDash();
-                //PlayerShoot();
+                PlayerShoot();
                 PlayerGunReload();
                 PlayerFlashlight();
                 break;
@@ -503,6 +503,11 @@ public class PlayerController : MonoBehaviour
                         Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
                         if (objectController != null)
                             objectController.changeForms(hit2.transform.name);
+
+                        if(hit2.transform.tag == "weakPoint")
+                        {
+                            hit2.transform.parent.GetComponent<ParisiteWall>().destroyedHeart();
+                        }
                     }
 
                     shootCooldownCounter = shootCooldown;
