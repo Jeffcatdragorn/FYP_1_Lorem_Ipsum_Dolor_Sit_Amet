@@ -94,10 +94,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask shootLayer;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] float shootCooldown = 0.1f;
-    [SerializeField] float shootCooldownCounter = 0.0f;
+    //[SerializeField] float shootCooldown = 0.1f;
+    //[SerializeField] float shootCooldownCounter = 0.0f;
     [SerializeField] float shootChargingCounter = 0.0f;
-    [SerializeField] bool isUsingShotgun = true;
+    [SerializeField] bool finishedDecharge = true;
     [SerializeField] int bulletsPerShot = 6;
     [SerializeField] GameObject impactEffect;
     [SerializeField] float inaccuracyDistance = 5.0f;
@@ -139,16 +139,18 @@ public class PlayerController : MonoBehaviour
 
     [Header("Crouch")]
     //[SerializeField] float crouchColliderSize;
-    [SerializeField] CapsuleCollider playerCollider;
     [SerializeField] CinemachineVirtualCamera firstPersonCamera;
-    [SerializeField] Transform normalCamera;
-    [SerializeField] Transform crouchCamera;
+    [SerializeField] Transform normalCameraTransform;
+    [SerializeField] Transform crouchCameraTransform;
     [SerializeField] float crouchSpeed = 0.0f;
     [SerializeField] float originalMoveSpeed;
     [SerializeField] bool forceCrouch = false;
     [SerializeField] bool crouchToggle = false;
-    [SerializeField] float crouchCooldownTime = 1f;
-    [SerializeField] float crouchCooldownTimeCounter = 0.0f;
+    [SerializeField] bool crouchAllow = true;
+    [SerializeField] CapsuleCollider standingCollider;
+    [SerializeField] CapsuleCollider crouchingCollider;
+    //[SerializeField] float crouchCooldownTime = 1f;
+    //[SerializeField] float crouchCooldownTimeCounter = 0.0f;
     public static bool crouchCheck = false;
 
     [Header("Flashlight")]
@@ -204,17 +206,17 @@ public class PlayerController : MonoBehaviour
         {
             default:
             case State.Detective:
-                playerMoveInput = PlayerDash();
+                //playerMoveInput = PlayerDash();
                 PlayerShoot();
                 PlayerGunReload();
                 PlayerFlashlight();
                 break;
 
-            case State.Fighter:
-                ParasiteTeleport();
-                ParasiteShield();
-                HealthTickDown();
-                break;
+            //case State.Fighter:
+            //    ParasiteTeleport();
+            //    ParasiteShield();
+            //    HealthTickDown();
+            //    break;
         }
 
         playerMoveInput *= rigidbody.mass;
@@ -252,6 +254,8 @@ public class PlayerController : MonoBehaviour
         cameraPitch = Mathf.Clamp(cameraPitch, -89.9f, 89.9f);
 
         cameraFollow.rotation = Quaternion.Euler(cameraPitch, cameraFollow.rotation.eulerAngles.y, cameraFollow.rotation.eulerAngles.z);
+        crouchCameraTransform.rotation = Quaternion.Euler(cameraPitch, crouchCameraTransform.rotation.eulerAngles.y, crouchCameraTransform.rotation.eulerAngles.z);
+        normalCameraTransform.rotation = Quaternion.Euler(cameraPitch, normalCameraTransform.rotation.eulerAngles.y, normalCameraTransform.rotation.eulerAngles.z);
     }
 
     private Vector3 GetMoveInput()
@@ -475,47 +479,51 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerShoot()
     {
-        SetShootCooldownCounter();
 
         if (input.ShootIsPressed == true)
         {
-            SetShootChargeIncrease();
-            if (shootChargingCounter > 1.0f)
+            if(finishedDecharge == true)
             {
-                if (shootCooldownCounter == 0.0f && currentBulletCount != 0)
+                SetShootChargeIncrease();
+            }
+
+            if (shootChargingCounter >= 2.0f && finishedDecharge == true)
+            {
+                muzzleFlash.Play();
+                AudioManager.instance.PlaySound("revolverShoot", cameraFollow.position, true);
+                currentBulletCount -= 1;
+
+                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore))
                 {
-                    muzzleFlash.Play();
-                    AudioManager.instance.PlaySound("revolverShoot", cameraFollow.position, true);
-                    currentBulletCount -= 1;
 
-                    if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore))
+                    Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
+                    if (enemy != null)
                     {
-
-                        Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
-                        if (enemy != null)
-                        {
-                            enemy.TakeDamage(1);
-                        }
+                        enemy.TakeDamage(1);
                     }
-
-                    if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer))
-                    {
-                        Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
-                        if (objectController != null)
-                            objectController.changeForms(hit2.transform.name);
-
-                        if(hit2.transform.tag == "weakPoint")
-                        {
-                            hit2.transform.parent.GetComponent<ParisiteWall>().destroyedHeart();
-                        }
-                    }
-
-                    shootCooldownCounter = shootCooldown;
                 }
+
+                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer))
+                {
+                    Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
+                    if (objectController != null)
+                        objectController.changeForms(hit2.transform.name);
+
+                    if (hit2.transform.tag == "weakPoint")
+                    {
+                        hit2.transform.parent.GetComponent<ParisiteWall>().destroyedHeart();
+                    }
+                }
+
+                //shootCooldownCounter = shootCooldown;
+                finishedDecharge = false;
             }
         }
 
-        else SetShootChargeDecrease();
+        if(finishedDecharge == false)
+        {
+            SetShootChargeDecrease();
+        }
     }
 
     private void PlayerGunReload()
@@ -530,94 +538,122 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private Vector3 PlayerDash()
-    {
-        //float startTime = Time.time;
-        //float dashTime = startTime + dashDuration;
-        //Debug.LogWarning(dashTime);
-        //while (Time.time < dashTime)
-        //{
-        //    new Vector3(0, 0, input.LookInput.x + dashSpeed;
-        //    charAnimation.SetTrigger("Dash");
-        //    yield return null;
-        //}
-        //MeleeCombat.windowActive = true;
+    //private Vector3 PlayerDash()
+    //{
+    //    //float startTime = Time.time;
+    //    //float dashTime = startTime + dashDuration;
+    //    //Debug.LogWarning(dashTime);
+    //    //while (Time.time < dashTime)
+    //    //{
+    //    //    new Vector3(0, 0, input.LookInput.x + dashSpeed;
+    //    //    charAnimation.SetTrigger("Dash");
+    //    //    yield return null;
+    //    //}
+    //    //MeleeCombat.windowActive = true;
 
-        Vector3 calculatedDashInput = playerMoveInput;
+    //    Vector3 calculatedDashInput = playerMoveInput;
 
-        SetDashTimeCounter();
-        SetCoyoteDashTimeCounter();
-        SetDashBufferCounter();
-        SetDashCooldownCounter();
+    //    SetDashTimeCounter();
+    //    SetCoyoteDashTimeCounter();
+    //    SetDashBufferCounter();
+    //    SetDashCooldownCounter();
 
-        if (dashBufferTimeCounter > 0.0f && !playerIsDashing && coyotedashTimeCounter > 0.0f && dashCooldownCounter == 0.0f)
-        {
-            if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
-            {
-                calculatedDashInput = new Vector3(playerMoveInput.x * initialDashForce,
-                                                   playerMoveInput.y,
-                                                   playerMoveInput.z * initialDashForce);
-                playerIsDashing = true;
-                dashBufferTimeCounter = 0.0f;
-                coyotedashTimeCounter = 0.0f;
-                //charAnimation.SetTrigger("Dash");
-                MeleeCombat.windowActive = true;
-                dashCooldownCounter = dashCooldown;
-            }
-        }
+    //    if (dashBufferTimeCounter > 0.0f && !playerIsDashing && coyotedashTimeCounter > 0.0f && dashCooldownCounter == 0.0f)
+    //    {
+    //        if (Vector3.Angle(rigidbody.transform.up, groundCheckHit.normal) < maxSlopeAngle)
+    //        {
+    //            calculatedDashInput = new Vector3(playerMoveInput.x * initialDashForce,
+    //                                               playerMoveInput.y,
+    //                                               playerMoveInput.z * initialDashForce);
+    //            playerIsDashing = true;
+    //            dashBufferTimeCounter = 0.0f;
+    //            coyotedashTimeCounter = 0.0f;
+    //            //charAnimation.SetTrigger("Dash");
+    //            MeleeCombat.windowActive = true;
+    //            dashCooldownCounter = dashCooldown;
+    //        }
+    //    }
 
-        else if (input.DashIsPressed && playerIsDashing && !playerIsGrounded && dashTimeCounter > 0.0f)
-        {
-            calculatedDashInput = new Vector3(playerMoveInput.x * initialDashForce * continualDashForceMultiplier,
-                                                   playerMoveInput.y,
-                                                   playerMoveInput.z * initialDashForce * continualDashForceMultiplier);
-        }
+    //    else if (input.DashIsPressed && playerIsDashing && !playerIsGrounded && dashTimeCounter > 0.0f)
+    //    {
+    //        calculatedDashInput = new Vector3(playerMoveInput.x * initialDashForce * continualDashForceMultiplier,
+    //                                               playerMoveInput.y,
+    //                                               playerMoveInput.z * initialDashForce * continualDashForceMultiplier);
+    //    }
 
-        else if (playerIsDashing && playerIsGrounded)
-        {
-            playerIsDashing = false;
-        }
+    //    else if (playerIsDashing && playerIsGrounded)
+    //    {
+    //        playerIsDashing = false;
+    //    }
 
-        return calculatedDashInput;
-    }
+    //    return calculatedDashInput;
+    //}
 
     private void PlayerCrouch()
     {
-        SetCrouchCooldownCounter();
+        //SetCrouchCooldownCounter();
 
         if(input.CrouchIsPressed == true && forceCrouch == false)
         {
-            if(crouchCooldownTimeCounter <= 0.0f && crouchToggle == false)
+            if(crouchAllow == true)
             {
-                playerCollider.height = 0.5f;
-                firstPersonCamera.Follow = crouchCamera;
-                movementMultiplier = originalMoveSpeed * 0.4f;
-                crouchToggle = true;
-                crouchCooldownTimeCounter = crouchCooldownTime;
-                crouchCheck = true;
-                //if (Vector3.Distance(firstPersonCameraFollow.transform.position, crouchCamera.position) > 0.1f)
-                //{
-                //    Vector3 moveDirection = (crouchCamera.position - firstPersonCameraFollow.transform.position);
-                //    firstPersonCameraFollow.GetComponent<Rigidbody>().isKinematic = false;
-                //    firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
-                //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
-                //}
+                if (crouchToggle == false)
+                {
+                    capsuleCollider = crouchingCollider;
+                    crouchingCollider.enabled = true;
+                    standingCollider.enabled = false;
+                    //firstPersonCamera.Follow = crouchCameraTransform;
+                    movementMultiplier = originalMoveSpeed * 0.4f;
+
+                    //if (Vector3.Distance(cameraFollow.transform.position, crouchCameraTransform.position) > 0.1f)
+                    //{
+                    //    Vector3 moveDirection = (crouchCameraTransform.position - cameraFollow.transform.position);
+                    //    //cameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
+                    //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
+                    //}
+
+                    crouchToggle = true;
+                    crouchCheck = true;
+                    crouchAllow = false;
+
+                }
+                else if (crouchToggle == true)
+                {
+                    capsuleCollider = standingCollider;
+                    standingCollider.enabled = true;
+                    crouchingCollider.enabled = false;
+                    //firstPersonCamera.Follow = normalCameraTransform;
+                    movementMultiplier = originalMoveSpeed;
+
+                    //if (Vector3.Distance(cameraFollow.transform.position, normalCameraTransform.position) > 0.1f)
+                    //{
+                    //    Vector3 moveDirection = (normalCameraTransform.position - cameraFollow.transform.position);
+                    //    //cameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
+                    //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
+                    //}
+
+                    crouchToggle = false;
+                    crouchCheck = false;
+                    crouchAllow = false;
+
+                }
             }
-            else if(crouchCooldownTimeCounter <= 0.0f && crouchToggle == true)
-            {
-                playerCollider.height = 2f;
-                firstPersonCamera.Follow = normalCamera;
-                movementMultiplier = originalMoveSpeed;
-                crouchToggle = false;
-                crouchCooldownTimeCounter = crouchCooldownTime;
-                crouchCheck = false;
-                //if (Vector3.Distance(firstPersonCameraFollow.transform.position, normalCamera.position) > 0.1f)
-                //{
-                //    Vector3 moveDirection = (normalCamera.position - firstPersonCameraFollow.transform.position);
-                //    firstPersonCameraFollow.GetComponent<Rigidbody>().AddForce(moveDirection * crouchSpeed);
-                //    // Vector3.Lerp(heldObject.transform.position, holdBigParent.transform.position, moveSpeed);
-                //}
-            }
+        }
+
+        else
+        {
+            crouchAllow = true;
+        }
+
+        if (crouchCheck == true)
+        {
+            //cameraFollow.transform.position = crouchCameraTransform.position;
+            cameraFollow.transform.position = Vector3.Lerp(cameraFollow.transform.position, crouchCameraTransform.transform.position, crouchSpeed);
+        }
+        else
+        {
+            //cameraFollow.transform.position = normalCameraTransform.position;
+            cameraFollow.transform.position = Vector3.Lerp(cameraFollow.transform.position, normalCameraTransform.transform.position, crouchSpeed);
         }
     }
 
@@ -739,35 +775,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ParasiteTeleport()
-    {
-        SetTeleportCooldownCounter();
+    //private void ParasiteTeleport()
+    //{
+    //    SetTeleportCooldownCounter();
 
-        if (input.TeleportIsPressed && teleportCooldownCounter == 0.0f)
-        {
-            if (Physics.Raycast(transform.position, rigidbody.transform.TransformDirection(playerMoveInput), out RaycastHit teleportRay, teleportDistance, teleportStopLayer))
-            {
-                Vector3 teleportPoint = player.position + rigidbody.transform.TransformDirection(playerMoveInput) * teleportDistance;
-                transform.position = teleportPoint;
-                teleportCooldownCounter = teleportCooldown;
-            }
-            else
-            {
-                Vector3 teleportPoint = player.position + rigidbody.transform.TransformDirection(playerMoveInput) * teleportDistance;
-                transform.position = teleportPoint;
-                teleportCooldownCounter = teleportCooldown;
-            }
-            Debug.DrawRay(transform.position, rigidbody.transform.TransformDirection(playerMoveInput), Color.red, teleportDistance);
-        }
-    }
+    //    if (input.TeleportIsPressed && teleportCooldownCounter == 0.0f)
+    //    {
+    //        if (Physics.Raycast(transform.position, rigidbody.transform.TransformDirection(playerMoveInput), out RaycastHit teleportRay, teleportDistance, teleportStopLayer))
+    //        {
+    //            Vector3 teleportPoint = player.position + rigidbody.transform.TransformDirection(playerMoveInput) * teleportDistance;
+    //            transform.position = teleportPoint;
+    //            teleportCooldownCounter = teleportCooldown;
+    //        }
+    //        else
+    //        {
+    //            Vector3 teleportPoint = player.position + rigidbody.transform.TransformDirection(playerMoveInput) * teleportDistance;
+    //            transform.position = teleportPoint;
+    //            teleportCooldownCounter = teleportCooldown;
+    //        }
+    //        Debug.DrawRay(transform.position, rigidbody.transform.TransformDirection(playerMoveInput), Color.red, teleportDistance);
+    //    }
+    //}
 
-    private void ParasiteShield()
-    {
-        if (input.ShieldIsPressed)
-            shieldObject.SetActive(true);
-        else
-            shieldObject.SetActive(false);
-    }
+    //private void ParasiteShield()
+    //{
+    //    if (input.ShieldIsPressed)
+    //        shieldObject.SetActive(true);
+    //    else
+    //        shieldObject.SetActive(false);
+    //}
 
     private void HealthTickDown()
     {
@@ -858,68 +894,68 @@ public class PlayerController : MonoBehaviour
             jumpTimeCounter = jumpTime;
         }
     }
-    private void SetDashBufferCounter()
-    {
-        if (!dashWasPressedLastFrame && input.DashIsPressed)
-        {
-            dashBufferTimeCounter = dashBufferTime;
-        }
-        else if (dashBufferTimeCounter > 0.0f)
-        {
-            dashBufferTimeCounter -= Time.fixedDeltaTime;
-        }
-        dashWasPressedLastFrame = input.DashIsPressed;
-    }
-    private void SetCoyoteDashTimeCounter()
-    {
-        if (playerIsGrounded)
-        {
-            coyotedashTimeCounter = coyotedashTime;
-        }
-        else
-        {
-            coyotedashTimeCounter -= Time.fixedDeltaTime;
-        }
-    }
-    private void SetDashTimeCounter()
-    {
-        if (playerIsDashing && !playerIsGrounded)
-        {
-            dashTimeCounter -= Time.fixedDeltaTime;
-        }
-        else
-        {
-            dashTimeCounter = dashTime;
-        }
-    }
-    private void SetDashCooldownCounter()
-    {
-        if (dashCooldownCounter > 0)
-        {
-            dashCooldownCounter -= Time.deltaTime;
-        }
+    //private void SetDashBufferCounter()
+    //{
+    //    if (!dashWasPressedLastFrame && input.DashIsPressed)
+    //    {
+    //        dashBufferTimeCounter = dashBufferTime;
+    //    }
+    //    else if (dashBufferTimeCounter > 0.0f)
+    //    {
+    //        dashBufferTimeCounter -= Time.fixedDeltaTime;
+    //    }
+    //    dashWasPressedLastFrame = input.DashIsPressed;
+    //}
+    //private void SetCoyoteDashTimeCounter()
+    //{
+    //    if (playerIsGrounded)
+    //    {
+    //        coyotedashTimeCounter = coyotedashTime;
+    //    }
+    //    else
+    //    {
+    //        coyotedashTimeCounter -= Time.fixedDeltaTime;
+    //    }
+    //}
+    //private void SetDashTimeCounter()
+    //{
+    //    if (playerIsDashing && !playerIsGrounded)
+    //    {
+    //        dashTimeCounter -= Time.fixedDeltaTime;
+    //    }
+    //    else
+    //    {
+    //        dashTimeCounter = dashTime;
+    //    }
+    //}
+    //private void SetDashCooldownCounter()
+    //{
+    //    if (dashCooldownCounter > 0)
+    //    {
+    //        dashCooldownCounter -= Time.deltaTime;
+    //    }
 
-        if (dashCooldownCounter <= 0)
-        {
-            dashCooldownCounter = 0.0f;
-        }
-    }
-    private void SetShootCooldownCounter()
-    {
-        if (shootCooldownCounter > 0)
-        {
-            shootCooldownCounter -= Time.deltaTime;
-        }
+    //    if (dashCooldownCounter <= 0)
+    //    {
+    //        dashCooldownCounter = 0.0f;
+    //    }
+    //}
+    //private void SetShootCooldownCounter()
+    //{
+    //    if (shootCooldownCounter > 0)
+    //    {
+    //        shootCooldownCounter -= Time.deltaTime;
+    //    }
 
-        if (shootCooldownCounter <= 0)
-        {
-            shootCooldownCounter = 0.0f;
-        }
-    }
+    //    if (shootCooldownCounter <= 0)
+    //    {
+    //        shootCooldownCounter = 0.0f;
+    //    }
+    //}
 
     private void SetShootChargeIncrease()
     {
-        if(shootChargingCounter < 5.0f)
+        if(shootChargingCounter < 2.0f)
         {
             if(Time.time % 1 == 0)
             {
@@ -928,9 +964,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(shootChargingCounter > 5.0f)
+        if(shootChargingCounter >= 2.0f)
         {
-            shootChargingCounter = 5.0f;
+            shootChargingCounter = 2.0f;
         }
     }
 
@@ -945,9 +981,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (shootChargingCounter < 0.0f)
+        if (shootChargingCounter <= 0.0f)
         {
             shootChargingCounter = 0.0f;
+            finishedDecharge = true;
         }
     }
 
@@ -964,18 +1001,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SetCrouchCooldownCounter()
-    {
-        if (crouchCooldownTimeCounter > 0)
-        {
-            crouchCooldownTimeCounter -= Time.deltaTime;
-        }
+    //private void SetCrouchCooldownCounter()
+    //{
+    //    if (crouchCooldownTimeCounter > 0)
+    //    {
+    //        crouchCooldownTimeCounter -= Time.deltaTime;
+    //    }
 
-        if (crouchCooldownTimeCounter <= 0)
-        {
-            crouchCooldownTimeCounter = 0.0f;
-        }
-    }
+    //    if (crouchCooldownTimeCounter <= 0)
+    //    {
+    //        crouchCooldownTimeCounter = 0.0f;
+    //    }
+    //}
 
     Vector3 GetShootingDirection()
     {
@@ -987,16 +1024,16 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = targetPos - cam.position;
         return direction.normalized;
     }
-    private void SetTeleportCooldownCounter()
-    {
-        if (teleportCooldownCounter > 0)
-        {
-            teleportCooldownCounter -= Time.deltaTime;
-        }
+    //private void SetTeleportCooldownCounter()
+    //{
+    //    if (teleportCooldownCounter > 0)
+    //    {
+    //        teleportCooldownCounter -= Time.deltaTime;
+    //    }
 
-        if (teleportCooldownCounter <= 0)
-        {
-            teleportCooldownCounter = 0.0f;
-        }
-    }
+    //    if (teleportCooldownCounter <= 0)
+    //    {
+    //        teleportCooldownCounter = 0.0f;
+    //    }
+    //}
 }
