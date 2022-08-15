@@ -7,7 +7,7 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public Button removeButton;
     public TextMeshProUGUI numberOfItems;
-    public PlayerController playerController;
+    private PlayerController playerController;
     public static pop_up_script popUpScript;
 
     [SerializeField]Item item;
@@ -17,6 +17,7 @@ public class InventorySlot : MonoBehaviour
     private void Awake()
     {
         popUpScript = GameObject.FindObjectOfType<pop_up_script>();
+        playerController = GameObject.FindObjectOfType<PlayerController>();
     }
 
     private void Start()
