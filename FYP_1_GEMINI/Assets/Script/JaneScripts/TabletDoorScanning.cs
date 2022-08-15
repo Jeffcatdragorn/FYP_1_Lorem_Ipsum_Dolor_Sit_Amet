@@ -83,6 +83,9 @@ public class TabletDoorScanning : MonoBehaviour
             if (input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f) 
             {
                 playerController.enabled = false;
+                //disable the trigger collider to avoid player spam 'G'
+                scannerTrigger.enabled = false; //to prevent player from opening the door again
+
                 DoorOpeningProcess();
 
                 ScannerCooldownCounter = ScannerUICooldown;
@@ -190,6 +193,6 @@ public class TabletDoorScanning : MonoBehaviour
         //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
         //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
         doorIsOpen = true;
-        scannerTrigger.enabled = false; //to prevent player from opening the door again
+        
     }
 }
