@@ -9870,18 +9870,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7003176049240397504}
     m_Modifications:
-    - target: {fileID: 2109800207, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2109800207, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 15.195999
-      objectReference: {fileID: 0}
-    - target: {fileID: 2109800207, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -23.800001
-      objectReference: {fileID: 0}
     - target: {fileID: 559272701297500291, guid: 821aa72b895a9554480405fb23222f65, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9917,18 +9905,6 @@ PrefabInstance:
     - target: {fileID: 559272701297500291, guid: 821aa72b895a9554480405fb23222f65, type: 3}
       propertyPath: m_SizeDelta.y
       value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 559272701297500291, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 559272701297500291, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 559272701297500291, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 559272701297500291, guid: 821aa72b895a9554480405fb23222f65, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9978,126 +9954,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 559272701297500291, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 559272701297500292, guid: 821aa72b895a9554480405fb23222f65, type: 3}
       propertyPath: m_Name
       value: InventorySlot
       objectReference: {fileID: 0}
-    - target: {fileID: 559272701297500292, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 559272701641233106, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 559272701824978255, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 559272703311315571, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 29.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 559272703311315571, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 27.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 559272703311315572, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5692080972574553100, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-      propertyPath: numberOfItems
-      value: 
-      objectReference: {fileID: 7003176048865099489}
     - target: {fileID: 5692080972574553100, guid: 821aa72b895a9554480405fb23222f65, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 7003176049017336340}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 821aa72b895a9554480405fb23222f65, type: 3}
---- !u!114 &7003176048865099489 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2109800208, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-  m_PrefabInstance: {fileID: 7003176050303713777}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7418176307546644850 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 559272701297500291, guid: 821aa72b895a9554480405fb23222f65, type: 3}
   m_PrefabInstance: {fileID: 7003176050303713777}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7418176307546644853 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 559272701297500292, guid: 821aa72b895a9554480405fb23222f65, type: 3}
-  m_PrefabInstance: {fileID: 7003176050303713777}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &490528183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7418176307546644853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2b875b3df9054049a38775d6cc9df64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &490528186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7418176307546644853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 490528183}
-          m_TargetAssemblyTypeName: Tooltip, Assembly-CSharp
-          m_MethodName: tooltipOn
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 490528183}
-          m_TargetAssemblyTypeName: Tooltip, Assembly-CSharp
-          m_MethodName: tooltipOff
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1001 &7003176050311554377
 PrefabInstance:
   m_ObjectHideFlags: 0
