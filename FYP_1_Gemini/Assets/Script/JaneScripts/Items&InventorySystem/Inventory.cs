@@ -11,17 +11,22 @@ public class Inventory : MonoBehaviour
 
     public List<Item> items = new List<Item>();
 
-    public GameObject tabletMainScreenUI;
-    public GameObject inventoryUI;
+    //public GameObject tabletMainScreenUI;
+    //public GameObject inventoryUI;
     public GameObject canvas;
     public static bool tabletObtained = false;
     public static bool flashlightObtained = false;
-    public HumanoidLandInput input;
-    public ButtonManager buttonManager;
-    [SerializeField] float tabletUICooldownCounter;
-    [SerializeField] float tabletUICooldown;
+    //public HumanoidLandInput input;
 
-    public Transform cameraObject;
+    //public GameObject[] panels;
+    //private int panelIndex;
+    //public Animator anim;
+
+    //public ButtonManager buttonManager;
+    //[SerializeField] float tabletUICooldownCounter;
+    //[SerializeField] float tabletUICooldown;
+
+    //public Transform cameraObject;
 
     public Transform inspectTransform;
     public GameObject inspectUI;
@@ -50,29 +55,57 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if(input.TabletIsPressed == true && tabletObtained == true && inventoryUI.activeInHierarchy == false && tabletUICooldownCounter == 0.0f && PauseMenu.GameIsPaused == false)
-        {
-            TabletUIMenu(); 
-            tabletUICooldownCounter = tabletUICooldown;
-        }
+        //if(input.TabletIsPressed == true && tabletObtained == true && tabletUICooldownCounter == 0.0f && PauseMenu.GameIsPaused == false) //&& inventoryUI.activeInHierarchy == false
+        //{
+        //    TabletUIMenu(); 
+        //    tabletUICooldownCounter = tabletUICooldown;
+        //}
 
-        if (tabletUICooldownCounter > 0)
-        {
-            tabletUICooldownCounter -= Time.deltaTime;
-        }
+        //if (tabletMainScreenUI.activeInHierarchy == true || inventoryUI.activeInHierarchy == true)
+        //{
+        //    if (input.TabletScrollWheel < 0)
+        //    {
+        //        Debug.Log("scroll down");
+        //        panelIndex++;
+        //        //anim.Play("scroll Left");
+        //        anim.Play("scroll Down");
+        //        if (panelIndex > panels.Length - 1)
+        //        {
+        //            panelIndex = panels.Length - 1;
+        //        }
+        //    }
+        //    if (input.TabletScrollWheel > 0)
+        //    {
+        //        Debug.Log("scroll up");
+        //        panelIndex--;
+        //        //anim.Play("scroll Right");
+        //        anim.Play("scroll Up");
 
-        if (tabletUICooldownCounter <= 0)
-        {
-            tabletUICooldownCounter = 0.0f;
-        }
+        //        if (panelIndex < 0)
+        //        {
+        //            panelIndex = 0;
+        //        }
+        //    }
+        //    OpenSelectedUI();
+        //}
 
-        if (tabletMainScreenUI.activeInHierarchy == true)
-        {
-            buttonManager.EnableMouseCursor();
-        }
+        //if (tabletUICooldownCounter > 0)
+        //{
+        //    tabletUICooldownCounter -= Time.deltaTime;
+        //}
+
+        //if (tabletUICooldownCounter <= 0)
+        //{
+        //    tabletUICooldownCounter = 0.0f;
+        //}
+
+        //if (tabletMainScreenUI.activeInHierarchy == true)
+        //{
+        //    buttonManager.EnableMouseCursor();
+        //}
     }
 
-    public bool Add (Item item, GameObject itemObject)
+    public bool Add(Item item, GameObject itemObject)
     {
         inspectUI.SetActive(true);
         inspectCamera.SetActive(true);
@@ -112,21 +145,21 @@ public class Inventory : MonoBehaviour
                     {
                         onItemChangedCallback.Invoke();
                     }
-                    
+
                     return true;
                 }
             }
 
             items.Add(item);
 
-            if(onItemChangedCallback != null)
+            if (onItemChangedCallback != null)
             {
                 onItemChangedCallback.Invoke();
             }
         }
         else //item is default item (e.g. tablet)
         {
-            if(item.name == "Tablet")
+            if (item.name == "Tablet")
             {
                 tabletObtained = true;
                 canvas.GetComponent<InventoryUI>().enabled = true;
@@ -140,9 +173,9 @@ public class Inventory : MonoBehaviour
 
         return true;
     }
-    
 
-    public void Remove (Item item)
+
+    public void Remove(Item item)
     {
         items.Remove(item);
         popUpScript.InstantiatePopUpNoti("Removed " + item.name);
@@ -153,18 +186,29 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void TabletUIMenu()
-    {
-        tabletMainScreenUI.SetActive(!tabletMainScreenUI.activeSelf);
-        AudioManager.instance.PlaySound("tabletOning", cameraObject.position, false);
+    //private void TabletUIMenu()
+    //{
+    //    tabletMainScreenUI.SetActive(!tabletMainScreenUI.activeSelf);
+    //    inventoryUI.SetActive(!inventoryUI.activeSelf);
 
-        if (tabletMainScreenUI.activeInHierarchy == true)
-        {
-            buttonManager.EnableMouseCursor();
-        }
-        else
-        {
-            buttonManager.DisableMouseCursor();
-        }
-    }
+    //    AudioManager.instance.PlaySound("tabletOning", cameraObject.position, false);
+
+    //    if (tabletMainScreenUI.activeInHierarchy == true)
+    //    {
+    //        buttonManager.EnableMouseCursor();
+    //    }
+    //    else
+    //    {
+    //        buttonManager.DisableMouseCursor();
+    //    }
+    //}
+
+    //void OpenSelectedUI()
+    //{
+    //    for (int i = 0; i < panels.Length; i++)
+    //    {
+    //        panels[i].SetActive(false);
+    //    }
+    //    panels[panelIndex].SetActive(true);
+    //}
 }

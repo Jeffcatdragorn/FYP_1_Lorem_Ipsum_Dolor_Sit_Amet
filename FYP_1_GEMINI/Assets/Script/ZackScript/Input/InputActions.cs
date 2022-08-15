@@ -206,6 +206,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TabletScrolling"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""940a8c06-3f5b-494f-81f4-ab25d53bdbae"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -582,6 +591,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Flashlight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5e10773-2dd7-4cde-84f5-f6a31bed2dfc"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TabletScrolling"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -610,6 +630,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_HumanoidLand_Tablet = m_HumanoidLand.FindAction("Tablet", throwIfNotFound: true);
         m_HumanoidLand_Inventory = m_HumanoidLand.FindAction("Inventory", throwIfNotFound: true);
         m_HumanoidLand_Flashlight = m_HumanoidLand.FindAction("Flashlight", throwIfNotFound: true);
+        m_HumanoidLand_TabletScrolling = m_HumanoidLand.FindAction("TabletScrolling", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -689,6 +710,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_HumanoidLand_Tablet;
     private readonly InputAction m_HumanoidLand_Inventory;
     private readonly InputAction m_HumanoidLand_Flashlight;
+    private readonly InputAction m_HumanoidLand_TabletScrolling;
     public struct HumanoidLandActions
     {
         private @InputActions m_Wrapper;
@@ -713,6 +735,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Tablet => m_Wrapper.m_HumanoidLand_Tablet;
         public InputAction @Inventory => m_Wrapper.m_HumanoidLand_Inventory;
         public InputAction @Flashlight => m_Wrapper.m_HumanoidLand_Flashlight;
+        public InputAction @TabletScrolling => m_Wrapper.m_HumanoidLand_TabletScrolling;
         public InputActionMap Get() { return m_Wrapper.m_HumanoidLand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -782,6 +805,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Flashlight.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnFlashlight;
                 @Flashlight.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnFlashlight;
                 @Flashlight.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnFlashlight;
+                @TabletScrolling.started -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTabletScrolling;
+                @TabletScrolling.performed -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTabletScrolling;
+                @TabletScrolling.canceled -= m_Wrapper.m_HumanoidLandActionsCallbackInterface.OnTabletScrolling;
             }
             m_Wrapper.m_HumanoidLandActionsCallbackInterface = instance;
             if (instance != null)
@@ -846,6 +872,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Flashlight.started += instance.OnFlashlight;
                 @Flashlight.performed += instance.OnFlashlight;
                 @Flashlight.canceled += instance.OnFlashlight;
+                @TabletScrolling.started += instance.OnTabletScrolling;
+                @TabletScrolling.performed += instance.OnTabletScrolling;
+                @TabletScrolling.canceled += instance.OnTabletScrolling;
             }
         }
     }
@@ -872,5 +901,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnTablet(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnFlashlight(InputAction.CallbackContext context);
+        void OnTabletScrolling(InputAction.CallbackContext context);
     }
 }

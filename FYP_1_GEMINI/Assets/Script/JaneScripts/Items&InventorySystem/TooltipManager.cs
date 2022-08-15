@@ -30,7 +30,7 @@ public class TooltipManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //transform.position = new Vector3(input.MousePosition.x, input.MousePosition.y, 0.0f);
         transform.position = input.MousePosition;

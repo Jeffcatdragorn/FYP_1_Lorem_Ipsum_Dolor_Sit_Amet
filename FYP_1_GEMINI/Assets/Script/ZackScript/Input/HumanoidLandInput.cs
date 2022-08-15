@@ -26,7 +26,7 @@ public class HumanoidLandInput : MonoBehaviour
     public bool TabletIsPressed { get; private set; } = false;
     public bool InventoryIsPressed { get; private set; } = false;
     public bool FlashlightIsPressed { get; private set; } = false;
-
+    public float TabletScrollWheel { get; private set; } = 0.0f;
 
     InputActions input = null;
 
@@ -59,7 +59,7 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.OpenDoor.started += SetOpenDoor;
         input.HumanoidLand.OpenDoor.canceled += SetOpenDoor;
-        
+
         input.HumanoidLand.Teleport.started += SetTeleport;
         input.HumanoidLand.Teleport.canceled += SetTeleport;
 
@@ -90,6 +90,9 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Flashlight.started += SetFlashlight;
         input.HumanoidLand.Flashlight.canceled += SetFlashlight;
 
+        input.HumanoidLand.TabletScrolling.performed += SetTabletScrolling;
+        input.HumanoidLand.TabletScrolling.canceled += SetTabletScrolling;
+
         //input.HumanoidLand.ZoomCamera.started += SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled += SetZoomCamera;
     }
@@ -104,7 +107,7 @@ public class HumanoidLandInput : MonoBehaviour
 
         input.HumanoidLand.Run.started -= SetRun;
         input.HumanoidLand.Run.canceled -= SetRun;
-        
+
         input.HumanoidLand.Jump.started -= SetJump;
         input.HumanoidLand.Jump.canceled -= SetJump;
 
@@ -150,6 +153,9 @@ public class HumanoidLandInput : MonoBehaviour
         input.HumanoidLand.Flashlight.started -= SetFlashlight;
         input.HumanoidLand.Flashlight.canceled -= SetFlashlight;
 
+        input.HumanoidLand.TabletScrolling.performed -= SetTabletScrolling;
+        input.HumanoidLand.TabletScrolling.canceled -= SetTabletScrolling;
+
         //input.HumanoidLand.ZoomCamera.started -= SetZoomCamera;
         //input.HumanoidLand.ZoomCamera.canceled -= SetZoomCamera;
 
@@ -185,8 +191,8 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetShield(InputAction.CallbackContext ctx)
     {
         ShieldIsPressed = ctx.started;
-    } 
-    
+    }
+
     private void SetShoot(InputAction.CallbackContext ctx)
     {
         ShootIsPressed = ctx.started;
@@ -249,6 +255,11 @@ public class HumanoidLandInput : MonoBehaviour
     private void SetFlashlight(InputAction.CallbackContext ctx)
     {
         FlashlightIsPressed = ctx.started;
+    }
+
+    private void SetTabletScrolling(InputAction.CallbackContext ctx)
+    {
+        TabletScrollWheel = ctx.ReadValue<float>();
     }
 
     //private void SetZoomCamera(InputAction.CallbackContext ctx)
