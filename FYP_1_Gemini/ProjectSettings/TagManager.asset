@@ -18,6 +18,8 @@ TagManager:
   - crouchZone
   - enemy
   - weakPoint
+  - playerFront
+  - ventJumpScare
   layers:
   - Default
   - TransparentFX

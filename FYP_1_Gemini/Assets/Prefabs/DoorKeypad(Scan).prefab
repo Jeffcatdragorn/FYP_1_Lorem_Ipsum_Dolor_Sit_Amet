@@ -1323,7 +1323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5743317124326176412
 Transform:
   m_ObjectHideFlags: 0
@@ -1429,13 +1429,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 0}
-  doorName: Prison Dome Gate
-  doorText: {fileID: 1502806802}
-  doorPanel: {fileID: 1590818854}
   buttonManager: {fileID: 0}
-  ScannerCooldownCounter: 0
-  ScannerUICooldown: 0.5
-  normalDoorAnimator: {fileID: 0}
-  doorSlideOpen: DomeGateOpen
+  playerController: {fileID: 0}
+  tabletObj: {fileID: 0}
   flashlightText: {fileID: 0}
   tabletText: {fileID: 0}
+  doorName: Security Room Door 1
+  doorText: {fileID: 1502806802}
+  doorPanel: {fileID: 1590818854}
+  doorLightMeshRenderer: {fileID: 0}
+  greenDoorLightMaterial: {fileID: 0}
+  normalDoorAnimator: {fileID: 0}
+  doorSlideOpen: DoorSlideRight
+  ScannerCooldownCounter: 0
+  ScannerUICooldown: 0.5
+  scannerAnimator: {fileID: 0}
+  scanningTime: 3
+  scannerTrigger: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5408301270792743535}
   - component: {fileID: 5408301270792743534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,6 +62,8 @@ MonoBehaviour:
   ventCoverFalling: {fileID: 8300000, guid: d8d7f750e1e02ed4a8ce937b50ce4d3f, type: 3}
   ventCrawling: {fileID: 8300000, guid: e50931e73272468499aadbb832444d9b, type: 3}
   tvAudio: {fileID: 8300000, guid: d0a46ae436717b1438e8ea9275fee81b, type: 3}
+  handSlap: {fileID: 8300000, guid: 1bbef19db064cbd41a88deff800549b3, type: 3}
+  screeching: {fileID: 8300000, guid: 87299fefcad91cd4abe9981da14bd9b1, type: 3}
   soundObject: {fileID: 7314115016610703002, guid: e75bbbc6eb4294e44b17b9628720ff85, type: 3}
   SFXButton: {fileID: 7527728289082795968, guid: 5beb20db36f21154096b07d9b40db9c7, type: 3}
   musicObject: {fileID: 6222479523295503680, guid: 02401aecb908fdb4dadeae45ddf2db6e, type: 3}

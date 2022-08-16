@@ -165,6 +165,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int phase = 0;
     [SerializeField] GameObject footObject;
 
+    private static bool ventSoundCheck = false;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -207,8 +209,8 @@ public class PlayerController : MonoBehaviour
             default:
             case State.Detective:
                 //playerMoveInput = PlayerDash();
-                PlayerShoot();
-                PlayerGunReload();
+                //PlayerShoot();
+                //PlayerGunReload();
                 PlayerFlashlight();
                 break;
 
@@ -824,6 +826,14 @@ public class PlayerController : MonoBehaviour
         if (statusBar.value > 0)
         {
             statusBar.value -= amount;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "ventJumpScare" && ventSoundCheck == false)
+        {
+            AudioManager.instance.PlaySoundParent("screeching", other.gameObject, true);
+            ventSoundCheck = true;
         }
     }
 
