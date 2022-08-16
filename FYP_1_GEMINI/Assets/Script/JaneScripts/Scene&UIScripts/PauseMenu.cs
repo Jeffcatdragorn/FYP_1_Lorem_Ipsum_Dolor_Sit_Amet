@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
     public HumanoidLandInput input;
     public static bool GameIsPaused = false;//, dragMovement = true;
     public bool CurrentlyInOtherMenus = false;
-    public GameObject pauseMenuUI, optionsMenuUI;
+    public GameObject pauseMenuUI, optionsMenuUI, controlsMenuUI;
     private string currentSceneName;
     public Transform cameraObject;
     public ButtonManager buttonManager;
@@ -23,7 +23,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (optionsMenuUI.activeInHierarchy)
+        if (optionsMenuUI.activeInHierarchy || controlsMenuUI.activeInHierarchy)
         {
             CurrentlyInOtherMenus = true;
         }
@@ -74,6 +74,7 @@ public class PauseMenu : MonoBehaviour
         if(CurrentlyInOtherMenus == true)
         {
             optionsMenuUI.SetActive(false);
+            controlsMenuUI.SetActive(false);
         }
         Time.timeScale = 0f;
     }
@@ -94,5 +95,13 @@ public class PauseMenu : MonoBehaviour
         TVTriggerBehaviour.tvCheck = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(currentSceneName);
+    }
+
+    public void Controls()
+    {
+        AudioManager.instance.PlaySound("buttonSound", cameraObject.position, false);
+        pauseMenuUI.SetActive(false);
+        controlsMenuUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 }
