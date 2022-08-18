@@ -6,7 +6,7 @@ public class HandJumpScare : MonoBehaviour
 {
     public Animator handAnimator;
     private bool handSlapSoundCheck;
-    private static bool handSlapCheck;
+    public static bool handSlapCheck;
     public GameObject lightObject;
     public float lightTime;
     private float lightCounter;

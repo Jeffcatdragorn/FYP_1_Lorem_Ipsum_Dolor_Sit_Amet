@@ -93,6 +93,7 @@ public class PauseMenu : MonoBehaviour
         Inventory.flashlightObtained = false;
         FirstParasite.Check = false;
         TVTriggerBehaviour.tvCheck = false;
+        HandJumpScare.handSlapCheck = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(currentSceneName);
     }
