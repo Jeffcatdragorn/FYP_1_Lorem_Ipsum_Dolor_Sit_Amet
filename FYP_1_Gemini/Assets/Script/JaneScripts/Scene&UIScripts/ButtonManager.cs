@@ -91,6 +91,7 @@ public class ButtonManager : MonoBehaviour
         Inventory.flashlightObtained = false;
         FirstParasite.Check = false;
         TVTriggerBehaviour.tvCheck = false;
+        HandJumpScare.handSlapCheck = false;
         Time.timeScale = 1f;
         //PauseMenu.GameIsPaused = false;
         Loader.Load(Loader.Scene.MainMenu);
