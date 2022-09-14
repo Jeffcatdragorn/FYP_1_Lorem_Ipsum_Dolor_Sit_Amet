@@ -19,7 +19,7 @@ public class pop_up_script : MonoBehaviour
         GameObject popUpNoti = Instantiate(button, content.transform,false);
         popUpNoti.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
         popupAnimator.Play("PopPopAnimation");
-        
+        Debug.Log("ddd");
         Destroy(popUpNoti,5);
     }
 }
