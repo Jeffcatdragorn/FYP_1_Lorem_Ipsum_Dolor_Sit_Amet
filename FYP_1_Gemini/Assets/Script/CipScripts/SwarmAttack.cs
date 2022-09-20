@@ -29,7 +29,7 @@ public class SwarmAttack : SwarmBaseStates
     public override void OnTriggerExit(SwarmStates states, Collider collider)
     {
         GameObject other = collider.gameObject;
-        if (other.CompareTag("playerSelf"))
+        if (other.tag == "playerSelf")
         {
             states.SwitchStates(states.ChaseState);
         }

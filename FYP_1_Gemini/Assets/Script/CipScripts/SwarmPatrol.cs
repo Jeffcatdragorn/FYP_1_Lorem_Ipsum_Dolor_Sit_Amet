@@ -35,6 +35,7 @@ public class SwarmPatrol : SwarmBaseStates
         else if (other.CompareTag("Walls"))
         {
             wallsPos = other.transform.localPosition;
+            wallsPos.y = 0.0f;
             states.SwitchStates(states.AvoidState);
         }
     }
@@ -49,15 +50,16 @@ public class SwarmPatrol : SwarmBaseStates
          movementVelo = Vector3.zero;
 
          Vector3 randomVec = Random.insideUnitSphere.normalized;
-         float PatrolRadius = 10.0f;
+         float PatrolRadius = 1.0f;
 
          Vector3 currentSwarmPos = states.swarmPos;
          randomVec.y = 0.0f;
 
          randomVec *= PatrolRadius;
 
-         wanderLocation = states.transform.position + (states.transform.forward.normalized) + randomVec;
+         wanderLocation = states.swarmPos + (states.transform.forward) + randomVec;
 
+        //check
         if(Vector3.Distance(states.transform.position, wanderLocation) <= 0.5)
         {
             states.SwitchStates(states.IdleState);//speed
@@ -83,7 +85,7 @@ public class SwarmPatrol : SwarmBaseStates
 
         timetoSwitch += (Time.deltaTime);
         states.transform.Translate(x * Time.deltaTime, Space.World);
-        Quaternion lookRotation = Quaternion.LookRotation(wanderLocation - states.transform.position); // GET ROTATION ANGLE
+        Quaternion lookRotation = Quaternion.LookRotation(states.swarmPos - wanderLocation); // GET ROTATION ANGLE
         states.transform.rotation = Quaternion.RotateTowards(states.transform.rotation, lookRotation, timetoSwitch); // ROTATE FACE NEW DIRECTION  
     }
     #endregion

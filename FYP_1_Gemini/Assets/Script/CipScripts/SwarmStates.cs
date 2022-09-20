@@ -18,7 +18,12 @@ public class SwarmStates : MonoBehaviour
     int swarmCurrHealth;
 
     public Vector3 swarmPos;
+    public Vector3 playerPos;
 
+    private void Awake()
+    {
+        playerPos = GameObject.Find("Player").transform.position;
+    }
     void Start() 
     {
         currentSwarmState = IdleState;

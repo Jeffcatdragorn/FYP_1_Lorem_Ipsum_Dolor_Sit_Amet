@@ -6,10 +6,11 @@ public class SwarmChase : SwarmBaseStates
 {
     float DistancetoPlayer = 0.0f;
     float timeInState = 0.0f;
-    Vector3 playerPos;
+    Vector3 PlayerPos;
     public override void EnterState(SwarmStates states)
     {
         Debug.Log("Swarm Chase");
+        PlayerPos = states.playerPos;
     }
 
     public override void UpdateState(SwarmStates states)
@@ -44,7 +45,6 @@ public class SwarmChase : SwarmBaseStates
     public Vector3 ChaseFormula(SwarmStates states)
     {
         Vector3 currPos = states.transform.position;
-        Vector3 PlayerPos = playerPos;
 
         Vector3 SwarmToPlayer = Vector3.zero;
 
