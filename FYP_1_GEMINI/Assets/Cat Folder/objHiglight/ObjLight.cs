@@ -18,7 +18,7 @@ public class ObjLight : MonoBehaviour
     void Update()
     {
         distance = Vector3.Distance(transform.position, player.transform.position);
-        Debug.Log(distance);
+        //Debug.Log(distance);
         if (distance < lightRadius)
         {
             // uncomment the animator line if u dont want them all to beep in sync

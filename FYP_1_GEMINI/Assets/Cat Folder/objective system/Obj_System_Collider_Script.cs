@@ -9,6 +9,8 @@ public class Obj_System_Collider_Script : MonoBehaviour
     private Obj_System_Script obj_System;
     public string objColliderName;
 
+    public HumanoidLandInput input;
+
     #region Collider Purpose and Variables
     #region WASD Variables
     public bool WASD = false;
@@ -30,6 +32,33 @@ public class Obj_System_Collider_Script : MonoBehaviour
     }
     void Update()
     {
+
+        if (input.MoveInput == Vector2.up)
+        {
+            PressToDestroyW();
+            Debug.Log("destroy W");
+        }
+        if (input.MoveInput == Vector2.down)
+        {
+            PressToDestroyS();
+            Debug.Log("destroy S");
+        }
+        if (input.MoveInput == Vector2.left)
+        {
+            PressToDestroyA();
+            Debug.Log("destroy A");
+        }
+        if (input.MoveInput == Vector2.right)
+        {
+            PressToDestroyD();
+            Debug.Log("destroy D");
+        }
+        if (input.CrouchIsPressed == true)
+        {
+            PressToDestroyCtrl();
+            Debug.Log("destroy ctrl");
+        }
+
         if (WASD && w > 0 && a > 0 && s > 0 && d > 0)
         {
             obj_System.DestroyObjPopUpNoti();
