@@ -8,6 +8,14 @@ public class TankManagerJane : MonoBehaviour
 
     public TankIdleStateJane idle = new TankIdleStateJane();
     public TankWanderStateJane wander = new TankWanderStateJane();
+    public TankAttackStateJane attack = new TankAttackStateJane();
+    public TankDeadStateJane dead = new TankDeadStateJane();
+
+    [Header("Health Condition")]
+    public bool isAlive;
+
+    [Header("Idle State")]
+    public float idleTime;
 
     // Start is called before the first frame update
     void Start()
