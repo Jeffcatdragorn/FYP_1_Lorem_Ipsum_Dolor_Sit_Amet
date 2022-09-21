@@ -25,7 +25,7 @@ public class Obj_System_Script : MonoBehaviour
     }
     public void DestroyObjPopUpNoti()
     {
-        Debug.Log("destroying");
+        //Debug.Log("destroying");
         Destroy(temp);
     }
 
