@@ -17,6 +17,10 @@ public class TankManagerJane : MonoBehaviour
     [Header("Idle State")]
     public float idleTime;
 
+    [Header("Patrol State")]
+    public float patrolTime;
+    public Transform[] patrolPoints;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +32,21 @@ public class TankManagerJane : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        currentState.OnCollisionEnter(this, collision);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        currentState.OnTriggerEnter(this, other);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        currentState.OnTriggerStay(this, other);
     }
 
     public void SwitchState(TankAbstractJane state)
