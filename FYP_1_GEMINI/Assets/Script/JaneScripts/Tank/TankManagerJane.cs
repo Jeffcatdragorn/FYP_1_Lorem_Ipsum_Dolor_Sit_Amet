@@ -7,7 +7,7 @@ public class TankManagerJane : MonoBehaviour
     TankAbstractJane currentState;
 
     public TankIdleStateJane idle = new TankIdleStateJane();
-    public TankWanderStateJane wander = new TankWanderStateJane();
+    public TankPatrolStateJane patrol = new TankPatrolStateJane();
     public TankAttackStateJane attack = new TankAttackStateJane();
     public TankDeadStateJane dead = new TankDeadStateJane();
 

@@ -8,7 +8,7 @@ public class TankIdleStateJane : TankAbstractJane
 
     public override void EnterState(TankManagerJane Tank)
     {
-        
+        timer = 0;
     }
 
     public override void UpdateState(TankManagerJane Tank)
@@ -45,9 +45,11 @@ public class TankIdleStateJane : TankAbstractJane
     {
         timer += Time.deltaTime;
         
-        if(timer > Tank.idleTime)
+        if (timer > Tank.idleTime)
         {
-            Tank.SwitchState(Tank.wander);
+            Tank.SwitchState(Tank.patrol);
         }
+
+        Debug.Log("timer = " + timer);
     }
 }
