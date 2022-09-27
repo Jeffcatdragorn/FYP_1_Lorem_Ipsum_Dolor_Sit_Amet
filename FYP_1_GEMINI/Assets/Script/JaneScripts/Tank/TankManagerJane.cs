@@ -11,15 +11,20 @@ public class TankManagerJane : MonoBehaviour
     public TankAttackStateJane attack = new TankAttackStateJane();
     public TankDeadStateJane dead = new TankDeadStateJane();
 
-    [Header("Health Condition")]
+    [Header("-----Health Condition-----")]
     public bool isAlive;
 
-    [Header("Idle State")]
+    [Header("-----Idle State-----")]
     public float idleTime;
 
-    [Header("Patrol State")]
+    [Header("-----Patrol State-----")]
     public float patrolTime;
     public Transform[] patrolPoints;
+
+    [Header("-----Attack State-----")]
+    public Transform playerTransform;
+    public float chargingAttackTime;
+    public GameObject chargingAttackParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +52,11 @@ public class TankManagerJane : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         currentState.OnTriggerStay(this, other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        currentState.OnTriggerExit(this, other);
     }
 
     public void SwitchState(TankAbstractJane state)

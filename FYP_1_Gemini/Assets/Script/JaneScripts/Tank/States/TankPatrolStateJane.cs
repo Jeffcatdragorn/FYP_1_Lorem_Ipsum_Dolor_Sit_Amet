@@ -25,17 +25,23 @@ public class TankPatrolStateJane : TankAbstractJane
 
     public override void OnCollisionEnter(TankManagerJane Tank, Collision collider)
     {
-        throw new System.NotImplementedException();
+        //if (collider.gameObject.tag == "Player") //tank body collider
+        //{
+        //    Tank.SwitchState(Tank.attack);
+        //}
     }
 
     public override void OnTriggerEnter(TankManagerJane Tank, Collider collider)
     {
-        throw new System.NotImplementedException();
+        //if (collider.tag == "Player") //vision collider 
+        //{
+        //    Tank.SwitchState(Tank.attack);
+        //}
     }
 
     public override void OnTriggerStay(TankManagerJane Tank, Collider collider)
     {
-        if (collider.tag == "Player") //vision collider + tank body collider
+        if (collider.tag == "Player") //vision collider
         {
             Tank.SwitchState(Tank.attack);
         }
@@ -98,5 +104,10 @@ public class TankPatrolStateJane : TankAbstractJane
     void NavMeshStopPatrolling(TankManagerJane Tank)
     {
         navMeshAgent.SetDestination(Tank.transform.position);
+    }
+
+    public override void OnTriggerExit(TankManagerJane Tank, Collider collider)
+    {
+        throw new System.NotImplementedException();
     }
 }

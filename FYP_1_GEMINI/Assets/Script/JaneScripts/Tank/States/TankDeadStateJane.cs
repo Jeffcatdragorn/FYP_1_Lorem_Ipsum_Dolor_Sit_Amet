@@ -24,6 +24,11 @@ public class TankDeadStateJane : TankAbstractJane
         throw new System.NotImplementedException();
     }
 
+    public override void OnTriggerExit(TankManagerJane Tank, Collider collider)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void OnTriggerStay(TankManagerJane Tank, Collider collider)
     {
         throw new System.NotImplementedException();

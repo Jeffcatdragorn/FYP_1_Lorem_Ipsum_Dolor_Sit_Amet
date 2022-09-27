@@ -9,5 +9,6 @@ public abstract class TankAbstractJane
     public abstract void OnCollisionEnter(TankManagerJane Tank, Collision collider);
     public abstract void OnTriggerEnter(TankManagerJane Tank, Collider collider);
     public abstract void OnTriggerStay(TankManagerJane Tank, Collider collider);
+    public abstract void OnTriggerExit(TankManagerJane Tank, Collider collider);
     public abstract void ExitState(TankManagerJane Tank);
 }

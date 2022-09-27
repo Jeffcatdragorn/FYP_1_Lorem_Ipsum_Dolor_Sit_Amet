@@ -9,6 +9,7 @@ public class TankIdleStateJane : TankAbstractJane
     public override void EnterState(TankManagerJane Tank)
     {
         timer = 0;
+        Debug.Log("idle");
     }
 
     public override void UpdateState(TankManagerJane Tank)
@@ -20,17 +21,23 @@ public class TankIdleStateJane : TankAbstractJane
     }
     public override void OnCollisionEnter(TankManagerJane Tank, Collision collider)
     {
-        throw new System.NotImplementedException();
+        //if (collider.gameObject.tag == "Player") //tank body collider
+        //{
+        //    Tank.SwitchState(Tank.attack);
+        //}
     }
 
     public override void OnTriggerEnter(TankManagerJane Tank, Collider collider)
     {
-        throw new System.NotImplementedException();
+        //if (collider.tag == "Player") //vision collider
+        //{
+        //    Tank.SwitchState(Tank.attack);
+        //}
     }
 
     public override void OnTriggerStay(TankManagerJane Tank, Collider collider)
     {
-        if(collider.tag == "Player") //vision collider + tank body collider
+        if(collider.tag == "Player") //vision collider
         {
             Tank.SwitchState(Tank.attack);
         }
@@ -50,6 +57,11 @@ public class TankIdleStateJane : TankAbstractJane
             Tank.SwitchState(Tank.patrol);
         }
 
-        Debug.Log("timer = " + timer);
+        //Debug.Log("IDLE timer = " + timer);
+    }
+
+    public override void OnTriggerExit(TankManagerJane Tank, Collider collider)
+    {
+        throw new System.NotImplementedException();
     }
 }
