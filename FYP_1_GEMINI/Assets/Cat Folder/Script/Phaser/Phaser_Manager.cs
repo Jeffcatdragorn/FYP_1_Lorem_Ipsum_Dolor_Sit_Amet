@@ -19,7 +19,7 @@ public class Phaser_Manager : MonoBehaviour
     {
         get
         {
-            return health > 0;
+            return health > 50;
         }
     }
     

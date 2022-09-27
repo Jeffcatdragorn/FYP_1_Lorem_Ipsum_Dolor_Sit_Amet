@@ -30,7 +30,7 @@ public class Phs_idle : Phsr_Abstract
     {
         if (col.tag == "Player")
         {
-            phsr.SwitchState(phsr.Teleport);
+            phsr.SwitchState(phsr.Attack);
         }
     }
     #endregion
