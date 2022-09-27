@@ -5,21 +5,26 @@ using UnityEngine;
 public class Phs2_Attack : Phsr2_Abstract
 {
     int num; // temp
+    float timer;
     Animator anim;
+    bool doneAttack;
 
     public override void EnterState(Phaser2_Manager Phsr)
     {
         Debug.Log("attack");
         anim = Phsr.GetComponent<Animator>();
-        anim.SetTrigger("attack");
+        //anim.SetTrigger("attack");
+        timer = 0;
+        doneAttack = false;
     }
 
     public override void UpdateState(Phaser2_Manager phsr)
     {
-        if (num == 0)
+        if (phsr.Alive)
         {
+            timer += Time.deltaTime;
             Phase1(phsr);
-            num++;
+            Phase2(phsr);
         }
     }
 
@@ -41,16 +46,30 @@ public class Phs2_Attack : Phsr2_Abstract
 
     public void Phase1(Phaser2_Manager phsr)
     {
+        //if (timer > 3)
+        //{
+        //    anim.SetTrigger("attack");
+        //    timer = 0;
+        //}
         if (phsr.AliveP1)
         {
-            anim.SetTrigger("attack");
+            if (doneAttack == false)
+            {
+                anim.SetTrigger("attack");
+                doneAttack = true;
+            }
+            if (timer > 5)
+            {
+                phsr.SwitchState(phsr.Move);
+            }
         }
     }
     public void Phase2(Phaser2_Manager phsr)
     {
         if (phsr.AliveP2)
         {
-
+            Debug.Log("im here dy");
+            if (timer > 2) phsr.SwitchState(phsr.Move);
         }
     }
 }

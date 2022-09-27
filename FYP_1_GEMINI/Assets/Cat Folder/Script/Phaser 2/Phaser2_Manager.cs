@@ -9,7 +9,8 @@ public class Phaser2_Manager : MonoBehaviour
     public Phs2_Idle Idle = new Phs2_Idle();
     public Phs2_Attack Attack = new Phs2_Attack();
     public Phs2_Dead Dead = new Phs2_Dead();
-    
+    public Phs2_Move Move = new Phs2_Move();
+
     [Header("============= Health Manager =============")]
     public int health;
     public bool AliveP1
