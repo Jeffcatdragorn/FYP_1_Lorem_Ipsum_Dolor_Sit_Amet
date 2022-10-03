@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Phs2_Idle : Phsr2_Abstract
 {
-    float timer;
     Animator animator;
+    float distance;
     public override void EnterState(Phaser2_Manager Phsr)
     {
-        Debug.Log("idling");
+        //Debug.Log("idling");
     }
     
     public override void UpdateState(Phaser2_Manager phsr)
@@ -30,10 +30,6 @@ public class Phs2_Idle : Phsr2_Abstract
     
     public override void OnTriggerStay(Phaser2_Manager phsr, Collider col)
     {
-        if (col.tag == "Player")
-        {
-            phsr.SwitchState(phsr.Attack);
-        }
     }
 
     public override void ExitState(Phaser2_Manager phsr)
@@ -41,8 +37,9 @@ public class Phs2_Idle : Phsr2_Abstract
     }
     public void Idling(Phaser2_Manager phsr)
     {
-        timer += Time.deltaTime;
-        if (timer > phsr.IdleCd)
+        distance = Vector3.Distance(phsr.player.transform.position, phsr.transform.position);
+        //Debug.Log(distance);
+        if (distance < phsr.playerRange)
         {
             phsr.SwitchState(phsr.Attack);
         }

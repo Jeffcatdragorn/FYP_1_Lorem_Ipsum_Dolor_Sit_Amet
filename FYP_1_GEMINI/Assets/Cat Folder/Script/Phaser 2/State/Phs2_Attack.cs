@@ -11,7 +11,7 @@ public class Phs2_Attack : Phsr2_Abstract
 
     public override void EnterState(Phaser2_Manager Phsr)
     {
-        Debug.Log("attack");
+        //Debug.Log("attack");
         anim = Phsr.GetComponent<Animator>();
         //anim.SetTrigger("attack");
         timer = 0;
@@ -46,11 +46,6 @@ public class Phs2_Attack : Phsr2_Abstract
 
     public void Phase1(Phaser2_Manager phsr)
     {
-        //if (timer > 3)
-        //{
-        //    anim.SetTrigger("attack");
-        //    timer = 0;
-        //}
         if (phsr.AliveP1)
         {
             if (doneAttack == false)
@@ -58,10 +53,21 @@ public class Phs2_Attack : Phsr2_Abstract
                 anim.SetTrigger("attack");
                 doneAttack = true;
             }
-            if (timer > 5)
+            if (phsr.test1)
             {
-                phsr.SwitchState(phsr.Move);
+                if (timer > 3) 
+                {
+                    phsr.SwitchState(phsr.Move);
+                }
             }
+            if (phsr.test2)
+            {
+                if (doneAttack)
+                {
+                    phsr.SwitchState(phsr.Move);
+                }
+            }
+
         }
     }
     public void Phase2(Phaser2_Manager phsr)

@@ -682,7 +682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b801c0245aa851848bb783c6a3370452, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -47.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b801c0245aa851848bb783c6a3370452, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9516,7 +9516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1064447121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14809,11 +14809,11 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771195768}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 20
+  m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -14836,11 +14836,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6ddfd645325084cb6cbb3323212ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 226531335}
   health: 100
   IdleCd: 8
+  playerRange: 60
   AttackCd: 3
   electricBall: {fileID: 3832920928910045539, guid: c4633f2528729854a9c85b16376a7065, type: 3}
   electricBallPosition: {fileID: 1287713360}
+  test1: 1
+  test2: 0
+  speed: 30
 --- !u!1 &1790867668
 GameObject:
   m_ObjectHideFlags: 0

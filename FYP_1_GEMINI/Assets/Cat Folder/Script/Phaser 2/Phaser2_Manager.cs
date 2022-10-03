@@ -11,6 +11,8 @@ public class Phaser2_Manager : MonoBehaviour
     public Phs2_Dead Dead = new Phs2_Dead();
     public Phs2_Move Move = new Phs2_Move();
 
+    public GameObject player;
+
     [Header("============= Health Manager =============")]
     public int health;
     public bool AliveP1
@@ -24,7 +26,7 @@ public class Phaser2_Manager : MonoBehaviour
     {
         get
         {
-            return health < 50;
+            return health <= 50;
         }
     }
     public bool Alive
@@ -37,10 +39,15 @@ public class Phaser2_Manager : MonoBehaviour
 
     [Header("============= Idle =============")]
     public float IdleCd;
+    public float playerRange;
     [Header("============= Attack =============")]
     public float AttackCd;
     public GameObject electricBall;
     public Transform electricBallPosition;
+    public bool test1, test2;
+
+    [Header("============= Move =============")]
+    public float speed;
     void Start()
     {
         current_state = Idle;
