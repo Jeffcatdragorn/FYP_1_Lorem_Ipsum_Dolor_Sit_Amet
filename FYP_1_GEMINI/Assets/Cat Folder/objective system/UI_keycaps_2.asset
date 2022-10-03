@@ -106,7 +106,7 @@ MonoBehaviour:
       m_Y: 13
       m_Width: 158
       m_Height: 53
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     sprite: {fileID: -788841823, guid: 32fedb0ca47ea384cb17153c3ed620d1, type: 3}
   - m_Index: 1
@@ -121,7 +121,7 @@ MonoBehaviour:
       m_Y: 6
       m_Width: 75
       m_Height: 71
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     sprite: {fileID: -108766522, guid: 32fedb0ca47ea384cb17153c3ed620d1, type: 3}
   - m_Index: 2
@@ -136,7 +136,7 @@ MonoBehaviour:
       m_Y: 6
       m_Width: 74
       m_Height: 71
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     sprite: {fileID: -1092562593, guid: 32fedb0ca47ea384cb17153c3ed620d1, type: 3}
   - m_Index: 3
@@ -151,7 +151,7 @@ MonoBehaviour:
       m_Y: 6
       m_Width: 75
       m_Height: 71
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     sprite: {fileID: 1460447228, guid: 32fedb0ca47ea384cb17153c3ed620d1, type: 3}
   - m_Index: 4
@@ -166,7 +166,7 @@ MonoBehaviour:
       m_Y: 5
       m_Width: 75
       m_Height: 72
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     sprite: {fileID: -1184060756, guid: 32fedb0ca47ea384cb17153c3ed620d1, type: 3}
   - m_Index: 5
@@ -181,7 +181,7 @@ MonoBehaviour:
       m_Y: 5
       m_Width: 75
       m_Height: 72
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     sprite: {fileID: 2068303602, guid: 32fedb0ca47ea384cb17153c3ed620d1, type: 3}
   - m_Index: 6
@@ -196,7 +196,7 @@ MonoBehaviour:
       m_Y: 5
       m_Width: 75
       m_Height: 72
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     sprite: {fileID: 1305530964, guid: 32fedb0ca47ea384cb17153c3ed620d1, type: 3}
   - m_Index: 7
@@ -211,7 +211,7 @@ MonoBehaviour:
       m_Y: 5
       m_Width: 77
       m_Height: 72
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     sprite: {fileID: 2031856, guid: 32fedb0ca47ea384cb17153c3ed620d1, type: 3}
   - m_Index: 8
@@ -226,7 +226,7 @@ MonoBehaviour:
       m_Y: 5
       m_Width: 76
       m_Height: 72
-    m_Scale: 1
+    m_Scale: 2
     m_AtlasIndex: 0
     sprite: {fileID: -1879887032, guid: 32fedb0ca47ea384cb17153c3ed620d1, type: 3}
   spriteInfoList: []
