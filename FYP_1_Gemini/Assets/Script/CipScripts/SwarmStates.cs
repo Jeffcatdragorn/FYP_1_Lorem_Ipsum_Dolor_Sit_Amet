@@ -20,10 +20,6 @@ public class SwarmStates : MonoBehaviour
     public Vector3 swarmPos;
     public Vector3 playerPos;
 
-    private void Awake()
-    {
-        playerPos = GameObject.Find("Player").transform.position;
-    }
     void Start() 
     {
         currentSwarmState = IdleState;
@@ -37,7 +33,7 @@ public class SwarmStates : MonoBehaviour
     {
         
         swarmPos = this.gameObject.transform.position;
-        
+        playerPos = GameObject.Find("Player").transform.position;
         currentSwarmState.UpdateState(this);
     }
 
