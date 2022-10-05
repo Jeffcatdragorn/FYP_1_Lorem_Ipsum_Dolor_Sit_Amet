@@ -13,7 +13,7 @@ public class Tooltip : MonoBehaviour
         message = this.gameObject.GetComponent<InventorySlot>().tooltipMessage;
         TooltipManager._instance.SetAndShowTooltip(message);
 
-        Debug.Log("message" + message);
+        //Debug.Log("message" + message);
     }
 
     public void tooltipOff()

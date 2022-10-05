@@ -16,6 +16,8 @@ public class Inventory : MonoBehaviour
     public GameObject canvas;
     public static bool tabletObtained = false;
     public static bool flashlightObtained = false;
+    public static bool labKeyObtained = false;
+    public static bool gunObtained = false;
     //public HumanoidLandInput input;
 
     //public GameObject[] panels;
@@ -168,6 +170,17 @@ public class Inventory : MonoBehaviour
             if (item.name == "Flashlight")
             {
                 flashlightObtained = true;
+            }
+
+            if (item.name == "Gun")
+            {
+                gunObtained = true;
+            }
+
+            if (item.name == "LabKey")
+            {
+                labKeyObtained = true;
+                Debug.Log("labKeyObtained");
             }
         }
 

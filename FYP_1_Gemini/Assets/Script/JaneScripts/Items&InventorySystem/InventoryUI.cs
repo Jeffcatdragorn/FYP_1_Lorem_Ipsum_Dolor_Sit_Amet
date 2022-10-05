@@ -43,7 +43,7 @@ public class InventoryUI : MonoBehaviour
         {
             if (input.TabletScrollWheel < 0)
             {
-                Debug.Log("scroll down");
+                //Debug.Log("scroll down");
                 panelIndex++;
                 //anim.Play("scroll Left");
                 anim.Play("scroll Down");
@@ -54,7 +54,7 @@ public class InventoryUI : MonoBehaviour
             }
             if (input.TabletScrollWheel > 0)
             {
-                Debug.Log("scroll up");
+                //Debug.Log("scroll up");
                 panelIndex--;
                 //anim.Play("scroll Right");
                 anim.Play("scroll Up");

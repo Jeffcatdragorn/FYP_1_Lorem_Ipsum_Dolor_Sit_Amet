@@ -15,6 +15,7 @@ public class TabletDoorScanning : MonoBehaviour
     public GameObject tabletText = null;
     private bool flashlightCheck;
     private bool tabletCheck;
+    private bool labKeyCheck;
 
     [Header("Door")]
     public string doorName;
@@ -120,6 +121,19 @@ public class TabletDoorScanning : MonoBehaviour
                     doorPanel.SetActive(false);
                 }
             }
+            else if (doorName == "Lab Dome Gate")
+            {
+                if(Inventory.labKeyObtained == false)
+                {
+                    doorPanel.SetActive(false);
+                    labKeyCheck = false;
+                }
+                else
+                {
+                    doorPanel.SetActive(true);
+                    labKeyCheck = true;
+                }
+            }
             else
             {
                 if (Inventory.tabletObtained == false)
@@ -160,6 +174,16 @@ public class TabletDoorScanning : MonoBehaviour
             else
             {
                 TVTriggerBehaviour.tvCheck = false;
+            }
+        }
+        else if(doorName == "Lab Dome Gate")
+        {
+            if(Inventory.labKeyObtained == true)
+            {
+                tabletObj.SetActive(true);
+                scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+
+                Invoke("TabletSlotOut", scanningTime);
             }
         }
         else
