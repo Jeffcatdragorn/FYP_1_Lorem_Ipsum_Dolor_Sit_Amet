@@ -6,18 +6,21 @@ using UnityEngine.UI;
 
 public class TabletDoorScanning : MonoBehaviour
 {
-    [Header("Managers")]
+    [Header("MANAGERS")]
     public HumanoidLandInput input;
     public ButtonManager buttonManager;
     public PlayerController playerController;
     public GameObject tabletObj;
-    public GameObject flashlightText = null;
-    public GameObject tabletText = null;
+
+    [Header("WARNING TEXTS")]
+    public GameObject flashlightWarning = null;
+    public GameObject tabletWarning = null;
+    public GameObject labKeyWarning = null;
     private bool flashlightCheck;
     private bool tabletCheck;
     private bool labKeyCheck;
 
-    [Header("Door")]
+    [Header("DOOR")]
     public string doorName;
     public TextMeshProUGUI doorText;
     public GameObject doorPanel;
@@ -28,7 +31,7 @@ public class TabletDoorScanning : MonoBehaviour
 
     private bool doorIsOpen = false;
 
-    [Header("Scanner")]
+    [Header("SCANNER")]
     [SerializeField] float ScannerCooldownCounter;
     [SerializeField] float ScannerUICooldown;
     [SerializeField] private Animator scannerAnimator = null;
@@ -80,17 +83,46 @@ public class TabletDoorScanning : MonoBehaviour
             //    buttonManager.EnableMouseCursor(); 
             //    ScannerCooldownCounter = ScannerUICooldown;
             //}
-
-            if (input.InteractIsPressed == true && Inventory.tabletObtained == true && ScannerCooldownCounter == 0.0f) 
+            if (doorName == "Prison Dome Gate")
             {
-                playerController.enabled = false;
-                //disable the trigger collider to avoid player spam 'G'
-                scannerTrigger.enabled = false; //to prevent player from opening the door again
+                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.flashlightObtained == true)
+                {
+                    playerController.enabled = false;
+                    //disable the trigger collider to avoid player spam 'G'
+                    scannerTrigger.enabled = false; //to prevent player from opening the door again
 
-                DoorOpeningProcess();
+                    DoorOpeningProcess();
 
-                ScannerCooldownCounter = ScannerUICooldown;
+                    ScannerCooldownCounter = ScannerUICooldown;
+                }
             }
+            else if (doorName == "Lab Dome Gate")
+            {
+                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.labKeyObtained == true)
+                {
+                    playerController.enabled = false;
+                    //disable the trigger collider to avoid player spam 'G'
+                    scannerTrigger.enabled = false; //to prevent player from opening the door again
+
+                    DoorOpeningProcess();
+
+                    ScannerCooldownCounter = ScannerUICooldown;
+                }
+            }
+            else
+            {
+                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true)
+                {
+                    playerController.enabled = false;
+                    //disable the trigger collider to avoid player spam 'G'
+                    scannerTrigger.enabled = false; //to prevent player from opening the door again
+
+                    DoorOpeningProcess();
+
+                    ScannerCooldownCounter = ScannerUICooldown;
+                }
+            }
+            
         }
     }
 
@@ -106,7 +138,7 @@ public class TabletDoorScanning : MonoBehaviour
                 {
                     if (Inventory.flashlightObtained == false)
                     {
-                        flashlightText.SetActive(true);
+                        flashlightWarning.SetActive(true);
                         doorPanel.SetActive(false);
                         flashlightCheck = false;
                     }
@@ -121,10 +153,22 @@ public class TabletDoorScanning : MonoBehaviour
                     doorPanel.SetActive(false);
                 }
             }
+            //else if (doorName == "Prison Dome Gate 2")
+            //{
+            //    if (Inventory.tabletObtained == true)
+            //    {
+            //        doorPanel.SetActive(true);
+            //    }
+            //    else
+            //    {
+            //        doorPanel.SetActive(false);
+            //    }
+            //}
             else if (doorName == "Lab Dome Gate")
             {
                 if(Inventory.labKeyObtained == false)
                 {
+                    labKeyWarning.SetActive(true);
                     doorPanel.SetActive(false);
                     labKeyCheck = false;
                 }
@@ -138,7 +182,7 @@ public class TabletDoorScanning : MonoBehaviour
             {
                 if (Inventory.tabletObtained == false)
                 {
-                    tabletText.SetActive(true);
+                    tabletWarning.SetActive(true);
                     doorPanel.SetActive(false);
                     tabletCheck = false;
                 }
@@ -154,8 +198,11 @@ public class TabletDoorScanning : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         doorPanel.SetActive(false);
-        flashlightText.SetActive(false);
-        tabletText.SetActive(false);
+
+        //Disable Warning Texts
+        flashlightWarning.SetActive(false);
+        labKeyWarning.SetActive(false);
+        tabletWarning.SetActive(false);
     }
 
     public void DoorOpeningProcess()
@@ -167,6 +214,8 @@ public class TabletDoorScanning : MonoBehaviour
                 tabletObj.SetActive(true);
                 scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
 
+                doorPanel.SetActive(false);
+
                 Invoke("TabletSlotOut", scanningTime);
                
                 TVTriggerBehaviour.tvCheck = true;
@@ -176,12 +225,14 @@ public class TabletDoorScanning : MonoBehaviour
                 TVTriggerBehaviour.tvCheck = false;
             }
         }
-        else if(doorName == "Lab Dome Gate")
+        else if (doorName == "Lab Dome Gate")
         {
-            if(Inventory.labKeyObtained == true)
+            if (labKeyCheck == true)
             {
                 tabletObj.SetActive(true);
                 scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+
+                doorPanel.SetActive(false);
 
                 Invoke("TabletSlotOut", scanningTime);
             }
@@ -192,6 +243,8 @@ public class TabletDoorScanning : MonoBehaviour
             {
                 tabletObj.SetActive(true);
                 scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+
+                doorPanel.SetActive(false);
 
                 Invoke("TabletSlotOut", scanningTime);
             }
