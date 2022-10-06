@@ -9,6 +9,7 @@ public class AutomaticDoor : MonoBehaviour
     [SerializeField] private string doorSlideClose = "DoorSlideClose";
 
     [Header("DOOR LIGHT")]
+    public bool doorLight = false;
     public MeshRenderer doorLightMeshRenderer;
     public Material redDoorLightMaterial;
     public Material greenDoorLightMaterial;
@@ -29,7 +30,10 @@ public class AutomaticDoor : MonoBehaviour
 
                 TabletDoorScanning.doorIsOpen = true;
 
-                doorLightMeshRenderer.material = greenDoorLightMaterial;
+                if(doorLight == true)
+                {
+                    doorLightMeshRenderer.material = greenDoorLightMaterial;
+                }
             }
         }
     }
@@ -50,7 +54,10 @@ public class AutomaticDoor : MonoBehaviour
 
                 TabletDoorScanning.doorIsOpen = false;
 
-                doorLightMeshRenderer.material = redDoorLightMaterial;
+                if (doorLight == true)
+                {
+                    doorLightMeshRenderer.material = redDoorLightMaterial;
+                }    
             }
         }
     }
