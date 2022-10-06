@@ -102,7 +102,7 @@ public class TabletDoorScanning : MonoBehaviour
                     ScannerCooldownCounter = ScannerUICooldown;
                 }
             }
-            else if (doorName == "Lab Dome Gate")
+            else if (doorName == "Lab Dome Gate 2")
             {
                 if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.labKeyObtained == true)
                 {
@@ -159,7 +159,7 @@ public class TabletDoorScanning : MonoBehaviour
                     doorPanel.SetActive(false);
                 }
             }
-            else if (doorName == "Lab Dome Gate")
+            else if (doorName == "Lab Dome Gate 2")
             {
                 if(Inventory.labKeyObtained == false)
                 {
@@ -220,7 +220,7 @@ public class TabletDoorScanning : MonoBehaviour
                 TVTriggerBehaviour.tvCheck = false;
             }
         }
-        else if (doorName == "Lab Dome Gate")
+        else if (doorName == "Lab Dome Gate 2")
         {
             if (labKeyCheck == true)
             {
