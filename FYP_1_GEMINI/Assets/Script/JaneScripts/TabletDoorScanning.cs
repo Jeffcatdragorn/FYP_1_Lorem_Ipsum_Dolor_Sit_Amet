@@ -24,12 +24,14 @@ public class TabletDoorScanning : MonoBehaviour
     public string doorName;
     public TextMeshProUGUI doorText;
     public GameObject doorPanel;
-    public MeshRenderer doorLightMeshRenderer;
-    public Material greenDoorLightMaterial;
     [SerializeField] private Animator normalDoorAnimator = null;
     [SerializeField] private string doorSlideOpen = "DoorSlideOpen";
 
-    private bool doorIsOpen = false;
+    public static bool doorIsOpen = false;
+
+    [Header("DOOR LIGHT")]
+    public MeshRenderer doorLightMeshRenderer;
+    public Material greenDoorLightMaterial;
 
     [Header("SCANNER")]
     [SerializeField] float ScannerCooldownCounter;
@@ -63,6 +65,10 @@ public class TabletDoorScanning : MonoBehaviour
             doorPanel.SetActive(false);
             //doorPanel.GetComponentInChildren<Button>().interactable = false; // for clicking button UI opening door only
             //doorIsOpen = false;
+        }
+        else
+        {
+            scannerTrigger.enabled = true; //to allow player from opening the door again
         }
     }
 
@@ -153,17 +159,6 @@ public class TabletDoorScanning : MonoBehaviour
                     doorPanel.SetActive(false);
                 }
             }
-            //else if (doorName == "Prison Dome Gate 2")
-            //{
-            //    if (Inventory.tabletObtained == true)
-            //    {
-            //        doorPanel.SetActive(true);
-            //    }
-            //    else
-            //    {
-            //        doorPanel.SetActive(false);
-            //    }
-            //}
             else if (doorName == "Lab Dome Gate")
             {
                 if(Inventory.labKeyObtained == false)
