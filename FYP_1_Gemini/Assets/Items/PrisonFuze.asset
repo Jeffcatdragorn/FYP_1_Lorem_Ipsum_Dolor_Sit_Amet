@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058a74496e11d61439772f3400e6f9c1, type: 3}
-  m_Name: PrisonMarble
+  m_Name: PrisonFuze
   m_EditorClassIdentifier: 
-  name: PrisonMarble
+  name: PrisonFuze
   icon: {fileID: 21300000, guid: b74c31d447d2f5d41a61081bdf5e7126, type: 3}
   isDefaultItem: 1
   itemAmount: 1
-  tooltipMessage: 'PRISON MARBLE: Used for escaping the facility'
+  tooltipMessage: 'PRISON FUZE: Used for escaping the facility'

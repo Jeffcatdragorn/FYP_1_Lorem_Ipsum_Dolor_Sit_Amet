@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058a74496e11d61439772f3400e6f9c1, type: 3}
-  m_Name: LabMarble
+  m_Name: GeneratorFuze
   m_EditorClassIdentifier: 
-  name: LabMarble
+  name: GeneratorFuze
   icon: {fileID: 21300000, guid: b74c31d447d2f5d41a61081bdf5e7126, type: 3}
   isDefaultItem: 1
   itemAmount: 1
-  tooltipMessage: 'LAB MARBLE: Used for escaping the facility'
+  tooltipMessage: 'GENERATOR FUZE: Used for escaping the facility'
