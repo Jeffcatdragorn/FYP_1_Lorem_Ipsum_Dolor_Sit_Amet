@@ -202,46 +202,49 @@ public class TabletDoorScanning : MonoBehaviour
 
     public void DoorOpeningProcess()
     {
-        if (doorName == "Prison Dome Gate")
+        if(doorIsOpen == false)
         {
-            if(flashlightCheck == true) 
+            if (doorName == "Prison Dome Gate")
             {
-                tabletObj.SetActive(true);
-                scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+                if (flashlightCheck == true)
+                {
+                    tabletObj.SetActive(true);
+                    scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
 
-                doorPanel.SetActive(false);
+                    doorPanel.SetActive(false);
 
-                Invoke("TabletSlotOut", scanningTime);
-               
-                TVTriggerBehaviour.tvCheck = true;
+                    Invoke("TabletSlotOut", scanningTime);
+
+                    TVTriggerBehaviour.tvCheck = true;
+                }
+                else
+                {
+                    TVTriggerBehaviour.tvCheck = false;
+                }
+            }
+            else if (doorName == "Lab Dome Gate 2")
+            {
+                if (labKeyCheck == true)
+                {
+                    tabletObj.SetActive(true);
+                    scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+
+                    doorPanel.SetActive(false);
+
+                    Invoke("TabletSlotOut", scanningTime);
+                }
             }
             else
             {
-                TVTriggerBehaviour.tvCheck = false;
-            }
-        }
-        else if (doorName == "Lab Dome Gate 2")
-        {
-            if (labKeyCheck == true)
-            {
-                tabletObj.SetActive(true);
-                scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+                if (tabletCheck == true)
+                {
+                    tabletObj.SetActive(true);
+                    scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
 
-                doorPanel.SetActive(false);
+                    doorPanel.SetActive(false);
 
-                Invoke("TabletSlotOut", scanningTime);
-            }
-        }
-        else
-        {
-            if (tabletCheck == true)
-            {
-                tabletObj.SetActive(true);
-                scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
-
-                doorPanel.SetActive(false);
-
-                Invoke("TabletSlotOut", scanningTime);
+                    Invoke("TabletSlotOut", scanningTime);
+                }
             }
         }
     }
