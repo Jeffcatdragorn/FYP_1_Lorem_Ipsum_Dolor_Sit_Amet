@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound,
                      normalMetalFootstep1, normalMetalFootstep2, normalMetalFootstep3, normalMetalFootstep4, ventCoverFalling, ventCrawling, tvAudio, handSlap,
-                     screeching; //sfx
+                     screeching, headCrabScreech; //sfx
 
     private GameObject currentMusicObject;
 
@@ -193,6 +193,8 @@ public class AudioManager : MonoBehaviour
                 case "screeching":
                     SoundObjectCreateParent(screeching, spawnParent, is3D);
                     break;
+                case "headCrabScreech":
+                    SoundObjectCreateParent(headCrabScreech, spawnParent, is3D);
                     break;
                 default:
                     break;

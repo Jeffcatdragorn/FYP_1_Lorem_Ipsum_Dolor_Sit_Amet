@@ -25,29 +25,32 @@ public class CutsceneManager : MonoBehaviour
 
     private void Update()
     {
-        animCamStateInfo = mainCamAnimator.GetCurrentAnimatorStateInfo(0);
-        camNTime = animCamStateInfo.normalizedTime;
+        if (particleBool == false)
+        {
+            animCamStateInfo = mainCamAnimator.GetCurrentAnimatorStateInfo(0);
+            camNTime = animCamStateInfo.normalizedTime;
 
-        if (camNTime > 1.0f)
-        {
-            if(doorBool == false)
+            if (camNTime > 1.0f)
             {
-                cellDoorAnimator.SetTrigger("openDoor");
-                animDoorStateInfo = cellDoorAnimator.GetCurrentAnimatorStateInfo(0);
-                doorNTime = animDoorStateInfo.normalizedTime;
-                doorBool = true;
+                if (doorBool == false)
+                {
+                    cellDoorAnimator.SetTrigger("openDoor");
+                    animDoorStateInfo = cellDoorAnimator.GetCurrentAnimatorStateInfo(0);
+                    doorNTime = animDoorStateInfo.normalizedTime;
+                    doorBool = true;
+                }
             }
-        }
-        if (doorNTime > 1.0f)
-        {
-            mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
-            mainCamAnimator.enabled = false;
-            player.GetComponent<PlayerController>().enabled = true;
-            if(particleBool == false)
+            if (doorNTime > 1.0f)
             {
-                sparkParticle1.Play();
-                sparkParticle2.Play();
-                particleBool = true;
+                mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
+                mainCamAnimator.enabled = false;
+                player.GetComponent<PlayerController>().enabled = true;
+                if (particleBool == false)
+                {
+                    sparkParticle1.Play();
+                    sparkParticle2.Play();
+                    particleBool = true;
+                }
             }
         }
     }
