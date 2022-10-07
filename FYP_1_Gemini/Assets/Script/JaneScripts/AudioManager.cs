@@ -17,7 +17,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound,
                      normalMetalFootstep1, normalMetalFootstep2, normalMetalFootstep3, normalMetalFootstep4, ventCoverFalling, ventCrawling, tvAudio, handSlap,
-                     screeching, headCrabScreech; //sfx
+                     screeching, headCrabScreech, bringUpTablet, gunCharging, playerDeath, downloading, exposedFuse, flashlightOff, flashlightOn, labJumpscare,
+                        lowBatteryError, ObjComplete, tabletIn, tabletOut, swarmAttack; //sfx
 
     private GameObject currentMusicObject;
 
@@ -165,6 +166,45 @@ public class AudioManager : MonoBehaviour
                     break;         
                 case "screeching":
                     SoundObjectCreate(screeching, spawnPosition, is3D);
+                    break;
+                case "bringUpTablet":
+                    SoundObjectCreate(bringUpTablet, spawnPosition, is3D);
+                    break;
+                case "gunCharging":
+                    SoundObjectCreate(gunCharging, spawnPosition, is3D);
+                    break;
+                case "playerDeath":
+                    SoundObjectCreate(playerDeath, spawnPosition, is3D);
+                    break;
+                case "downloading":
+                    SoundObjectCreate(downloading, spawnPosition, is3D);
+                    break;
+                case "exposedFuse":
+                    SoundObjectCreate(exposedFuse, spawnPosition, is3D);
+                    break;
+                case "flashlightOff":
+                    SoundObjectCreate(flashlightOff, spawnPosition, is3D);
+                    break;
+                case "flashlightOn":
+                    SoundObjectCreate(flashlightOn, spawnPosition, is3D);
+                    break;
+                case "labJumpscare":
+                    SoundObjectCreate(labJumpscare, spawnPosition, is3D);
+                    break;
+                case "lowBatteryError":
+                    SoundObjectCreate(lowBatteryError, spawnPosition, is3D);
+                    break;
+                case "ObjComplete":
+                    SoundObjectCreate(ObjComplete, spawnPosition, is3D);
+                    break;
+                case "tabletIn":
+                    SoundObjectCreate(tabletIn, spawnPosition, is3D);
+                    break;
+                case "tabletOut":
+                    SoundObjectCreate(tabletOut, spawnPosition, is3D);
+                    break;
+                case "swarmAttack":
+                    SoundObjectCreate(swarmAttack, spawnPosition, is3D);
                     break;
                 default:
                     break;

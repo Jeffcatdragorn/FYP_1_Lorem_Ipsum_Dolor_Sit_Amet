@@ -28,6 +28,7 @@ public class TabletDoorScanning : MonoBehaviour
     [SerializeField] private string doorSlideOpen = "DoorSlideOpen";
 
     public static bool doorIsOpen = false;
+    public bool doorIsOpen2 = false;
 
     [Header("DOOR LIGHT")]
     public MeshRenderer doorLightMeshRenderer;
@@ -91,7 +92,7 @@ public class TabletDoorScanning : MonoBehaviour
             //}
             if (doorName == "Prison Dome Gate")
             {
-                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.flashlightObtained == true)
+                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.flashlightObtained == true && doorIsOpen2 == false)
                 {
                     playerController.enabled = false;
                     //disable the trigger collider to avoid player spam 'G'
@@ -100,11 +101,13 @@ public class TabletDoorScanning : MonoBehaviour
                     DoorOpeningProcess();
 
                     ScannerCooldownCounter = ScannerUICooldown;
+
+                    doorIsOpen2 = true;
                 }
             }
             else if (doorName == "Lab Dome Gate 2")
             {
-                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.labKeyObtained == true)
+                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.labKeyObtained == true && doorIsOpen2 == false)
                 {
                     playerController.enabled = false;
                     //disable the trigger collider to avoid player spam 'G'
@@ -113,11 +116,13 @@ public class TabletDoorScanning : MonoBehaviour
                     DoorOpeningProcess();
 
                     ScannerCooldownCounter = ScannerUICooldown;
+
+                    doorIsOpen2 = true;
                 }
             }
             else
             {
-                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true)
+                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && doorIsOpen2 == false)
                 {
                     playerController.enabled = false;
                     //disable the trigger collider to avoid player spam 'G'
@@ -126,9 +131,10 @@ public class TabletDoorScanning : MonoBehaviour
                     DoorOpeningProcess();
 
                     ScannerCooldownCounter = ScannerUICooldown;
+
+                    doorIsOpen2 = true;
                 }
             }
-            
         }
     }
 
@@ -202,7 +208,7 @@ public class TabletDoorScanning : MonoBehaviour
 
     public void DoorOpeningProcess()
     {
-        if(doorIsOpen == false)
+        if(doorIsOpen2 == false)
         {
             if (doorName == "Prison Dome Gate")
             {
@@ -210,6 +216,7 @@ public class TabletDoorScanning : MonoBehaviour
                 {
                     tabletObj.SetActive(true);
                     scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+                    AudioManager.instance.PlaySound("tabletIn", scannerAnimator.gameObject.transform.position, false);
 
                     doorPanel.SetActive(false);
 
@@ -228,6 +235,7 @@ public class TabletDoorScanning : MonoBehaviour
                 {
                     tabletObj.SetActive(true);
                     scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+                    AudioManager.instance.PlaySound("tabletIn", scannerAnimator.gameObject.transform.position, false);
 
                     doorPanel.SetActive(false);
 
@@ -240,6 +248,7 @@ public class TabletDoorScanning : MonoBehaviour
                 {
                     tabletObj.SetActive(true);
                     scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+                    AudioManager.instance.PlaySound("tabletIn", scannerAnimator.gameObject.transform.position, false);
 
                     doorPanel.SetActive(false);
 
@@ -253,6 +262,7 @@ public class TabletDoorScanning : MonoBehaviour
     {
         doorLightMeshRenderer.material = greenDoorLightMaterial;
         scannerAnimator.Play("TabletSlotOut", 0, 0.0f);
+        AudioManager.instance.PlaySound("tabletOut", scannerAnimator.gameObject.transform.position, false);
 
         Invoke("DoorOpens", 2.5f);
     }

@@ -7,6 +7,7 @@ public class AutomaticDoor : MonoBehaviour
     [SerializeField] private Animator normalDoorAnimator = null;
     [SerializeField] private string doorSlideOpen = "DoorSlideOpen";
     [SerializeField] private string doorSlideClose = "DoorSlideClose";
+    [SerializeField] private TabletDoorScanning tabletDoorScanning;
 
     [Header("DOOR LIGHT")]
     public bool doorLight = false;
@@ -18,7 +19,7 @@ public class AutomaticDoor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(TabletDoorScanning.doorIsOpen == false)
+            if(TabletDoorScanning.doorIsOpen == false || tabletDoorScanning.doorIsOpen2 == false)
             {
                 normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
 
@@ -34,6 +35,11 @@ public class AutomaticDoor : MonoBehaviour
                 {
                     doorLightMeshRenderer.material = greenDoorLightMaterial;
                 }
+
+                if(tabletDoorScanning != null)
+                {
+                    tabletDoorScanning.doorIsOpen2 = true;
+                }
             }
         }
     }
@@ -42,7 +48,7 @@ public class AutomaticDoor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (TabletDoorScanning.doorIsOpen == true)
+            if (TabletDoorScanning.doorIsOpen == true || tabletDoorScanning.doorIsOpen2 == true)
             {
                 normalDoorAnimator.Play(doorSlideClose, 0, 0.0f);
 
@@ -57,7 +63,12 @@ public class AutomaticDoor : MonoBehaviour
                 if (doorLight == true)
                 {
                     doorLightMeshRenderer.material = redDoorLightMaterial;
-                }    
+                }
+
+                if (tabletDoorScanning != null)
+                {
+                    tabletDoorScanning.doorIsOpen2 = false;
+                }     
             }
         }
     }

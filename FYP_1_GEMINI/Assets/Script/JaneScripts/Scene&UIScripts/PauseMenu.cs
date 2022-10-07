@@ -91,6 +91,17 @@ public class PauseMenu : MonoBehaviour
     {
         Inventory.tabletObtained = false;
         Inventory.flashlightObtained = false;
+        Inventory.gunObtained = false;
+
+        Inventory.labKeyObtained = false;
+        Inventory.lQKeyObtained = false;
+        Inventory.generatorKeyObtained = false;
+
+        Inventory.prisonFuzeObtained = false;
+        Inventory.labFuzeObtained = false;
+        Inventory.lQFuzeObtained = false;
+        Inventory.generatorFuzeObtained = false;
+
         FirstParasite.Check = false;
         TVTriggerBehaviour.tvCheck = false;
         HandJumpScare.handSlapCheck = false;
