@@ -13,10 +13,15 @@ public class GunJumpScare : MonoBehaviour
     [SerializeField] private Animator deadBodyAnimator;
     [SerializeField] private HumanoidLandInput input;
     [SerializeField] private GameObject QTE;
+    [SerializeField] private GameObject deadPanel;
     private bool inspectOff = false;
     private bool trigger = false;
+    private bool trigger2 = false;
+    private bool trigger3 = false;
     private AnimatorStateInfo animCamStateInfo;
     private float camNTime;
+    private AnimatorStateInfo animBodyStateInfo;
+    private float bodyNTime;
 
     void Update()
     {
@@ -35,7 +40,7 @@ public class GunJumpScare : MonoBehaviour
 
         if(inspectOff == true)
         {
-            Destroy(deadBody);
+            deadBody.SetActive(false);
             deadBodyStand.SetActive(true);
             mainCamAnimator.GetComponent<CinemachineBrain>().enabled = false;
             mainCamAnimator.enabled = true;
@@ -51,9 +56,26 @@ public class GunJumpScare : MonoBehaviour
 
         if(camNTime > 1.0f && trigger == false)
         {
-            QTE.SetActive(true);
             deadBodyAnimator.SetTrigger("jump");
             trigger = true;
+        }
+
+        if (deadBodyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+        {
+            animBodyStateInfo = deadBodyAnimator.GetCurrentAnimatorStateInfo(0);
+            bodyNTime = animBodyStateInfo.normalizedTime;
+        }
+
+        if (bodyNTime > 1.0f && trigger2 == false)
+        {
+            deadPanel.SetActive(true);
+            trigger2 = true;
+        }
+        
+        if (bodyNTime > 0.2f && trigger3 == false)
+        {
+            QTE.SetActive(true);
+            trigger3 = true;
         }
     }
 }
