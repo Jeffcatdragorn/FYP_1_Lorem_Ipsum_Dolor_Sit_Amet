@@ -104,7 +104,6 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public float bulletSpeed;
     public GameObjectController objectController;
-    public GameObject gunModel;
 
     [Header("GunReload")]
     [SerializeField] int maxBullets = 6;
@@ -153,9 +152,11 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] float crouchCooldownTimeCounter = 0.0f;
     public static bool crouchCheck = false;
 
-    [Header("Flashlight")]
+    [Header("Hand")]
     [SerializeField] GameObject flLight;
     [SerializeField] GameObject flashlightModel;
+    [SerializeField] GameObject gunModel;
+    [SerializeField] bool flashLToggle;
 
     [Header("Footsteps")]
     [SerializeField] float footstepWalkingInterval = 0.0f;
@@ -204,21 +205,11 @@ public class PlayerController : MonoBehaviour
 
         PlayerCrouch();
 
-        switch (state)
-        {
-            default:
-            case State.Detective:
-                //playerMoveInput = PlayerDash();
-                //PlayerShoot();
-                //PlayerGunReload();
-                PlayerFlashlight();
-                break;
+        PlayerHand();
 
-            //case State.Fighter:
-            //    ParasiteTeleport();
-            //    ParasiteShield();
-            //    HealthTickDown();
-            //    break;
+        if (gunModel.activeInHierarchy)
+        {
+            PlayerShoot();
         }
 
         playerMoveInput *= rigidbody.mass;
@@ -659,25 +650,47 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerFlashlight()
+    private void PlayerHand()
     {
         if(Inventory.flashlightObtained == true)
         {
             flashlightModel.SetActive(true);
+
             if (input.FlashlightIsPressed == true)
             {
-                flLight.SetActive(true);
+                if (flashLToggle == false)
+                {
+                    flLight.SetActive(true);
+                }
+                else
+                {
+                    flLight.SetActive(false);
+                }
             }
 
             else if (input.FlashlightIsPressed == false)
             {
-                flLight.SetActive(false);
+                if(flLight.activeInHierarchy == true)
+                {
+                    flashLToggle = true;
+                }
+
+                else
+                {
+                    flashLToggle = false;
+                }
             }
         }
 
         else if(Inventory.flashlightObtained == false)
         {
             flashlightModel.SetActive(false);
+        }
+
+        if(Inventory.gunObtained == true)
+        {
+            flashlightModel.SetActive(false);
+            gunModel.SetActive(true);
         }
     }
 
@@ -807,11 +820,11 @@ public class PlayerController : MonoBehaviour
     //        shieldObject.SetActive(false);
     //}
 
-    private void HealthTickDown()
-    {
-        if(Time.time % tickTime == 0)
-            statusBar.value -= tickRate;
-    }
+    //private void HealthTickDown()
+    //{
+    //    if(Time.time % tickTime == 0)
+    //        statusBar.value -= tickRate;
+    //}
 
     public void HealthIncrease(int amount)
     {
