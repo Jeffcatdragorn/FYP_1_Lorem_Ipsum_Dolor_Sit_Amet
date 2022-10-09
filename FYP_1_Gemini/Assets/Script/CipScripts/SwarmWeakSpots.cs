@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwarmWeakSpots : MonoBehaviour
 {
     public List<GameObject> WeakPointsList;
+    public SwarmStates ss;
     public GameObject weakpoint;
     public int weakpointSelector;
 
@@ -14,5 +15,13 @@ public class SwarmWeakSpots : MonoBehaviour
         weakpointSelector = Random.Range(0, 6);
         weakpoint = WeakPointsList[weakpointSelector];
         weakpoint.SetActive(true);
+    }
+
+    void Update()
+    {
+        if (weakpoint == null)
+        {
+            ss.weaknessDestroyed = true;
+        }
     }
 }

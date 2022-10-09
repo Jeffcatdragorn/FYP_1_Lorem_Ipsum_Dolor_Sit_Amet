@@ -11,7 +11,7 @@ public class SwarmStates : MonoBehaviour
     public SwarmChase ChaseState = new SwarmChase();
     public SwarmAvoidObstacles AvoidState = new SwarmAvoidObstacles();
 
-    public bool testingStates;
+    public  bool weaknessDestroyed;
     public float timeswitchState = 3.0f;
     public float switchPatrolLocation = 10.0f;
     public int swarmMaxHealth;
@@ -31,10 +31,14 @@ public class SwarmStates : MonoBehaviour
 
     void Update()
     {
-        
-        swarmPos = this.gameObject.transform.position;
-        playerPos = GameObject.Find("Player").transform.position;
-        currentSwarmState.UpdateState(this);
+        if (weaknessDestroyed == false)
+        {
+            swarmPos = this.gameObject.transform.position;
+            playerPos = GameObject.Find("Player").transform.position;
+            currentSwarmState.UpdateState(this);
+        }
+        else
+            Destroy(this.gameObject);
     }
 
     public void OnTriggerEnter(Collider other)
@@ -51,14 +55,5 @@ public class SwarmStates : MonoBehaviour
     {
         currentSwarmState = states;
         states.EnterState(this);
-    }
-
-    public void takeDmg(int dmg)
-    {
-        swarmCurrHealth = swarmMaxHealth - 1;
-        if(swarmCurrHealth == 0)
-        {
-            Destroy(this.gameObject);
-        }
     }
 }
