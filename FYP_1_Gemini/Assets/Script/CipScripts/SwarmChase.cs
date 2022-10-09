@@ -19,7 +19,7 @@ public class SwarmChase : SwarmBaseStates
         {
             states.transform.Translate(ChaseFormula(states) * Time.deltaTime, Space.World);
             timeInState +=Time.deltaTime;
-            if (DistancetoPlayer <= 1.5f)
+            if (DistancetoPlayer <= 2.0f)
             {
                 timeInState = 0.0f;
                 states.SwitchStates(states.AttackState);
