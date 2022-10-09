@@ -10,7 +10,7 @@ public class SwarmPatrol : SwarmBaseStates
     public static Vector3 movementVelo;
     public static Vector3 wallsPos;
 
-    Vector3 x = Vector3.zero;
+    Vector3 finalMovement = Vector3.zero;
 
     public override void EnterState(SwarmStates states)
     {
@@ -53,7 +53,7 @@ public class SwarmPatrol : SwarmBaseStates
          float PatrolRadius = 1.0f;
 
          Vector3 currentSwarmPos = states.swarmPos;
-         randomVec.y = 0.0f;
+        randomVec.y = 0.0f;
 
          randomVec *= PatrolRadius;
 
@@ -68,9 +68,8 @@ public class SwarmPatrol : SwarmBaseStates
         else
         {
             movementVelo = (wanderLocation - currentSwarmPos).normalized * Random.Range(1.0f, 3.0f);//speed
-        } 
-
-         return movementVelo;
+        }
+        return movementVelo;
     }
 
     public void PatrollingState(SwarmStates states)
@@ -78,13 +77,13 @@ public class SwarmPatrol : SwarmBaseStates
         if (timetoSwitch > states.switchPatrolLocation) //switch after every 3 seconds
         {
             //states.SwitchStates(states.IdleState);
-            x = RandomizeLocation(states);
+            finalMovement = RandomizeLocation(states);
             //Debug.Log("Switched to next pos " + x);
             timetoSwitch = 0.0f;
         }
 
         timetoSwitch += (Time.deltaTime);
-        states.transform.Translate(x * Time.deltaTime, Space.World);
+        states.transform.Translate(finalMovement * Time.deltaTime, Space.World);
         Quaternion lookRotation = Quaternion.LookRotation(states.swarmPos - wanderLocation); // GET ROTATION ANGLE
         states.transform.rotation = Quaternion.RotateTowards(states.transform.rotation, lookRotation, timetoSwitch); // ROTATE FACE NEW DIRECTION  
     }
