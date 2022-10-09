@@ -14,7 +14,7 @@ public class LoadingScript : MonoBehaviour
     private int randSpeed;
     private bool done;
 
-    public GameObject objTargetTrigger;
+    public GameObject key;
     public GameObject button;
 
     private void Start()
@@ -28,7 +28,7 @@ public class LoadingScript : MonoBehaviour
     }
     void Update()
     {
-        if (objTargetTrigger == null)
+        if (key == null)
         {
             if (!done)
             {
