@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 
 public class LoadingScript : MonoBehaviour
@@ -13,31 +14,40 @@ public class LoadingScript : MonoBehaviour
     private int randSpeed;
     private bool done;
 
+    public GameObject objTargetTrigger;
+    public GameObject button;
+
     private void Start()
     {
         done = false;
         randSpeed = 0;
         loadingBarSlider = 0;
         status.text = "Downloading...";
+        button.SetActive(false);
+
     }
     void Update()
     {
-        if (!done)
+        if (objTargetTrigger == null)
         {
-            randSpeed = Random.Range(0,30);
-            switch(randSpeed)
+            if (!done)
             {
-                case 1:
-                    loadingBarSlider++;
-                    loadingBar.value = loadingBarSlider;
-                    progressNum.text = loadingBar.value.ToString() + "%";
-                    if (loadingBarSlider == 100) done = true;
-                    break;
+                randSpeed = Random.Range(0,30);
+                switch(randSpeed)
+                {
+                    case 1:
+                        loadingBarSlider++;
+                        loadingBar.value = loadingBarSlider;
+                        progressNum.text = loadingBar.value.ToString() + "%";
+                        if (loadingBarSlider == 100) done = true;
+                        break;
+                }
             }
-        }
-        else
-        {
-            status.text = "Download Complete!";
+            else
+            {
+                status.text = "Download Complete!";
+                button.SetActive(true); 
+            }
         }
     }
 }
