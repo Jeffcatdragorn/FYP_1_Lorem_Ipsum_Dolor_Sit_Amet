@@ -49,6 +49,7 @@ public class HeadCrabJumpScare : MonoBehaviour
 
             if (camNTime > 0.16f && check3 == false)
             {
+                AudioManager.instance.PlaySound("labJumpscare", player.transform.position, false);
                 AudioManager.instance.PlaySoundParent("headCrabScreech", headCrabAnimator.gameObject, true);
                 check3 = true;
             }
