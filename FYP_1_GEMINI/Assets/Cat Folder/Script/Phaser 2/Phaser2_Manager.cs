@@ -100,8 +100,6 @@ public class Phaser2_Manager : MonoBehaviour
         }
     }
 
-
-
     public void CreateMultiLightningBall(int numOfBalls, float yVal)
     {
         startPoint = transform.position;
@@ -138,4 +136,12 @@ public class Phaser2_Manager : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int hp)
+    {
+        if (AliveP1)
+        {
+            health -= hp;
+            Debug.Log("health decrease" + health );
+        }
+    }
 }

@@ -24,6 +24,7 @@ TagManager:
   - objLight
   - QTE
   - swarm
+  - Phaser
   layers:
   - Default
   - TransparentFX
