@@ -24,7 +24,6 @@ public class SwarmAttack : SwarmBaseStates
 
     public override void OnTriggerEnter(SwarmStates states, Collider collider)
     {
-
     }
     public override void OnTriggerExit(SwarmStates states, Collider collider)
     {
@@ -35,6 +34,9 @@ public class SwarmAttack : SwarmBaseStates
         }
     }
 
+    public override void OnTriggerStay(SwarmStates states, Collider collider)
+    {
+    }
     public void attackPlayer(SwarmStates states)
     {
         if (AttackRate > 3.0f)

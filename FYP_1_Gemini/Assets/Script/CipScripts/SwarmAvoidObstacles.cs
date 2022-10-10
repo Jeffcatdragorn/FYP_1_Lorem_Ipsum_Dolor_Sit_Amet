@@ -27,6 +27,9 @@ public class SwarmAvoidObstacles : SwarmBaseStates
     {
     }
 
+    public override void OnTriggerStay(SwarmStates states, Collider collider)
+    {
+    }
     #region Avoiding Walls
     public void AvoidWalls(SwarmStates states)
     {

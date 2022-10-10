@@ -42,6 +42,10 @@ public class SwarmChase : SwarmBaseStates
     public override void OnTriggerExit(SwarmStates states, Collider collider)
     {
     }
+
+    public override void OnTriggerStay(SwarmStates states, Collider collider)
+    {
+    }
     public Vector3 ChaseFormula(SwarmStates states)
     {
         Vector3 currPos = states.transform.position;

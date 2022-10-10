@@ -37,4 +37,8 @@ public class SwarmIdle : SwarmBaseStates
     public override void OnTriggerExit(SwarmStates states, Collider collider)
     {
     }
+
+    public override void OnTriggerStay(SwarmStates states, Collider collider)
+    {
+    }
 }

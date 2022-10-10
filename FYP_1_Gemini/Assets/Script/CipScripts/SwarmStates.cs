@@ -51,6 +51,10 @@ public class SwarmStates : MonoBehaviour
         currentSwarmState.OnTriggerExit(this, other);
     }
 
+    public void OnTriggerStay(Collider other)
+    {
+        currentSwarmState.OnTriggerStay(this, other);
+    }
     public void SwitchStates(SwarmBaseStates states)
     {
         currentSwarmState = states;
