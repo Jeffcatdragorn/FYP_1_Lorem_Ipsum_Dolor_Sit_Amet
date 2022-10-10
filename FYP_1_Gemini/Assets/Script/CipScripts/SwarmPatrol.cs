@@ -32,6 +32,12 @@ public class SwarmPatrol : SwarmBaseStates
         {
             states.SwitchStates(states.ChaseState);
         }
+        else if (other.CompareTag("Walls"))
+        {
+            wallsPos = other.transform.localPosition;
+            wallsPos.y = 0.0f;
+            states.SwitchStates(states.AvoidState);
+        }
     }
 
     public override void OnTriggerStay(SwarmStates states, Collider collider)
@@ -41,12 +47,7 @@ public class SwarmPatrol : SwarmBaseStates
         {
             states.SwitchStates(states.ChaseState);
         }
-        else if (other.CompareTag("Walls"))
-        {
-            wallsPos = other.transform.localPosition;
-            wallsPos.y = 0.0f;
-            states.SwitchStates(states.AvoidState);
-        }
+
     }
     public override void OnTriggerExit(SwarmStates states, Collider collider)
     {
