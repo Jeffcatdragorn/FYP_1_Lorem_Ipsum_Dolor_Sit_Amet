@@ -10,12 +10,14 @@ public class LoadingScript : MonoBehaviour
     public Slider loadingBar;
     public TextMeshProUGUI status;
     public TextMeshProUGUI progressNum;
+    public HumanoidLandInput input;
     private float loadingBarSlider;
     private int randSpeed;
-    private bool done, audioOn;
+    private bool done, audioOn, load, trigger;
 
-    public GameObject key;
-    public GameObject button;
+    public GameObject loadingScreen;
+    public GameObject tablet;
+    public GameObject inspectCam;
 
     private void Start()
     {
@@ -24,13 +26,27 @@ public class LoadingScript : MonoBehaviour
         randSpeed = 0;
         loadingBarSlider = 0;
         status.text = "Downloading...";
-        button.SetActive(false);
 
     }
     void Update()
     {
-        if (key == null)
+        if (Inventory.labKeyObtained == true && inspectCam.activeInHierarchy == true)
         {
+            if (input.FlashlightIsPressed)
+            {
+                trigger = true;
+            }
+        }
+
+        if(trigger == true)
+        {
+            if (!load)
+            {
+                tablet.SetActive(true);
+                loadingScreen.SetActive(true);
+                load = true;
+            }
+
             if (!audioOn)
             {
                 AudioManager.instance.PlaySound("downloading", transform.position, false);
@@ -46,7 +62,6 @@ public class LoadingScript : MonoBehaviour
                 loadingBarSlider += 11.5f * Time.deltaTime;
                 loadingBar.value = loadingBarSlider;
                 progressNum.text = loadingBar.value.ToString() + "%";
-                Debug.Log(loadingBarSlider + " <-");
                 if (loadingBarSlider > 100) done = true;
                 //if (loadingBarSlider == 100) done = true; // for switch case
                 //break;
@@ -55,7 +70,9 @@ public class LoadingScript : MonoBehaviour
             else
             {
                 status.text = "Download Complete!";
-                button.SetActive(true); 
+                loadingScreen.SetActive(false);
+                tablet.SetActive(false);
+                this.gameObject.GetComponent<LoadingScript>().enabled = false;
             }
         }
     }
