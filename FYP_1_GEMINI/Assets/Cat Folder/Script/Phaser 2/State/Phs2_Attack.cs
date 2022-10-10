@@ -22,12 +22,13 @@ public class Phs2_Attack : Phsr2_Abstract
     {
         if (phsr.Alive)
         {
+            phsr.transform.LookAt(phsr.player.transform.position);
             timer += Time.deltaTime;
             Phase1(phsr);
             Phase2(phsr);
         }
     }
-
+    #region colliders and triggers
     public override void OnCollisionEnter(Phaser2_Manager phsr, Collision col)
     {
     }
@@ -39,7 +40,7 @@ public class Phs2_Attack : Phsr2_Abstract
     public override void OnTriggerStay(Phaser2_Manager phsr, Collider col)
     {
     }
-
+    #endregion
     public override void ExitState(Phaser2_Manager phsr)
     {
     }
@@ -48,15 +49,16 @@ public class Phs2_Attack : Phsr2_Abstract
     {
         if (phsr.AliveP1)
         {
-            if (doneAttack == false)
+            if (!doneAttack)
             {
                 anim.SetTrigger("attack");
                 doneAttack = true;
             }
             if (phsr.test1)
             {
-                if (timer > 3) 
+                if (timer > 3) // 3 is the cd before it starts moving again
                 {
+
                     phsr.SwitchState(phsr.Move);
                 }
             }
@@ -74,8 +76,29 @@ public class Phs2_Attack : Phsr2_Abstract
     {
         if (phsr.AliveP2)
         {
-            Debug.Log("im here dy");
+            if (!doneAttack)
+            {
+                anim.SetTrigger("attack");
+                phsr.CreateMultiLightningBall(20, 10);
+                doneAttack = true;
+            }
+            if (phsr.test1)
+            {
+                if (timer > 3) // 3 is the cd before it starts moving again
+                {
+                    phsr.SwitchState(phsr.Move);
+                }
+            }
+            if (phsr.test2)
+            {
+                if (doneAttack)
+                {
+                    phsr.SwitchState(phsr.Move);
+                }
+            }
             if (timer > 2) phsr.SwitchState(phsr.Move);
         }
     }
+
+    
 }

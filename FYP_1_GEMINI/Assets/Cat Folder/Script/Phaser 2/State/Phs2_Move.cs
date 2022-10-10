@@ -73,6 +73,7 @@ public class Phs2_Move : Phsr2_Abstract
             if (timer > 2)
             {
                 agent.ResetPath();
+
                 phsr.SwitchState(phsr.Attack);
             }
             else

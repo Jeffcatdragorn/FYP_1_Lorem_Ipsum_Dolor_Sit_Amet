@@ -8,18 +8,13 @@ public class Phs2_Idle : Phsr2_Abstract
     float distance;
     public override void EnterState(Phaser2_Manager Phsr)
     {
-        //Debug.Log("idling");
     }
     
     public override void UpdateState(Phaser2_Manager phsr)
     {
-        //Debug.Log("idling");
-        if (phsr.Alive)
-        {
-            Idling(phsr);
-        }
+        if (phsr.Alive) Idling(phsr);
     }
-    
+    #region colliders and triggers
     public override void OnCollisionEnter(Phaser2_Manager phsr, Collision col)
     {
     }
@@ -35,13 +30,10 @@ public class Phs2_Idle : Phsr2_Abstract
     public override void ExitState(Phaser2_Manager phsr)
     {
     }
+    #endregion
     public void Idling(Phaser2_Manager phsr)
     {
         distance = Vector3.Distance(phsr.player.transform.position, phsr.transform.position);
-        //Debug.Log(distance);
-        if (distance < phsr.playerRange)
-        {
-            phsr.SwitchState(phsr.Attack);
-        }
+        if (distance < phsr.playerRange) phsr.SwitchState(phsr.Attack);
     }
 }
