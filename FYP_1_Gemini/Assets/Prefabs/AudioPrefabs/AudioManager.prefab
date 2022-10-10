@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8607b2e460ebc844b246f30fb44d97f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuMusic: {fileID: 8300000, guid: 7bacfe4d88753e347a3e1d3893cb1c9c, type: 3}
+  mainMenuMusic: {fileID: 8300000, guid: 71b7c0b184b1b934b89829a51ff9721f, type: 3}
   pressureAmbienceMusic: {fileID: 8300000, guid: 71b7c0b184b1b934b89829a51ff9721f, type: 3}
   buttonSound: {fileID: 8300000, guid: 22c8b9c1b9fe14543b02f9ef0ac19011, type: 3}
   doorOpening: {fileID: 8300000, guid: cf8240c310d97f442978f09a6f9e96ff, type: 3}

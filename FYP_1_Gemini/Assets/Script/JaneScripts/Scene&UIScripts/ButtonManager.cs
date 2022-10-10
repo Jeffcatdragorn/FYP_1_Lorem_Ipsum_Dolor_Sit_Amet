@@ -89,12 +89,38 @@ public class ButtonManager : MonoBehaviour
         //Debug.Log("Loading to Main Menu...");
         Inventory.tabletObtained = false;
         Inventory.flashlightObtained = false;
+        Inventory.gunObtained = false;
+
+        Inventory.labKeyObtained = false;
+        Inventory.lQKeyObtained = false;
+        Inventory.generatorKeyObtained = false;
+
+        Inventory.prisonFuzeObtained = false;
+        Inventory.labFuzeObtained = false;
+        Inventory.lQFuzeObtained = false;
+        Inventory.generatorFuzeObtained = false;
+
         FirstParasite.Check = false;
         TVTriggerBehaviour.tvCheck = false;
         HandJumpScare.handSlapCheck = false;
+
         Time.timeScale = 1f;
         //PauseMenu.GameIsPaused = false;
         Loader.Load(Loader.Scene.MainMenu);
+    }
+
+    public void CatScene()
+    {
+        PlayButtonSound();
+        Time.timeScale = 1f;
+        Loader.Load(Loader.Scene.Cats_Scene);
+    }
+
+    public void JaneScene()
+    {
+        PlayButtonSound();
+        Time.timeScale = 1f;
+        Loader.Load(Loader.Scene.JaneScene);
     }
 
     public void EnableMouseCursor()

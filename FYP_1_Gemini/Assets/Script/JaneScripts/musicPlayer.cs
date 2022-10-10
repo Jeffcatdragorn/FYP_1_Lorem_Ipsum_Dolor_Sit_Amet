@@ -16,29 +16,29 @@ public class musicPlayer : MonoBehaviour
             //Debug.Log("Playing music");
         }
 
-        if(scene.name == "LevelSelectionScene" || scene.name == "Gallery" || scene.name == "SettingScene" || scene.name == "HandBookScene")
-        {
-            AudioManager.instance.PlayMusic("basementMusic");
-        }
+        //if(scene.name == "LevelSelectionScene" || scene.name == "Gallery" || scene.name == "SettingScene" || scene.name == "HandBookScene")
+        //{
+        //    AudioManager.instance.PlayMusic("basementMusic");
+        //}
         
-        if(scene.name == "HawkMP5" || scene.name == "HawkPistol" || scene.name == "HawkShotgun")
-        {
-            AudioManager.instance.PlayMusic("hawkMusic");
-        }
+        //if(scene.name == "HawkMP5" || scene.name == "HawkPistol" || scene.name == "HawkShotgun")
+        //{
+        //    AudioManager.instance.PlayMusic("hawkMusic");
+        //}
 
-        if (scene.name == "MorpheusMP5" || scene.name == "MorpheusPistol" || scene.name == "MorpheusShotgun")
-        {
-            AudioManager.instance.PlayMusic("morpheusMusic");
-        }
+        //if (scene.name == "MorpheusMP5" || scene.name == "MorpheusPistol" || scene.name == "MorpheusShotgun")
+        //{
+        //    AudioManager.instance.PlayMusic("morpheusMusic");
+        //}
 
-        if (scene.name == "Scyth3MP5" || scene.name == "Scyth3Pistol" || scene.name == "Scyth3Shotgun")
-        {
-            AudioManager.instance.PlayMusic("scyth3Music");
-        }
+        //if (scene.name == "Scyth3MP5" || scene.name == "Scyth3Pistol" || scene.name == "Scyth3Shotgun")
+        //{
+        //    AudioManager.instance.PlayMusic("scyth3Music");
+        //}
 
-        if (scene.name == "XeAMP5" || scene.name == "XeAPistol" || scene.name == "XeAShotgun")
-        {
-            AudioManager.instance.PlayMusic("xeaMusic");
-        }
+        //if (scene.name == "XeAMP5" || scene.name == "XeAPistol" || scene.name == "XeAShotgun")
+        //{
+        //    AudioManager.instance.PlayMusic("xeaMusic");
+        //}
     }
 }
