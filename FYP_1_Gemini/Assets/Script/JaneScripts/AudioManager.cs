@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound,
                      normalMetalFootstep1, normalMetalFootstep2, normalMetalFootstep3, normalMetalFootstep4, ventCoverFalling, ventCrawling, tvAudio, handSlap,
                      screeching, headCrabScreech, bringUpTablet, gunCharging, playerDeath, downloading, exposedFuse, flashlightOff, flashlightOn, labJumpscare,
-                        lowBatteryError, ObjComplete, tabletIn, tabletOut, swarmAttack; //sfx
+                        lowBatteryError, ObjComplete, tabletIn, tabletOut, swarmAttack, labJumpScareSwarm; //sfx
 
     private GameObject currentMusicObject;
 
@@ -205,6 +205,9 @@ public class AudioManager : MonoBehaviour
                     break;
                 case "swarmAttack":
                     SoundObjectCreate(swarmAttack, spawnPosition, is3D);
+                    break;
+                case "labJumpScareSwarm":
+                    SoundObjectCreate(labJumpScareSwarm, spawnPosition, is3D);
                     break;
                 default:
                     break;

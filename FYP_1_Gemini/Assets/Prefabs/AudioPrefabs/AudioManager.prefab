@@ -72,13 +72,13 @@ MonoBehaviour:
   exposedFuse: {fileID: 8300000, guid: 4bada9c405d7f7744bcb04746d555546, type: 3}
   flashlightOff: {fileID: 8300000, guid: e37e445a2668e3348840ea4f18e0debb, type: 3}
   flashlightOn: {fileID: 8300000, guid: 879461ea4d8a9de4ebad4ddb49fc403d, type: 3}
-  labJumpscare: {fileID: 8300000, guid: c9a3fd5071970494f96ff23c19fcfe41, type: 3}
+  labJumpscare: {fileID: 8300000, guid: 9eaabfbef26aa03419af53ab4a0c4bf0, type: 3}
   lowBatteryError: {fileID: 8300000, guid: 1a1c3c5210803bc45bf51da364326220, type: 3}
   ObjComplete: {fileID: 8300000, guid: 1b0f7293d2914f740ac391c3e9bcb357, type: 3}
   tabletIn: {fileID: 8300000, guid: cebb81f99d001e640b35b700e075b2a1, type: 3}
   tabletOut: {fileID: 8300000, guid: b6bde794b21e4e9479baf141ef564629, type: 3}
   swarmAttack: {fileID: 8300000, guid: 374401ebf12657140babe1a1ad528f2f, type: 3}
-  swarmJumpscare: {fileID: 8300000, guid: 27de0c8af81d4454e8532286324f6575, type: 3}
+  labJumpScareSwarm: {fileID: 8300000, guid: 09bbfa457bf57ab4ebd3a04207541a01, type: 3}
   soundObject: {fileID: 7314115016610703002, guid: e75bbbc6eb4294e44b17b9628720ff85, type: 3}
   SFXButton: {fileID: 7527728289082795968, guid: 5beb20db36f21154096b07d9b40db9c7, type: 3}
   musicObject: {fileID: 6222479523295503680, guid: 02401aecb908fdb4dadeae45ddf2db6e, type: 3}

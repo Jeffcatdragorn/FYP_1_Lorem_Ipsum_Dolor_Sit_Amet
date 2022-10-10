@@ -486,14 +486,18 @@ public class PlayerController : MonoBehaviour
                 AudioManager.instance.PlaySound("revolverShoot", cameraFollow.position, true);
                 currentBulletCount -= 1;
 
-                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer, QueryTriggerInteraction.Ignore))
+                if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer ))//QueryTriggerInteraction.Ignore))
                 {
-
-                    Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
-                    if (enemy != null)
+                    if (hit.transform.tag == "swarm")
                     {
-                        enemy.TakeDamage(1);
+                        Destroy(hit.transform.gameObject.GetComponent<SwarmWeakSpots>().weakpoint);
+                        //Destroy(hit.transform.gameObject);
                     }
+                    //Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
+                    //if (enemy != null)
+                    //{
+                    //    enemy.TakeDamage(1);
+                    //}
                 }
 
                 if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer))
@@ -504,6 +508,7 @@ public class PlayerController : MonoBehaviour
 
                     if (hit2.transform.tag == "weakPoint")
                     {
+
                         hit2.transform.parent.GetComponent<ParisiteWall>().destroyedHeart();
                     }
                 }
@@ -519,17 +524,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerGunReload()
-    {
-        SetGunReloadCooldownCounter();
+    //private void PlayerGunReload()
+    //{
+    //    SetGunReloadCooldownCounter();
 
-        if (input.GunReloadIsPressed && currentBulletCount < 6 && GunReloadCooldownCounter == 0.0f)
-        {
-            AudioManager.instance.PlaySound("revolverReload", cameraFollow.position, true);
-            currentBulletCount++;
-            GunReloadCooldownCounter = GunReloadCooldown;
-        }
-    }
+    //    if (input.GunReloadIsPressed && currentBulletCount < 6 && GunReloadCooldownCounter == 0.0f)
+    //    {
+    //        AudioManager.instance.PlaySound("revolverReload", cameraFollow.position, true);
+    //        currentBulletCount++;
+    //        GunReloadCooldownCounter = GunReloadCooldown;
+    //    }
+    //}
 
     //private Vector3 PlayerDash()
     //{
@@ -982,7 +987,6 @@ public class PlayerController : MonoBehaviour
         {
             if(Time.time % 1 == 0)
             {
-                Debug.Log("Yea");
                 shootChargingCounter += 1.0f;
             }
         }
@@ -999,7 +1003,6 @@ public class PlayerController : MonoBehaviour
         {
             if (Time.time % 1 == 0)
             {
-                Debug.Log("Yea1");
                 shootChargingCounter -= 1.0f;
             }
         }

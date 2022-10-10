@@ -23,6 +23,7 @@ TagManager:
   - CinemachineTarget
   - objLight
   - QTE
+  - swarm
   layers:
   - Default
   - TransparentFX

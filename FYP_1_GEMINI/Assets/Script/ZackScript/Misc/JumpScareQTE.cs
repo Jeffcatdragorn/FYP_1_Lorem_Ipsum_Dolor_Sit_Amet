@@ -9,7 +9,10 @@ public class JumpScareQTE : MonoBehaviour
     [SerializeField] private Animator deadBodyAnimator;
     [SerializeField] private Animator mainCamAnimator;
     [SerializeField] private GameObject player;
+    private AnimatorStateInfo animBodyStateInfo;
+    private float bodyNTime;
     private bool canTrigger = false;
+    private bool trigger = false;
 
     private void Update()
     {
@@ -17,12 +20,12 @@ public class JumpScareQTE : MonoBehaviour
         {
             if(input.ShootIsPressed == true)
             {
+                AudioManager.instance.PlaySound("revolverShoot", player.transform.position, false);
                 deadBodyAnimator.SetTrigger("die");
                 gameObject.transform.parent.gameObject.SetActive(false);
                 mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
                 mainCamAnimator.enabled = false;
-                player.GetComponent<PlayerController>().enabled = true;
-                player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
             }
         }
     }
