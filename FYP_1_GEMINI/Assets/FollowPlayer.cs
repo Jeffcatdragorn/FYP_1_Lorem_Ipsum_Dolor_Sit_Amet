@@ -37,4 +37,8 @@ public class FollowPlayer : MonoBehaviour
         }
     }
 
+    public void DestroyBall()
+    {
+        Destroy(gameObject);
+    }
 }
