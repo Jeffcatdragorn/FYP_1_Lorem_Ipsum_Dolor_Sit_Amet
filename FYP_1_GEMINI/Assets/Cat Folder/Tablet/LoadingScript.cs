@@ -14,6 +14,7 @@ public class LoadingScript : MonoBehaviour
     private float loadingBarSlider;
     private int randSpeed;
     private bool done, audioOn, load, trigger;
+    public PlayerController playerController;
 
     public GameObject loadingScreen;
     public GameObject tablet;
@@ -52,6 +53,7 @@ public class LoadingScript : MonoBehaviour
                 AudioManager.instance.PlaySound("downloading", transform.position, false);
                 audioOn = true;
             }
+
             if (!done)
             {
                 //randSpeed = Random.Range(0, 23);
@@ -59,10 +61,14 @@ public class LoadingScript : MonoBehaviour
                 //{
                 //case 1:
                 //loadingBarSlider ++ ; // for switch case
+                playerController.enabled = false;
                 loadingBarSlider += 11.5f * Time.deltaTime;
                 loadingBar.value = loadingBarSlider;
                 progressNum.text = loadingBar.value.ToString() + "%";
-                if (loadingBarSlider > 100) done = true;
+                if (loadingBarSlider > 100)
+                {
+                    done = true;
+                }
                 //if (loadingBarSlider == 100) done = true; // for switch case
                 //break;
                 //}
@@ -72,6 +78,7 @@ public class LoadingScript : MonoBehaviour
                 status.text = "Download Complete!";
                 loadingScreen.SetActive(false);
                 tablet.SetActive(false);
+                playerController.enabled = true;
                 this.gameObject.GetComponent<LoadingScript>().enabled = false;
             }
         }

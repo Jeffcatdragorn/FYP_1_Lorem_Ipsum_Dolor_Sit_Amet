@@ -12,7 +12,7 @@ public class musicPlayer : MonoBehaviour
 
         if (scene.name == "MainMenu") //remember to add new scenes in the future
         {
-            AudioManager.instance.PlayMusic("mainMenuMusic");
+            AudioManager.instance.PlayMusic("mainMenuMusic", transform.position, false);
             //Debug.Log("Playing music");
         }
 

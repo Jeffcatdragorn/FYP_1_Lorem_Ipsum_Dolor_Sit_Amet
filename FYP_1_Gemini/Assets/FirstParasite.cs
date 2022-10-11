@@ -6,10 +6,12 @@ public class FirstParasite : MonoBehaviour
 {
     public Transform firstParasite;
     public Transform FirstContactDissapear;
+    public Transform ventPos;
     Vector3 firstParasitePos;
     Vector3 disspaearPos;
     public float speed;
     public static bool Check = false;
+    public  bool Check2 = false;
     void Start()
     {
         firstParasitePos = new Vector3(firstParasite.position.x, firstParasite.position.y, firstParasite.position.z);
@@ -38,10 +40,11 @@ public class FirstParasite : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "capsule")
+        if(other.tag == "capsule" && Check2 == false)
         {
-            AudioManager.instance.PlaySound("ventCoverFalling", gameObject.transform.position, true);
-            AudioManager.instance.PlaySound("ventCrawling", gameObject.transform.position, true);
+            AudioManager.instance.PlaySound("ventCoverFalling", ventPos.position, true);
+            AudioManager.instance.PlaySound("ventCrawling", ventPos.position, true);
+            Check2 = true;
         }
     }
 }

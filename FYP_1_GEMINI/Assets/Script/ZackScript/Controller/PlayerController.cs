@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask shootLayer;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject chargingSound;
     //[SerializeField] float shootCooldown = 0.1f;
     //[SerializeField] float shootCooldownCounter = 0.0f;
     [SerializeField] float shootChargingCounter = 0.0f;
@@ -175,7 +176,6 @@ public class PlayerController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalMoveSpeed = movementMultiplier;
-        AudioManager.instance.PlayMusic("pressureAmbienceMusic");
     }
 
     private void FixedUpdate()
@@ -370,7 +370,7 @@ public class PlayerController : MonoBehaviour
     {
         float calculatedJumpInput = playerMoveInput.y;
 
-        if (forceCrouch == false && input.CrouchIsPressed == false)
+        if (crouchCheck == false || playerIsGrounded == true)
         {
             
             SetJumpTimeCounter();
@@ -480,7 +480,7 @@ public class PlayerController : MonoBehaviour
                 SetShootChargeIncrease();
             }
 
-            if (shootChargingCounter >= 2.0f && finishedDecharge == true)
+            if (shootChargingCounter >= 1.0f && finishedDecharge == true)
             {
                 muzzleFlash.Play();
                 AudioManager.instance.PlaySound("revolverShoot", cameraFollow.position, true);
@@ -983,17 +983,18 @@ public class PlayerController : MonoBehaviour
 
     private void SetShootChargeIncrease()
     {
-        if(shootChargingCounter < 2.0f)
+        if(shootChargingCounter < 1.0f)
         {
-            if(Time.time % 1 == 0)
+            if(Time.time % 1.0f == 0)
             {
                 shootChargingCounter += 1.0f;
             }
+            chargingSound.SetActive(true);
         }
 
-        if(shootChargingCounter >= 2.0f)
+        if(shootChargingCounter >= 1.0f)
         {
-            shootChargingCounter = 2.0f;
+            shootChargingCounter = 1.0f;
         }
     }
 
@@ -1005,6 +1006,8 @@ public class PlayerController : MonoBehaviour
             {
                 shootChargingCounter -= 1.0f;
             }
+            chargingSound.SetActive(false);
+
         }
 
         if (shootChargingCounter <= 0.0f)

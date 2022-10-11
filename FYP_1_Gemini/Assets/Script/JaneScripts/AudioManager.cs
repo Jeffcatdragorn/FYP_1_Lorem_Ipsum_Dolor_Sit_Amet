@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        AudioManager.instance.PlayMusic("pressureAmbienceMusic", transform.position, false);
+        AudioManager.instance.PlayMusic("alarmMuffled", transform.position, true);
     }
 
     //public AudioClip ;
@@ -18,7 +20,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound,
                      normalMetalFootstep1, normalMetalFootstep2, normalMetalFootstep3, normalMetalFootstep4, ventCoverFalling, ventCrawling, tvAudio, handSlap,
                      screeching, headCrabScreech, bringUpTablet, gunCharging, playerDeath, downloading, exposedFuse, flashlightOff, flashlightOn, labJumpscare,
-                        lowBatteryError, ObjComplete, tabletIn, tabletOut, swarmAttack, labJumpScareSwarm; //sfx
+                        lowBatteryError, ObjComplete, tabletIn, tabletOut, swarmAttack, labJumpScareSwarm, alarmMuffled; //sfx
 
     private GameObject currentMusicObject;
 
@@ -85,17 +87,20 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(string musicName)
+    public void PlayMusic(string musicName, Vector3 position, bool is3d)
     {
         if(MUSICCheck == true)
         {
             switch (musicName)
             {
                 case "mainMenuMusic":
-                    MusicObjectCreate(mainMenuMusic);
+                    MusicObjectCreate(mainMenuMusic, position, is3d);
                     break;
                 case "pressureAmbienceMusic":
-                    MusicObjectCreate(pressureAmbienceMusic);
+                    MusicObjectCreate(pressureAmbienceMusic, position, is3d);
+                    break;
+                case "alarmMuffled":
+                    MusicObjectCreate(alarmMuffled, position, is3d);
                     break;
                 default:
                     break;
@@ -103,14 +108,24 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void MusicObjectCreate(AudioClip clip)
+    void MusicObjectCreate(AudioClip clip, Vector3 spawnPosition, bool is3D)
     {
         //if (currentMusicObject != null)
         //{
         //    Destroy(currentMusicObject);
         //}
 
-        currentMusicObject = Instantiate(musicObject);
+        currentMusicObject = Instantiate(musicObject, spawnPosition, Quaternion.identity);
+
+        if (is3D == true)
+        {
+            currentMusicObject.GetComponent<AudioSource>().spatialBlend = 1;
+        }
+
+        else
+        {
+            currentMusicObject.GetComponent<AudioSource>().spatialBlend = 0;
+        }
 
         currentMusicObject.GetComponent<AudioSource>().clip = clip;
 
