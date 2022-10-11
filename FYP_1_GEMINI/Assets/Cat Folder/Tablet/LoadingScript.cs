@@ -19,6 +19,7 @@ public class LoadingScript : MonoBehaviour
     public GameObject loadingScreen;
     public GameObject tablet;
     public GameObject inspectCam;
+    public GameObject tabletObj;
 
     private void Start()
     {
@@ -45,6 +46,7 @@ public class LoadingScript : MonoBehaviour
             {
                 tablet.SetActive(true);
                 loadingScreen.SetActive(true);
+                tabletObj.SetActive(true);
                 load = true;
             }
 
@@ -77,6 +79,7 @@ public class LoadingScript : MonoBehaviour
             {
                 status.text = "Download Complete!";
                 loadingScreen.SetActive(false);
+                tabletObj.SetActive(false);
                 tablet.SetActive(false);
                 playerController.enabled = true;
                 this.gameObject.GetComponent<LoadingScript>().enabled = false;

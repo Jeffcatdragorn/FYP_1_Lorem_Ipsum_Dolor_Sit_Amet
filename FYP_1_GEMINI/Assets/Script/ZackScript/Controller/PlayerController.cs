@@ -370,7 +370,7 @@ public class PlayerController : MonoBehaviour
     {
         float calculatedJumpInput = playerMoveInput.y;
 
-        if (crouchCheck == false || playerIsGrounded == true)
+        if (crouchCheck == false && playerIsGrounded == true)
         {
             
             SetJumpTimeCounter();
@@ -478,6 +478,8 @@ public class PlayerController : MonoBehaviour
             if(finishedDecharge == true)
             {
                 SetShootChargeIncrease();
+                chargingSound.SetActive(true);
+
             }
 
             if (shootChargingCounter >= 1.0f && finishedDecharge == true)
@@ -518,9 +520,16 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(finishedDecharge == false)
+        else
+        {
+            chargingSound.SetActive(false);
+
+        }
+
+        if (finishedDecharge == false)
         {
             SetShootChargeDecrease();
+            chargingSound.SetActive(false);
         }
     }
 
@@ -989,8 +998,7 @@ public class PlayerController : MonoBehaviour
             {
                 shootChargingCounter += 1.0f;
             }
-            chargingSound.SetActive(true);
-        }
+            chargingSound.SetActive(true);        }
 
         if(shootChargingCounter >= 1.0f)
         {
@@ -1006,7 +1014,6 @@ public class PlayerController : MonoBehaviour
             {
                 shootChargingCounter -= 1.0f;
             }
-            chargingSound.SetActive(false);
 
         }
 
