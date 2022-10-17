@@ -7,6 +7,7 @@ public class SwarmPatrol : SwarmBaseStates
     float timetoSwitch;
     float wallAvoided;
     Vector3 wanderLocation;
+    Rigidbody swarmRB;
     public static Vector3 movementVelo;
     public static Vector3 wallsPos;
 
@@ -14,6 +15,7 @@ public class SwarmPatrol : SwarmBaseStates
 
     public override void EnterState(SwarmStates states)
     {
+
     }
 
     public override void UpdateState(SwarmStates states)
@@ -56,7 +58,8 @@ public class SwarmPatrol : SwarmBaseStates
     #region Patrolling Function
     public Vector3 RandomizeLocation(SwarmStates states)
     {
-         movementVelo = Vector3.zero;
+       
+        movementVelo = Vector3.zero;
 
          Vector3 randomVec = Random.insideUnitSphere.normalized;
          float PatrolRadius = 1.0f;
@@ -76,7 +79,7 @@ public class SwarmPatrol : SwarmBaseStates
         }
         else
         {
-            movementVelo = (wanderLocation - currentSwarmPos).normalized * Random.Range(1.0f, 3.0f);//speed
+            movementVelo = (wanderLocation - currentSwarmPos).normalized;//speed
         }
         return movementVelo;
     }
@@ -92,7 +95,7 @@ public class SwarmPatrol : SwarmBaseStates
         }
 
         timetoSwitch += (Time.deltaTime);
-        states.transform.Translate(finalMovement * Time.deltaTime, Space.World);
+        states.rb.AddForce(movementVelo, ForceMode.Impulse);
         Quaternion lookRotation = Quaternion.LookRotation(states.swarmPos - wanderLocation); // GET ROTATION ANGLE
         states.transform.rotation = Quaternion.RotateTowards(states.transform.rotation, lookRotation, timetoSwitch); // ROTATE FACE NEW DIRECTION  
     }

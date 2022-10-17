@@ -11,6 +11,7 @@ public class SwarmStates : MonoBehaviour
     public SwarmChase ChaseState = new SwarmChase();
     public SwarmAvoidObstacles AvoidState = new SwarmAvoidObstacles();
 
+    public Rigidbody rb;
     public  bool weaknessDestroyed;
     public float timeswitchState = 3.0f;
     public float switchPatrolLocation = 10.0f;

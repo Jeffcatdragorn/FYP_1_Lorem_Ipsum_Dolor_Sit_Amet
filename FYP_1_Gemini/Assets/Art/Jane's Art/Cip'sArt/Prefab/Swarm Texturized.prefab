@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a91b9b909d6fd1418f8c62f0e28989f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 872564230849864904}
   weaknessDestroyed: 0
   timeswitchState: 3
   switchPatrolLocation: 10
@@ -146,11 +147,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 872564230849864916}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 50
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1

@@ -1387,7 +1387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &452070767
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9248,6 +9248,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   bulletPrefab: {fileID: 0}
+  chargingSound: {fileID: 0}
   shootChargingCounter: 0
   finishedDecharge: 1
   bulletsPerShot: 6
@@ -9852,6 +9853,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 872564230849864904, guid: 6c6900c967ba73543bee8bba5082094d, type: 3}
+      propertyPath: m_Mass
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 872564230849864916, guid: 6c6900c967ba73543bee8bba5082094d, type: 3}
       propertyPath: m_Name
       value: Swarm Texturized (1)
