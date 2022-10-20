@@ -25,7 +25,7 @@ public class JumpScareQTE : MonoBehaviour
                 gameObject.transform.parent.gameObject.SetActive(false);
                 mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
                 mainCamAnimator.enabled = false;
-
+                this.gameObject.GetComponent<JumpScareQTE>().enabled = false;
             }
         }
     }

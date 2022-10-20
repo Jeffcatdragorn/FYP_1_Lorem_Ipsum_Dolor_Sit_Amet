@@ -729,6 +729,10 @@ PrefabInstance:
       value: Night_Witch
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b801c0245aa851848bb783c6a3370452, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b801c0245aa851848bb783c6a3370452, type: 3}
       propertyPath: m_TagString
       value: Phaser
       objectReference: {fileID: 0}
@@ -2249,7 +2253,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 222416545}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: CameraFollow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2285,7 +2289,7 @@ GameObject:
   - component: {fileID: 226531337}
   - component: {fileID: 226531336}
   - component: {fileID: 226531341}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2346,11 +2350,12 @@ MonoBehaviour:
   shootRange: 100
   shootLayer:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 917236
   enemyLayer:
     serializedVersion: 2
     m_Bits: 4096
   bulletPrefab: {fileID: 8887101740111250753, guid: 72f8b39773f6e794caf0b824ded267cb, type: 3}
+  chargingSound: {fileID: 0}
   shootChargingCounter: 0
   finishedDecharge: 1
   bulletsPerShot: 6
@@ -2626,7 +2631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294865206}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: NormalCameraPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3129,7 +3134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 361253558}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: CrouchCameraPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7216,6 +7221,7 @@ MonoBehaviour:
   status: {fileID: 44583291}
   progressNum: {fileID: 830021253}
   input: {fileID: 0}
+  playerController: {fileID: 0}
   loadingScreen: {fileID: 0}
   tablet: {fileID: 0}
   inspectCam: {fileID: 0}
@@ -9213,7 +9219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &851299236
 Transform:
   m_ObjectHideFlags: 0
@@ -10237,7 +10243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 978989223}
   - component: {fileID: 978989224}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: PlayerFrontTrigger
   m_TagString: playerFront
   m_Icon: {fileID: 0}
@@ -11742,8 +11748,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127707842}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -43.204315, y: 1.246418, z: 125.92674}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 9.81568, y: 17.54, z: -10.233261}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17135,7 +17141,7 @@ BoxCollider:
   m_GameObject: {fileID: 1771195768}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2.041395, y: 0.10763025, z: 2.2749343}
   m_Center: {x: -0.06473407, y: 1.9265311, z: 1.1096907}
@@ -18905,7 +18911,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1952238258}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -96,6 +96,7 @@ public class GunJumpScare : MonoBehaviour
         {
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             player.GetComponent<PlayerController>().enabled = true;
+            this.gameObject.GetComponent<GunJumpScare>().enabled = false;
             trigger4 = true;
         }
     }
