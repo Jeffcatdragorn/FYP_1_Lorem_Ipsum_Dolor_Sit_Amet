@@ -7,6 +7,7 @@ public class SwarmChase : SwarmBaseStates
     float DistancetoPlayer = 0.0f;
     float timeInState = 0.0f;
     Vector3 PlayerPos;
+    //float chasingSpeed;
     public override void EnterState(SwarmStates states)
     {
         Debug.Log("Swarm Chase");
@@ -17,7 +18,8 @@ public class SwarmChase : SwarmBaseStates
     {
         if (timeInState < 10.0f)
         {
-            states.transform.Translate(ChaseFormula(states) * Time.deltaTime, Space.World);
+            //states.transform.Translate(ChaseFormula(states) * Time.deltaTime, Space.World);
+            states.rb.AddForce(ChaseFormula(states) ,ForceMode.Impulse);
             timeInState +=Time.deltaTime;
             if (DistancetoPlayer <= 2.0f)
             {
@@ -55,7 +57,7 @@ public class SwarmChase : SwarmBaseStates
         SwarmToPlayer = (PlayerPos - currPos).normalized;
         DistancetoPlayer = Vector3.Distance(PlayerPos, currPos) - 1;
 
-        Vector3 chaseVelo = SwarmToPlayer * 10.0f;
+        Vector3 chaseVelo = SwarmToPlayer;
 
         chaseVelo.y = 0.0f;
 

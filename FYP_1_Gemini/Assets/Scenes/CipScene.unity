@@ -9853,10 +9853,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 872564230849864904, guid: 6c6900c967ba73543bee8bba5082094d, type: 3}
-      propertyPath: m_Mass
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 872564230849864916, guid: 6c6900c967ba73543bee8bba5082094d, type: 3}
       propertyPath: m_Name
       value: Swarm Texturized (1)
