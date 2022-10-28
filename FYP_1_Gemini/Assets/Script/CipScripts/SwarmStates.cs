@@ -19,6 +19,7 @@ public class SwarmStates : MonoBehaviour
     int swarmCurrHealth;
 
     public Vector3 swarmPos;
+    public Vector3 initSwarmPos;
     public Vector3 playerPos;
 
     void Start() 
@@ -27,6 +28,7 @@ public class SwarmStates : MonoBehaviour
         
         currentSwarmState.EnterState(this);
 
+        initSwarmPos = this.gameObject.transform.position;
         swarmMaxHealth = 4;
     }
 
@@ -37,6 +39,18 @@ public class SwarmStates : MonoBehaviour
             swarmPos = this.gameObject.transform.position;
             playerPos = GameObject.Find("Player").transform.position;
             currentSwarmState.UpdateState(this);
+        }
+        else
+            Destroy(this.gameObject);
+    }
+
+    void FixedUpdate()
+    {
+        if (weaknessDestroyed == false)
+        {
+            swarmPos = this.gameObject.transform.position;
+            //playerPos = GameObject.Find("Player").transform.position;
+            currentSwarmState.UpdatePhysicsState(this);
         }
         else
             Destroy(this.gameObject);

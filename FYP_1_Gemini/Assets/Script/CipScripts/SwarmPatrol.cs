@@ -8,17 +8,22 @@ public class SwarmPatrol : SwarmBaseStates
     float wallAvoided;
     Vector3 wanderLocation;
     Rigidbody swarmRB;
-    public static Vector3 movementVelo;
-    public static Vector3 wallsPos;
+    public Vector3 movementVelo;
+    public Vector3 wallsPos;
 
     Vector3 finalMovement = Vector3.zero;
 
     public override void EnterState(SwarmStates states)
     {
-
+        Debug.Log("Enter Patrol");
     }
 
     public override void UpdateState(SwarmStates states)
+    { 
+        
+    }
+
+    public override void UpdatePhysicsState(SwarmStates states)
     {
         PatrollingState(states);
     }
@@ -29,7 +34,7 @@ public class SwarmPatrol : SwarmBaseStates
 
     public override void OnTriggerEnter(SwarmStates states, Collider collider)
     {
-        GameObject other = collider.gameObject;
+       /* GameObject other = collider.gameObject;
         if (other.CompareTag("Player"))
         {
             states.SwitchStates(states.ChaseState);
@@ -39,7 +44,7 @@ public class SwarmPatrol : SwarmBaseStates
             wallsPos = other.transform.localPosition;
             wallsPos.y = 0.0f;
             states.SwitchStates(states.AvoidState);
-        }
+        }*/
     }
 
     public override void OnTriggerStay(SwarmStates states, Collider collider)
@@ -49,7 +54,13 @@ public class SwarmPatrol : SwarmBaseStates
         {
             states.SwitchStates(states.ChaseState);
         }
-
+        else if (other.CompareTag("Walls"))
+        {
+            //wallsPos = other.transform.TransformPoint(other.transform.position);
+            wallsPos = other.transform.localPosition;
+            wallsPos.y = 0.0f;
+            //states.SwitchStates(states.AvoidState);
+        }
     }
     public override void OnTriggerExit(SwarmStates states, Collider collider)
     {
@@ -61,26 +72,27 @@ public class SwarmPatrol : SwarmBaseStates
        
         movementVelo = Vector3.zero;
 
-         Vector3 randomVec = Random.insideUnitSphere.normalized;
-         float PatrolRadius = 1.0f;
+        float PatrolRadius = 5.0f;
+        Vector3 centerofSphere = states.initSwarmPos;
+        Vector3 randomVec = centerofSphere + Random.insideUnitSphere * PatrolRadius;
 
-         Vector3 currentSwarmPos = states.swarmPos;
-        randomVec.y = 0.0f;
-
-         randomVec *= PatrolRadius;
-
-         wanderLocation = states.swarmPos + (states.transform.forward) + randomVec;
-
+        //Debug.DrawLine(randomVec - Vector3.forward * 0.01f,randomVec + Vector3.forward * 0.01f , Color.green, 50.0f);
+        //Debug.DrawLine(randomVec - Vector3.right * 0.01f,randomVec + Vector3.right * 0.01f , Color.green, 50.0f);
+        Vector3 currentSwarmPos = states.swarmPos;
+        randomVec.y = 0.2f;
+        //randomVec *=PatrolRadius;
+        wanderLocation = currentSwarmPos + states.transform.forward + randomVec;
         //check
-        if(Vector3.Distance(states.transform.position, wanderLocation) <= 0.5)
+        if(Vector3.Distance(currentSwarmPos, wanderLocation) <= 0.5)
         {
             states.SwitchStates(states.IdleState);//speed
             movementVelo = Vector3.zero;
         }
         else
         {
-            movementVelo = (wanderLocation - currentSwarmPos).normalized;//speed
+            movementVelo = (wanderLocation - currentSwarmPos);
         }
+        movementVelo = randomVec;
         return movementVelo;
     }
 
@@ -90,14 +102,17 @@ public class SwarmPatrol : SwarmBaseStates
         {
             //states.SwitchStates(states.IdleState);
             finalMovement = RandomizeLocation(states);
-            //Debug.Log("Switched to next pos " + x);
+            Debug.Log("Switched to next pos ");
             timetoSwitch = 0.0f;
         }
-
         timetoSwitch += (Time.deltaTime);
-        states.rb.AddForce(movementVelo, ForceMode.Impulse);
-        Quaternion lookRotation = Quaternion.LookRotation(states.swarmPos - wanderLocation); // GET ROTATION ANGLE
-        states.transform.rotation = Quaternion.RotateTowards(states.transform.rotation, lookRotation, timetoSwitch); // ROTATE FACE NEW DIRECTION  
+        //--------------------------------------------------
+        //Debug.Log("Final Movement = " + finalMovement);
+        states.rb.AddForce((finalMovement - states.swarmPos).normalized * 50.0f, ForceMode.Impulse);
+        //states.rb.AddForce((movementVelo).normalized * 100.0f, ForceMode.Impulse);
+        //Quaternion lookRotation = Quaternion.LookRotation(states.swarmPos - movementVelo);// GET ROTATION ANGLE
+        //states.transform.rotation = Quaternion.RotateTowards(states.transform.rotation, lookRotation, timetoSwitch); // ROTATE FACE NEW DIRECTION 
+        //states.transform.rotation = Quaternion.Euler(states.swarmPos - movementVelo);       
     }
     #endregion
 }

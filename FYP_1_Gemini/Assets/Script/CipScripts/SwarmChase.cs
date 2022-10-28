@@ -14,6 +14,10 @@ public class SwarmChase : SwarmBaseStates
         PlayerPos = states.playerPos;
     }
 
+    public override void UpdatePhysicsState(SwarmStates states)
+    {
+    }
+
     public override void UpdateState(SwarmStates states)
     {
         if (timeInState < 10.0f)

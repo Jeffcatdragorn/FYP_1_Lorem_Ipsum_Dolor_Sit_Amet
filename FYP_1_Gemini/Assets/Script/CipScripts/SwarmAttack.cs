@@ -11,7 +11,9 @@ public class SwarmAttack : SwarmBaseStates
     {
         Debug.Log("Attacking");
     }
-
+    public override void UpdatePhysicsState(SwarmStates states)
+    {
+    }
     public override void UpdateState(SwarmStates states)
     {
         attackPlayer(states);

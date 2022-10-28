@@ -12,6 +12,10 @@ public class SwarmIdle : SwarmBaseStates
         states = states.GetComponent<SwarmStates>();
     }
 
+    public override void UpdatePhysicsState(SwarmStates states)
+    {
+    }
+
     public override void UpdateState(SwarmStates states)
     {
         if (IdleTimer > states.timeswitchState)

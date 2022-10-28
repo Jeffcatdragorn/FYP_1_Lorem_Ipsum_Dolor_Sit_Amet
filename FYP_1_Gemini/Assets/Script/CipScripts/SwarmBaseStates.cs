@@ -6,6 +6,8 @@ public abstract class SwarmBaseStates
 
     public abstract void UpdateState(SwarmStates states);
 
+    public abstract void UpdatePhysicsState(SwarmStates states);
+
     public abstract void OnCollisionEnter(SwarmStates states);
 
     public abstract void OnTriggerEnter(SwarmStates states, Collider collider);
