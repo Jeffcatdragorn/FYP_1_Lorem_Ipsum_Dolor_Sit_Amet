@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CameraController cameraController;
 
     new Rigidbody rigidbody = null;
-    CapsuleCollider capsuleCollider = null;
 
     Vector3 playerMoveInput = Vector3.zero;
 
@@ -57,6 +56,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float playerFallTimer = 0.0f;
     [SerializeField] float groundedGravity = -1.0f;
     [SerializeField] float maxSlopeAngle = 47.5f;
+    [SerializeField] CapsuleCollider capsuleCollider;
 
     [Header("Jumping")]
     [SerializeField] float initialJumpForce = 750.0f;
@@ -174,7 +174,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rigidbody = GetComponent<Rigidbody>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
         originalMoveSpeed = movementMultiplier;
         state = State.free;
     }
@@ -190,9 +189,6 @@ public class PlayerController : MonoBehaviour
             PitchCamera();
         }
 
-        playerIsGrounded = PlayerGroundCheck();
-        playerMoveInput.y = PlayerFallGravity();
-
         if(state == State.free)
         {
             playerMoveInput = GetMoveInput();
@@ -201,16 +197,18 @@ public class PlayerController : MonoBehaviour
             playerMoveInput = PlayerRun();
             playerMoveInput.y = PlayerJump();
             PlayerCrouch();
+            PlayerFootSteps();
+            PlayerHand();
         }
-
-        PlayerFootSteps();
-        PlayerHand();
 
         if (gunModel.activeInHierarchy)
         {
             PlayerShoot();
         }
 
+        playerMoveInput.y = PlayerFallGravity();
+        playerIsGrounded = PlayerGroundCheck();
+        StayStill();
         playerMoveInput *= rigidbody.mass;
 
         rigidbody.AddRelativeForce(playerMoveInput, ForceMode.Force);
@@ -218,8 +216,8 @@ public class PlayerController : MonoBehaviour
 
     //private void Update()
     //{
-    //    Debug.Log("force: " + forceCrouch);
-    //    Debug.Log("Coruch" + input.CrouchIsPressed);
+
+        
     //}
 
     //private void LateUpdate()
@@ -660,6 +658,19 @@ public class PlayerController : MonoBehaviour
         {
             //cameraFollow.transform.position = normalCameraTransform.position;
             cameraFollow.transform.position = Vector3.Lerp(cameraFollow.transform.position, normalCameraTransform.transform.position, crouchSpeed);
+        }
+    }
+
+    private void StayStill()
+    {
+        if(playerIsGrounded == true && input.MoveIsPressed == false)
+        {
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        }
+
+        else
+        {
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
 

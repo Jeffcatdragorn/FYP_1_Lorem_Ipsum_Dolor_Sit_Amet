@@ -7,13 +7,14 @@ public class GunJumpScare : MonoBehaviour
 {
     [SerializeField] private GameObject inspectCam;
     [SerializeField] private GameObject deadBody;
-    [SerializeField] private GameObject deadBodyStand;
+    //[SerializeField] private GameObject deadBodyStand;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject swarm;
     [SerializeField] private Animator mainCamAnimator;
-    [SerializeField] private Animator deadBodyAnimator;
+    //[SerializeField] private Animator deadBodyAnimator;
     [SerializeField] private HumanoidLandInput input;
-    [SerializeField] private GameObject QTE;
-    [SerializeField] private GameObject deadPanel;
+    //[SerializeField] private GameObject QTE;
+    //[SerializeField] private GameObject deadPanel;
     private bool inspectOff = false;
     private bool trigger = false;
     private bool trigger2 = false;
@@ -21,10 +22,10 @@ public class GunJumpScare : MonoBehaviour
     private bool trigger4 = false;
     private AnimatorStateInfo animCamStateInfo;
     private float camNTime;
-    private AnimatorStateInfo animBodyStateInfo;
-    private float bodyNTime;
-    private AnimatorStateInfo animBodyDeadStateInfo;
-    private float bodyDeadNTime;
+    //private AnimatorStateInfo animBodyStateInfo;
+    //private float bodyNTime;
+    //private AnimatorStateInfo animBodyDeadStateInfo;
+    //private float bodyDeadNTime;
 
 
     void Update()
@@ -36,6 +37,8 @@ public class GunJumpScare : MonoBehaviour
             player.GetComponent<PlayerController>().enabled = false;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 
+
+
             if (input.FlashlightIsPressed == true)
             {
                 inspectOff = true;
@@ -45,7 +48,8 @@ public class GunJumpScare : MonoBehaviour
         if (inspectOff == true)
         {
             deadBody.SetActive(false);
-            deadBodyStand.SetActive(true);
+            swarm.SetActive(true);
+            swarm.GetComponent<SwarmStates>().enabled = false;
             mainCamAnimator.GetComponent<CinemachineBrain>().enabled = false;
             mainCamAnimator.enabled = true;
             mainCamAnimator.SetTrigger("gunJumpScare");
@@ -61,43 +65,50 @@ public class GunJumpScare : MonoBehaviour
         if(camNTime > 1.0f && trigger == false)
         {
             AudioManager.instance.PlaySound("labJumpscare", player.transform.position, false);
-            AudioManager.instance.PlaySound("labJumpScareSwarm", player.transform.position, false);
-            player.transform.eulerAngles = new Vector3(0f, -148.73f, 0f);
-            deadBodyAnimator.SetTrigger("jump");
+            //AudioManager.instance.PlaySound("labJumpScareSwarm", player.transform.position, false);
+            player.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+
+            swarm.GetComponent<SwarmStates>().enabled = true;
+
+            player.GetComponent<PlayerController>().enabled = true;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
+            mainCamAnimator.enabled = false;
+            //deadBodyAnimator.SetTrigger("jump");
             trigger = true;
         }
 
-        if (deadBodyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
-        {
-            animBodyStateInfo = deadBodyAnimator.GetCurrentAnimatorStateInfo(0);
-            bodyNTime = animBodyStateInfo.normalizedTime;
-        }
+        //if (deadBodyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+        //{
+        //    animBodyStateInfo = deadBodyAnimator.GetCurrentAnimatorStateInfo(0);
+        //    bodyNTime = animBodyStateInfo.normalizedTime;
+        //}
 
-        if (bodyNTime > 1.0f && trigger2 == false)
-        {
-            deadPanel.SetActive(true);
-            AudioManager.instance.PlaySound("playerDeath", player.transform.position, false);
-            trigger2 = true;
-        }
+        //if (bodyNTime > 1.0f && trigger2 == false)
+        //{
+        //    deadPanel.SetActive(true);
+        //    AudioManager.instance.PlaySound("playerDeath", player.transform.position, false);
+        //    trigger2 = true;
+        //}
         
-        if (bodyNTime > 0.2f && trigger3 == false)
-        {
-            QTE.SetActive(true);
-            trigger3 = true;
-        }
+        //if (bodyNTime > 0.2f && trigger3 == false)
+        //{
+        //    QTE.SetActive(true);
+        //    trigger3 = true;
+        //}
 
-        if (deadBodyAnimator.GetCurrentAnimatorStateInfo(0).IsName("die"))
-        {
-            animBodyDeadStateInfo = mainCamAnimator.GetCurrentAnimatorStateInfo(0);
-            bodyDeadNTime = animBodyDeadStateInfo.normalizedTime;
-        }
+        //if (deadBodyAnimator.GetCurrentAnimatorStateInfo(0).IsName("die"))
+        //{
+        //    animBodyDeadStateInfo = mainCamAnimator.GetCurrentAnimatorStateInfo(0);
+        //    bodyDeadNTime = animBodyDeadStateInfo.normalizedTime;
+        //}
 
-        if (bodyDeadNTime > 1.0f && trigger4 == false)
-        {
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            player.GetComponent<PlayerController>().enabled = true;
-            this.gameObject.GetComponent<GunJumpScare>().enabled = false;
-            trigger4 = true;
-        }
+        //if (bodyDeadNTime > 1.0f && trigger4 == false)
+        //{
+        //    player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        //    player.GetComponent<PlayerController>().enabled = true;
+        //    this.gameObject.GetComponent<GunJumpScare>().enabled = false;
+        //    trigger4 = true;
+        //}
     }
 }
