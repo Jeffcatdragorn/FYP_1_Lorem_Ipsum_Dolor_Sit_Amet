@@ -6,7 +6,9 @@ public class SwarmChase : SwarmBaseStates
 {
     float DistancetoPlayer = 0.0f;
     float timeInState = 0.0f;
+    bool chasePlayer = false;
     Vector3 PlayerPos;
+    Vector3 SwarmToPlayer = Vector3.zero;
     //float chasingSpeed;
     public override void EnterState(SwarmStates states)
     {
@@ -16,26 +18,13 @@ public class SwarmChase : SwarmBaseStates
 
     public override void UpdatePhysicsState(SwarmStates states)
     {
+        if(chasePlayer == true)
+            states.rb.AddForce(ChaseFormula(states) * 60.0f, ForceMode.Impulse);
     }
 
     public override void UpdateState(SwarmStates states)
     {
-        if (timeInState < 10.0f)
-        {
-            //states.transform.Translate(ChaseFormula(states) * Time.deltaTime, Space.World);
-            states.rb.AddForce(ChaseFormula(states) ,ForceMode.Impulse);
-            timeInState +=Time.deltaTime;
-            if (DistancetoPlayer <= 2.0f)
-            {
-                timeInState = 0.0f;
-                states.SwitchStates(states.AttackState);
-            }
-        }
-        else
-        {
-            timeInState = 0.0f;
-            states.SwitchStates(states.PatrolState);
-        }
+        FaceDirection(states);
     }
 
     public override void OnCollisionEnter(SwarmStates states)
@@ -47,27 +36,32 @@ public class SwarmChase : SwarmBaseStates
 
     public override void OnTriggerExit(SwarmStates states, Collider collider)
     {
+        states.SwitchStates(states.PatrolState);
     }
 
     public override void OnTriggerStay(SwarmStates states, Collider collider)
     {
+        if(collider.tag == "Player")
+        {
+            chasePlayer = true;
+        }
     }
     public Vector3 ChaseFormula(SwarmStates states)
     {
-        Vector3 currPos = states.transform.position;
-
-        Vector3 SwarmToPlayer = Vector3.zero;
-
-        SwarmToPlayer = (PlayerPos - currPos).normalized;
-        DistancetoPlayer = Vector3.Distance(PlayerPos, currPos) - 1;
+        SwarmToPlayer = (PlayerPos - states.swarmPos).normalized;
+        //DistancetoPlayer = Vector3.Distance(PlayerPos, states.swarmPos) - 1;
 
         Vector3 chaseVelo = SwarmToPlayer;
 
         chaseVelo.y = 0.0f;
 
-        Quaternion lookRotation = Quaternion.LookRotation((SwarmToPlayer - states.swarmPos).normalized); // GET ROTATION ANGLE
-        states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, Time.deltaTime * 4.0f); // ROTATE FACE NEW DIRECTION
-
         return chaseVelo;
+    }
+
+    public void FaceDirection(SwarmStates states)
+    {
+        Quaternion lookRotation = Quaternion.LookRotation(ChaseFormula(states).normalized); // GET ROTATION ANGLE
+        lookRotation.x = lookRotation.z = 0.0f;
+        states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, Time.deltaTime * 1.0f); // ROTATE FACE NEW DIRECTION
     }
 }

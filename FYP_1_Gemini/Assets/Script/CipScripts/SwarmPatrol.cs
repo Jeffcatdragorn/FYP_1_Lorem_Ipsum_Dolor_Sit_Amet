@@ -34,12 +34,12 @@ public class SwarmPatrol : SwarmBaseStates
 
     public override void OnTriggerEnter(SwarmStates states, Collider collider)
     {
-       /* GameObject other = collider.gameObject;
+        GameObject other = collider.gameObject;
         if (other.CompareTag("Player"))
         {
             states.SwitchStates(states.ChaseState);
         }
-        else if (other.CompareTag("Walls"))
+        /*else if (other.CompareTag("Walls"))
         {
             wallsPos = other.transform.localPosition;
             wallsPos.y = 0.0f;
