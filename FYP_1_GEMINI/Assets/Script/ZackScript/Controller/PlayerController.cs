@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public enum State
     {
-        Detective, Fighter,
+        moveMentLock, free,
     }
 
     public static State state;
@@ -176,6 +176,7 @@ public class PlayerController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalMoveSpeed = movementMultiplier;
+        state = State.free;
     }
 
     private void FixedUpdate()
@@ -189,22 +190,20 @@ public class PlayerController : MonoBehaviour
             PitchCamera();
         }
 
-        playerMoveInput = GetMoveInput();
         playerIsGrounded = PlayerGroundCheck();
-
-        playerMoveInput = PlayerMove();
-        playerMoveInput = PlayerSlope();
-        playerMoveInput = PlayerRun();
-
         playerMoveInput.y = PlayerFallGravity();
 
-        playerMoveInput.y = PlayerJump();
-        
+        if(state == State.free)
+        {
+            playerMoveInput = GetMoveInput();
+            playerMoveInput = PlayerMove();
+            playerMoveInput = PlayerSlope();
+            playerMoveInput = PlayerRun();
+            playerMoveInput.y = PlayerJump();
+            PlayerCrouch();
+        }
 
         PlayerFootSteps();
-
-        PlayerCrouch();
-
         PlayerHand();
 
         if (gunModel.activeInHierarchy)

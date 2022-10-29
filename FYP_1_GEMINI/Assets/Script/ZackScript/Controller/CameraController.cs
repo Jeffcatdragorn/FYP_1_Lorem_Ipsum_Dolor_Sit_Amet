@@ -76,14 +76,14 @@ public class CameraController : MonoBehaviour
         if (cinemachineFirstPerson == activeCamera)
         {
             SetCameraPriorities(cinemachineFirstPerson, cinemachineThirdPerson);
-            PlayerController.state = PlayerController.State.Fighter;
+            //PlayerController.state = PlayerController.State.Fighter;
             PlayerController.cameraFollow = cinemachineThirdPerson.Follow;
         }
 
         else if (cinemachineThirdPerson == activeCamera)
         {
             SetCameraPriorities(cinemachineThirdPerson, cinemachineFirstPerson);
-            PlayerController.state = PlayerController.State.Detective;
+            //PlayerController.state = PlayerController.State.Detective;
             PlayerController.cameraFollow = cinemachineFirstPerson.Follow;
         }
 
