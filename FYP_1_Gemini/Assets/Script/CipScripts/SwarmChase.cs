@@ -14,6 +14,7 @@ public class SwarmChase : SwarmBaseStates
     {
         Debug.Log("Swarm Chase");
         PlayerPos = states.playerPos;
+        states.animator.SetBool("RunState", true);
     }
 
     public override void UpdatePhysicsState(SwarmStates states)
@@ -63,5 +64,10 @@ public class SwarmChase : SwarmBaseStates
         Quaternion lookRotation = Quaternion.LookRotation(ChaseFormula(states).normalized); // GET ROTATION ANGLE
         lookRotation.x = lookRotation.z = 0.0f;
         states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, Time.deltaTime * 1.0f); // ROTATE FACE NEW DIRECTION
+    }
+
+    public override void ExitState(SwarmStates states)
+    {
+        states.animator.SetBool("RunState", false);
     }
 }

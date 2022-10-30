@@ -10,6 +10,7 @@ public class SwarmIdle : SwarmBaseStates
     {
         Debug.Log("Enter Idle");
         states = states.GetComponent<SwarmStates>();
+        states.animator.SetBool("IdleState" , true);
     }
 
     public override void UpdatePhysicsState(SwarmStates states)
@@ -44,5 +45,10 @@ public class SwarmIdle : SwarmBaseStates
 
     public override void OnTriggerStay(SwarmStates states, Collider collider)
     {
+    }
+
+    public override void ExitState(SwarmStates states)
+    {
+        states.animator.SetBool("IdleState", false);
     }
 }

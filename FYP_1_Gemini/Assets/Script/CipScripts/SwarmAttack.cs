@@ -48,4 +48,6 @@ public class SwarmAttack : SwarmBaseStates
         }
         AttackRate += Time.deltaTime;
     }
+
+    public override void ExitState(SwarmStates states){}
 }

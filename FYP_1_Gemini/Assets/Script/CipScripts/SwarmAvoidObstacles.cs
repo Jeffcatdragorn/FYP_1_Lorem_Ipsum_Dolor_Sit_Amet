@@ -37,6 +37,7 @@ public class SwarmAvoidObstacles : SwarmBaseStates
     {
     }
 
+    public override void ExitState(SwarmStates states){}
     #region Avoiding Walls
     /*public void AvoidWalls(SwarmStates states)
     {

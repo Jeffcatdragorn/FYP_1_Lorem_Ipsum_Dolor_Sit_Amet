@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.Animations;
 
 public class SwarmStates : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class SwarmStates : MonoBehaviour
     public SwarmIdle IdleState = new SwarmIdle();
     public SwarmChase ChaseState = new SwarmChase();
     public SwarmAvoidObstacles AvoidState = new SwarmAvoidObstacles();
+    public Animator animator;
 
     public Rigidbody rb;
     public  bool weaknessDestroyed;
@@ -70,8 +72,13 @@ public class SwarmStates : MonoBehaviour
     {
         currentSwarmState.OnTriggerStay(this, other);
     }
+
     public void SwitchStates(SwarmBaseStates states)
     {
+        if(currentSwarmState != null)
+        {
+            currentSwarmState.ExitState(this);
+        }
         currentSwarmState = states;
         states.EnterState(this);
     }
