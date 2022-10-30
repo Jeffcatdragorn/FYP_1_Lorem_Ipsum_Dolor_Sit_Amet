@@ -10,22 +10,33 @@ public class SwarmPatrol : SwarmBaseStates
     Rigidbody swarmRB;
     public Vector3 movementVelo;
     public Vector3 wallsPos;
-    private Quaternion lookRotation = Quaternion.identity;
+    private Quaternion lookRotation;
     Vector3 finalMovement = Vector3.zero;
 
     public override void EnterState(SwarmStates states)
     {
         Debug.Log("Enter Patrol");
+        finalMovement = RandomizeLocation(states);
     }
 
     public override void UpdateState(SwarmStates states)
     { 
-        FaceDirectionState(states); 
+        //FaceDirectionState(states);   
+        if (timetoSwitch > states.switchPatrolLocation) //switch after every X seconds
+        {
+            //states.SwitchStates(states.IdleState);
+            Debug.Log("Switched Position");
+            finalMovement = RandomizeLocation(states);
+            //Debug.Log("Final MOvement" + finalMovement);
+            timetoSwitch = 0.0f;
+        }
+        timetoSwitch += (Time.deltaTime);
     }
 
     public override void UpdatePhysicsState(SwarmStates states)
     {
-        PatrollingState(states);    
+        PatrollingState(states);  
+        
     }
 
     public override void OnCollisionEnter(SwarmStates states)
@@ -78,49 +89,72 @@ public class SwarmPatrol : SwarmBaseStates
 
         //Debug.DrawLine(randomVec - Vector3.forward * 0.01f,randomVec + Vector3.forward * 0.01f , Color.green, 50.0f);
         //Debug.DrawLine(randomVec - Vector3.right * 0.01f,randomVec + Vector3.right * 0.01f , Color.green, 50.0f);
-        Vector3 currentSwarmPos = states.swarmPos;
+        //Vector3 currentSwarmPos = states.swarmPos;
         //randomVec *=PatrolRadius;
         //wanderLocation = currentSwarmPos + states.transform.forward + randomVec;
-        //check
-        if(Vector3.Distance(currentSwarmPos, wanderLocation) <= 0.5)
-        {
-            states.SwitchStates(states.IdleState);//speed
-            movementVelo = Vector3.zero;
-        }
-        else
-        {
-            movementVelo = randomVec;
-            movementVelo.y = 0.0f;
-        }
-        
+        randomVec.y = 0.0f;
+        movementVelo = randomVec;
         return movementVelo;
     }
 
     public void PatrollingState(SwarmStates states)
     {
-        if (timetoSwitch > states.switchPatrolLocation) //switch after every 3 seconds
-        {
+        //if (timetoSwitch > states.switchPatrolLocation) //switch after every 3 seconds
+        //{
             //states.SwitchStates(states.IdleState);
-            finalMovement = RandomizeLocation(states);
-            timetoSwitch = 0.0f;
-        }
-        timetoSwitch += (Time.deltaTime);
+        //    finalMovement = RandomizeLocation(states);
+        //    timetoSwitch = 0.0f;
+        //}
+        //timetoSwitch += (Time.deltaTime);
         //--------------------------------------------------
 
         //Debug.Log("Final Movement = " + finalMovement);
-        states.rb.AddForce((finalMovement - states.swarmPos).normalized * 40.0f, ForceMode.Impulse);
+        if(Vector3.Distance(finalMovement, states.swarmPos) <= 0.01f)
+        {
+            Debug.Log("Stoppped");
+            //states.SwitchStates(states.IdleState);//speed
+        }
+        else
+        {
+            Debug.Log("Moving" + finalMovement);
+            states.rb.AddForce((finalMovement - states.swarmPos).normalized * 40.0f, ForceMode.Impulse);
+            //movementVelo = randomVec;
+            //movementVelo.y = 0.0f;
+        }
         //states.rb.AddForce((movementVelo).normalized * 100.0f, ForceMode.Impulse);
-        //Quaternion lookRotation = Quaternion.LookRotation(states.swarmPos - movementVelo);// GET ROTATION ANGLE
-        //states.transform.rotation = Quaternion.RotateTowards(states.transform.rotation, lookRotation, timetoSwitch); // ROTATE FACE NEW DIRECTION 
-        //states.transform.rotation = Quaternion.Euler(states.swarmPos - movementVelo);       
+
+        //----------Direction-----------
+        //Debug.Log("Angle more than");
+        //Vector3 movementDir = (finalMovement - states.swarmPos).normalized;
+        //lookRotation = Quaternion.LookRotation(finalMovement, Vector3.up);
+        //lookRotation = Quaternion.LookRotation(movementDir);// GET ROTATION ANGLE
+        //lookRotation.x = lookRotation.z = 0.0f;
+        //Debug.Log("Look Rotation: " + lookRotation);
+        //states.transform.rotation = Quaternion.RotateTowards(states.transform.rotation, lookRotation, timetoSwitch * Time.deltaTime);
+        //states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, timetoSwitch * Time.deltaTime);
+
     }
 
     public void FaceDirectionState(SwarmStates states)
     {
+    
             //Debug.Log("Angle more than");
-            lookRotation = Quaternion.LookRotation((finalMovement - states.swarmPos).normalized);// GET ROTATION ANGLE
+            Vector3 movementDir = (finalMovement - states.swarmPos).normalized;
+            //lookRotation = Quaternion.LookRotation(finalMovement, Vector3.up);
+            lookRotation = Quaternion.LookRotation((movementDir) * Time.deltaTime) ;// GET ROTATION ANGLE
             lookRotation.x = lookRotation.z = 0.0f;
+            Debug.Log("Look Rotation: " + lookRotation);
+            //states.transform.rotation = Quaternion.RotateTowards(states.transform.rotation, lookRotation, timetoSwitch * Time.deltaTime);
             states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, timetoSwitch * Time.deltaTime);
+            //states.rb.MoveRotation(states.rb.rotation * lookRotation);
+
+            if(Vector3.Distance(finalMovement, states.swarmPos) <= 0.01f)
+            {
+                lookRotation = Quaternion.LookRotation((finalMovement.normalized) * Time.fixedDeltaTime);// GET ROTATION ANGLE
+                lookRotation.x = lookRotation.z = 0.0f;
+                //states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, timetoSwitch * Time.deltaTime);
+                states.rb.MoveRotation(states.rb.rotation * lookRotation); //Rotating rigidbody
+            }
  /*       }
         else
         {
