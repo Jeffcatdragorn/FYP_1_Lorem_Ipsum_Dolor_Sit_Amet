@@ -9,7 +9,7 @@ public class TabletDoorScanning : MonoBehaviour
     [Header("MANAGERS")]
     public HumanoidLandInput input;
     public ButtonManager buttonManager;
-    public PlayerController playerController;
+    //public PlayerController playerController;
     public GameObject tabletObj;
 
     [Header("WARNING TEXTS")]
@@ -94,7 +94,6 @@ public class TabletDoorScanning : MonoBehaviour
             {
                 if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.flashlightObtained == true && doorIsOpen2 == false)
                 {
-                    playerController.enabled = false;
                     //disable the trigger collider to avoid player spam 'G'
                     scannerTrigger.enabled = false; //to prevent player from opening the door again
 
@@ -109,7 +108,6 @@ public class TabletDoorScanning : MonoBehaviour
             {
                 if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.labKeyObtained == true && doorIsOpen2 == false)
                 {
-                    playerController.enabled = false;
                     //disable the trigger collider to avoid player spam 'G'
                     scannerTrigger.enabled = false; //to prevent player from opening the door again
 
@@ -124,7 +122,6 @@ public class TabletDoorScanning : MonoBehaviour
             {
                 if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && doorIsOpen2 == false)
                 {
-                    playerController.enabled = false;
                     //disable the trigger collider to avoid player spam 'G'
                     scannerTrigger.enabled = false; //to prevent player from opening the door again
 
@@ -214,6 +211,8 @@ public class TabletDoorScanning : MonoBehaviour
             {
                 if (flashlightCheck == true)
                 {
+                    PlayerController.state = PlayerController.State.movementLock; //lock player movement
+
                     tabletObj.SetActive(true);
                     scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
                     AudioManager.instance.PlaySound("tabletIn", scannerAnimator.gameObject.transform.position, false);
@@ -233,6 +232,8 @@ public class TabletDoorScanning : MonoBehaviour
             {
                 if (labKeyCheck == true)
                 {
+                    PlayerController.state = PlayerController.State.movementLock; //lock player movement
+
                     tabletObj.SetActive(true);
                     scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
                     AudioManager.instance.PlaySound("tabletIn", scannerAnimator.gameObject.transform.position, false);
@@ -246,6 +247,8 @@ public class TabletDoorScanning : MonoBehaviour
             {
                 if (tabletCheck == true)
                 {
+                    PlayerController.state = PlayerController.State.movementLock; //lock player movement
+
                     tabletObj.SetActive(true);
                     scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
                     AudioManager.instance.PlaySound("tabletIn", scannerAnimator.gameObject.transform.position, false);
@@ -269,7 +272,7 @@ public class TabletDoorScanning : MonoBehaviour
 
     private void DoorOpens()
     {
-        playerController.enabled = true;
+        PlayerController.state = PlayerController.State.free; //free player movement
 
         tabletObj.SetActive(false);
         normalDoorAnimator.Play(doorSlideOpen, 0, 0.0f);
@@ -279,6 +282,5 @@ public class TabletDoorScanning : MonoBehaviour
         //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
         //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
         doorIsOpen = true;
-        
     }
 }

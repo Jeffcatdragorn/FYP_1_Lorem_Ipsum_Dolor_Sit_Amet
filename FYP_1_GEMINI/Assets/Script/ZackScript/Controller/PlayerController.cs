@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public enum State
     {
-        moveMentLock, free,
+        movementLock, free,
     }
 
     public static State state;
@@ -182,15 +182,19 @@ public class PlayerController : MonoBehaviour
     {
         BulletCountText.text = currentBulletCount.ToString();
 
-        if (!cameraController.usingOrbitalCamera)
+        //if (!cameraController.usingOrbitalCamera)
+        //{
+        //    playerLookInput = GetLookInput();
+        //    PlayerLook();
+        //    PitchCamera();
+        //}
+
+        if(state == State.free)
         {
             playerLookInput = GetLookInput();
             PlayerLook();
             PitchCamera();
-        }
 
-        if(state == State.free)
-        {
             playerMoveInput = GetMoveInput();
             playerMoveInput = PlayerMove();
             playerMoveInput = PlayerSlope();
@@ -198,6 +202,14 @@ public class PlayerController : MonoBehaviour
             playerMoveInput.y = PlayerJump();
             PlayerCrouch();
             PlayerFootSteps();
+            PlayerHand();
+        }
+
+        if(state == State.movementLock)
+        {
+            playerLookInput = GetLookInput();
+            PlayerLook();
+            PitchCamera();
             PlayerHand();
         }
 
