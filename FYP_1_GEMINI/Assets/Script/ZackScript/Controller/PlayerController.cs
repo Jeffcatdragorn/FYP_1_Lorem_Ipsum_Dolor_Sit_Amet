@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     float cameraPitch = 0.0f;
     [SerializeField] float playerLookInputLerpTime = 0.35f;
 
+    [SerializeField] GameObject deadPanel;
+
     public enum State
     {
         movementLock, free,
@@ -921,6 +923,15 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "crouchZone")
         {
             forceCrouch = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "hallSwarm")
+        {
+            deadPanel.SetActive(true);
+            Destroy(gameObject);
         }
     }
 

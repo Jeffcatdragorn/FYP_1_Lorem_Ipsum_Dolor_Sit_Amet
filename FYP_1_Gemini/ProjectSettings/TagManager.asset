@@ -25,6 +25,7 @@ TagManager:
   - QTE
   - swarm
   - Phaser
+  - hallSwarm
   layers:
   - Default
   - TransparentFX

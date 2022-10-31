@@ -18,10 +18,9 @@ public class GunJumpScare : MonoBehaviour
     //[SerializeField] private GameObject QTE;
     //[SerializeField] private GameObject deadPanel;
     private bool inspectOff = false;
+    private bool triggerOnce = false;
     private bool trigger = false;
-    private bool trigger2 = false;
-    private bool trigger3 = false;
-    private bool trigger4 = false;
+
     private AnimatorStateInfo animCamStateInfo;
     private float camNTime;
     //private AnimatorStateInfo animBodyStateInfo;
@@ -32,7 +31,7 @@ public class GunJumpScare : MonoBehaviour
 
     void Update()
     {
-        if(inspectCam.activeInHierarchy == true && Inventory.gunObtained == true)
+        if(inspectCam.activeInHierarchy == true && Inventory.gunObtained == true && triggerOnce == false)
         {
             player.transform.localPosition = new Vector3(-461.480011f, -12.9399996f, 219.160004f);
             player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
@@ -45,6 +44,7 @@ public class GunJumpScare : MonoBehaviour
             if (input.FlashlightIsPressed == true)
             {
                 inspectOff = true;
+                triggerOnce = true;
             }
         }
 
