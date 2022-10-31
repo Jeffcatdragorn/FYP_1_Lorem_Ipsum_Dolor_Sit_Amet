@@ -19,8 +19,7 @@ public class SwarmChase : SwarmBaseStates
 
     public override void UpdatePhysicsState(SwarmStates states)
     {
-        if(chasePlayer == true)
-            states.rb.AddForce(ChaseFormula(states) * 60.0f, ForceMode.Impulse);
+        
     }
 
     public override void UpdateState(SwarmStates states)
@@ -44,9 +43,10 @@ public class SwarmChase : SwarmBaseStates
     {
         if(collider.tag == "Player")
         {
-            chasePlayer = true;
-        }
+            states.rb.AddForce(ChaseFormula(states) * 60.0f, ForceMode.Impulse);
+        }        
     }
+
     public Vector3 ChaseFormula(SwarmStates states)
     {
         SwarmToPlayer = (PlayerPos - states.swarmPos).normalized;
