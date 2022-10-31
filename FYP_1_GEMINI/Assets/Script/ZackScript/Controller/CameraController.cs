@@ -26,31 +26,31 @@ public class CameraController : MonoBehaviour
 
     public LayerMask playerbody;
 
-    private void Awake()
-    { 
-        cinemachineFramingTransposerThirdPerson = cinemachineThirdPerson.GetCinemachineComponent<CinemachineFramingTransposer>();
-        cinemachineFramingTransposerOrbit = cinemachineOrbit.GetCinemachineComponent<CinemachineFramingTransposer>();
-        PlayerController.cameraFollow = cinemachineFirstPerson.Follow;
+    //private void Awake()
+    //{ 
+    //    cinemachineFramingTransposerThirdPerson = cinemachineThirdPerson.GetCinemachineComponent<CinemachineFramingTransposer>();
+    //    cinemachineFramingTransposerOrbit = cinemachineOrbit.GetCinemachineComponent<CinemachineFramingTransposer>();
+    //    //PlayerController.cameraFollow = cinemachineFirstPerson.Follow;
 
-    }
+    //}
 
-    private void Start()
-    {
-        ChangeCamera(); //first time
-    }
+    //private void Start()
+    //{
+    //    ChangeCamera(); //first time
+    //}
 
-    private void Update()
-    {
-        //if(!(input.ZoomCameraInput == 0.0f))
-        //{
-        //    ZoomCamera();
-        //}
+    //private void Update()
+    //{
+    //    //if(!(input.ZoomCameraInput == 0.0f))
+    //    //{
+    //    //    ZoomCamera();
+    //    //}
 
-        //if (input.ChangeCameraWasPressedThisFrame)
-        //{
-        //    ChangeCamera();
-        //}
-    }
+    //    //if (input.ChangeCameraWasPressedThisFrame)
+    //    //{
+    //    //    ChangeCamera();
+    //    //}
+    //}
 
     //private void ZoomCamera()
     //{
@@ -71,40 +71,40 @@ public class CameraController : MonoBehaviour
     //    }
     //}
 
-    private void ChangeCamera()
-    {
-        if (cinemachineFirstPerson == activeCamera)
-        {
-            SetCameraPriorities(cinemachineFirstPerson, cinemachineThirdPerson);
-            //PlayerController.state = PlayerController.State.Fighter;
-            PlayerController.cameraFollow = cinemachineThirdPerson.Follow;
-        }
+    //private void ChangeCamera()
+    //{
+    //    if (cinemachineFirstPerson == activeCamera)
+    //    {
+    //        SetCameraPriorities(cinemachineFirstPerson, cinemachineThirdPerson);
+    //        //PlayerController.state = PlayerController.State.Fighter;
+    //        PlayerController.cameraFollow = cinemachineThirdPerson.Follow;
+    //    }
 
-        else if (cinemachineThirdPerson == activeCamera)
-        {
-            SetCameraPriorities(cinemachineThirdPerson, cinemachineFirstPerson);
-            //PlayerController.state = PlayerController.State.Detective;
-            PlayerController.cameraFollow = cinemachineFirstPerson.Follow;
-        }
+    //    else if (cinemachineThirdPerson == activeCamera)
+    //    {
+    //        SetCameraPriorities(cinemachineThirdPerson, cinemachineFirstPerson);
+    //        //PlayerController.state = PlayerController.State.Detective;
+    //        PlayerController.cameraFollow = cinemachineFirstPerson.Follow;
+    //    }
 
-        //else if (cinemachineOrbit == activeCamera)
-        //{
-        //    SetCameraPriorities(cinemachineOrbit, cinemachineThirdPerson);
-        //    activeCamera = cinemachineThirdPerson;
-        //    usingOrbitalCamera = false;
-        //}
+    //    //else if (cinemachineOrbit == activeCamera)
+    //    //{
+    //    //    SetCameraPriorities(cinemachineOrbit, cinemachineThirdPerson);
+    //    //    activeCamera = cinemachineThirdPerson;
+    //    //    usingOrbitalCamera = false;
+    //    //}
 
-        else 
-        {
-            cinemachineFirstPerson.Priority += activeCameraPriorityModifier;
-            activeCamera = cinemachineFirstPerson;
-        }
-    }
+    //    else 
+    //    {
+    //        cinemachineFirstPerson.Priority += activeCameraPriorityModifier;
+    //        activeCamera = cinemachineFirstPerson;
+    //    }
+    //}
 
-    private void SetCameraPriorities(CinemachineVirtualCamera currentCameraMode, CinemachineVirtualCamera newCameraMode)
-    {
-        currentCameraMode.Priority -= activeCameraPriorityModifier;
-        newCameraMode.Priority += activeCameraPriorityModifier;
-        activeCamera = newCameraMode;
-    }
+    //private void SetCameraPriorities(CinemachineVirtualCamera currentCameraMode, CinemachineVirtualCamera newCameraMode)
+    //{
+    //    currentCameraMode.Priority -= activeCameraPriorityModifier;
+    //    newCameraMode.Priority += activeCameraPriorityModifier;
+    //    activeCamera = newCameraMode;
+    //}
 }

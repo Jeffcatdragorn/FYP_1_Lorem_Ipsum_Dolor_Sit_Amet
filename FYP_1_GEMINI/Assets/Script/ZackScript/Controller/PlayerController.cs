@@ -6,12 +6,12 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] public static Transform cameraFollow;
+    [SerializeField] public Transform cameraFollow;
 
     [SerializeField] HumanoidLandInput input;
     [SerializeField] CameraController cameraController;
 
-    new Rigidbody rigidbody = null;
+    [SerializeField] Rigidbody rigidbody = null;
 
     Vector3 playerMoveInput = Vector3.zero;
 
@@ -173,7 +173,6 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        rigidbody = GetComponent<Rigidbody>();
         originalMoveSpeed = movementMultiplier;
         state = State.free;
     }
@@ -191,12 +190,15 @@ public class PlayerController : MonoBehaviour
 
         if(state == State.free)
         {
+
+            playerMoveInput = GetMoveInput();
+            playerMoveInput = PlayerMove();
+
             playerLookInput = GetLookInput();
             PlayerLook();
             PitchCamera();
 
-            playerMoveInput = GetMoveInput();
-            playerMoveInput = PlayerMove();
+
             playerMoveInput = PlayerSlope();
             playerMoveInput = PlayerRun();
             playerMoveInput.y = PlayerJump();
@@ -210,6 +212,10 @@ public class PlayerController : MonoBehaviour
             playerLookInput = GetLookInput();
             PlayerLook();
             PitchCamera();
+
+            playerMoveInput = Vector3.zero;
+            playerMoveInput = Vector3.zero;
+
             PlayerHand();
         }
 
@@ -221,6 +227,7 @@ public class PlayerController : MonoBehaviour
         playerMoveInput.y = PlayerFallGravity();
         playerIsGrounded = PlayerGroundCheck();
         StayStill();
+        dontRotate();
         playerMoveInput *= rigidbody.mass;
 
         rigidbody.AddRelativeForce(playerMoveInput, ForceMode.Force);
@@ -246,7 +253,9 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerLook()
     {
-        rigidbody.rotation = Quaternion.Euler(0.0f, rigidbody.rotation.eulerAngles.y + (playerLookInput.x * rotationSpeedMultiplier), 0.0f);
+        cameraFollow.rotation = Quaternion.Euler(0.0f, cameraFollow.rotation.eulerAngles.y + (playerLookInput.x * rotationSpeedMultiplier), 0.0f);
+        //rigidbody.rotation = Quaternion.Euler(0.0f, rigidbody.rotation.eulerAngles.y + (playerLookInput.x * rotationSpeedMultiplier), 0.0f);
+        rigidbody.rotation = cameraFollow.rotation;
     }
 
     private void PitchCamera()
@@ -344,7 +353,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 #if UNITY_EDITOR
-            Debug.DrawRay(rigidbody.position, rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, 0.5f);
+            //Debug.DrawRay(rigidbody.position, rigidbody.transform.TransformDirection(calculatedPlayerMovement), Color.red, 0.5f);
 #endif
         }
 
@@ -675,14 +684,27 @@ public class PlayerController : MonoBehaviour
 
     private void StayStill()
     {
-        if(playerIsGrounded == true && input.MoveIsPressed == false)
+        if((playerIsGrounded == true && input.MoveIsPressed == false && input.JumpIsPressed == false) || state == State.movementLock)
         {
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
         }
 
         else
         {
-            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            gameObject.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePosition;
+        }
+    }
+
+    private void dontRotate()
+    {
+        if(previousPlayerLookInput == playerLookInput)
+        {
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        }
+
+        else
+        {
+            gameObject.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezeRotation;
         }
     }
 
@@ -1072,16 +1094,16 @@ public class PlayerController : MonoBehaviour
     //    }
     //}
 
-    Vector3 GetShootingDirection()
-    {
-        Vector3 targetPos = cam.position + cam.forward * shootRange;
-        targetPos = new Vector3(targetPos.x + Random.Range(-inaccuracyDistance, inaccuracyDistance),
-            targetPos.y + Random.Range(-inaccuracyDistance, inaccuracyDistance),
-            targetPos.z + Random.Range(-inaccuracyDistance, inaccuracyDistance));
+    //Vector3 GetShootingDirection()
+    //{
+    //    Vector3 targetPos = cam.position + cam.forward * shootRange;
+    //    targetPos = new Vector3(targetPos.x + Random.Range(-inaccuracyDistance, inaccuracyDistance),
+    //        targetPos.y + Random.Range(-inaccuracyDistance, inaccuracyDistance),
+    //        targetPos.z + Random.Range(-inaccuracyDistance, inaccuracyDistance));
 
-        Vector3 direction = targetPos - cam.position;
-        return direction.normalized;
-    }
+    //    Vector3 direction = targetPos - cam.position;
+    //    return direction.normalized;
+    //}
     //private void SetTeleportCooldownCounter()
     //{
     //    if (teleportCooldownCounter > 0)
