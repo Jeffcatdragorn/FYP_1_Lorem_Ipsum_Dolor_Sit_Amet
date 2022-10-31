@@ -9,7 +9,9 @@ public class GunJumpScare : MonoBehaviour
     [SerializeField] private GameObject deadBody;
     //[SerializeField] private GameObject deadBodyStand;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject cameraFollow;
     [SerializeField] private GameObject swarm;
+    [SerializeField] private GameObject gunTutorialPanel;
     [SerializeField] private Animator mainCamAnimator;
     //[SerializeField] private Animator deadBodyAnimator;
     [SerializeField] private HumanoidLandInput input;
@@ -34,6 +36,7 @@ public class GunJumpScare : MonoBehaviour
         {
             player.transform.localPosition = new Vector3(-461.480011f, -12.9399996f, 219.160004f);
             player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            cameraFollow.transform.eulerAngles = new Vector3(0f, 0f, 0f);
             player.GetComponent<PlayerController>().enabled = false;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 
@@ -66,14 +69,11 @@ public class GunJumpScare : MonoBehaviour
         {
             AudioManager.instance.PlaySound("labJumpscare", player.transform.position, false);
             //AudioManager.instance.PlaySound("labJumpScareSwarm", player.transform.position, false);
-            player.transform.eulerAngles = new Vector3(0f, 180f, 0f);
-
-            swarm.GetComponent<SwarmStates>().enabled = true;
-
-            player.GetComponent<PlayerController>().enabled = true;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
-            mainCamAnimator.enabled = false;
+            gunTutorialPanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            player.transform.eulerAngles = new Vector3(0f, -180f, 0f);
+            cameraFollow.transform.eulerAngles = new Vector3(0f, -180f, 0f);
             //deadBodyAnimator.SetTrigger("jump");
             trigger = true;
         }
@@ -110,5 +110,18 @@ public class GunJumpScare : MonoBehaviour
         //    this.gameObject.GetComponent<GunJumpScare>().enabled = false;
         //    trigger4 = true;
         //}
+    }
+
+    public void GunTutorialOff()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        swarm.GetComponent<SwarmStates>().enabled = true;
+
+        player.GetComponent<PlayerController>().enabled = true;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
+        mainCamAnimator.enabled = false;
+        gunTutorialPanel.SetActive(false);
     }
 }

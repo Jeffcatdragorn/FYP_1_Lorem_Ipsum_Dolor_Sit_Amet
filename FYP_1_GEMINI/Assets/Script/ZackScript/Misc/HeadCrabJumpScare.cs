@@ -9,6 +9,7 @@ public class HeadCrabJumpScare : MonoBehaviour
     [SerializeField] private Animator mainCamAnimator;
     [SerializeField] private Animator doorAnimator;
     [SerializeField] private GameObject headCrab;
+    [SerializeField] private GameObject cameraFollow;
     private GameObject player;
     private bool triggered = false;
     private bool check = false;
@@ -71,6 +72,7 @@ public class HeadCrabJumpScare : MonoBehaviour
         {
             other.gameObject.transform.localPosition = new Vector3(-389.100006f, -12.9399996f, 93.6999969f);
             other.gameObject.transform.eulerAngles = new Vector3(0f, -90f, 0f);
+            cameraFollow.transform.eulerAngles = new Vector3(0f, -90f, 0f);
             other.gameObject.GetComponent<PlayerController>().enabled = false;
             other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             player = other.gameObject;

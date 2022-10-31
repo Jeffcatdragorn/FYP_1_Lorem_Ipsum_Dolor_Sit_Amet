@@ -9,6 +9,7 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] private Animator mainCamAnimator;
     [SerializeField] private Animator cellDoorAnimator;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private ParticleSystem sparkParticle1;
     [SerializeField] private ParticleSystem sparkParticle2;
     private AnimatorStateInfo animCamStateInfo;
@@ -34,24 +35,36 @@ public class CutsceneManager : MonoBehaviour
             {
                 if (doorBool == false)
                 {
-                    cellDoorAnimator.SetTrigger("openDoor");
-                    animDoorStateInfo = cellDoorAnimator.GetCurrentAnimatorStateInfo(0);
-                    doorNTime = animDoorStateInfo.normalizedTime;
+
+                    tutorialPanel.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
                     doorBool = true;
                 }
             }
-            if (doorNTime > 1.0f)
-            {
-                mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
-                mainCamAnimator.enabled = false;
-                player.GetComponent<PlayerController>().enabled = true;
-                if (particleBool == false)
-                {
-                    sparkParticle1.Play();
-                    sparkParticle2.Play();
-                    particleBool = true;
-                }
-            }
+            //if (doorNTime > 1.0f)
+            //{
+
+            //}
+        }
+    }
+
+    public void endCutscene()
+    {
+        mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
+        mainCamAnimator.enabled = false;
+        player.GetComponent<PlayerController>().enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        if (particleBool == false)
+        {
+            cellDoorAnimator.SetTrigger("openDoor");
+            //animDoorStateInfo = cellDoorAnimator.GetCurrentAnimatorStateInfo(0);
+            //doorNTime = animDoorStateInfo.normalizedTime;
+            sparkParticle1.Play();
+            sparkParticle2.Play();
+            particleBool = true;
         }
     }
 }

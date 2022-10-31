@@ -17,6 +17,8 @@ public class ObjectInspection : MonoBehaviour
     public GameObject inspectCamera;
 
     [SerializeField] HumanoidLandInput input;
+    [SerializeField] GameObject flashlightTutorialPanel;
+    [SerializeField] GameObject tabletTutorialPanel;
 
     private void Start()
     {
@@ -31,11 +33,14 @@ public class ObjectInspection : MonoBehaviour
         {
             if (input.FlashlightIsPressed == true)
             {
-                inspectUI.SetActive(false);
-                playerController.enabled = true;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                inspectCamera.SetActive(false);
+                if (TutorialManager.inspectStop == false)
+                {
+                    inspectUI.SetActive(false);
+                    playerController.enabled = true;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    inspectCamera.SetActive(false);
+                }
             }
             else
             {
@@ -45,12 +50,12 @@ public class ObjectInspection : MonoBehaviour
             }
         }
 
-        else
-        {
-            playerController.enabled = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        //else
+        //{
+        //    playerController.enabled = true;
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //    Cursor.visible = false;
+        //}
 
         if (input.ShootIsPressed == true && check == false)
         {
