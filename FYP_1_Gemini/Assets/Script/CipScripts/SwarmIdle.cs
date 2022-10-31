@@ -45,6 +45,11 @@ public class SwarmIdle : SwarmBaseStates
 
     public override void OnTriggerStay(SwarmStates states, Collider collider)
     {
+        GameObject other = collider.gameObject;
+        if (other.CompareTag("Player"))
+        {
+            states.SwitchStates(states.ChaseState);
+        }
     }
 
     public override void ExitState(SwarmStates states)
