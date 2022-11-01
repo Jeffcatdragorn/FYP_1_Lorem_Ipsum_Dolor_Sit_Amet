@@ -20,6 +20,7 @@ public class LoadingScript : MonoBehaviour
     public GameObject tablet;
     public GameObject inspectCam;
     public GameObject tabletObj;
+    public ButtonManager buttonManager;
 
     private void Start()
     {
@@ -47,6 +48,9 @@ public class LoadingScript : MonoBehaviour
                 tablet.SetActive(true);
                 loadingScreen.SetActive(true);
                 tabletObj.SetActive(true);
+
+                buttonManager.DisableMouseCursor();
+
                 load = true;
             }
 
@@ -67,6 +71,9 @@ public class LoadingScript : MonoBehaviour
                 loadingBarSlider += 11.5f * Time.deltaTime;
                 loadingBar.value = loadingBarSlider;
                 progressNum.text = loadingBar.value.ToString() + "%";
+
+                buttonManager.DisableMouseCursor();
+
                 if (loadingBarSlider > 100)
                 {
                     done = true;
@@ -82,6 +89,9 @@ public class LoadingScript : MonoBehaviour
                 tabletObj.SetActive(false);
                 tablet.SetActive(false);
                 playerController.enabled = true;
+
+                buttonManager.DisableMouseCursor();
+
                 this.gameObject.GetComponent<LoadingScript>().enabled = false;
             }
         }
