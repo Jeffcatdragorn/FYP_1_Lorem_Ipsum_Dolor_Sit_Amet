@@ -7801,6 +7801,8 @@ MonoBehaviour:
   inspectUI: {fileID: 2126773634}
   inspectCamera: {fileID: 335389206}
   input: {fileID: 263378642}
+  flashlightTutorialPanel: {fileID: 0}
+  tabletTutorialPanel: {fileID: 0}
 --- !u!224 &1063347932 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7939610630276121437, guid: 0ed084c2298dbb646a68dcf22c282056, type: 3}
@@ -8788,9 +8790,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5855d1a1167c9ce4e88a4c7052564a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraFollow: {fileID: 0}
   input: {fileID: 263378642}
   cameraController: {fileID: 1111669672}
+  rigidbody: {fileID: 0}
   playerLookInputLerpTime: 0.5
+  deadPanel: {fileID: 0}
   movementMultiplier: 140
   notGroundedMovementMultiplier: 1.25
   rotationSpeedMultiplier: 200
@@ -8814,6 +8819,7 @@ MonoBehaviour:
   playerFallTimer: 0
   groundedGravity: 0
   maxSlopeAngle: 47.5
+  capsuleCollider: {fileID: 0}
   initialJumpForce: 2500
   continualJumpForceMultiplier: 10
   jumpTime: 0
@@ -8835,6 +8841,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   bulletPrefab: {fileID: 8887101740111250753, guid: 72f8b39773f6e794caf0b824ded267cb, type: 3}
+  chargingSound: {fileID: 0}
   shootChargingCounter: 0
   finishedDecharge: 1
   bulletsPerShot: 6
@@ -9316,6 +9323,7 @@ MonoBehaviour:
   mainCamAnimator: {fileID: 126494967}
   cellDoorAnimator: {fileID: 114009277}
   player: {fileID: 1209979357}
+  tutorialPanel: {fileID: 0}
   sparkParticle1: {fileID: 0}
   sparkParticle2: {fileID: 0}
 --- !u!1 &1309616900
@@ -13230,9 +13238,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5855d1a1167c9ce4e88a4c7052564a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraFollow: {fileID: 0}
   input: {fileID: 381748263}
   cameraController: {fileID: 1883040241}
+  rigidbody: {fileID: 0}
   playerLookInputLerpTime: 0.5
+  deadPanel: {fileID: 0}
   movementMultiplier: 30
   notGroundedMovementMultiplier: 1.25
   rotationSpeedMultiplier: 180
@@ -13256,6 +13267,7 @@ MonoBehaviour:
   playerFallTimer: 0
   groundedGravity: -1
   maxSlopeAngle: 47.5
+  capsuleCollider: {fileID: 0}
   initialJumpForce: 750
   continualJumpForceMultiplier: 0.1
   jumpTime: 0.175
@@ -13277,6 +13289,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   bulletPrefab: {fileID: 0}
+  chargingSound: {fileID: 0}
   shootChargingCounter: 0
   finishedDecharge: 1
   bulletsPerShot: 6
