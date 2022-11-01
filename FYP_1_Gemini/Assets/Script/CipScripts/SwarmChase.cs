@@ -12,7 +12,7 @@ public class SwarmChase : SwarmBaseStates
     //float chasingSpeed;
     public override void EnterState(SwarmStates states)
     {
-        Debug.Log("Swarm Chase");
+        //Debug.Log("Swarm Chase");
         PlayerPos = states.playerPos;
         states.animator.SetBool("RunState", true);
     }

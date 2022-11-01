@@ -8,7 +8,7 @@ public class SwarmIdle : SwarmBaseStates
     private float IdleTimer;
     public override void EnterState(SwarmStates states)
     {
-        Debug.Log("Enter Idle");
+        //Debug.Log("Enter Idle");
         states = states.GetComponent<SwarmStates>();
         states.animator.SetBool("IdleState" , true);
     }

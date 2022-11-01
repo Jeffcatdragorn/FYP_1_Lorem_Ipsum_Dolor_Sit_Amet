@@ -8,7 +8,7 @@ public class SwarmAvoidObstacles : SwarmBaseStates
     float timeInState;
     public override void EnterState(SwarmStates states)
     {
-        Debug.Log("Avoid Walls State");
+        //Debug.Log("Avoid Walls State");
     }
     
     public override void UpdatePhysicsState(SwarmStates states)

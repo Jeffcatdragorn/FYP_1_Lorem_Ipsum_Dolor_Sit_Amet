@@ -9,7 +9,7 @@ public class SwarmAttack : SwarmBaseStates
     //Declare override because we are going to define each function differently
     public override void EnterState(SwarmStates states)
     {
-        Debug.Log("Attacking");
+        //Debug.Log("Attacking");
     }
     public override void UpdatePhysicsState(SwarmStates states)
     {
