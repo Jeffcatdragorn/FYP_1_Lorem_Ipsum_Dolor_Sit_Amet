@@ -52,7 +52,8 @@ public class GunJumpScare : MonoBehaviour
         {
             deadBody.SetActive(false);
             swarm.SetActive(true);
-            swarm.GetComponent<SwarmStates>().enabled = false;
+            //swarm.GetComponent<SwarmStates>().enabled = false;
+
             mainCamAnimator.GetComponent<CinemachineBrain>().enabled = false;
             mainCamAnimator.enabled = true;
             mainCamAnimator.SetTrigger("gunJumpScare");
@@ -70,6 +71,7 @@ public class GunJumpScare : MonoBehaviour
             AudioManager.instance.PlaySound("labJumpscare", player.transform.position, false);
             //AudioManager.instance.PlaySound("labJumpScareSwarm", player.transform.position, false);
             gunTutorialPanel.SetActive(true);
+            Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             player.transform.eulerAngles = new Vector3(0f, -180f, 0f);
@@ -116,7 +118,8 @@ public class GunJumpScare : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        swarm.GetComponent<SwarmStates>().enabled = true;
+        //swarm.GetComponent<SwarmStates>().enabled = true;
+        Time.timeScale = 1;
 
         player.GetComponent<PlayerController>().enabled = true;
         player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
