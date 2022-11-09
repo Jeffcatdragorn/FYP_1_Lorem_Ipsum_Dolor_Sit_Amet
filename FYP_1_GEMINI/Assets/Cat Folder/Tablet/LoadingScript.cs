@@ -68,7 +68,7 @@ public class LoadingScript : MonoBehaviour
                 //case 1:
                 //loadingBarSlider ++ ; // for switch case
                 playerController.enabled = false;
-                loadingBarSlider += 11.5f * Time.deltaTime;
+                loadingBarSlider += 200f * Time.deltaTime; //11.5
                 loadingBar.value = loadingBarSlider;
                 progressNum.text = loadingBar.value.ToString() + "%";
 
