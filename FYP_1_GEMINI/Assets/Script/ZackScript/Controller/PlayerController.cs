@@ -964,6 +964,7 @@ public class PlayerController : MonoBehaviour
         }
         jumpWasPressedLastFrame = input.JumpIsPressed;
     }
+
     private void SetCoyoteTimeCounter()
     {
         if (playerIsGrounded)
@@ -975,6 +976,7 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter -= Time.fixedDeltaTime;
         }
     }
+
     private void SetJumpTimeCounter()
     {
         if (playerIsJumping && !playerIsGrounded)
@@ -986,6 +988,7 @@ public class PlayerController : MonoBehaviour
             jumpTimeCounter = jumpTime;
         }
     }
+
     //private void SetDashBufferCounter()
     //{
     //    if (!dashWasPressedLastFrame && input.DashIsPressed)
@@ -1053,7 +1056,8 @@ public class PlayerController : MonoBehaviour
             {
                 shootChargingCounter += 1.0f;
             }
-            chargingSound.SetActive(true);        }
+            chargingSound.SetActive(true);        
+        }
 
         if(shootChargingCounter >= 1.0f)
         {
@@ -1069,7 +1073,6 @@ public class PlayerController : MonoBehaviour
             {
                 shootChargingCounter -= 1.0f;
             }
-
         }
 
         if (shootChargingCounter <= 0.0f)
