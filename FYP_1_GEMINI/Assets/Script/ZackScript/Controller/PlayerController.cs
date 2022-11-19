@@ -104,9 +104,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int bulletsPerShot = 6;
     [SerializeField] GameObject impactEffect;
     [SerializeField] float inaccuracyDistance = 5.0f;
-    public ParticleSystem muzzleFlash;
+    [SerializeField] public ParticleSystem muzzleFlash;
+    [SerializeField] public ParticleSystem dischargeEffect1;
+    [SerializeField] public ParticleSystem dischargeEffect2;
     public float bulletSpeed;
     public GameObjectController objectController;
+    [SerializeField] GameObject spinningDrum;
+    [SerializeField] float spinSpeed = 0.0f;
+    [SerializeField] Animator gunAnimator;
 
     [Header("GunReload")]
     [SerializeField] int maxBullets = 6;
@@ -115,26 +120,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float GunReloadCooldownCounter = 0.0f;
     [SerializeField] TextMeshProUGUI BulletCountText;
 
-    [Header("Dashing")]
-    [SerializeField] float initialDashForce = 750.0f;
-    [SerializeField] float continualDashForceMultiplier = 0.1f;
-    [SerializeField] float dashTime = 0.175f;
-    [SerializeField] float dashTimeCounter = 0.0f;
-    [SerializeField] float coyotedashTime = 0.15f;
-    [SerializeField] float coyotedashTimeCounter = 0.0f;
-    [SerializeField] float dashBufferTime = 0.2f;
-    [SerializeField] float dashBufferTimeCounter = 0.0f;
-    [SerializeField] bool playerIsDashing = false;
-    [SerializeField] bool dashWasPressedLastFrame = false;
-    [SerializeField] float dashCooldown = 1.0f;
-    [SerializeField] float dashCooldownCounter = 0.0f;
-    public Animator charAnimation;
+    //[Header("Dashing")]
+    //[SerializeField] float initialDashForce = 750.0f;
+    //[SerializeField] float continualDashForceMultiplier = 0.1f;
+    //[SerializeField] float dashTime = 0.175f;
+    //[SerializeField] float dashTimeCounter = 0.0f;
+    //[SerializeField] float coyotedashTime = 0.15f;
+    //[SerializeField] float coyotedashTimeCounter = 0.0f;
+    //[SerializeField] float dashBufferTime = 0.2f;
+    //[SerializeField] float dashBufferTimeCounter = 0.0f;
+    //[SerializeField] bool playerIsDashing = false;
+    //[SerializeField] bool dashWasPressedLastFrame = false;
+    //[SerializeField] float dashCooldown = 1.0f;
+    //[SerializeField] float dashCooldownCounter = 0.0f;
+    //public Animator charAnimation;
 
-    [Header("Teleporting")]
-    [SerializeField] float teleportDistance = 0.5f;
-    [SerializeField] float teleportCooldown = 1.0f;
-    [SerializeField] float teleportCooldownCounter = 0.0f;
-    [SerializeField] LayerMask teleportStopLayer;
+    //[Header("Teleporting")]
+    //[SerializeField] float teleportDistance = 0.5f;
+    //[SerializeField] float teleportCooldown = 1.0f;
+    //[SerializeField] float teleportCooldownCounter = 0.0f;
+    //[SerializeField] LayerMask teleportStopLayer;
 
     [Header("Shield")]
     [SerializeField] GameObject shieldObject;
@@ -498,13 +503,17 @@ public class PlayerController : MonoBehaviour
             if(finishedDecharge == true)
             {
                 SetShootChargeIncrease();
+                GunChargeSpinUp();
                 chargingSound.SetActive(true);
 
             }
 
             if (shootChargingCounter >= 1.0f && finishedDecharge == true)
             {
+                gunAnimator.SetTrigger("gunRecoil");
                 muzzleFlash.Play();
+                dischargeEffect1.Play();
+                dischargeEffect2.Play();
                 AudioManager.instance.PlaySound("revolverShoot", cameraFollow.position, true);
                 currentBulletCount -= 1;
 
@@ -1080,6 +1089,12 @@ public class PlayerController : MonoBehaviour
             shootChargingCounter = 0.0f;
             finishedDecharge = true;
         }
+    }
+
+    private void GunChargeSpinUp()
+    {
+        //spinningDrum.transform.eulerAngles = new Vector3(spinningDrum.transform.eulerAngles.x + spinSpeed, spinningDrum.transform.eulerAngles.y, spinningDrum.transform.eulerAngles.z);
+        spinningDrum.transform.Rotate(0, spinSpeed, 0, Space.Self);
     }
 
     private void SetGunReloadCooldownCounter()
