@@ -2366,32 +2366,18 @@ MonoBehaviour:
   impactEffect: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
   inaccuracyDistance: 5
   muzzleFlash: {fileID: 993059267}
+  dischargeEffect1: {fileID: 0}
+  dischargeEffect2: {fileID: 0}
   bulletSpeed: 2
   objectController: {fileID: 0}
+  spinningDrum: {fileID: 0}
+  spinSpeed: 0
+  gunAnimator: {fileID: 0}
   maxBullets: 6
   currentBulletCount: 6
   GunReloadCooldown: 1
   GunReloadCooldownCounter: 0
   BulletCountText: {fileID: 1185434615}
-  initialDashForce: 100
-  continualDashForceMultiplier: 0.1
-  dashTime: 0.175
-  dashTimeCounter: 0
-  coyotedashTime: 0.15
-  coyotedashTimeCounter: 0
-  dashBufferTime: 0.2
-  dashBufferTimeCounter: 0
-  playerIsDashing: 0
-  dashWasPressedLastFrame: 0
-  dashCooldown: 0.8
-  dashCooldownCounter: 0
-  charAnimation: {fileID: 0}
-  teleportDistance: 0.5
-  teleportCooldown: 1
-  teleportCooldownCounter: 0
-  teleportStopLayer:
-    serializedVersion: 2
-    m_Bits: 0
   shieldObject: {fileID: 0}
   firstPersonCamera: {fileID: 1647412649}
   normalCameraTransform: {fileID: 294865206}
@@ -4531,7 +4517,7 @@ Transform:
   - {fileID: 369246057}
   - {fileID: 1186630534}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &457788792
 GameObject:
@@ -4567,7 +4553,7 @@ Transform:
   - {fileID: 1883265471}
   - {fileID: 1173044097}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &461284664
 PrefabInstance:
@@ -5305,7 +5291,7 @@ Transform:
   m_Children:
   - {fileID: 1999613695}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &504640198
 GameObject:
@@ -11013,7 +10999,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1064447123
 MonoBehaviour:
@@ -11591,6 +11577,37 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 2979430764897296733, guid: a8fb2ed5242ab9d4399974f1d834b0da, type: 3}
   m_PrefabInstance: {fileID: 2979430765933410212}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1121365972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1121365973}
+  m_Layer: 0
+  m_Name: where is my stuff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1121365973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121365972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.608791, y: 19.5206, z: 39.293533}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1123120196
 GameObject:
   m_ObjectHideFlags: 0
@@ -16227,7 +16244,7 @@ Transform:
   - {fileID: 1488618833}
   - {fileID: 1999103281}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1513521602
 GameObject:
@@ -16497,7 +16514,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1548885018
 GameObject:
@@ -17208,7 +17225,7 @@ Transform:
   - {fileID: 860210816}
   - {fileID: 2039322321}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1679741542
 GameObject:
@@ -18404,7 +18421,7 @@ Transform:
   - {fileID: 329224218}
   - {fileID: 876984446}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1838295804
 GameObject:
@@ -21189,7 +21206,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: -30, z: 0}
 --- !u!1 &2112983751
 GameObject:
