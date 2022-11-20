@@ -11,6 +11,7 @@ public class TVTriggerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider player)
     {
+       Debug.Log("Playing");
         if(player.tag == "Player" && tvCheck == true && Inventory.flashlightObtained == true){
             tvMask.SetActive(false);
             tvVideo.Play();
