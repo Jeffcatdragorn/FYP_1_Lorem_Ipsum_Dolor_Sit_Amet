@@ -20,6 +20,7 @@ public class LoadingScript : MonoBehaviour
     public GameObject tablet;
     public GameObject inspectCam;
     public GameObject tabletObj;
+    public GameObject okButton;
     public ButtonManager buttonManager;
 
     private void Start()
@@ -85,15 +86,21 @@ public class LoadingScript : MonoBehaviour
             else
             {
                 status.text = "Download Complete!";
-                loadingScreen.SetActive(false);
-                tabletObj.SetActive(false);
-                tablet.SetActive(false);
-                playerController.enabled = true;
-
-                buttonManager.DisableMouseCursor();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                okButton.SetActive(true);
 
                 this.gameObject.GetComponent<LoadingScript>().enabled = false;
             }
         }
+    }
+    public void PressOkButtonAfterLoadingScreen()
+    {
+        loadingScreen.SetActive(false);
+        tabletObj.SetActive(false);
+        tablet.SetActive(false);
+        playerController.enabled = true;
+
+        buttonManager.DisableMouseCursor();
     }
 }
