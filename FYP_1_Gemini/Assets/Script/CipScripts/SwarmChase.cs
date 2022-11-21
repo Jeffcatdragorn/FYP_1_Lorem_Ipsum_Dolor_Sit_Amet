@@ -25,6 +25,10 @@ public class SwarmChase : SwarmBaseStates
     public override void UpdateState(SwarmStates states)
     {
         FaceDirection(states);
+        if(states.weaknessDestroyed == true)
+        {
+            states.SwitchStates(states.DeathState);
+        }
     }
 
     public override void OnCollisionEnter(SwarmStates states)

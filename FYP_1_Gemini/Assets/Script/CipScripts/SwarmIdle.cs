@@ -24,6 +24,10 @@ public class SwarmIdle : SwarmBaseStates
             states.SwitchStates(states.PatrolState);
             IdleTimer = 0.0f;
         }
+        else if(states.weaknessDestroyed == true)
+        {
+            states.SwitchStates(states.DeathState);
+        }
         IdleTimer += Time.deltaTime;
     }
     public override void OnCollisionEnter(SwarmStates states)

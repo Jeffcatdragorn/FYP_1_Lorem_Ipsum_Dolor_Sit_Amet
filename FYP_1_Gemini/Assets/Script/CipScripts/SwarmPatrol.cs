@@ -31,12 +31,16 @@ public class SwarmPatrol : SwarmBaseStates
             //Debug.Log("Final MOvement" + finalMovement);
             timetoSwitch = 0.0f;
         }
+        else if(states.weaknessDestroyed == true)
+        {
+            states.SwitchStates(states.DeathState);
+        }
         timetoSwitch += (Time.deltaTime);
     }
 
     public override void UpdatePhysicsState(SwarmStates states)
     {
-        PatrollingState(states);  
+        PatrollingState(states);
         //FaceDirectionState(states);
     }
 

@@ -11,6 +11,7 @@ public class SwarmStates : MonoBehaviour
     public SwarmIdle IdleState = new SwarmIdle();
     public SwarmChase ChaseState = new SwarmChase();
     public SwarmAvoidObstacles AvoidState = new SwarmAvoidObstacles();
+    public SwarmDeath DeathState = new SwarmDeath();
     public Animator animator;
 
     public Rigidbody rb;
@@ -45,9 +46,13 @@ public class SwarmStates : MonoBehaviour
             currentSwarmState.UpdateState(this);
         }
         else
-            Destroy(this.gameObject);
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            currentSwarmState.UpdateState(this);
+        }
 
-        if(currentSwarmState == IdleState || currentSwarmState == PatrolState || currentSwarmState == ChaseState)
+
+        if (currentSwarmState == IdleState || currentSwarmState == PatrolState || currentSwarmState == ChaseState)
         {
             SoundInterval();
         }
@@ -62,7 +67,11 @@ public class SwarmStates : MonoBehaviour
             currentSwarmState.UpdatePhysicsState(this);
         }
         else
-            Destroy(this.gameObject);
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            currentSwarmState.UpdatePhysicsState(this);
+        }
+ 
     }
 
     public void OnTriggerEnter(Collider other)
