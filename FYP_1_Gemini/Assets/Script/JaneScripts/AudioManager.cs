@@ -321,6 +321,12 @@ public class AudioManager : MonoBehaviour
             footstepObject.GetComponent<AudioSource>().spatialBlend = 0;
         }
 
+        if(clip == swarmIdle1 || clip == swarmIdle2 || clip == swarmIdle3 || clip == swarmIdle4 || clip == swarmIdle5)
+        {
+            footstepObject.GetComponent<AudioSource>().minDistance = 1.0f;
+            footstepObject.GetComponent<AudioSource>().maxDistance = 1.0f;
+        }
+
         footstepObject.GetComponent<AudioSource>().clip = clip;
 
         footstepObject.GetComponent<AudioSource>().Play();
