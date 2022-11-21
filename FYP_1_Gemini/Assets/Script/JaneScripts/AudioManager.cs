@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound,
                      normalMetalFootstep1, normalMetalFootstep2, normalMetalFootstep3, normalMetalFootstep4, ventCoverFalling, ventCrawling, tvAudio, handSlap,
                      screeching, headCrabScreech, bringUpTablet, gunCharging, playerDeath, downloading, exposedFuse, flashlightOff, flashlightOn, labJumpscare,
-                        lowBatteryError, ObjComplete, tabletIn, tabletOut, swarmAttack, labJumpScareSwarm, alarmMuffled; //sfx
+                        lowBatteryError, ObjComplete, tabletIn, tabletOut, swarmAttack, swarmIdle1, swarmIdle2, swarmIdle3, swarmIdle4, swarmIdle5, alarmMuffled; //sfx
 
     private GameObject currentMusicObject;
 
@@ -221,9 +221,6 @@ public class AudioManager : MonoBehaviour
                 case "swarmAttack":
                     SoundObjectCreate(swarmAttack, spawnPosition, is3D);
                     break;
-                case "labJumpScareSwarm":
-                    SoundObjectCreate(labJumpScareSwarm, spawnPosition, is3D);
-                    break;
                 default:
                     break;
             }
@@ -251,8 +248,20 @@ public class AudioManager : MonoBehaviour
                 case "screeching":
                     SoundObjectCreateParent(screeching, spawnParent, is3D);
                     break;
-                case "headCrabScreech":
-                    SoundObjectCreateParent(headCrabScreech, spawnParent, is3D);
+                case "swarmIdle1":
+                    SoundObjectCreateParent(swarmIdle1, spawnParent, is3D);
+                    break;
+                case "swarmIdle2":
+                    SoundObjectCreateParent(swarmIdle2, spawnParent, is3D);
+                    break;
+                case "swarmIdle3":
+                    SoundObjectCreateParent(swarmIdle3, spawnParent, is3D);
+                    break;
+                case "swarmIdle4":
+                    SoundObjectCreateParent(swarmIdle4, spawnParent, is3D);
+                    break;
+                case "swarmIdle5":
+                    SoundObjectCreateParent(swarmIdle5, spawnParent, is3D);
                     break;
                 default:
                     break;

@@ -68,7 +68,7 @@ public class GunJumpScare : MonoBehaviour
 
         if(camNTime > 1.0f && trigger == false)
         {
-            AudioManager.instance.PlaySound("labJumpscare", player.transform.position, false);
+            AudioManager.instance.PlaySoundParent("swarmIdle1", player, false);
             //AudioManager.instance.PlaySound("labJumpScareSwarm", player.transform.position, false);
             gunTutorialPanel.SetActive(true);
             Time.timeScale = 0;

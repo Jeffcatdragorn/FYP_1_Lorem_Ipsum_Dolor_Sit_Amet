@@ -78,7 +78,12 @@ MonoBehaviour:
   tabletIn: {fileID: 8300000, guid: cebb81f99d001e640b35b700e075b2a1, type: 3}
   tabletOut: {fileID: 8300000, guid: b6bde794b21e4e9479baf141ef564629, type: 3}
   swarmAttack: {fileID: 8300000, guid: 374401ebf12657140babe1a1ad528f2f, type: 3}
-  labJumpScareSwarm: {fileID: 8300000, guid: 09bbfa457bf57ab4ebd3a04207541a01, type: 3}
+  swarmIdle1: {fileID: 8300000, guid: 09bbfa457bf57ab4ebd3a04207541a01, type: 3}
+  swarmIdle2: {fileID: 8300000, guid: c559809a759502644843af3175276457, type: 3}
+  swarmIdle3: {fileID: 8300000, guid: d1655052b8fd6e34ab4a68dc671042cd, type: 3}
+  swarmIdle4: {fileID: 8300000, guid: 11f86f84f682743429ba54b0faff1ced, type: 3}
+  swarmIdle5: {fileID: 8300000, guid: d3cc8a2dcd225204c92a2d2320e6f81f, type: 3}
+  alarmMuffled: {fileID: 8300000, guid: 21866f93a42be114c8fed7682f2e6d47, type: 3}
   soundObject: {fileID: 7314115016610703002, guid: e75bbbc6eb4294e44b17b9628720ff85, type: 3}
   SFXButton: {fileID: 7527728289082795968, guid: 5beb20db36f21154096b07d9b40db9c7, type: 3}
   musicObject: {fileID: 6222479523295503680, guid: 02401aecb908fdb4dadeae45ddf2db6e, type: 3}

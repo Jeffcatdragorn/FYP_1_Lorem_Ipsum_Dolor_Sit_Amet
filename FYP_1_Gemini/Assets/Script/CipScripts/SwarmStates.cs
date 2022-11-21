@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SwarmStates : MonoBehaviour
 {
-    SwarmBaseStates currentSwarmState; //signifies which state the swarm is in rn.
+    public SwarmBaseStates currentSwarmState; //signifies which state the swarm is in rn.
     public SwarmAttack AttackState = new SwarmAttack();
     public SwarmPatrol PatrolState = new SwarmPatrol();
     public SwarmIdle IdleState = new SwarmIdle();
@@ -19,6 +19,7 @@ public class SwarmStates : MonoBehaviour
     public float switchPatrolLocation = 10.0f;
     public int swarmMaxHealth;
     int swarmCurrHealth;
+    public float soundTimer;
 
     public Vector3 swarmPos;
     public Vector3 initSwarmPos;
@@ -44,6 +45,11 @@ public class SwarmStates : MonoBehaviour
         }
         else
             Destroy(this.gameObject);
+
+        if(currentSwarmState == IdleState || currentSwarmState == PatrolState || currentSwarmState == ChaseState)
+        {
+            SoundInterval();
+        }
     }
 
     void FixedUpdate()
@@ -81,5 +87,43 @@ public class SwarmStates : MonoBehaviour
         }
         currentSwarmState = states;
         states.EnterState(this);
+    }
+
+    void SoundInterval()
+    {
+        soundTimer += Time.deltaTime;
+
+        if (soundTimer >= 3.0f)
+        {
+            int randomNum1 = Random.Range(0, 200);
+
+            if (randomNum1 == 1)
+            {
+                int randomNum2 = Random.Range(0, 5);
+
+                if (randomNum2 == 0)
+                {
+                    AudioManager.instance.PlaySoundParent("swarmIdle1", this.gameObject, true);
+                }
+                if (randomNum2 == 1)
+                {
+                    AudioManager.instance.PlaySoundParent("swarmIdle2", this.gameObject, true);
+                }
+                if (randomNum2 == 2)
+                {
+                    AudioManager.instance.PlaySoundParent("swarmIdle3", this.gameObject, true);
+                }
+                if (randomNum2 == 3)
+                {
+                    AudioManager.instance.PlaySoundParent("swarmIdle4", this.gameObject, true);
+                }
+                if (randomNum2 == 4)
+                {
+                    AudioManager.instance.PlaySoundParent("swarmIdle5", this.gameObject, true);
+                }
+
+                soundTimer = 0;
+            }
+        }
     }
 }

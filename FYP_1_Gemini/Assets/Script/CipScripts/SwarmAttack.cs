@@ -6,6 +6,7 @@ public class SwarmAttack : SwarmBaseStates
 {
     float stopAttack;
     float AttackRate;
+
     //Declare override because we are going to define each function differently
     public override void EnterState(SwarmStates states)
     {
