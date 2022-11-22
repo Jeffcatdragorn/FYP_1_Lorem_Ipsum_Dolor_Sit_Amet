@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 public class SwarmChase : SwarmBaseStates
@@ -19,7 +20,10 @@ public class SwarmChase : SwarmBaseStates
 
     public override void UpdatePhysicsState(SwarmStates states)
     {
-        
+        if(states.allyDead == true)
+        {
+            states.rb.AddForce(ChasingPlayer(states).normalized * 70.0f, ForceMode.Impulse);
+        }
     }
 
     public override void UpdateState(SwarmStates states)
@@ -47,11 +51,11 @@ public class SwarmChase : SwarmBaseStates
     {
         if(collider.tag == "Player")
         {
-            states.rb.AddForce(ChaseFormula(states) * 60.0f, ForceMode.Impulse);
-        }        
+            states.rb.AddForce(ChasingPlayer(states).normalized * 70.0f, ForceMode.Impulse);
+        }
     }
 
-    public Vector3 ChaseFormula(SwarmStates states)
+    public Vector3 ChasingPlayer(SwarmStates states)
     {
         SwarmToPlayer = (PlayerPos - states.swarmPos).normalized;
         //DistancetoPlayer = Vector3.Distance(PlayerPos, states.swarmPos) - 1;
@@ -60,12 +64,12 @@ public class SwarmChase : SwarmBaseStates
 
         chaseVelo.y = 0.0f;
 
-        return chaseVelo;
+        return chaseVelo.normalized;
     }
 
     public void FaceDirection(SwarmStates states)
     {
-        Quaternion lookRotation = Quaternion.LookRotation(ChaseFormula(states).normalized); // GET ROTATION ANGLE
+        Quaternion lookRotation = Quaternion.LookRotation(ChasingPlayer(states).normalized); // GET ROTATION ANGLE
         lookRotation.x = lookRotation.z = 0.0f;
         states.transform.rotation = Quaternion.Slerp(states.transform.rotation, lookRotation, Time.deltaTime * 1.0f); // ROTATE FACE NEW DIRECTION
     }

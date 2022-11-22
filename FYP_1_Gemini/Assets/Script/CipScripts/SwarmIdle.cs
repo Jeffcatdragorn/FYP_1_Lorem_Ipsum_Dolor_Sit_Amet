@@ -19,6 +19,14 @@ public class SwarmIdle : SwarmBaseStates
 
     public override void UpdateState(SwarmStates states)
     {
+        foreach (GameObject ally in states.SwarmAllies)
+        {
+            if (ally.GetComponent<BoxCollider>().enabled == false)
+            {
+                states.SwitchStates(states.ChaseState);
+            }
+        }
+
         if (IdleTimer > states.timeswitchState)
         {
             states.SwitchStates(states.PatrolState);

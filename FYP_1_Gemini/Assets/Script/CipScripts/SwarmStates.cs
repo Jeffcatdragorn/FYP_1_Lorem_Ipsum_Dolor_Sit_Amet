@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.VersionControl.Asset;
 
 
 public class SwarmStates : MonoBehaviour
@@ -13,9 +14,12 @@ public class SwarmStates : MonoBehaviour
     public SwarmAvoidObstacles AvoidState = new SwarmAvoidObstacles();
     public SwarmDeath DeathState = new SwarmDeath();
     public Animator animator;
+    public GameObject [] SwarmAllies;
+
 
     public Rigidbody rb;
     public  bool weaknessDestroyed;
+    public bool allyDead;
     public float timeswitchState = 3.0f;
     public float switchPatrolLocation = 10.0f;
     public int swarmMaxHealth;
@@ -51,6 +55,15 @@ public class SwarmStates : MonoBehaviour
             currentSwarmState.UpdateState(this);
         }
 
+
+        foreach (GameObject ally in SwarmAllies)
+        {
+            if (ally.GetComponent<BoxCollider>().enabled == false)
+            {
+                allyDead = true;
+                SwitchStates(ChaseState);
+            }
+        }
 
         if (currentSwarmState == IdleState || currentSwarmState == PatrolState || currentSwarmState == ChaseState)
         {

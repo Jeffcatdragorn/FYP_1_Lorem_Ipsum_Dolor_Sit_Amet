@@ -22,7 +22,8 @@ public class SwarmPatrol : SwarmBaseStates
 
     public override void UpdateState(SwarmStates states)
     { 
-        
+
+
         if (timetoSwitch > states.switchPatrolLocation) //switch after every X seconds
         {
             //states.SwitchStates(states.IdleState);
