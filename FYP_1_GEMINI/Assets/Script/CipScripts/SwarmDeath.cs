@@ -24,7 +24,7 @@ public class SwarmDeath : SwarmBaseStates
         
     }
 
-    public override void OnCollisionEnter(SwarmStates states)
+    public override void OnCollisionEnter(SwarmStates states, Collision collision)
     {
        
     }

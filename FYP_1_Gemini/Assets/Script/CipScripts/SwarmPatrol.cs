@@ -22,8 +22,6 @@ public class SwarmPatrol : SwarmBaseStates
 
     public override void UpdateState(SwarmStates states)
     { 
-
-
         if (timetoSwitch > states.switchPatrolLocation) //switch after every X seconds
         {
             //states.SwitchStates(states.IdleState);
@@ -45,7 +43,7 @@ public class SwarmPatrol : SwarmBaseStates
         //FaceDirectionState(states);
     }
 
-    public override void OnCollisionEnter(SwarmStates states)
+    public override void OnCollisionEnter(SwarmStates states, Collision collision)
     {
     }
 
