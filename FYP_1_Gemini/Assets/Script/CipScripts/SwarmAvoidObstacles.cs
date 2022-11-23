@@ -21,7 +21,7 @@ public class SwarmAvoidObstacles : SwarmBaseStates
        TimeInState(states);
     }
 
-    public override void OnCollisionEnter(SwarmStates states)
+    public override void OnCollisionEnter(SwarmStates states, Collision collision)
     {
     }
 

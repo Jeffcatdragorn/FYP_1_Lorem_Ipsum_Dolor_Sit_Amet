@@ -19,6 +19,7 @@ public class SwarmStates : MonoBehaviour
 
     public Rigidbody rb;
     public  bool weaknessDestroyed;
+    bool loopBroken = false;
     public bool allyDead;
     public float timeswitchState = 3.0f;
     public float switchPatrolLocation = 10.0f;
@@ -26,7 +27,7 @@ public class SwarmStates : MonoBehaviour
     int swarmCurrHealth;
     public float soundTimer;
 
-    
+    public Transform player;
     public Vector3 swarmPos;
     public Vector3 initSwarmPos;
     public Vector3 playerPos;
@@ -38,15 +39,14 @@ public class SwarmStates : MonoBehaviour
         currentSwarmState.EnterState(this);
 
         initSwarmPos = this.gameObject.transform.position;
-        swarmMaxHealth = 4;
     }
 
     void Update()
     {
-        if (weaknessDestroyed == false)
-        {
-            swarmPos = this.gameObject.transform.position;
-            playerPos = GameObject.Find("Player").transform.position;
+        playerPos = GameObject.Find("Player").transform.position;
+        swarmPos = this.gameObject.transform.position;
+        if (this.weaknessDestroyed == false)
+        {  
             currentSwarmState.UpdateState(this);
         }
         else
@@ -55,15 +55,20 @@ public class SwarmStates : MonoBehaviour
             currentSwarmState.UpdateState(this);
         }
 
-
-        foreach (GameObject ally in SwarmAllies)
+        if(loopBroken != true)
         {
-            if (ally.GetComponent<BoxCollider>().enabled == false)
+            foreach (GameObject ally in SwarmAllies)
             {
-                allyDead = true;
-                SwitchStates(ChaseState);
+                if (ally.GetComponent<BoxCollider>().enabled == false)
+                {
+                    allyDead = true;
+                    SwitchStates(ChaseState);
+                    loopBroken = true;
+                    break;
+                }
             }
         }
+
 
         if (currentSwarmState == IdleState || currentSwarmState == PatrolState || currentSwarmState == ChaseState)
         {
@@ -73,26 +78,31 @@ public class SwarmStates : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (weaknessDestroyed == false)
-        {
-            swarmPos = this.gameObject.transform.position;
-            //playerPos = GameObject.Find("Player").transform.position;
-            currentSwarmState.UpdatePhysicsState(this);
-        }
-        else
-        {
-            GetComponent<BoxCollider>().enabled = false;
-            currentSwarmState.UpdatePhysicsState(this);
-        }
+        //if (weaknessDestroyed == false)
+        //{
+        //    swarmPos = this.gameObject.transform.position;
+        //    //playerPos = GameObject.Find("Player").transform.position;
+        //    currentSwarmState.UpdatePhysicsState(this);
+        //}
+        //else
+        //{
+        //    GetComponent<BoxCollider>().enabled = false;
+        //    currentSwarmState.UpdatePhysicsState(this);
+        //}
+        currentSwarmState.UpdatePhysicsState(this);
  
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        currentSwarmState.OnCollisionEnter(this, collision);
+    }
     public void OnTriggerEnter(Collider other)
     {
         currentSwarmState.OnTriggerEnter(this, other);
     }
 
-    public  void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
         currentSwarmState.OnTriggerExit(this, other);
     }

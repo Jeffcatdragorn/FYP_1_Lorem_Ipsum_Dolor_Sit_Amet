@@ -10,7 +10,8 @@ public class SwarmAttack : SwarmBaseStates
     //Declare override because we are going to define each function differently
     public override void EnterState(SwarmStates states)
     {
-        //Debug.Log("Attacking");
+        //Debug.Log("Enter Attacking");
+        states.animator.SetBool("AttackState", true);
     }
     public override void UpdatePhysicsState(SwarmStates states)
     {
@@ -20,7 +21,7 @@ public class SwarmAttack : SwarmBaseStates
         attackPlayer(states);
     }
 
-    public override void OnCollisionEnter(SwarmStates states)
+    public override void OnCollisionEnter(SwarmStates states, Collision collision)
     {
 
     }
@@ -31,8 +32,9 @@ public class SwarmAttack : SwarmBaseStates
     public override void OnTriggerExit(SwarmStates states, Collider collider)
     {
         GameObject other = collider.gameObject;
-        if (other.tag == "playerSelf")
+        if (other.tag == "Player")
         {
+            Debug.Log("Player Exited");
             states.SwitchStates(states.ChaseState);
         }
     }
@@ -45,10 +47,14 @@ public class SwarmAttack : SwarmBaseStates
         if (AttackRate > 3.0f)
         {
             Debug.Log("Attacking");
+            states.animator.Play("AnimAttack");
             AttackRate = 0.0f;
         }
         AttackRate += Time.deltaTime;
     }
 
-    public override void ExitState(SwarmStates states){}
+    public override void ExitState(SwarmStates states)
+    {
+        states.animator.SetBool("AttackState", false); 
+    }
 }

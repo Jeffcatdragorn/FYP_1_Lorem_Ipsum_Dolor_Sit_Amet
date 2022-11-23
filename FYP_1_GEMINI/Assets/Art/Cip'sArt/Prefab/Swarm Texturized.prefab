@@ -64,8 +64,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 872564230849864917}
-  - component: {fileID: 872564230849864906}
   - component: {fileID: 1348911940}
+  - component: {fileID: 872564230849864906}
   - component: {fileID: 872564230849864907}
   - component: {fileID: 872564230849864904}
   - component: {fileID: 872564230849864905}
@@ -93,19 +93,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &872564230849864906
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872564230849864916}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 8.300035, y: 6.4538975, z: 21.030384}
-  m_Center: {x: -0.4205008, y: 5.1361327, z: 5.937286}
 --- !u!136 &1348911940
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -120,6 +107,19 @@ CapsuleCollider:
   m_Height: 8.03
   m_Direction: 1
   m_Center: {x: 0, y: 4.69, z: 0}
+--- !u!65 &872564230849864906
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 872564230849864916}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.300035, y: 6.4538975, z: 21.030384}
+  m_Center: {x: -0.4205008, y: 5.1361327, z: 5.937286}
 --- !u!114 &872564230849864907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,11 +133,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 515856799}
+  SwarmAllies:
+  - {fileID: 0}
   rb: {fileID: 872564230849864904}
   weaknessDestroyed: 0
+  allyDead: 0
   timeswitchState: 5
   switchPatrolLocation: 10
   swarmMaxHealth: 0
+  soundTimer: 0
+  player: {fileID: 0}
   swarmPos: {x: 0, y: 0, z: 0}
   initSwarmPos: {x: 0, y: 0, z: 0}
   playerPos: {x: 0, y: 0, z: 0}
@@ -149,7 +154,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 872564230849864916}
   serializedVersion: 2
-  m_Mass: 60
+  m_Mass: 30
   m_Drag: 4
   m_AngularDrag: 4
   m_UseGravity: 1
