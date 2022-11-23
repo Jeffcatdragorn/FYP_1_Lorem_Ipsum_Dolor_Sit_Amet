@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058a74496e11d61439772f3400e6f9c1, type: 3}
   m_Name: LabKey
   m_EditorClassIdentifier: 
-  name: LabKey
+  name: Level 1 Key
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   isDefaultItem: 1
   itemAmount: 1

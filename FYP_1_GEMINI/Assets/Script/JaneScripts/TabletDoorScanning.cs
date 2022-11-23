@@ -16,9 +16,12 @@ public class TabletDoorScanning : MonoBehaviour
     public GameObject flashlightWarning = null;
     public GameObject tabletWarning = null;
     public GameObject labKeyWarning = null;
+    public GameObject labControlKeyWarning = null;
+    public GameObject GeneralSectorKeyWarning = null;
     private bool flashlightCheck;
     private bool tabletCheck;
     private bool labKeyCheck;
+    private bool lqKeyCheck;
 
     [Header("DOOR")]
     public string doorName;
@@ -118,6 +121,20 @@ public class TabletDoorScanning : MonoBehaviour
                     doorIsOpen2 = true;
                 }
             }
+            else if (doorName == "Lab Control Room" || doorName == "General Sector Dome Gate 2")
+            {
+                if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.lQKeyObtained == true && doorIsOpen2 == false)
+                {
+                    //disable the trigger collider to avoid player spam 'G'
+                    scannerTrigger.enabled = false; //to prevent player from opening the door again
+
+                    DoorOpeningProcess();
+
+                    ScannerCooldownCounter = ScannerUICooldown;
+
+                    doorIsOpen2 = true;
+                }
+            }
             else
             {
                 if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && doorIsOpen2 == false)
@@ -176,6 +193,34 @@ public class TabletDoorScanning : MonoBehaviour
                     labKeyCheck = true;
                 }
             }
+            else if (doorName == "Lab Control Room")
+            {
+                if (Inventory.lQKeyObtained == false)
+                {
+                    labControlKeyWarning.SetActive(true);
+                    doorPanel.SetActive(false);
+                    lqKeyCheck = false;
+                }
+                else
+                {
+                    doorPanel.SetActive(true);
+                    lqKeyCheck = true;
+                }
+            }
+            else if (doorName == "General Sector Dome Gate 2")
+            {
+                if (Inventory.lQKeyObtained == false)
+                {
+                    GeneralSectorKeyWarning.SetActive(true);
+                    doorPanel.SetActive(false);
+                    lqKeyCheck = false;
+                }
+                else
+                {
+                    doorPanel.SetActive(true);
+                    lqKeyCheck = true;
+                }
+            }
             else
             {
                 if (Inventory.tabletObtained == false)
@@ -201,6 +246,8 @@ public class TabletDoorScanning : MonoBehaviour
         flashlightWarning.SetActive(false);
         labKeyWarning.SetActive(false);
         tabletWarning.SetActive(false);
+        labControlKeyWarning.SetActive(false);
+        GeneralSectorKeyWarning.SetActive(false);
     }
 
     public void DoorOpeningProcess()
@@ -231,6 +278,21 @@ public class TabletDoorScanning : MonoBehaviour
             else if (doorName == "Lab Dome Gate 2")
             {
                 if (labKeyCheck == true)
+                {
+                    PlayerController.state = PlayerController.State.movementLock; //lock player movement
+
+                    tabletObj.SetActive(true);
+                    scannerAnimator.Play("TabletSlotIn", 0, 0.0f);
+                    AudioManager.instance.PlaySound("tabletIn", scannerAnimator.gameObject.transform.position, false);
+
+                    doorPanel.SetActive(false);
+
+                    Invoke("TabletSlotOut", scanningTime);
+                }
+            }
+            else if (doorName == "Lab Control Room" || doorName == "General Sector Dome Gate 2")
+            {
+                if (lqKeyCheck == true)
                 {
                     PlayerController.state = PlayerController.State.movementLock; //lock player movement
 

@@ -183,11 +183,11 @@ public class Inventory : MonoBehaviour
             {
                 gunObtained = true;
             }
-            if (item.name == "LabKey")
+            if (item.name == "Level 1 Key") //lab key
             {
                 labKeyObtained = true;
             }
-            if (item.name == "LivingQuartersKey")
+            if (item.name == "Level 2 Key") //LivingQuartersKey
             {
                 lQKeyObtained = true;
             }
