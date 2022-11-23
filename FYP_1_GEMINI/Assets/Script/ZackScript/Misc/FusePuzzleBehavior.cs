@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class fuse_script : MonoBehaviour
+public class FusePuzzleBehavior : MonoBehaviour
 {
     public enum FuseBox
     {
@@ -20,13 +20,15 @@ public class fuse_script : MonoBehaviour
     }
 
     [System.Serializable]
-    public class FusePrefab
+    public class FuseObject
     {
         public GameObject normal;
         public GameObject glow;
+        public GameObject fuseSelectionButton;
     }
 
     public static int selectedFuse;
+    public static int fusePuzzleCompletion;
 
     [SerializeField] HumanoidLandInput input;
     [SerializeField] GameObject player;
@@ -34,10 +36,17 @@ public class fuse_script : MonoBehaviour
     [SerializeField] GameObject interactPanel;
     [SerializeField] GameObject lightSphere1;
     [SerializeField] GameObject lightSphere2;
+    [SerializeField] GameObject slotUI;
+    [SerializeField] GameObject fuseSelectionUI;
     [SerializeField] Material lightSphereNormalMaterial;
     [SerializeField] Material lightSphereGlowMaterial;
     [SerializeField] FuseSlot[] fuseSlots;
-    [SerializeField] FusePrefab[] fusePrefabs;
+    [SerializeField] FuseObject[] fusePrefabs;
+    [SerializeField] GameObject elevatorDoor;
+    [SerializeField] bool uiActive = false;
+    [SerializeField] bool interactPanelBool = false;
+
+    private float cooldownTimer;
 
     bool reset = false;
 
@@ -46,15 +55,14 @@ public class fuse_script : MonoBehaviour
     private void Awake()
     {
         selectedFuse = 0;
+
+        Inventory.prisonFuzeObtained = true;
+        Inventory.labFuzeObtained = true;
     }
 
     private void Update()
     {
-        if(this.gameObject.activeInHierarchy == true)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        Debug.Log(fusePuzzleCompletion);
 
         if (reset == true)
         {
@@ -65,13 +73,49 @@ public class fuse_script : MonoBehaviour
                     Destroy(fuseSlots[i].slotPosition1.GetChild(0).gameObject);
                     Destroy(fuseSlots[i].slotPosition2.GetChild(0).gameObject);
                 }
+
+                if (i < 4)
+                {
+                    fusePrefabs[i].fuseSelectionButton.GetComponent<Button>().interactable = true;
+                }
+
                 fuseSlots[i].occupied = false;
 
-                if(i == 4)
+                if (i == 4)
                 {
                     reset = false;
                 }
             }
+        }
+
+        if (Inventory.prisonFuzeObtained == true)
+        {
+            fusePrefabs[0].fuseSelectionButton.SetActive(true);
+        }
+
+        if (Inventory.labFuzeObtained == true)
+        {
+            fusePrefabs[1].fuseSelectionButton.SetActive(true);
+        }
+
+        if (Inventory.lQFuzeObtained == true)
+        {
+            fusePrefabs[2].fuseSelectionButton.SetActive(true);
+        }
+
+        if (Inventory.generatorFuzeObtained == true)
+        {
+            fusePrefabs[3].fuseSelectionButton.SetActive(true);
+        }
+
+        if (fusePuzzleCompletion == 4)
+        {
+            elevatorDoor.SetActive(false);
+        }
+
+        if(cooldownTimer >= 0.0f)
+        {
+            cooldownTimer -= Time.deltaTime;
         }
     }
 
@@ -79,10 +123,31 @@ public class fuse_script : MonoBehaviour
     {
         if (other.tag == "playerFront")
         {
-            interactPanel.SetActive(true);
-            if (input.InteractIsPressed == true)
+            if(interactPanelBool == false)
+                interactPanel.SetActive(true);
+            else
+                interactPanel.SetActive(false);
+
+            if (input.InteractIsPressed == true && uiActive == false && cooldownTimer <= 0.0f)
             {
-                
+                interactPanelBool = true;
+                slotUI.SetActive(true);
+                fuseSelectionUI.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                uiActive = true;
+                cooldownTimer = 0.5f;
+            }
+
+            if (input.InteractIsPressed == true && uiActive == true && cooldownTimer <= 0.0f)
+            {
+                interactPanelBool = false;
+                slotUI.SetActive(false);
+                fuseSelectionUI.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                uiActive = false;
+                cooldownTimer = 0.5f;
             }
         }
     }
@@ -102,7 +167,7 @@ public class fuse_script : MonoBehaviour
 
     public void SlotClick(int i)
     {
-        if(selectedFuse != 0)
+        if (selectedFuse != 0)
         {
             if (i == 1)
             {
@@ -122,6 +187,8 @@ public class fuse_script : MonoBehaviour
 
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
+
+                        FusePuzzleBehavior.fusePuzzleCompletion += 1;
                     }
 
                     else if (selectedFuse == 3)
@@ -150,7 +217,9 @@ public class fuse_script : MonoBehaviour
                         newPrefab.transform.localScale = Vector3.one;
                     }
 
+                    fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
                     fuseSlots[i - 1].occupied = true;
+                    selectedFuse = 0;
                 }
             }
 
@@ -172,6 +241,8 @@ public class fuse_script : MonoBehaviour
 
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
+
+                        FusePuzzleBehavior.fusePuzzleCompletion += 1;
                     }
 
                     else if (selectedFuse == 2)
@@ -199,7 +270,9 @@ public class fuse_script : MonoBehaviour
                         newPrefab.transform.localScale = Vector3.one;
                     }
 
+                    fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
                     fuseSlots[i - 1].occupied = true;
+                    selectedFuse = 0;
                 }
             }
 
@@ -221,6 +294,8 @@ public class fuse_script : MonoBehaviour
 
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
+
+                        FusePuzzleBehavior.fusePuzzleCompletion += 1;
                     }
 
                     else if (selectedFuse == 4)
@@ -248,7 +323,9 @@ public class fuse_script : MonoBehaviour
                         newPrefab.transform.localScale = Vector3.one;
                     }
 
+                    fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
                     fuseSlots[i - 1].occupied = true;
+                    selectedFuse = 0;
                 }
             }
 
@@ -270,6 +347,8 @@ public class fuse_script : MonoBehaviour
 
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
+
+                        FusePuzzleBehavior.fusePuzzleCompletion += 1;
                     }
 
                     else if (selectedFuse == 1)
@@ -297,7 +376,9 @@ public class fuse_script : MonoBehaviour
                         newPrefab.transform.localScale = Vector3.one;
                     }
 
+                    fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
                     fuseSlots[i - 1].occupied = true;
+                    selectedFuse = 0;
                 }
             }
 
@@ -309,7 +390,16 @@ public class fuse_script : MonoBehaviour
                     newPrefab.transform.parent = fuseSlots[i - 1].slotPosition1.transform;
                     newPrefab.transform.localPosition = Vector3.zero;
                     newPrefab.transform.localScale = Vector3.one;
+
+                    newPrefab = Instantiate(fusePrefabs[selectedFuse - 1].normal);
+                    newPrefab.transform.parent = fuseSlots[i - 1].slotPosition2.transform;
+                    newPrefab.transform.localPosition = Vector3.zero;
+                    newPrefab.transform.localScale = Vector3.one;
                 }
+
+                fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
+                fuseSlots[i - 1].occupied = true;
+                selectedFuse = 0;
             }
         }
     }
@@ -320,9 +410,10 @@ public class fuse_script : MonoBehaviour
 
         selectedFuse = 0;
 
+        fusePuzzleCompletion = 0;
+
         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
 
     }
 }
-

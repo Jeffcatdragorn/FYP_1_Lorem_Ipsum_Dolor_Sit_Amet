@@ -29,14 +29,57 @@ public class LightsOutBehaviour : MonoBehaviour
 
         if (Inventory.labFuzeObtained == true && labDome == false)
         {
+            bool doorDone = false;
+            bool swarmDone = false;
+
             labLights.SetActive(false);
-            labDome = true;
+
+            for(int i = 0; i < labDoors.Length; i++)
+            {
+                labDoors[i].SetActive(false);
+
+                if(i == labDoors.Length - 1)
+                {
+                    doorDone = true;
+                }
+            }
+
+            for (int i = 0; i < labSwarms.Length; i++)
+            {
+                labSwarms[i].SetActive(false);
+
+                if (i == labDoors.Length - 1)
+                {
+                    swarmDone = true;
+                }
+            }
+
+            if(doorDone == true && swarmDone == true)
+            {
+                labDome = true;
+            }
         }
 
         if (Inventory.lQFuzeObtained == true && generalDome == false)
         {
+            bool doorDone = false;
+
             generalLights.SetActive(false);
-            generalDome = true;
+
+            for (int i = 0; i < generalDoors.Length; i++)
+            {
+                generalDoors[i].SetActive(false);
+
+                if (i == generalDoors.Length - 1)
+                {
+                    doorDone = true;
+                }
+            }
+
+            if (doorDone == true)
+            {
+                generalDome = true;
+            }
         }
     }
 }
