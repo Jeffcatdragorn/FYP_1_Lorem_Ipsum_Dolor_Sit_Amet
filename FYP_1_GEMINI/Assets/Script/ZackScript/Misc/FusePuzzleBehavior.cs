@@ -55,9 +55,6 @@ public class FusePuzzleBehavior : MonoBehaviour
     private void Awake()
     {
         selectedFuse = 0;
-
-        Inventory.prisonFuzeObtained = true;
-        Inventory.labFuzeObtained = true;
     }
 
     private void Update()
