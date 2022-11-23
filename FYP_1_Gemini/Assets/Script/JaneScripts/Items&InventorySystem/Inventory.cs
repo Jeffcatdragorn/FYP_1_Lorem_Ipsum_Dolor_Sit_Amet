@@ -18,9 +18,9 @@ public class Inventory : MonoBehaviour
     public static bool flashlightObtained = false;
     public static bool gunObtained = false;
 
-    public static bool labKeyObtained = false;
-    public static bool lQKeyObtained = false;
-    public static bool generatorKeyObtained = false;
+    public static bool lvl1KeyObtained = false;
+    public static bool lvl2KeyObtained = false;
+    public static bool lvl3KeyObtained = false;
 
     public static bool prisonFuzeObtained = false;
     public static bool labFuzeObtained = false;
@@ -185,15 +185,15 @@ public class Inventory : MonoBehaviour
             }
             if (item.name == "Level 1 Key") //lab key
             {
-                labKeyObtained = true;
+                lvl1KeyObtained = true;
             }
             if (item.name == "Level 2 Key") //LivingQuartersKey
             {
-                lQKeyObtained = true;
+                lvl2KeyObtained = true;
             }
-            if (item.name == "GeneratorKey")
+            if (item.name == "Level 3 Key")
             {
-                generatorKeyObtained = true;
+                lvl3KeyObtained = true;
             }
             if (item.name == "PrisonFuze")
             {

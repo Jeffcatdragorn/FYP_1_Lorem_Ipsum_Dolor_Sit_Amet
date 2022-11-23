@@ -93,9 +93,9 @@ public class PauseMenu : MonoBehaviour
         Inventory.flashlightObtained = false;
         Inventory.gunObtained = false;
 
-        Inventory.labKeyObtained = false;
-        Inventory.lQKeyObtained = false;
-        Inventory.generatorKeyObtained = false;
+        Inventory.lvl1KeyObtained = false;
+        Inventory.lvl2KeyObtained = false;
+        Inventory.lvl3KeyObtained = false;
 
         Inventory.prisonFuzeObtained = false;
         Inventory.labFuzeObtained = false;

@@ -34,7 +34,7 @@ public class LoadingScript : MonoBehaviour
     }
     void Update()
     {
-        if (Inventory.labKeyObtained == true && inspectCam.activeInHierarchy == true)
+        if (Inventory.lvl1KeyObtained == true && inspectCam.activeInHierarchy == true)
         {
             if (input.FlashlightIsPressed)
             {
