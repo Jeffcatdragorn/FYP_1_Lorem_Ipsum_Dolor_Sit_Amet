@@ -18,7 +18,13 @@ public class SwarmAttack : SwarmBaseStates
     }
     public override void UpdateState(SwarmStates states)
     {
-        attackPlayer(states);
+        if (states.weaknessDestroyed != true)
+        {
+            attackPlayer(states);
+        }
+        else
+            states.SwitchStates(states.DeathState);
+        
     }
 
     public override void OnCollisionEnter(SwarmStates states, Collision collision)

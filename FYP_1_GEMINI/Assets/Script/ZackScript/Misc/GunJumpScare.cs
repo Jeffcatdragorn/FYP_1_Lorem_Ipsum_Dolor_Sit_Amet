@@ -52,7 +52,7 @@ public class GunJumpScare : MonoBehaviour
         {
             deadBody.SetActive(false);
             swarm.SetActive(true);
-            //swarm.GetComponent<SwarmStates>().enabled = false;
+            swarm.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
             mainCamAnimator.GetComponent<CinemachineBrain>().enabled = false;
             mainCamAnimator.enabled = true;
@@ -119,6 +119,9 @@ public class GunJumpScare : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         //swarm.GetComponent<SwarmStates>().enabled = true;
+        swarm.GetComponent<Rigidbody>().constraints &= ~ RigidbodyConstraints.FreezePositionX;
+        swarm.GetComponent<Rigidbody>().constraints &= ~ RigidbodyConstraints.FreezePositionZ;
+        swarm.GetComponent<Rigidbody>().constraints &= ~ RigidbodyConstraints.FreezeRotationY;
         Time.timeScale = 1;
 
         player.GetComponent<PlayerController>().enabled = true;

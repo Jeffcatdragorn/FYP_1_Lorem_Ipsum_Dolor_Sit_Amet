@@ -21,7 +21,7 @@ public class SwarmDeath : SwarmBaseStates
 
     public override void UpdateState(SwarmStates states)
     {
-        
+        states.GetComponent<CapsuleCollider>().enabled = false;
     }
 
     public override void OnCollisionEnter(SwarmStates states, Collision collision)
