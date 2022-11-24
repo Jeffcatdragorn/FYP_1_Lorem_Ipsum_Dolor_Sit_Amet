@@ -11,6 +11,7 @@ public class LightsOutBehaviour : MonoBehaviour
     [Header("Lab")]
     [SerializeField] GameObject labLights;
     [SerializeField] GameObject[] labDoors;
+    [SerializeField] GameObject[] labSwarmsDeactive;
     [SerializeField] GameObject[] labSwarms;
     private bool labDome = false;
 
@@ -21,7 +22,7 @@ public class LightsOutBehaviour : MonoBehaviour
 
     void Update()
     {
-        if(Inventory.prisonFuzeObtained == true && prisonDome == false)
+        if (Inventory.prisonFuzeObtained == true && prisonDome == false)
         {
             prisonLights.SetActive(false);
             prisonDome = true;
@@ -30,15 +31,16 @@ public class LightsOutBehaviour : MonoBehaviour
         if (Inventory.labFuzeObtained == true && labDome == false)
         {
             bool doorDone = false;
+            bool swarmDeactiveDone = false;
             bool swarmDone = false;
 
             labLights.SetActive(false);
 
-            for(int i = 0; i < labDoors.Length; i++)
+            for (int i = 0; i < labDoors.Length; i++)
             {
                 labDoors[i].SetActive(false);
 
-                if(i == labDoors.Length - 1)
+                if (i == labDoors.Length - 1)
                 {
                     doorDone = true;
                 }
@@ -48,13 +50,23 @@ public class LightsOutBehaviour : MonoBehaviour
             {
                 labSwarms[i].SetActive(false);
 
-                if (i == labDoors.Length - 1)
+                if (i == labSwarms.Length - 1)
                 {
                     swarmDone = true;
                 }
             }
 
-            if(doorDone == true && swarmDone == true)
+            for (int i = 0; i < labSwarmsDeactive.Length; i++)
+            {
+                labSwarmsDeactive[i].SetActive(false);
+
+                if (i == labSwarmsDeactive.Length - 1)
+                {
+                    swarmDeactiveDone = true;
+                }
+            }
+
+            if (doorDone == true && swarmDone == true)
             {
                 labDome = true;
             }
@@ -64,7 +76,8 @@ public class LightsOutBehaviour : MonoBehaviour
         {
             bool doorDone = false;
 
-            generalLights.SetActive(false);
+            if(generalLights != null)
+                generalLights.SetActive(false);
 
             for (int i = 0; i < generalDoors.Length; i++)
             {

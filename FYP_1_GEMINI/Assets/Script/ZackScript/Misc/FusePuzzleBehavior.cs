@@ -16,6 +16,7 @@ public class FusePuzzleBehavior : MonoBehaviour
         public Transform slotPosition1;
         public Transform slotPosition2;
         public Button slotButton;
+        public int fuseOccupying;
         public bool occupied;
     }
 
@@ -55,6 +56,10 @@ public class FusePuzzleBehavior : MonoBehaviour
     private void Awake()
     {
         selectedFuse = 0;
+        //Inventory.prisonFuzeObtained = true;
+        //Inventory.labFuzeObtained = true;
+        //Inventory.lQFuzeObtained = true;
+        //Inventory.generatorFuzeObtained = true;
     }
 
     private void Update()
@@ -71,12 +76,17 @@ public class FusePuzzleBehavior : MonoBehaviour
                     Destroy(fuseSlots[i].slotPosition2.GetChild(0).gameObject);
                 }
 
-                if (i < 4)
+                if (fuseSlots[i].occupied == true)
                 {
-                    fusePrefabs[i].fuseSelectionButton.GetComponent<Button>().interactable = true;
-                }
+                    int tempNum = fuseSlots[i].fuseOccupying;
+                    fusePrefabs[tempNum - 1].fuseSelectionButton.GetComponent<Button>().interactable = true;
 
-                fuseSlots[i].occupied = false;
+                    if(fusePrefabs[tempNum - 1].fuseSelectionButton.GetComponent<Button>().interactable == true)
+                    {
+                        fuseSlots[i].fuseOccupying = 0;
+                        fuseSlots[i].occupied = false;
+                    }
+                }
 
                 if (i == 4)
                 {
@@ -107,7 +117,8 @@ public class FusePuzzleBehavior : MonoBehaviour
 
         if (fusePuzzleCompletion == 4)
         {
-            elevatorDoor.SetActive(false);
+            //elevatorDoor.SetActive(false);
+            Debug.Log("Completed Game");
         }
 
         if(cooldownTimer >= 0.0f)
@@ -132,6 +143,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                 fuseSelectionUI.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                player.GetComponent<PlayerController>().enabled = false;
                 uiActive = true;
                 cooldownTimer = 0.5f;
             }
@@ -143,6 +155,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                 fuseSelectionUI.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                player.GetComponent<PlayerController>().enabled = true;
                 uiActive = false;
                 cooldownTimer = 0.5f;
             }
@@ -215,6 +228,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                     }
 
                     fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
+                    fuseSlots[i - 1].fuseOccupying = selectedFuse;
                     fuseSlots[i - 1].occupied = true;
                     selectedFuse = 0;
                 }
@@ -268,6 +282,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                     }
 
                     fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
+                    fuseSlots[i - 1].fuseOccupying = selectedFuse;
                     fuseSlots[i - 1].occupied = true;
                     selectedFuse = 0;
                 }
@@ -321,6 +336,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                     }
 
                     fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
+                    fuseSlots[i - 1].fuseOccupying = selectedFuse;
                     fuseSlots[i - 1].occupied = true;
                     selectedFuse = 0;
                 }
@@ -374,6 +390,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                     }
 
                     fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
+                    fuseSlots[i - 1].fuseOccupying = selectedFuse;
                     fuseSlots[i - 1].occupied = true;
                     selectedFuse = 0;
                 }
@@ -392,11 +409,12 @@ public class FusePuzzleBehavior : MonoBehaviour
                     newPrefab.transform.parent = fuseSlots[i - 1].slotPosition2.transform;
                     newPrefab.transform.localPosition = Vector3.zero;
                     newPrefab.transform.localScale = Vector3.one;
-                }
 
-                fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
-                fuseSlots[i - 1].occupied = true;
-                selectedFuse = 0;
+                    fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
+                    fuseSlots[i - 1].fuseOccupying = selectedFuse;
+                    fuseSlots[i - 1].occupied = true;
+                    selectedFuse = 0;
+                }
             }
         }
     }
