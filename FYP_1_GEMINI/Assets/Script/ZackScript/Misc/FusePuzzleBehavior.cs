@@ -64,8 +64,6 @@ public class FusePuzzleBehavior : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(fusePuzzleCompletion);
-
         if (reset == true)
         {
             for (int i = 0; i < fuseSlots.Length; i++)

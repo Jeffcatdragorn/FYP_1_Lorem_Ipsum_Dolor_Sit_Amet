@@ -917,6 +917,12 @@ public class PlayerController : MonoBehaviour
             AudioManager.instance.PlaySoundParent("screeching", other.gameObject, true);
             ventSoundCheck = true;
         }
+
+        if (other.transform.tag == "Fist")
+        {
+            deadPanel.SetActive(true);
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -935,14 +941,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.transform.tag == "hallSwarm")
-        {
-            deadPanel.SetActive(true);
-            Destroy(gameObject);
-        }
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+        
+    //}
 
     //void DrawLine()
     //{
