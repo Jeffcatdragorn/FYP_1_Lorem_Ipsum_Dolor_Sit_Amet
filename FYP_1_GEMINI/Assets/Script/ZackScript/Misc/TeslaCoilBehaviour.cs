@@ -30,7 +30,6 @@ public class TeslaCoilBehaviour : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(teslaProgress);
         if (progressCheck == true)
         {
 
