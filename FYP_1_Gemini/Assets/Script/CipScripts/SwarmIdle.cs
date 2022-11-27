@@ -34,7 +34,10 @@ public class SwarmIdle : SwarmBaseStates
     {
 
     }
+    public override void OnCollisionExit(SwarmStates states, Collision collision)
+    {
 
+    }
     public override void OnTriggerEnter(SwarmStates states, Collider collider)
     {
         GameObject other = collider.gameObject;

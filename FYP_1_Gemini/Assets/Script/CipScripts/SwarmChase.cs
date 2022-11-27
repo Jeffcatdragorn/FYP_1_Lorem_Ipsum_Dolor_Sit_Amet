@@ -40,7 +40,10 @@ public class SwarmChase : SwarmBaseStates
             states.SwitchStates(states.AttackState);
         }
     }
+    public override void OnCollisionExit(SwarmStates states, Collision collision)
+    {
 
+    }
     public override void OnTriggerEnter(SwarmStates states, Collider collider)
     {
 

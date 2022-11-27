@@ -46,7 +46,10 @@ public class SwarmPatrol : SwarmBaseStates
     public override void OnCollisionEnter(SwarmStates states, Collision collision)
     {
     }
+    public override void OnCollisionExit(SwarmStates states, Collision collision)
+    {
 
+    }
     public override void OnTriggerEnter(SwarmStates states, Collider collider)
     {
         GameObject other = collider.gameObject;

@@ -11,7 +11,6 @@ public class SwarmStates : MonoBehaviour
     public SwarmPatrol PatrolState = new SwarmPatrol();
     public SwarmIdle IdleState = new SwarmIdle();
     public SwarmChase ChaseState = new SwarmChase();
-    public SwarmAvoidObstacles AvoidState = new SwarmAvoidObstacles();
     public SwarmDeath DeathState = new SwarmDeath();
     public Animator animator;
     public GameObject [] SwarmAllies;
@@ -96,6 +95,10 @@ public class SwarmStates : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         currentSwarmState.OnCollisionEnter(this, collision);
+    }
+    public void OnCollisionExit(Collision collision)
+    {
+        currentSwarmState.OnCollisionExit(this, collision);
     }
     public void OnTriggerEnter(Collider other)
     {

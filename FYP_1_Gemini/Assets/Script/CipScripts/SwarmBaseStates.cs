@@ -12,6 +12,8 @@ public abstract class SwarmBaseStates
 
     public abstract void OnCollisionEnter(SwarmStates states, Collision collision);
 
+    public abstract void OnCollisionExit(SwarmStates states, Collision collision);
+
     public abstract void OnTriggerEnter(SwarmStates states, Collider collider);
 
     public abstract void OnTriggerExit(SwarmStates states, Collider collider);

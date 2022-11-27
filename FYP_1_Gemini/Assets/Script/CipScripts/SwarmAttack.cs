@@ -31,18 +31,21 @@ public class SwarmAttack : SwarmBaseStates
     {
 
     }
-
-    public override void OnTriggerEnter(SwarmStates states, Collider collider)
+    public override void OnCollisionExit(SwarmStates states, Collision collision)
     {
-    }
-    public override void OnTriggerExit(SwarmStates states, Collider collider)
-    {
-        GameObject other = collider.gameObject;
+        GameObject other = collision.gameObject;
         if (other.tag == "Player")
         {
             Debug.Log("Player Exited");
             states.SwitchStates(states.ChaseState);
         }
+    }
+    public override void OnTriggerEnter(SwarmStates states, Collider collider)
+    {
+    }
+    public override void OnTriggerExit(SwarmStates states, Collider collider)
+    {
+
     }
 
     public override void OnTriggerStay(SwarmStates states, Collider collider)

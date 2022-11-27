@@ -28,7 +28,10 @@ public class SwarmDeath : SwarmBaseStates
     {
        
     }
+    public override void OnCollisionExit(SwarmStates states, Collision collision)
+    {
 
+    }
     public override void OnTriggerEnter(SwarmStates states, Collider collider)
     {
         
