@@ -74,7 +74,7 @@ public class SwarmChase : SwarmBaseStates
 
     public void ChasingMovement(SwarmStates states)
     {
-        states.rb.AddForce(CalculatingChaseDirection(states).normalized * 100.0f, ForceMode.Impulse);
+        states.rb.AddForce(CalculatingChaseDirection(states).normalized * 70.0f, ForceMode.Impulse);
     }
     public void FaceDirection(SwarmStates states)
     {
