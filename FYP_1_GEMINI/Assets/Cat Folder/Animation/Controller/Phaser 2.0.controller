@@ -51,6 +51,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-7735346664852977923
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Scream
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 5f83bd29ed0d92f4eb378b0c3cd24eda, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-6730231052391543419
 AnimatorState:
   serializedVersion: 6
@@ -386,6 +412,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -5062690523142533020}
     m_Position: {x: 295, y: 355, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -7735346664852977923}
+    m_Position: {x: 434.55502, y: 437.95462, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -8687640084426316217}

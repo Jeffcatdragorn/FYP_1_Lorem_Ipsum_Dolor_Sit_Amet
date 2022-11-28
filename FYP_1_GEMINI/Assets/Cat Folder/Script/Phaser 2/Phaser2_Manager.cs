@@ -91,6 +91,7 @@ public class Phaser2_Manager : MonoBehaviour
         state.EnterState(this);
     }
 
+    #region attacking stuff
     public void CreateLightningBall()
     {
         if (AliveP1)
@@ -119,7 +120,7 @@ public class Phaser2_Manager : MonoBehaviour
                 angle = 0;
                 break;
         }
-        for (int i = 0; i < numOfBalls ; i++)
+        for (int i = 0; i < numOfBalls; i++)
         {
             float xPosOfBallDir = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180) * radius;
             float zPosOfBallDir = transform.position.z + Mathf.Cos((angle * Mathf.PI) / 180) * radius;
@@ -127,14 +128,15 @@ public class Phaser2_Manager : MonoBehaviour
             Vector3 ballVector = new Vector3(xPosOfBallDir, 0, zPosOfBallDir);
             Vector3 ballMoveDir = (ballVector - startPoint).normalized * moveSpeed;
 
-            var ball = Instantiate (electricBall, startPoint, Quaternion.identity);
+            var ball = Instantiate(electricBall, startPoint, Quaternion.identity);
             ball.GetComponent<Rigidbody>().velocity = /*new Vector3(1,1,1);*/
-            new Vector3(ballMoveDir.x , 0, ballMoveDir.z  );
+            new Vector3(ballMoveDir.x, 0, ballMoveDir.z);
             ball.transform.position = new Vector3(ball.transform.position.x, yVal, ball.transform.position.z);
 
             angle += angleStep;
         }
-    }
+    } 
+    #endregion
 
     public void TakeDamage(int hp)
     {
