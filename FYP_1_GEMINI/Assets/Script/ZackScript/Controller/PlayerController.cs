@@ -534,6 +534,11 @@ public class PlayerController : MonoBehaviour
                         Destroy(hit.transform.gameObject.GetComponent<SwarmWeakSpots>().weakpoint);
                         //Destroy(hit.transform.gameObject);
                     }
+
+                    if(hit.transform.tag == "Boobies_ball")
+                    {
+                        Destroy(hit.transform.gameObject);
+                    }
                     //Enemies_Manager enemy = hit.transform.GetComponent<Enemies_Manager>();
                     //if (enemy != null)
                     //{
@@ -931,6 +936,12 @@ public class PlayerController : MonoBehaviour
         if (other.transform.tag == "Fist")
         {
             HealthDecrease(15);
+        }
+
+        if(other.transform.tag == "Boobies_ball")
+        {
+            HealthDecrease(25);
+            Destroy(other.gameObject);
         }
     }
 
