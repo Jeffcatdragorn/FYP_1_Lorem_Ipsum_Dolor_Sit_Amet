@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3832920928910045542}
   - component: {fileID: 6710326752608820509}
   - component: {fileID: 449709271478349697}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Electric Ball
-  m_TagString: Untagged
+  m_TagString: Boobies_ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e54f41929dc03bd419f7447800c8f49c, type: 2}
+  - {fileID: 2100000, guid: 6b268e43d45737943bd57911e63597f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

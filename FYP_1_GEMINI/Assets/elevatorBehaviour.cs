@@ -20,7 +20,7 @@ public class elevatorBehaviour : MonoBehaviour
         if (usingSlider)
         {
             depth = (int)slider.value;
-            text.text = depth.ToString("n0");
+            text.text = "-"+ depth.ToString("n0");
             if (depth <= 0)
             {
                 depth = 0;
