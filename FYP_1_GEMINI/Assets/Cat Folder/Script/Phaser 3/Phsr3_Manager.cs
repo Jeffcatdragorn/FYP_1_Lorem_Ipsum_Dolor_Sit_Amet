@@ -35,7 +35,8 @@ public class Phsr3_Manager : MonoBehaviour
     {
         get
         {
-            return health > 0;
+            return TeslaCoilBehaviour.teslaProgress < 4;
+            //return health > 0;
         }
     }
 
@@ -65,6 +66,10 @@ public class Phsr3_Manager : MonoBehaviour
     {
         current_state.UpdateState(this);
         transform.LookAt(player.transform.position);
+        if (!Alive)
+        {
+
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -33,7 +33,8 @@ public class FollowPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag != "Player" && other.tag != "Phaser"
+            && other.tag != "Boobies_ball")
         {
             Destroy(gameObject);
         }
