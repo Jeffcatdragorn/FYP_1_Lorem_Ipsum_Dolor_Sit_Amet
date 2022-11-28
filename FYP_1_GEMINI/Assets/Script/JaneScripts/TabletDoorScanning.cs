@@ -20,6 +20,7 @@ public class TabletDoorScanning : MonoBehaviour
     public GameObject GeneralSectorKeyWarning = null;
     public GameObject GeneralSectorControlKeyWarning = null;
     public GameObject GeneralSectorBreakKeyWarning = null;
+    public GameObject GeneratorDomeKeyWarning = null;
     private bool flashlightCheck;
     private bool tabletCheck;
     private bool lvl1KeyCheck;
@@ -138,7 +139,7 @@ public class TabletDoorScanning : MonoBehaviour
                     doorIsOpen2 = true;
                 }
             }
-            else if (doorName == "General Sector Control Room" || doorName == "General Sector Break Room") //add generator dome gate here later
+            else if (doorName == "General Sector Control Room" || doorName == "General Sector Break Room" || doorName == "Generator Dome Gate 2")
             {
                 if (input.InteractIsPressed == true && ScannerCooldownCounter == 0.0f && Inventory.tabletObtained == true && Inventory.lvl3KeyObtained == true && doorIsOpen2 == false)
                 {
@@ -266,6 +267,20 @@ public class TabletDoorScanning : MonoBehaviour
                     lvl3KeyCheck = true;
                 }
             }
+            else if (doorName == "Generator Dome Gate 2")
+            {
+                if (Inventory.lvl3KeyObtained == false)
+                {
+                    GeneratorDomeKeyWarning.SetActive(true);
+                    doorPanel.SetActive(false);
+                    lvl3KeyCheck = false;
+                }
+                else
+                {
+                    doorPanel.SetActive(true);
+                    lvl3KeyCheck = true;
+                }
+            }
             else
             {
                 if (Inventory.tabletObtained == false)
@@ -295,6 +310,7 @@ public class TabletDoorScanning : MonoBehaviour
         GeneralSectorKeyWarning.SetActive(false);
         GeneralSectorControlKeyWarning.SetActive(false);
         GeneralSectorBreakKeyWarning.SetActive(false);
+        GeneratorDomeKeyWarning.SetActive(false);
 }
 
     public void DoorOpeningProcess()
@@ -352,7 +368,7 @@ public class TabletDoorScanning : MonoBehaviour
                     Invoke("TabletSlotOut", scanningTime);
                 }
             }
-            else if (doorName == "General Sector Control Room" || doorName == "General Sector Break Room") //add generator dome gate here later
+            else if (doorName == "General Sector Control Room" || doorName == "General Sector Break Room" || doorName == "Generator Dome Gate 2")
             {
                 if (lvl3KeyCheck == true)
                 {
