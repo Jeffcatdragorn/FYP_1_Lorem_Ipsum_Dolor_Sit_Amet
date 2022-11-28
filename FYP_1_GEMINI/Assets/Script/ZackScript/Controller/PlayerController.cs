@@ -529,7 +529,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer ))//QueryTriggerInteraction.Ignore))
                 {
-                    if (hit.transform.tag == "swarm" || hit.transform.tag == "hallSwarm")
+                    if (hit.transform.tag == "weakPoint")
                     {
                         Destroy(hit.transform.gameObject.GetComponent<SwarmWeakSpots>().weakpoint);
                         //Destroy(hit.transform.gameObject);
