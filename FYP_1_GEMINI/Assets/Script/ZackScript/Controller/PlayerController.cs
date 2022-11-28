@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     public enum State
     {
-        movementLock, free,
+        movementLock, free, lockAll,
     }
 
     public static State state;
@@ -195,6 +195,12 @@ public class PlayerController : MonoBehaviour
         //    PitchCamera();
         //}
 
+        if(statusBar.value <= 0)
+        {
+            deadPanel.SetActive(true);
+            Destroy(gameObject);
+        }
+
         if(state == State.free)
         {
 
@@ -221,9 +227,13 @@ public class PlayerController : MonoBehaviour
             PitchCamera();
 
             playerMoveInput = Vector3.zero;
-            playerMoveInput = Vector3.zero;
 
             PlayerHand();
+        }
+
+        if(state == State.lockAll)
+        {
+            playerMoveInput = Vector3.zero;
         }
 
         if (gunModel.activeInHierarchy)
@@ -695,7 +705,7 @@ public class PlayerController : MonoBehaviour
 
     private void StayStill()
     {
-        if((playerIsGrounded == true && input.MoveIsPressed == false && input.JumpIsPressed == false) || state == State.movementLock)
+        if((playerIsGrounded == true && input.MoveIsPressed == false && input.JumpIsPressed == false) || (state == State.movementLock) || (state == State.lockAll))
         {
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
         }
@@ -920,8 +930,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.transform.tag == "Fist")
         {
-            deadPanel.SetActive(true);
-            Destroy(gameObject);
+            HealthDecrease(15);
         }
     }
 
@@ -941,10 +950,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-        
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "End")
+        {
+            Loader.Load(Loader.Scene.EndingScene);
+        }
+    }
 
     //void DrawLine()
     //{

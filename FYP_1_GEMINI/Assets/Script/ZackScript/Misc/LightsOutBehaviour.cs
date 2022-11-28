@@ -18,7 +18,9 @@ public class LightsOutBehaviour : MonoBehaviour
     [Header("General")]
     [SerializeField] GameObject generalLights;
     [SerializeField] GameObject[] generalDoors;
-    private bool generalDome = false;
+    [SerializeField] GameObject[] generalSwarm;
+    private bool generalFuse = false;
+    private bool generalKeyCard = false;
 
     void Update()
     {
@@ -48,7 +50,7 @@ public class LightsOutBehaviour : MonoBehaviour
 
             for (int i = 0; i < labSwarms.Length; i++)
             {
-                labSwarms[i].SetActive(false);
+                labSwarms[i].SetActive(true);
 
                 if (i == labSwarms.Length - 1)
                 {
@@ -72,7 +74,7 @@ public class LightsOutBehaviour : MonoBehaviour
             }
         }
 
-        if (Inventory.lQFuzeObtained == true && generalDome == false)
+        if (Inventory.lQFuzeObtained == true && generalFuse == false)
         {
             bool doorDone = false;
 
@@ -91,7 +93,27 @@ public class LightsOutBehaviour : MonoBehaviour
 
             if (doorDone == true)
             {
-                generalDome = true;
+                generalFuse = true;
+            }
+        }
+
+        if (Inventory.lvl3KeyObtained == true && generalKeyCard == false)
+        {
+            bool swarmDone = false;
+
+            for (int i = 0; i < generalSwarm.Length; i++)
+            {
+                generalSwarm[i].SetActive(true);
+
+                if (i == generalSwarm.Length - 1)
+                {
+                    swarmDone = true;
+                }
+            }
+
+            if (swarmDone == true)
+            {
+                generalKeyCard = true;
             }
         }
     }

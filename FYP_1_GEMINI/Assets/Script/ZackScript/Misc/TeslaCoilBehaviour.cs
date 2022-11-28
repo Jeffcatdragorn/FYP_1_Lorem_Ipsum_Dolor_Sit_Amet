@@ -14,8 +14,11 @@ public class TeslaCoilBehaviour : MonoBehaviour
     [SerializeField] Slider progressSlider;
     [SerializeField] float cooldown;
     [SerializeField] GameObject scannerLight;
+    [SerializeField] Material scannerGreenLightMat;
     [SerializeField] Material scannerRedLightMat;
-    [SerializeField] Material scannnerGreenLightMat;
+    [SerializeField] Material teslaUnglowMaterial;
+    [SerializeField] GameObject teslaLight;
+    [SerializeField] GameObject teslaParent;
 
     private bool interactPanelBool;
     private bool animBool;
@@ -42,7 +45,7 @@ public class TeslaCoilBehaviour : MonoBehaviour
             if (scannerNTime > 1.0f)
             {
                 progressPanel.SetActive(true);
-                scannerLight.GetComponent<MeshRenderer>().material = scannnerGreenLightMat;
+                scannerLight.GetComponent<MeshRenderer>().material = scannerRedLightMat;
 
                 if (progressSlider.value > 0)
                 {
@@ -65,11 +68,13 @@ public class TeslaCoilBehaviour : MonoBehaviour
         {
             PlayerController.state = PlayerController.State.free;
             teslaProgress += 1;
+            teslaLight.SetActive(false);
             teslaDone = true;
+            teslaParent.GetComponent<MeshRenderer>().material = teslaUnglowMaterial;
             progressCheck = false;
             scannerNTime = 0.0f;
 
-            progressSlider.value = 5;
+            //progressSlider.value = 5;
         }
     }
 
@@ -102,7 +107,7 @@ public class TeslaCoilBehaviour : MonoBehaviour
                 progressSlider.value = 5;
                 scannerNTime = 0.0f;
                 cooldownTimer = cooldown;
-                scannerLight.GetComponent<MeshRenderer>().material = scannerRedLightMat;
+                scannerLight.GetComponent<MeshRenderer>().material = scannerGreenLightMat;
                 interactPanelBool = false;
             }
         }

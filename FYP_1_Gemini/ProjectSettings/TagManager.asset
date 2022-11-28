@@ -26,6 +26,7 @@ TagManager:
   - swarm
   - Phaser
   - hallSwarm
+  - End
   layers:
   - Default
   - TransparentFX

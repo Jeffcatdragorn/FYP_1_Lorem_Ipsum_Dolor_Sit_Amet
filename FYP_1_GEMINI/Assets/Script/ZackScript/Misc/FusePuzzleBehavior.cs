@@ -43,10 +43,11 @@ public class FusePuzzleBehavior : MonoBehaviour
     [SerializeField] Material lightSphereGlowMaterial;
     [SerializeField] FuseSlot[] fuseSlots;
     [SerializeField] FuseObject[] fusePrefabs;
-    [SerializeField] GameObject elevatorDoor;
+    [SerializeField] Animator elevatorDoor;
     [SerializeField] bool uiActive = false;
     [SerializeField] bool interactPanelBool = false;
 
+    private bool lit;
     private float cooldownTimer;
 
     bool reset = false;
@@ -64,8 +65,19 @@ public class FusePuzzleBehavior : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(fusePuzzleCompletion);
+
         if (reset == true)
         {
+            if (lit == true)
+            {
+                Debug.Log("yes");
+                fusePuzzleCompletion -= 1;
+                lit = false;
+                lightSphere1.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
+                lightSphere2.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
+            }
+
             for (int i = 0; i < fuseSlots.Length; i++)
             {
                 if (fuseSlots[i].slotPosition1.childCount > 0)
@@ -115,8 +127,8 @@ public class FusePuzzleBehavior : MonoBehaviour
 
         if (fusePuzzleCompletion == 4)
         {
-            //elevatorDoor.SetActive(false);
-            Debug.Log("Completed Game");
+            elevatorDoor.SetTrigger("doorOpen");
+            gameObject.GetComponent<FusePuzzleBehavior>().enabled = false;
         }
 
         if(cooldownTimer >= 0.0f)
@@ -141,7 +153,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                 fuseSelectionUI.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                player.GetComponent<PlayerController>().enabled = false;
+                PlayerController.state = PlayerController.State.lockAll;
                 uiActive = true;
                 cooldownTimer = 0.5f;
             }
@@ -153,7 +165,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                 fuseSelectionUI.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                player.GetComponent<PlayerController>().enabled = true;
+                PlayerController.state = PlayerController.State.free;
                 uiActive = false;
                 cooldownTimer = 0.5f;
             }
@@ -196,6 +208,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
 
+                        lit = true;
                         FusePuzzleBehavior.fusePuzzleCompletion += 1;
                     }
 
@@ -251,6 +264,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
 
+                        lit = true;
                         FusePuzzleBehavior.fusePuzzleCompletion += 1;
                     }
 
@@ -305,6 +319,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
 
+                        lit = true;
                         FusePuzzleBehavior.fusePuzzleCompletion += 1;
                     }
 
@@ -359,6 +374,7 @@ public class FusePuzzleBehavior : MonoBehaviour
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
 
+                        lit = true;
                         FusePuzzleBehavior.fusePuzzleCompletion += 1;
                     }
 
@@ -422,11 +438,5 @@ public class FusePuzzleBehavior : MonoBehaviour
         reset = true;
 
         selectedFuse = 0;
-
-        fusePuzzleCompletion = 0;
-
-        lightSphere1.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
-        lightSphere2.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
-
     }
 }

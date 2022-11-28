@@ -19,7 +19,8 @@ public static class Loader
         ShootingRange,
         Maze,
         PrisonDomeLayout,
-        SampleScene
+        SampleScene,
+        EndingScene
     }
 
     private static Action onLoaderCallBack;
