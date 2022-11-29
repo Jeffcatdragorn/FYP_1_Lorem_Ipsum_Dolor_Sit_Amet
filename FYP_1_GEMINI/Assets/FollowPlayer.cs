@@ -22,6 +22,10 @@ public class FollowPlayer : MonoBehaviour
         Debug.Log("teslaProgress + " + TeslaCoilBehaviour.teslaProgress);
         Debug.Log("alive1 + " + phsr.AliveP1);
         Debug.Log("alive2 + " + phsr.AliveP2);
+        if (phsr.AliveP1)
+        {
+
+        }
         if (phsr.AliveP2)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);

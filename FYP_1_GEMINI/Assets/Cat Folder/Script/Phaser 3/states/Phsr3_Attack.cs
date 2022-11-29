@@ -62,7 +62,7 @@ public class Phsr3_Attack : Phsr3_Abstract
                 // attack 2 - 66% chance 
                 if (randomiser != 1)
                 {
-                        anim.SetTrigger("Attack 2");
+                        anim.SetTrigger("Attack 1"); //change back to 2 later
                         doneAttack = true;
                 }
             }

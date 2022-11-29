@@ -13,6 +13,7 @@ public class Phsr3_Manager : MonoBehaviour
     private Animator anim;
 
     public GameObject player;
+    public GameObject generatorFuse;
     
 
     [Header("============= Health Manager =============")]
@@ -46,17 +47,19 @@ public class Phsr3_Manager : MonoBehaviour
     public GameObject triggerToStartAttack;
 
     [Header("============= multi Attack =============")]
-    public float moveSpeed;
+    public float moveSpeedMulti;
     private Vector3 startPoint;
     float radius;
 
     [Header("============= single Attack =============")]
+    public float moveSpeedSingle;
     public GameObject electricBall;
     public Transform electricBallPosition;
 
     [Header("============= Attack Settings =============")]
     public float cdForP1;
     public float cdForP2;
+
     void Start()
     {
         current_state = Idle;
@@ -106,11 +109,15 @@ public class Phsr3_Manager : MonoBehaviour
     #region attacking stuff
     public void CreateLightningBall()
     {
-        //if (AliveP1)
-        //{
-            GameObject ball;
-            ball = Instantiate(electricBall, electricBallPosition.position, electricBallPosition.rotation);
-        //}
+        GameObject ball;
+        ball = Instantiate(electricBall, electricBallPosition.position, electricBallPosition.rotation);
+        float xPosOfBallDir = player.transform.position.x - transform.position.x;
+        float zPosOfBallDir = player.transform.position.z - transform.position.z;
+
+        Vector3 ballVector = new Vector3(xPosOfBallDir, 0, zPosOfBallDir);
+        Vector3 ballMoveDir = ballVector * moveSpeedSingle *Time.deltaTime;
+
+        ball.GetComponent<Rigidbody>().velocity = new Vector3(ballMoveDir.x, 0, ballMoveDir.z);
     }
 
     public void CreateMultiLightningBall(int numOfBalls, float yVal)
@@ -138,7 +145,7 @@ public class Phsr3_Manager : MonoBehaviour
             float zPosOfBallDir = transform.position.z + Mathf.Cos((angle * Mathf.PI) / 180) * radius;
 
             Vector3 ballVector = new Vector3(xPosOfBallDir, 0, zPosOfBallDir);
-            Vector3 ballMoveDir = (ballVector - startPoint).normalized * moveSpeed;
+            Vector3 ballMoveDir = (ballVector - startPoint).normalized * moveSpeedMulti;
 
             var ball = Instantiate(electricBall, startPoint, Quaternion.identity);
             ball.GetComponent<Rigidbody>().velocity = /*new Vector3(1, 1, 1);*/
@@ -155,4 +162,8 @@ public class Phsr3_Manager : MonoBehaviour
     }
     #endregion
 
+    public void EnableTheFuse()
+    {
+        generatorFuse.SetActive(true);
+    }
 }
