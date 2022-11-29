@@ -9,6 +9,7 @@ public class SwarmIdle : SwarmBaseStates
     public override void EnterState(SwarmStates states)
     {
         //Debug.Log("Enter Idle");
+        states.FistCollider.enabled = false;
         states = states.GetComponent<SwarmStates>();
         states.animator.SetBool("IdleState" , true);
     }

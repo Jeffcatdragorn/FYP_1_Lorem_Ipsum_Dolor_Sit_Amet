@@ -15,6 +15,7 @@ public class SwarmChase : SwarmBaseStates
         //Debug.Log("Swarm Chase");
         PlayerPos = states.playerPos;
         states.animator.SetBool("RunState", true);
+        states.FistCollider.enabled = false;
     }
 
     public override void UpdatePhysicsState(SwarmStates states)

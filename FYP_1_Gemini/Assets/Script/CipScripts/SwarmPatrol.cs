@@ -18,6 +18,7 @@ public class SwarmPatrol : SwarmBaseStates
         Debug.Log("Enter Patrol");
         finalMovement = RandomizeLocation(states);
         states.animator.SetBool("WalkState" , true);
+        states.FistCollider.enabled = false;
     }
 
     public override void UpdateState(SwarmStates states)

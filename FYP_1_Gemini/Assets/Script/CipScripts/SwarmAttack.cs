@@ -12,6 +12,7 @@ public class SwarmAttack : SwarmBaseStates
     {
         //Debug.Log("Enter Attacking");
         states.animator.SetBool("AttackState", true);
+        //states.FistCollider.enabled = true;
     }
     public override void UpdatePhysicsState(SwarmStates states)
     {
@@ -65,5 +66,6 @@ public class SwarmAttack : SwarmBaseStates
     public override void ExitState(SwarmStates states)
     {
         states.animator.SetBool("AttackState", false); 
+        //states.FistCollider.enabled = false;
     }
 }
