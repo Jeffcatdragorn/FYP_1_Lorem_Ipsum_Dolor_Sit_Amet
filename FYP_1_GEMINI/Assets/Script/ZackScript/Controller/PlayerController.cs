@@ -201,6 +201,8 @@ public class PlayerController : MonoBehaviour
         if(statusBar.value <= 0)
         {
             deadPanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Destroy(gameObject);
         }
 
@@ -537,6 +539,7 @@ public class PlayerController : MonoBehaviour
                     if(hit.transform.tag == "swarm")
                     {
                         Destroy(hit.transform.gameObject.GetComponent<SwarmWeakSpots>().weakpoint);
+                        hit.transform.gameObject.GetComponent<SwarmStates>().FistCollider.enabled = false;
                         //Destroy(hit.transform.gameObject);
                     }
 

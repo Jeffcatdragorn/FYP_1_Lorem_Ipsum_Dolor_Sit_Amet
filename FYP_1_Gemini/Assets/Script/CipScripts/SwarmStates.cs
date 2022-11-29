@@ -17,7 +17,7 @@ public class SwarmStates : MonoBehaviour
 
 
     public Rigidbody rb;
-    public CapsuleCollider FistCollider;
+    public SphereCollider FistCollider;
     public  bool weaknessDestroyed;
     bool loopBroken = false;
     public bool allyDead;

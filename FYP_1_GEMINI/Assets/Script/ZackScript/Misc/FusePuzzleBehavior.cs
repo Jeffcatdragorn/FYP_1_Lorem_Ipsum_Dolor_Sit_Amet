@@ -65,7 +65,6 @@ public class FusePuzzleBehavior : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(fusePuzzleCompletion);
 
         if (reset == true)
         {

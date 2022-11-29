@@ -105,6 +105,9 @@ public class PauseMenu : MonoBehaviour
         FirstParasite.Check = false;
         TVTriggerBehaviour.tvCheck = false;
         HandJumpScare.handSlapCheck = false;
+        FusePuzzleBehavior.fusePuzzleCompletion = 0;
+        TeslaCoilBehaviour.teslaProgress = 0;
+
         Time.timeScale = 1f;
         SceneManager.LoadScene(currentSceneName);
     }

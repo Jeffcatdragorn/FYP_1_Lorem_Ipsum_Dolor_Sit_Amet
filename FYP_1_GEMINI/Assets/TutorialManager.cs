@@ -8,6 +8,9 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject inspectCam;
     [SerializeField] private GameObject flashlightTutorialPanel;
     [SerializeField] private GameObject tabletTutorialPanel;
+    [SerializeField] private GameObject movementTutorialPanel;
+    [SerializeField] private GameObject gunTutorialPanel;
+    [SerializeField] private GameObject deadPanel;
     [SerializeField] private HumanoidLandInput input;
     private int flow = 0;
     private bool inspectOffFLashlight;
@@ -27,6 +30,12 @@ public class TutorialManager : MonoBehaviour
         if (tabletTutorialCheck == false && flow == 1)
         {
             TabletTutorialOn();
+        }
+
+        if(flashlightTutorialPanel.activeInHierarchy || tabletTutorialPanel.activeInHierarchy || movementTutorialPanel.activeInHierarchy || gunTutorialPanel.activeInHierarchy || deadPanel.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 

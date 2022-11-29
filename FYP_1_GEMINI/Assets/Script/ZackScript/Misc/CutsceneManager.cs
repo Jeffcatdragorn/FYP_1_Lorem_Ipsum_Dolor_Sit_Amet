@@ -21,7 +21,8 @@ public class CutsceneManager : MonoBehaviour
 
     private void Start()
     {
-        mainCamAnimator.SetTrigger("openingScene");
+        if(!(SavePointRespawn.domeProgress > 0))
+            mainCamAnimator.SetTrigger("openingScene");
     }
 
     private void Update()
