@@ -59,7 +59,7 @@ public class SwarmStates : MonoBehaviour
         {
             foreach (GameObject ally in SwarmAllies)
             {
-                if (ally.GetComponent<BoxCollider>().enabled == false)
+                if (ally.GetComponent<SwarmWeakSpots>().weakpoint == null)
                 {
                     allyDead = true;
                     SwitchStates(ChaseState);

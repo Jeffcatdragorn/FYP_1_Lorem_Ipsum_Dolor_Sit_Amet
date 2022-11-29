@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Slider statusBar;
     [SerializeField] int tickRate = 1;
     [SerializeField] int tickTime = 1;
+    [SerializeField] GameObject damagedPanel;
+    [SerializeField] float fadeSpeed;
+    [SerializeField] float fadeNum;
 
     [Header("GroundChecker")]
     [SerializeField] bool playerIsGrounded = true;
@@ -246,6 +249,8 @@ public class PlayerController : MonoBehaviour
         StayStill();
         dontRotate();
         playerMoveInput *= rigidbody.mass;
+
+        SetDamagedPanelAlphaCounter();
 
         rigidbody.AddRelativeForce(playerMoveInput, ForceMode.Force);
     }
@@ -529,7 +534,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit, shootRange, enemyLayer ))//QueryTriggerInteraction.Ignore))
                 {
-                    if (hit.transform.tag == "weakPoint")
+                    if(hit.transform.tag == "swarm")
                     {
                         Destroy(hit.transform.gameObject.GetComponent<SwarmWeakSpots>().weakpoint);
                         //Destroy(hit.transform.gameObject);
@@ -548,7 +553,8 @@ public class PlayerController : MonoBehaviour
 
                 if (Physics.Raycast(origin: cam.position, direction: cam.forward, out RaycastHit hit2, shootRange, shootLayer))
                 {
-                    Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit.normal));
+                    
+                    Instantiate(impactEffect, hit2.point, Quaternion.LookRotation(hit2.normal));
                     if (objectController != null)
                         objectController.changeForms(hit2.transform.name);
 
@@ -936,12 +942,18 @@ public class PlayerController : MonoBehaviour
         if (other.transform.tag == "Fist")
         {
             HealthDecrease(15);
+            var tempColor = damagedPanel.GetComponent<Image>().color;
+            tempColor.a += fadeNum;
+            damagedPanel.GetComponent<Image>().color = tempColor;
         }
 
         if(other.transform.tag == "Boobies_ball")
         {
             HealthDecrease(25);
             Destroy(other.gameObject);
+            var tempColor = damagedPanel.GetComponent<Image>().color;
+            tempColor.a += fadeNum;
+            damagedPanel.GetComponent<Image>().color = tempColor;
         }
     }
 
@@ -1132,6 +1144,17 @@ public class PlayerController : MonoBehaviour
         if (GunReloadCooldownCounter <= 0)
         {
             GunReloadCooldownCounter = 0.0f;
+        }
+    }
+
+    private void SetDamagedPanelAlphaCounter()
+    {
+        if(damagedPanel.GetComponent<Image>().color.a > 0)
+        {
+            var tempColor = damagedPanel.GetComponent<Image>().color;
+            tempColor.a -= fadeSpeed;
+            Debug.Log(tempColor.a);
+            damagedPanel.GetComponent<Image>().color = tempColor;
         }
     }
 
