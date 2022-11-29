@@ -60860,7 +60860,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -637, y: 365}
+  m_AnchoredPosition: {x: -183, y: 373}
   m_SizeDelta: {x: 1742.4211, y: 304.9633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &758448420
@@ -60883,7 +60883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Varroa
+  m_text: Escape From Varroa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6847924f4f7740d4ba96a9bd93fdd022, type: 2}
   m_sharedMaterial: {fileID: -7387005305731354406, guid: 6847924f4f7740d4ba96a9bd93fdd022, type: 2}
@@ -64067,7 +64067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 17814007, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -627
+      value: -193
       objectReference: {fileID: 0}
     - target: {fileID: 17814007, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -64075,7 +64075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 17814008, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_text
-      value: Varroa
+      value: Escape From Varroa
       objectReference: {fileID: 0}
     - target: {fileID: 17814008, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_fontAsset
