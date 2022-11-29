@@ -19,6 +19,7 @@ public class FollowPlayer : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log("teslaProgress + " + TeslaCoilBehaviour.teslaProgress);
         Debug.Log("alive1 + " + phsr.AliveP1);
         Debug.Log("alive2 + " + phsr.AliveP2);
         if (phsr.AliveP2)

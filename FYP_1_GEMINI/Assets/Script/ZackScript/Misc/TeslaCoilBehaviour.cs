@@ -74,7 +74,7 @@ public class TeslaCoilBehaviour : MonoBehaviour
             progressCheck = false;
             scannerNTime = 0.0f;
 
-            //progressSlider.value = 5;
+            progressSlider.value = 5;
         }
     }
 

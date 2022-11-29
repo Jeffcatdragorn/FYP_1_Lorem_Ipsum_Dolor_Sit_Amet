@@ -10,6 +10,8 @@ public class Phsr3_Manager : MonoBehaviour
     public Phsr3_Attack Attack = new Phsr3_Attack();
     public Phsr3_Death Death = new Phsr3_Death();
 
+    private Animator anim;
+
     public GameObject player;
     
 
@@ -60,15 +62,19 @@ public class Phsr3_Manager : MonoBehaviour
         current_state = Idle;
         current_state.EnterState(this);
         radius = 5;
+        anim = gameObject.GetComponent<Animator>();
     }
 
     void Update()
     {
+        if (Alive)
+        {
         current_state.UpdateState(this);
         transform.LookAt(player.transform.position);
-        if (!Alive)
+        }
+        else
         {
-
+            anim.SetBool("dead", true);
         }
     }
 
