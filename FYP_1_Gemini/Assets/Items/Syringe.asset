@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Syringe
   m_EditorClassIdentifier: 
   name: Syringe
-  icon: {fileID: 21300000, guid: 477d783b966958f4bbf9a87c24af1c17, type: 3}
+  icon: {fileID: 21300000, guid: 36db778d3cf56f4479069cba7e4c83f3, type: 3}
   isDefaultItem: 0
   itemAmount: 1
   tooltipMessage: 'SYRINGE: +25 player''s health'
-  playerController: {fileID: 0}

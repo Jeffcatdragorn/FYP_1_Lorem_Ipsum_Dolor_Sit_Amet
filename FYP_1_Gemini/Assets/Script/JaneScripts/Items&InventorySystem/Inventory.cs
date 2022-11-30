@@ -150,7 +150,7 @@ public class Inventory : MonoBehaviour
             {
                 if (items[i].name == item.name)
                 {
-                    items[i].itemAmount += item.itemAmount; //how to add bullets item amount?
+                    items[i].itemAmount += item.itemAmount; 
 
                     if (onItemChangedCallback != null)
                     {
