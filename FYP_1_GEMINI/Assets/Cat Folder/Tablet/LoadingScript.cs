@@ -42,7 +42,23 @@ public class LoadingScript : MonoBehaviour
             }
         }
 
-        if(trigger == true)
+        if (Inventory.lvl2KeyObtained == true && inspectCam.activeInHierarchy == true)
+        {
+            if (input.FlashlightIsPressed)
+            {
+                trigger = true;
+            }
+        }
+
+        if (Inventory.lvl3KeyObtained == true && inspectCam.activeInHierarchy == true)
+        {
+            if (input.FlashlightIsPressed)
+            {
+                trigger = true;
+            }
+        }
+
+        if (trigger == true)
         {
             if (!load)
             {
@@ -90,7 +106,7 @@ public class LoadingScript : MonoBehaviour
                 Cursor.visible = true;
                 okButton.SetActive(true);
 
-                this.gameObject.GetComponent<LoadingScript>().enabled = false;
+                //this.gameObject.GetComponent<LoadingScript>().enabled = false;
             }
         }
     }
@@ -102,5 +118,13 @@ public class LoadingScript : MonoBehaviour
         playerController.enabled = true;
 
         buttonManager.DisableMouseCursor();
+
+        status.text = "Downloading...";
+        loadingBarSlider = 0;
+
+        trigger = false;
+        load = false;
+        audioOn = false;
+        done = false;
     }
 }
