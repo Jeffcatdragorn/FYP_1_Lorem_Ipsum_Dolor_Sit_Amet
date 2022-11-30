@@ -150,7 +150,7 @@ public class Inventory : MonoBehaviour
             {
                 if (items[i].name == item.name)
                 {
-                    items[i].itemAmount += item.itemAmount; 
+                    items[i].itemAmount++; 
 
                     if (onItemChangedCallback != null)
                     {
