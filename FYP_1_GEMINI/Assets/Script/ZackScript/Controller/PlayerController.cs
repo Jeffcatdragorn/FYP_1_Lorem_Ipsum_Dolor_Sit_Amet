@@ -944,7 +944,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.transform.tag == "Fist")
         {
-            HealthDecrease(15);
+            other.GetComponent<SphereCollider>().enabled = false;
+            HealthDecrease(10);
             var tempColor = damagedPanel.GetComponent<Image>().color;
             tempColor.a += fadeNum;
             damagedPanel.GetComponent<Image>().color = tempColor;
@@ -1156,7 +1157,6 @@ public class PlayerController : MonoBehaviour
         {
             var tempColor = damagedPanel.GetComponent<Image>().color;
             tempColor.a -= fadeSpeed;
-            Debug.Log(tempColor.a);
             damagedPanel.GetComponent<Image>().color = tempColor;
         }
     }

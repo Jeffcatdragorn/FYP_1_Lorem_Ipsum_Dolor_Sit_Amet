@@ -6,13 +6,16 @@ public class SwarmAttack : SwarmBaseStates
 {
     float stopAttack;
     float AttackRate;
+    private GameObject other;
+
 
     //Declare override because we are going to define each function differently
     public override void EnterState(SwarmStates states)
     {
-        //Debug.Log("Enter Attacking");
+        Debug.Log("Enter Attacking");
+        //attackPlayer(states);
         states.animator.SetBool("AttackState", true);
-        //states.FistCollider.enabled = true;
+        states.FistCollider.enabled = true;
     }
     public override void UpdatePhysicsState(SwarmStates states)
     {
@@ -25,7 +28,16 @@ public class SwarmAttack : SwarmBaseStates
         }
         else
             states.SwitchStates(states.DeathState);
-        
+
+
+
+
+        if (Vector3.Distance(other.transform.position, states.swarmPos) > 10)
+        {
+            Debug.Log("Player Exited");
+            states.SwitchStates(states.ChaseState);
+        }
+
     }
 
     public override void OnCollisionEnter(SwarmStates states, Collision collision)
@@ -34,12 +46,11 @@ public class SwarmAttack : SwarmBaseStates
     }
     public override void OnCollisionExit(SwarmStates states, Collision collision)
     {
-        GameObject other = collision.gameObject;
-        if (other.tag == "Player")
+        if (collision.transform.tag == "Player")
         {
-            Debug.Log("Player Exited");
-            states.SwitchStates(states.ChaseState);
+            other = collision.gameObject;
         }
+
     }
     public override void OnTriggerEnter(SwarmStates states, Collider collider)
     {
@@ -57,6 +68,7 @@ public class SwarmAttack : SwarmBaseStates
         if (AttackRate > 3.0f)
         {
             Debug.Log("Attacking");
+            states.FistCollider.enabled = true;
             states.animator.Play("AnimAttack");
             AttackRate = 0.0f;
         }
@@ -66,6 +78,6 @@ public class SwarmAttack : SwarmBaseStates
     public override void ExitState(SwarmStates states)
     {
         states.animator.SetBool("AttackState", false); 
-        //states.FistCollider.enabled = false;
+        states.FistCollider.enabled = false;
     }
 }

@@ -37,7 +37,10 @@ public class SwarmChase : SwarmBaseStates
     {
         if (collision.gameObject.tag == "Player")
         {
-            states.SwitchStates(states.AttackState);
+            //if (Vector3.Distance(collision.transform.position, states.swarmPos) < 9.9)
+            //{
+                states.SwitchStates(states.AttackState);
+            //}
         }
     }
     public override void OnCollisionExit(SwarmStates states, Collision collision)

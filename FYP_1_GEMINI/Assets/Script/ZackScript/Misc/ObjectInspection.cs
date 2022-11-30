@@ -23,7 +23,6 @@ public class ObjectInspection : MonoBehaviour
     private void Start()
     {
         SceneWidth = Screen.width;
-        Debug.Log(SceneWidth);
         //StartRotation = transform.rotation;
     }
 
