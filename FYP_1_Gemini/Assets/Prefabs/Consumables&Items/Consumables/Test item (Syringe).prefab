@@ -134,6 +134,8 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: 0}
   item: {fileID: 11400000, guid: 8a72badd907a6d745831803df7b7986e, type: 2}
+  pickupPrompt: {fileID: 0}
+  itemNameText: {fileID: 0}
 --- !u!1001 &2621603774433558683
 PrefabInstance:
   m_ObjectHideFlags: 0
