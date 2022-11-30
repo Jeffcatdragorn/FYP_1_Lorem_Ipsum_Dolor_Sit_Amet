@@ -37,7 +37,7 @@ public class TabletCat : MonoBehaviour
             Debug.Log("scroll dwon");
             buttonIndex++;
             //anim.Play("scroll Left");
-            anim.Play("scroll Down");
+            anim.Play("TabletScrollDown");
             if (buttonIndex > buttons.Length - 1)
             {
                 buttonIndex = buttons.Length -1;
@@ -48,7 +48,7 @@ public class TabletCat : MonoBehaviour
             Debug.Log("scroll up");
             buttonIndex--;
             //anim.Play("scroll Right");
-            anim.Play("scroll Up");
+            anim.Play("TabletScrollUp");
 
             if (buttonIndex < 0)
             {
