@@ -886,7 +886,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 3422552063
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1973,6 +1973,7 @@ GameObject:
   - component: {fileID: 598438884}
   - component: {fileID: 598438885}
   - component: {fileID: 598438886}
+  - component: {fileID: 598438887}
   m_Layer: 0
   m_Name: Elevator (2)
   m_TagString: Untagged
@@ -2052,6 +2053,19 @@ MonoBehaviour:
   slider: {fileID: 183859651}
   usingSlider: 1
   _camera: {fileID: 774062085}
+--- !u!114 &598438887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598438883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845097ae2064279478f6dd81067e5d94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraObject: {fileID: 774062088}
 --- !u!1 &598543784
 GameObject:
   m_ObjectHideFlags: 0
@@ -5211,7 +5225,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

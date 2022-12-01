@@ -66,6 +66,7 @@ public class Phsr3_Manager : MonoBehaviour
         current_state.EnterState(this);
         radius = 5;
         anim = gameObject.GetComponent<Animator>();
+        //AudioManager.instance.PlaySound("cat", transform.position, true);
     }
 
     void Update()
@@ -109,19 +110,21 @@ public class Phsr3_Manager : MonoBehaviour
     #region attacking stuff
     public void CreateLightningBall()
     {
+        AudioManager.instance.PlaySound("phsrAtt1", this.transform.position, true);
         GameObject ball;
         ball = Instantiate(electricBall, electricBallPosition.position, electricBallPosition.rotation);
         float xPosOfBallDir = player.transform.position.x - transform.position.x;
         float zPosOfBallDir = player.transform.position.z - transform.position.z;
 
         Vector3 ballVector = new Vector3(xPosOfBallDir, 0, zPosOfBallDir);
-        Vector3 ballMoveDir = ballVector * moveSpeedSingle *Time.deltaTime;
+        Vector3 ballMoveDir = ballVector * (AliveP1 == true ? (moveSpeedSingle * 2) : moveSpeedSingle) * Time.deltaTime;
 
         ball.GetComponent<Rigidbody>().velocity = new Vector3(ballMoveDir.x, 0, ballMoveDir.z);
     }
 
     public void CreateMultiLightningBall(int numOfBalls, float yVal)
     {
+        AudioManager.instance.PlaySound("phsrAtt2",this.transform.position,true);
         startPoint = transform.position;
 
         float angleStep = 360f / numOfBalls;
@@ -145,7 +148,7 @@ public class Phsr3_Manager : MonoBehaviour
             float zPosOfBallDir = transform.position.z + Mathf.Cos((angle * Mathf.PI) / 180) * radius;
 
             Vector3 ballVector = new Vector3(xPosOfBallDir, 0, zPosOfBallDir);
-            Vector3 ballMoveDir = (ballVector - startPoint).normalized * moveSpeedMulti;
+            Vector3 ballMoveDir = (ballVector - startPoint).normalized * (AliveP1 == true ? (moveSpeedMulti*2) : moveSpeedMulti);
 
             var ball = Instantiate(electricBall, startPoint, Quaternion.identity);
             ball.GetComponent<Rigidbody>().velocity = /*new Vector3(1, 1, 1);*/
@@ -165,5 +168,14 @@ public class Phsr3_Manager : MonoBehaviour
     public void EnableTheFuse()
     {
         generatorFuse.SetActive(true);
+    }
+
+    public void Audio_Scream()
+    {
+        AudioManager.instance.PlaySound("phsrScream", this.transform.position, true);
+    }
+    public void Audio_Die()
+    {
+        AudioManager.instance.PlaySound("phsrDie", this.transform.position, true);
     }
 }

@@ -84,6 +84,12 @@ MonoBehaviour:
   swarmIdle4: {fileID: 8300000, guid: 11f86f84f682743429ba54b0faff1ced, type: 3}
   swarmIdle5: {fileID: 8300000, guid: d3cc8a2dcd225204c92a2d2320e6f81f, type: 3}
   alarmMuffled: {fileID: 8300000, guid: 21866f93a42be114c8fed7682f2e6d47, type: 3}
+  phsrAtt1: {fileID: 8300000, guid: f3a2320212dee0841b61271dd6b83b34, type: 3}
+  phsrAtt2: {fileID: 8300000, guid: cb5f238831e6d044592d2dee03bcbde2, type: 3}
+  phsrScream: {fileID: 8300000, guid: c49dcd5ac49321b4c91a1874a920b2f6, type: 3}
+  phsrHurt: {fileID: 8300000, guid: f7614fbc666ae3e4faff2fe70533b951, type: 3}
+  phsrDie: {fileID: 8300000, guid: b8ea9afa9c743db45874a8c93ffca29d, type: 3}
+  phsrBall: {fileID: 8300000, guid: b378a3c4501a52d48b3de6f70bfa475a, type: 3}
   soundObject: {fileID: 7314115016610703002, guid: e75bbbc6eb4294e44b17b9628720ff85, type: 3}
   SFXButton: {fileID: 7527728289082795968, guid: 5beb20db36f21154096b07d9b40db9c7, type: 3}
   musicObject: {fileID: 6222479523295503680, guid: 02401aecb908fdb4dadeae45ddf2db6e, type: 3}
