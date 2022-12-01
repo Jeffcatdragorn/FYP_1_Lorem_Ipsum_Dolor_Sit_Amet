@@ -64,10 +64,10 @@ public class FusePuzzleBehavior : MonoBehaviour
         selectedFuse = 0;
         fuseBoxAnimator = this.gameObject.GetComponent<Animator>();
         boxCollider = this.gameObject.GetComponent<BoxCollider>();
-        Inventory.prisonFuzeObtained = true;
-        Inventory.labFuzeObtained = true;
-        Inventory.lQFuzeObtained = true;
-        Inventory.generatorFuzeObtained = true;
+        //Inventory.prisonFuzeObtained = true;
+        //Inventory.labFuzeObtained = true;
+        //Inventory.lQFuzeObtained = true;
+        //Inventory.generatorFuzeObtained = true;
     }
 
     private void Update()
