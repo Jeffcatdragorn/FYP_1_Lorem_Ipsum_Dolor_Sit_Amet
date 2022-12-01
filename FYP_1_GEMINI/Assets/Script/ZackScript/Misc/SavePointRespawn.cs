@@ -19,30 +19,45 @@ public class SavePointRespawn : MonoBehaviour
     [SerializeField] GameObject savingIcon;
     [SerializeField] float fadeSpeed;
     [SerializeField] float duration;
+    [SerializeField] GameObject lvl1Keycard, lvl2Keycard, lvl3Keycard, flashlight, tablet, gun, prisonFuse, labFuse, generalFuse, generatorFuse;
     private float durationTimer;
     public static int domeProgress;
 
     private void Awake()
     {
-        if(domeProgress == 1)
+        if (Inventory.prisonFuzeObtained == false)
+        {
+            prisonFuse.SetActive(true);
+        }
+        else
+        {
+            prisonFuse.SetActive(false);
+        }
+
+        if (domeProgress > 0)
         {
             cutsceneManager.enabled = false;
             mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
             player.GetComponent<PlayerController>().enabled = true;
             mainCamAnimator.enabled = false;
 
-            if(thisDome == Dome.prison)
+            flashlight.SetActive(false);
+            tablet.SetActive(false);
+
+            if (thisDome == Dome.prison)
             {
                 player.transform.position = transform.position;
             }
         }
 
-        if (domeProgress == 2)
+        if (domeProgress > 1)
         {
             cutsceneManager.enabled = false;
             mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
             player.GetComponent<PlayerController>().enabled = true;
             mainCamAnimator.enabled = false;
+
+            lvl1Keycard.SetActive(false);
 
             if (thisDome == Dome.lab)
             {
@@ -50,12 +65,16 @@ public class SavePointRespawn : MonoBehaviour
             }
         }
 
-        if (domeProgress == 3)
+        if (domeProgress > 2)
         {
             cutsceneManager.enabled = false;
             mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
             player.GetComponent<PlayerController>().enabled = true;
             mainCamAnimator.enabled = false;
+
+            gun.SetActive(false);
+            labFuse.SetActive(false);
+            lvl2Keycard.SetActive(false);
 
             if (thisDome == Dome.general)
             {
@@ -63,12 +82,15 @@ public class SavePointRespawn : MonoBehaviour
             }
         }
 
-        if (domeProgress == 4)
+        if (domeProgress > 3)
         {
             cutsceneManager.enabled = false;
             mainCamAnimator.GetComponent<CinemachineBrain>().enabled = true;
             player.GetComponent<PlayerController>().enabled = true;
             mainCamAnimator.enabled = false;
+
+            generalFuse.SetActive(false);
+            lvl3Keycard.SetActive(false);
 
             if (thisDome == Dome.generator)
             {

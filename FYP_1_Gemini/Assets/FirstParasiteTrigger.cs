@@ -8,7 +8,7 @@ public class FirstParasiteTrigger : MonoBehaviour
     private void OnTriggerStay(Collider player)
     {
 
-        if (player.tag == "playerFront" && PlayerController.crouchCheck == true)
+        if (player.tag == "playerFront" && PlayerController.crouchCheck == true && SavePointRespawn.domeProgress == 0)
         {
             FirstParasite.Check = true;
         }
@@ -16,7 +16,7 @@ public class FirstParasiteTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "SammySammy")
+        if (other.tag == "SammySammy" && SavePointRespawn.domeProgress == 0)
         {
             AudioManager.instance.PlaySound("jumpScareSound", transform.position, false);
         }

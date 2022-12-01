@@ -25,6 +25,10 @@ public class FirstParasite : MonoBehaviour
         {
             MoveForward();
         }
+        if (SavePointRespawn.domeProgress > 0)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     void MoveForward()
