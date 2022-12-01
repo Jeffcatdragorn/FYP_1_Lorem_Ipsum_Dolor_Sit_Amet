@@ -64131,28 +64131,76 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1637296827423377168, guid: 8cdd8ecde2449764db7407b172691280, type: 2}
     - target: {fileID: 271860029, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 6056.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 271860029, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 3786.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 271860029, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1760
+      value: 0.024475
       objectReference: {fileID: 0}
     - target: {fileID: 271860029, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -687
+      value: -450
       objectReference: {fileID: 0}
     - target: {fileID: 271860030, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_text
-      value: "GAME CONTROLS:\r\n'W'= Move forward \r\n'A' = Move left\r\n'S' = Move
-        backwards\r\n'D' = Move right\r\n'Spacebar' = Jump\r\n'Left Ctrl' = Crouch\r\n'E'
-        = Interact\r\n'Esc' = Pause Game\r\n\r\nWHEN INSPECTING ITEM:\r\n'Right Mouse
-        Click' = Close item inspection\r\n\n"
+      value: '''W, A, S, D'' = Movement
+
+
+        ''Spacebar'' = Jump
+
+
+        ''Left
+        CTRL'' = Crouch
+
+
+        ''E'' = Interact
+
+
+        ''Esc'' = Pause
+
+
+        ''Tab''
+        = Access Tablet
+
+
+        ''RMB'' = Toggle on/off flashlight
+
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 271860030, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_fontSize
+      value: 167.86
       objectReference: {fileID: 0}
     - target: {fileID: 271860030, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 468b973bf2c7f3b4191b51b7553e5479, type: 2}
     - target: {fileID: 271860030, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_lineSpacing
+      value: -30.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 271860030, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 167.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 271860030, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 3641647783497858219, guid: 468b973bf2c7f3b4191b51b7553e5479, type: 2}
+    - target: {fileID: 271860030, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 271860030, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 411097717, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_SizeDelta.x
       value: 5738
@@ -64213,6 +64261,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 1637296827423377168, guid: 8cdd8ecde2449764db7407b172691280, type: 2}
+    - target: {fileID: 665961851, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 665961852, guid: ee3fa5ca2abb0f94689cfc3228b42bf6, type: 3}
       propertyPath: m_SizeDelta.x
       value: 3722.632
