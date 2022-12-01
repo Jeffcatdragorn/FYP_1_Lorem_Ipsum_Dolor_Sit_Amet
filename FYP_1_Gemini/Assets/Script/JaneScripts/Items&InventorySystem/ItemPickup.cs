@@ -47,25 +47,28 @@ public class ItemPickup : Interactable
 
     private void Update()
     {
-        float dist = Vector3.Distance(player.transform.position, gameObject.transform.position); //distance between player and the item
-        if (dist < radius)
+        if(player != null)
         {
-            itemNameText.text = item.name;
-            pickupPrompt.SetActive(true);
+            float dist = Vector3.Distance(player.transform.position, gameObject.transform.position); //distance between player and the item
 
-            if (input.InteractIsPressed == true)
+            if (dist < radius)
             {
-                Interact();
-                pickupPrompt.SetActive(false);
+                itemNameText.text = item.name;
+                pickupPrompt.SetActive(true);
+
+                if (input.InteractIsPressed == true)
+                {
+                    Interact();
+                    pickupPrompt.SetActive(false);
+                }
             }
-        }
-        else
-        {
-            if (itemNameText.text == item.name) //this doesn't work if there's more than 1 same item in the scene
+            else
             {
-                pickupPrompt.SetActive(false);
+                if (itemNameText.text == item.name) //this doesn't work if there's more than 1 same item in the scene
+                {
+                    pickupPrompt.SetActive(false);
+                }
             }
-            
         }
     }
 }

@@ -78,6 +78,8 @@ public class InventorySlot : MonoBehaviour
             {
                 playerController.HealthIncrease(50);
             }
+
+            //remove the item from the list
         }
 
         if(item.itemAmount <= 0)

@@ -64,56 +64,18 @@ public class Inventory : MonoBehaviour
 
     #endregion
 
+
     private void Update()
     {
-        //if(input.TabletIsPressed == true && tabletObtained == true && tabletUICooldownCounter == 0.0f && PauseMenu.GameIsPaused == false) //&& inventoryUI.activeInHierarchy == false
-        //{
-        //    TabletUIMenu(); 
-        //    tabletUICooldownCounter = tabletUICooldown;
-        //}
-
-        //if (tabletMainScreenUI.activeInHierarchy == true || inventoryUI.activeInHierarchy == true)
-        //{
-        //    if (input.TabletScrollWheel < 0)
-        //    {
-        //        Debug.Log("scroll down");
-        //        panelIndex++;
-        //        //anim.Play("scroll Left");
-        //        anim.Play("scroll Down");
-        //        if (panelIndex > panels.Length - 1)
-        //        {
-        //            panelIndex = panels.Length - 1;
-        //        }
-        //    }
-        //    if (input.TabletScrollWheel > 0)
-        //    {
-        //        Debug.Log("scroll up");
-        //        panelIndex--;
-        //        //anim.Play("scroll Right");
-        //        anim.Play("scroll Up");
-
-        //        if (panelIndex < 0)
-        //        {
-        //            panelIndex = 0;
-        //        }
-        //    }
-        //    OpenSelectedUI();
-        //}
-
-        //if (tabletUICooldownCounter > 0)
-        //{
-        //    tabletUICooldownCounter -= Time.deltaTime;
-        //}
-
-        //if (tabletUICooldownCounter <= 0)
-        //{
-        //    tabletUICooldownCounter = 0.0f;
-        //}
-
-        //if (tabletMainScreenUI.activeInHierarchy == true)
-        //{
-        //    buttonManager.EnableMouseCursor();
-        //}
+        for(int i = 0; i < items.Count; i++)
+        {
+            if(items[i].itemAmount <= 0)
+            {
+                items[i].itemAmount = 1;
+                items.Remove(items[i]);
+                Debug.Log("REMOVEDDDDDDDDDDDDDDDDD " + items[i]);
+            }
+        }
     }
 
     public bool Add(Item item, GameObject itemObject)
@@ -150,7 +112,7 @@ public class Inventory : MonoBehaviour
             {
                 if (items[i].name == item.name)
                 {
-                    items[i].itemAmount++; 
+                    items[i].itemAmount++;
 
                     if (onItemChangedCallback != null)
                     {
@@ -183,15 +145,15 @@ public class Inventory : MonoBehaviour
             {
                 gunObtained = true;
             }
-            if (item.name == "Level 1 Key") //lab key
+            if (item.name == "Level 1 Key") //LabDomeKey
             {
                 lvl1KeyObtained = true;
             }
-            if (item.name == "Level 2 Key") //LivingQuartersKey
+            if (item.name == "Level 2 Key") //GeneralSectorKey
             {
                 lvl2KeyObtained = true;
             }
-            if (item.name == "Level 3 Key")
+            if (item.name == "Level 3 Key") //GeneratorDomeKey
             {
                 lvl3KeyObtained = true;
             }
@@ -227,30 +189,4 @@ public class Inventory : MonoBehaviour
             onItemChangedCallback.Invoke();
         }
     }
-
-    //private void TabletUIMenu()
-    //{
-    //    tabletMainScreenUI.SetActive(!tabletMainScreenUI.activeSelf);
-    //    inventoryUI.SetActive(!inventoryUI.activeSelf);
-
-    //    AudioManager.instance.PlaySound("tabletOning", cameraObject.position, false);
-
-    //    if (tabletMainScreenUI.activeInHierarchy == true)
-    //    {
-    //        buttonManager.EnableMouseCursor();
-    //    }
-    //    else
-    //    {
-    //        buttonManager.DisableMouseCursor();
-    //    }
-    //}
-
-    //void OpenSelectedUI()
-    //{
-    //    for (int i = 0; i < panels.Length; i++)
-    //    {
-    //        panels[i].SetActive(false);
-    //    }
-    //    panels[panelIndex].SetActive(true);
-    //}
 }

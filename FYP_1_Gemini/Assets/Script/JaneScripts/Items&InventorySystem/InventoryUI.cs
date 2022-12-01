@@ -10,7 +10,7 @@ public class InventoryUI : MonoBehaviour
 
     Inventory inventory;
 
-    InventorySlot[] slots;
+    public InventorySlot[] slots;
 
     public HumanoidLandInput input;
 
@@ -46,7 +46,7 @@ public class InventoryUI : MonoBehaviour
                 //Debug.Log("scroll down");
                 panelIndex++;
                 //anim.Play("scroll Left");
-                anim.Play("scroll Down");
+                anim.Play("TabletScrollDown");
                 if (panelIndex > panels.Length - 1)
                 {
                     panelIndex = panels.Length - 1;
@@ -57,7 +57,7 @@ public class InventoryUI : MonoBehaviour
                 //Debug.Log("scroll up");
                 panelIndex--;
                 //anim.Play("scroll Right");
-                anim.Play("scroll Up");
+                anim.Play("TabletScrollUp");
 
                 if (panelIndex < 0)
                 {
