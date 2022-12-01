@@ -1,3 +1,4 @@
+using cakeslice;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class ObjLight : MonoBehaviour
     private Animator anim;
     private float distance;
     public float lightRadius;
+   
 
     void Start()
     {
@@ -23,12 +25,14 @@ public class ObjLight : MonoBehaviour
         {
             // uncomment the animator line if u dont want them all to beep in sync
             //this.transform.GetComponent<Animator>().enabled = true; 
-            this.transform.GetComponent<MeshRenderer>().enabled = true;
+            //this.transform.GetComponent<MeshRenderer>().enabled = true;
+            this.transform.GetComponent<Outline>().enabled = true;
         }
         else
         {
             //this.transform.GetComponent<Animator>().enabled = false;
-            this.transform.GetComponent<MeshRenderer>().enabled = false;
+            this.transform.GetComponent<Outline>().enabled = false;
+            //this.transform.GetComponent<MeshRenderer>().enabled = false;
             //transform.localScale = Vector3.zero;
         }
     }
