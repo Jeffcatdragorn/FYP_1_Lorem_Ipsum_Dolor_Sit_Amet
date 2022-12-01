@@ -14974,11 +14974,6 @@ MonoBehaviour:
   tabletObj: {fileID: 2000122669}
   slots: []
   input: {fileID: 263378642}
-  panels:
-  - {fileID: 4228440}
-  - {fileID: 658587464}
-  - {fileID: 1674724079}
-  anim: {fileID: 322395378}
   buttonManager: {fileID: 835653607}
   tabletUICooldownCounter: 0
   tabletUICooldown: 0.5
@@ -20353,15 +20348,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2621603774832280410, guid: 3f146d22a3061dd4795d254e1e3cb089, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 46.053898
+      value: 39.01592
       objectReference: {fileID: 0}
     - target: {fileID: 2621603774832280410, guid: 3f146d22a3061dd4795d254e1e3cb089, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.01
+      value: 0.971
       objectReference: {fileID: 0}
     - target: {fileID: 2621603774832280410, guid: 3f146d22a3061dd4795d254e1e3cb089, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -45.005646
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2621603774832280410, guid: 3f146d22a3061dd4795d254e1e3cb089, type: 3}
       propertyPath: m_LocalRotation.w
@@ -34137,7 +34132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1934125585
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35004,15 +34999,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2621603774832280410, guid: 0c7e6f2cca2d07f46a5e08c30ca8c395, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50.24463
+      value: -24.198568
       objectReference: {fileID: 0}
     - target: {fileID: 2621603774832280410, guid: 0c7e6f2cca2d07f46a5e08c30ca8c395, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.72
+      value: 7.5914526
       objectReference: {fileID: 0}
     - target: {fileID: 2621603774832280410, guid: 0c7e6f2cca2d07f46a5e08c30ca8c395, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20.921349
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2621603774832280410, guid: 0c7e6f2cca2d07f46a5e08c30ca8c395, type: 3}
       propertyPath: m_LocalRotation.w
@@ -37329,11 +37324,6 @@ MonoBehaviour:
   tabletObj: {fileID: 1993842645}
   slots: []
   input: {fileID: 348235732}
-  panels:
-  - {fileID: 1934125584}
-  - {fileID: 2003232742}
-  - {fileID: 215140096}
-  anim: {fileID: 1227307165}
   buttonManager: {fileID: 2102115871}
   tabletUICooldownCounter: 0
   tabletUICooldown: 0.5

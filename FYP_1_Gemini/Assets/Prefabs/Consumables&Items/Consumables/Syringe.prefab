@@ -206,7 +206,7 @@ PrefabInstance:
     - target: {fileID: -4173718051153319380, guid: 9588f491c1c3fc44aa1e7bc746b2dc5f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 79f64ed6f5d6d374d91c3a0af4070258, type: 2}
+      objectReference: {fileID: 2100000, guid: 04f5fb8a6f751fa4bae94ae656464a3c, type: 2}
     - target: {fileID: 919132149155446097, guid: 9588f491c1c3fc44aa1e7bc746b2dc5f, type: 3}
       propertyPath: m_Name
       value: Syringe
@@ -214,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 4599545266869525852, guid: 9588f491c1c3fc44aa1e7bc746b2dc5f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f794c8451763f354c84ed1f9b0ea15a5, type: 2}
+      objectReference: {fileID: 2100000, guid: 121943eb19e81c345b9e53a0ac00734c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9588f491c1c3fc44aa1e7bc746b2dc5f, type: 3}
 --- !u!4 &2588294091503757168 stripped
@@ -227,19 +227,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1089856401788750752, guid: 9588f491c1c3fc44aa1e7bc746b2dc5f, type: 3}
   m_PrefabInstance: {fileID: 2621603774433558683}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3771383262968304442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3134008506083068731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94b24b766df25f040830a102e7a81c3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightRadius: 15
 --- !u!114 &3706252884336937499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,3 +241,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 0
   eraseRenderer: 0
+--- !u!114 &3771383262968304442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134008506083068731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b24b766df25f040830a102e7a81c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightRadius: 15

@@ -14,9 +14,9 @@ public class InventoryUI : MonoBehaviour
 
     public HumanoidLandInput input;
 
-    public GameObject[] panels;
-    private int panelIndex;
-    public Animator anim;
+    //public GameObject[] panels;
+    //private int panelIndex;
+    //public Animator anim;
 
     public ButtonManager buttonManager;
     [SerializeField] float tabletUICooldownCounter;
@@ -39,33 +39,33 @@ public class InventoryUI : MonoBehaviour
             tabletUICooldownCounter = tabletUICooldown;
         }
 
-        if (tabletMainScreenUI.activeInHierarchy == true)
-        {
-            if (input.TabletScrollWheel < 0)
-            {
-                //Debug.Log("scroll down");
-                panelIndex++;
-                //anim.Play("scroll Left");
-                anim.Play("TabletScrollDown");
-                if (panelIndex > panels.Length - 1)
-                {
-                    panelIndex = panels.Length - 1;
-                }
-            }
-            if (input.TabletScrollWheel > 0)
-            {
-                //Debug.Log("scroll up");
-                panelIndex--;
-                //anim.Play("scroll Right");
-                anim.Play("TabletScrollUp");
+        //if (tabletMainScreenUI.activeInHierarchy == true)
+        //{
+        //    if (input.TabletScrollWheel < 0)
+        //    {
+        //        //Debug.Log("scroll down");
+        //        panelIndex++;
+        //        //anim.Play("scroll Left");
+        //        anim.Play("TabletScrollDown");
+        //        if (panelIndex > panels.Length - 1)
+        //        {
+        //            panelIndex = panels.Length - 1;
+        //        }
+        //    }
+        //    if (input.TabletScrollWheel > 0)
+        //    {
+        //        //Debug.Log("scroll up");
+        //        panelIndex--;
+        //        //anim.Play("scroll Right");
+        //        anim.Play("TabletScrollUp");
 
-                if (panelIndex < 0)
-                {
-                    panelIndex = 0;
-                }
-            }
-            OpenSelectedUI();
-        }
+        //        if (panelIndex < 0)
+        //        {
+        //            panelIndex = 0;
+        //        }
+        //    }
+        //    OpenSelectedUI();
+        //}
 
         if (tabletUICooldownCounter > 0)
         {
@@ -114,12 +114,12 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    void OpenSelectedUI()
-    {
-        for (int i = 0; i < panels.Length; i++)
-        {
-            panels[i].SetActive(false);
-        }
-        panels[panelIndex].SetActive(true);
-    }
+    //void OpenSelectedUI()
+    //{
+    //    for (int i = 0; i < panels.Length; i++)
+    //    {
+    //        panels[i].SetActive(false);
+    //    }
+    //    panels[panelIndex].SetActive(true);
+    //}
 }
