@@ -46,17 +46,23 @@ public class FusePuzzleBehavior : MonoBehaviour
     [SerializeField] Animator elevatorDoor;
     [SerializeField] bool uiActive = false;
     [SerializeField] bool interactPanelBool = false;
+    [SerializeField] BoxCollider boxCollider;
+    private Animator fuseBoxAnimator;
 
     private bool lit;
     private float cooldownTimer;
 
     bool reset = false;
+    bool resetDone = false;
+    int resetBoxNum;
 
     //[SerializeField] GameObject prisonFuse, labFuse, generalFuse, generatorFuse;
 
     private void Awake()
     {
         selectedFuse = 0;
+        fuseBoxAnimator = this.gameObject.GetComponent<Animator>();
+        boxCollider = this.gameObject.GetComponent<BoxCollider>();
         //Inventory.prisonFuzeObtained = true;
         //Inventory.labFuzeObtained = true;
         //Inventory.lQFuzeObtained = true;
@@ -68,14 +74,13 @@ public class FusePuzzleBehavior : MonoBehaviour
 
         if (reset == true)
         {
-            if (lit == true)
-            {
-                Debug.Log("yes");
-                fusePuzzleCompletion -= 1;
-                lit = false;
-                lightSphere1.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
-                lightSphere2.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
-            }
+            //if (lit == true)
+            //{
+            //    fusePuzzleCompletion -= 1;
+            //    lit = false;
+            //    lightSphere1.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
+            //    lightSphere2.GetComponent<MeshRenderer>().material = lightSphereNormalMaterial;
+            //}
 
             for (int i = 0; i < fuseSlots.Length; i++)
             {
@@ -104,6 +109,8 @@ public class FusePuzzleBehavior : MonoBehaviour
             }
         }
 
+
+
         if (Inventory.prisonFuzeObtained == true)
         {
             fusePrefabs[0].fuseSelectionButton.SetActive(true);
@@ -129,6 +136,7 @@ public class FusePuzzleBehavior : MonoBehaviour
             elevatorDoor.SetTrigger("doorOpen");
             gameObject.GetComponent<FusePuzzleBehavior>().enabled = false;
         }
+
 
         if(cooldownTimer >= 0.0f)
         {
@@ -207,8 +215,11 @@ public class FusePuzzleBehavior : MonoBehaviour
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
 
-                        lit = true;
+                        //lit = true;
+
                         FusePuzzleBehavior.fusePuzzleCompletion += 1;
+                        resetBoxNum = 3;
+                        ResetBox();
                     }
 
                     else if (selectedFuse == 3)
@@ -263,8 +274,11 @@ public class FusePuzzleBehavior : MonoBehaviour
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
 
-                        lit = true;
+                        //lit = true;
                         FusePuzzleBehavior.fusePuzzleCompletion += 1;
+
+                        resetBoxNum = 2;
+                        ResetBox();
                     }
 
                     else if (selectedFuse == 2)
@@ -318,8 +332,11 @@ public class FusePuzzleBehavior : MonoBehaviour
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
 
-                        lit = true;
+                        //lit = true;
                         FusePuzzleBehavior.fusePuzzleCompletion += 1;
+
+                        resetBoxNum = 4;
+                        ResetBox();
                     }
 
                     else if (selectedFuse == 4)
@@ -373,8 +390,11 @@ public class FusePuzzleBehavior : MonoBehaviour
                         lightSphere1.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
                         lightSphere2.GetComponent<MeshRenderer>().material = lightSphereGlowMaterial;
 
-                        lit = true;
+                        //lit = true;
                         FusePuzzleBehavior.fusePuzzleCompletion += 1;
+
+                        resetBoxNum = 1;
+                        ResetBox();
                     }
 
                     else if (selectedFuse == 1)
@@ -437,5 +457,56 @@ public class FusePuzzleBehavior : MonoBehaviour
         reset = true;
 
         selectedFuse = 0;
+    }
+
+    private void ResetBox()
+    {
+        slotUI.SetActive(false);
+        fuseSelectionUI.SetActive(false);
+        fuseBoxAnimator.SetTrigger("FuseBoxClose");
+        interactPanelBool = true;
+
+        for (int i = 0; i < fuseSlots.Length; i++)
+        {
+            if (resetBoxNum == 3 && i == 0)
+            {
+                continue;
+            }
+
+            if (resetBoxNum == 2 && i == 1)
+            {
+                continue;
+            }
+
+            if (resetBoxNum == 4 && i == 2)
+            {
+                continue;
+            }
+
+            if (resetBoxNum == 1 && i == 3)
+            {
+                continue;
+            }
+
+            if (fuseSlots[i].slotPosition1.childCount > 0)
+            {
+                Destroy(fuseSlots[i].slotPosition1.GetChild(0).gameObject);
+                Destroy(fuseSlots[i].slotPosition2.GetChild(0).gameObject);
+            }
+
+            if (fuseSlots[i].occupied == true)
+            {
+                int tempNum = fuseSlots[i].fuseOccupying;
+                fusePrefabs[tempNum - 1].fuseSelectionButton.GetComponent<Button>().interactable = true;
+            }
+        }
+
+        boxCollider.enabled = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        PlayerController.state = PlayerController.State.free;
+
+        this.gameObject.GetComponent<FusePuzzleBehavior>().enabled = false;
     }
 }

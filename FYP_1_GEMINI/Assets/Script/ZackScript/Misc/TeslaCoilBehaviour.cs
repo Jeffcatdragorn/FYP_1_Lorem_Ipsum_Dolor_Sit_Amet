@@ -19,6 +19,7 @@ public class TeslaCoilBehaviour : MonoBehaviour
     [SerializeField] Material teslaUnglowMaterial;
     [SerializeField] GameObject teslaLight;
     [SerializeField] GameObject teslaParent;
+    [SerializeField] BoxCollider boxCollider;
 
     private bool interactPanelBool;
     private bool animBool;
@@ -73,6 +74,7 @@ public class TeslaCoilBehaviour : MonoBehaviour
             teslaParent.GetComponent<MeshRenderer>().material = teslaUnglowMaterial;
             progressCheck = false;
             scannerNTime = 0.0f;
+            boxCollider.enabled = false;
 
             progressSlider.value = 5;
         }
