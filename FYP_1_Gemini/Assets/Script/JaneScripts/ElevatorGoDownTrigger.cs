@@ -24,10 +24,11 @@ public class ElevatorGoDownTrigger : MonoBehaviour
                 normalDoorAnimator.Play(doorSlideClose, 0, 0.0f);
 
                 //SOUND
+                AudioManager.instance.PlaySound("elevatorChime", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
                 //AudioManager.instance.PlaySound("doorOpening", playerController.transform.position, true);
-                AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
                 //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
                 //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
+                AudioManager.instance.PlaySound("doorClosing", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
 
                 TabletDoorScanning.doorIsOpen = false;
 

@@ -31,7 +31,7 @@ public class GunJumpScare : MonoBehaviour
 
     void Update()
     {
-        if(inspectCam.activeInHierarchy == true && Inventory.gunObtained == true && triggerOnce == false)
+        if(inspectCam.activeInHierarchy == true && Inventory.gunObtained == true && triggerOnce == false && TutorialManager.flow == 5)
         {
             player.transform.localPosition = new Vector3(-461.480011f, -12.9399996f, 219.160004f);
             player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
@@ -41,10 +41,11 @@ public class GunJumpScare : MonoBehaviour
 
 
 
-            if (input.FlashlightIsPressed == true)
+            if (input.TeleportIsPressed == true)
             {
                 inspectOff = true;
                 triggerOnce = true;
+                TutorialManager.flow = 6;
             }
         }
 

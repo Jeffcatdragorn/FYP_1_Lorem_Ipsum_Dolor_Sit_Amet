@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -9,19 +10,23 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        if (SceneManager.GetActiveScene().name == "PrisonDomeLayout")
+        {
+            AudioManager.instance.PlayMusic("alarmMuffled", transform.position, true);
+        }
         AudioManager.instance.PlayMusic("pressureAmbienceMusic", transform.position, false);
-        AudioManager.instance.PlayMusic("alarmMuffled", transform.position, true);
     }
 
     //public AudioClip ;
 
     public AudioClip mainMenuMusic, pressureAmbienceMusic; //bgm
 
-    public AudioClip buttonSound, doorOpening, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound,
+    public AudioClip buttonSound, doorOpening, doorClosing, walkingFootstep, tabletOning, revolverReload, revolverShoot, itemPickUp, jumpScareSound, alarmSound,
                      normalMetalFootstep1, normalMetalFootstep2, normalMetalFootstep3, normalMetalFootstep4, ventCoverFalling, ventCrawling, tvAudio, handSlap,
                      screeching, headCrabScreech, bringUpTablet, gunCharging, playerDeath, downloading, exposedFuse, flashlightOff, flashlightOn, labJumpscare,
                         lowBatteryError, ObjComplete, tabletIn, tabletOut, swarmAttack, swarmIdle1, swarmIdle2, swarmIdle3, swarmIdle4, swarmIdle5, alarmMuffled, phsrAtt1, phsrAtt2,
-                    phsrScream, phsrHurt, phsrDie, phsrBall; //sfx
+                    phsrScream, phsrHurt, phsrDie, phsrBall, blackOutSound, tabletBackButton, fuseSlotIn, parasiteWallShrink, elevatorChime, fuseLightUp, PAerror, PAactivated, PAarriving,
+                    PAdescending, PAcommencing, elevator1, elevator2, elevator3, elevator4, teslaDisabling, teslaSparking, teslaHumming, teslaShutDown; //sfx
 
     private GameObject currentMusicObject;
 
@@ -103,6 +108,9 @@ public class AudioManager : MonoBehaviour
                 case "alarmMuffled":
                     MusicObjectCreate(alarmMuffled, position, is3d);
                     break;
+                case "teslaHumming":
+                    MusicObjectCreate(teslaHumming, position, is3d);
+                    break;
                 default:
                     break;
             }
@@ -111,11 +119,6 @@ public class AudioManager : MonoBehaviour
 
     void MusicObjectCreate(AudioClip clip, Vector3 spawnPosition, bool is3D)
     {
-        //if (currentMusicObject != null)
-        //{
-        //    Destroy(currentMusicObject);
-        //}
-
         currentMusicObject = Instantiate(musicObject, spawnPosition, Quaternion.identity);
 
         if (is3D == true)
@@ -126,6 +129,12 @@ public class AudioManager : MonoBehaviour
         else
         {
             currentMusicObject.GetComponent<AudioSource>().spatialBlend = 0;
+        }
+
+        if(clip == teslaHumming)
+        {
+            currentMusicObject.GetComponent<AudioSource>().minDistance = 1.0f;
+            currentMusicObject.GetComponent<AudioSource>().maxDistance = 2.0f;
         }
 
         currentMusicObject.GetComponent<AudioSource>().clip = clip;
@@ -146,6 +155,9 @@ public class AudioManager : MonoBehaviour
                     break;
                 case "doorOpening":
                     SoundObjectCreate(doorOpening, spawnPosition, is3D); 
+                    break;
+                case "doorClosing":
+                    SoundObjectCreate(doorClosing, spawnPosition, is3D);
                     break;
                 case "walkingFootstep":
                     SoundObjectCreate(walkingFootstep, spawnPosition, is3D); 
@@ -237,7 +249,60 @@ public class AudioManager : MonoBehaviour
                 case "phsrDie":
                     SoundObjectCreate(phsrDie, spawnPosition, is3D);
                     break;
-               
+                case "blackOutSound":
+                    SoundObjectCreate(blackOutSound, spawnPosition, is3D);
+                    break;
+                case "tabletBackButton":
+                    SoundObjectCreate(tabletBackButton, spawnPosition, is3D);
+                    break;
+                case "fuseSlotIn":
+                    SoundObjectCreate(fuseSlotIn, spawnPosition, is3D);
+                    break;
+                case "parasiteWallShrink":
+                    SoundObjectCreate(parasiteWallShrink, spawnPosition, is3D);
+                    break;
+                case "elevatorChime":
+                    SoundObjectCreate(elevatorChime, spawnPosition, is3D);
+                    break;
+                case "fuseLightUp":
+                    SoundObjectCreate(fuseLightUp, spawnPosition, is3D);
+                    break;
+                case "PAerror":
+                    SoundObjectCreate(PAerror, spawnPosition, is3D);
+                    break;
+                case "PAactivated":
+                    SoundObjectCreate(PAactivated, spawnPosition, is3D);
+                    break;
+                case "PAarriving":
+                    SoundObjectCreate(PAarriving, spawnPosition, is3D);
+                    break;
+                case "PAdescending":
+                    SoundObjectCreate(PAdescending, spawnPosition, is3D);
+                    break;
+                case "PAcommencing":
+                    SoundObjectCreate(PAcommencing, spawnPosition, is3D);
+                    break;
+                case "elevator1":
+                    SoundObjectCreate(elevator1, spawnPosition, is3D);
+                    break;
+                case "elevator2":
+                    SoundObjectCreate(elevator2, spawnPosition, is3D);
+                    break;
+                case "elevator3":
+                    SoundObjectCreate(elevator3, spawnPosition, is3D);
+                    break;
+                case "elevator4":
+                    SoundObjectCreate(elevator4, spawnPosition, is3D);
+                    break;
+                case "teslaDisabling":
+                    SoundObjectCreate(teslaDisabling, spawnPosition, is3D);
+                    break;
+                case "teslaSparking":
+                    SoundObjectCreate(teslaSparking, spawnPosition, is3D);
+                    break;
+                case "teslaShutDown":
+                    SoundObjectCreate(teslaShutDown, spawnPosition, is3D);
+                    break;
                 default:
                     break;
             }
@@ -315,7 +380,14 @@ public class AudioManager : MonoBehaviour
 
         if (clip == tvAudio)
         {
-            newObject.GetComponent<AudioSource>().minDistance = 5.0f;
+            newObject.GetComponent<AudioSource>().minDistance = 1.0f;
+            newObject.GetComponent<AudioSource>().maxDistance = 3.0f;
+        }
+
+        if(clip == teslaSparking)
+        {
+            newObject.GetComponent<AudioSource>().minDistance = 1.0f;
+            newObject.GetComponent<AudioSource>().maxDistance = 1.0f;
         }
 
         newObject.GetComponent<AudioSource>().clip = clip;

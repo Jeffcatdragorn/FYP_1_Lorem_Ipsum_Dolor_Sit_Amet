@@ -102,7 +102,7 @@ public class InventoryUI : MonoBehaviour
     {
         tabletMainScreenUI.SetActive(!tabletMainScreenUI.activeSelf);
         tabletObj.SetActive(!tabletObj.activeSelf);
-        AudioManager.instance.PlaySound("tabletOning", cameraObject.position, false);
+        AudioManager.instance.PlaySound("bringUpTablet", cameraObject.position, false);
 
         if (tabletMainScreenUI.activeInHierarchy == true)
         {

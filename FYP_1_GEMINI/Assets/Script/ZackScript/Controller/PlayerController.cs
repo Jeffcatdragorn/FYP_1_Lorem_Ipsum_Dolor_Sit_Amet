@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject flashlightModel;
     [SerializeField] GameObject gunModel;
     [SerializeField] bool flashLToggle;
+    private bool soundCheck;
 
     [Header("Footsteps")]
     [SerializeField] float footstepWalkingInterval = 0.0f;
@@ -563,7 +564,7 @@ public class PlayerController : MonoBehaviour
 
                     if (hit2.transform.tag == "weakPoint")
                     {
-
+                        AudioManager.instance.PlaySound("parasiteWallShrink", hit2.transform.position, true);
                         hit2.transform.parent.GetComponent<ParisiteWall>().destroyedHeart();
                     }
                 }
@@ -753,10 +754,20 @@ public class PlayerController : MonoBehaviour
             {
                 if (flashLToggle == false)
                 {
+                    if(soundCheck == false)
+                    {
+                        AudioManager.instance.PlaySound("flashlightOn", this.gameObject.transform.position, true);
+                        soundCheck = true;
+                    }
                     flLight.SetActive(true);
                 }
                 else
                 {
+                    if (soundCheck == false)
+                    {
+                        AudioManager.instance.PlaySound("flashlightOff", this.gameObject.transform.position, true);
+                        soundCheck = true;
+                    }
                     flLight.SetActive(false);
                 }
             }
@@ -766,11 +777,13 @@ public class PlayerController : MonoBehaviour
                 if(flLight.activeInHierarchy == true)
                 {
                     flashLToggle = true;
+                    soundCheck = false;
                 }
 
                 else
                 {
                     flashLToggle = false;
+                    soundCheck = false;
                 }
             }
         }

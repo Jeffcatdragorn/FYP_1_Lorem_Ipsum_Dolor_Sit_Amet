@@ -34,27 +34,30 @@ public class LoadingScript : MonoBehaviour
     }
     void Update()
     {
-        if (Inventory.lvl1KeyObtained == true && inspectCam.activeInHierarchy == true)
+        if (Inventory.lvl1KeyObtained == true && inspectCam.activeInHierarchy == true && TutorialManager.flow == 4)
         {
-            if (input.FlashlightIsPressed)
+            if (input.TeleportIsPressed)
             {
                 trigger = true;
+                TutorialManager.flow = 5;
             }
         }
 
-        if (Inventory.lvl2KeyObtained == true && inspectCam.activeInHierarchy == true)
+        if (Inventory.lvl2KeyObtained == true && inspectCam.activeInHierarchy == true && TutorialManager.flow == 6)
         {
-            if (input.FlashlightIsPressed)
+            if (input.TeleportIsPressed)
             {
                 trigger = true;
+                TutorialManager.flow = 7;
             }
         }
 
-        if (Inventory.lvl3KeyObtained == true && inspectCam.activeInHierarchy == true)
+        if (Inventory.lvl3KeyObtained == true && inspectCam.activeInHierarchy == true && TutorialManager.flow == 7)
         {
-            if (input.FlashlightIsPressed)
+            if (input.TeleportIsPressed)
             {
                 trigger = true;
+                TutorialManager.flow = 8;
             }
         }
 

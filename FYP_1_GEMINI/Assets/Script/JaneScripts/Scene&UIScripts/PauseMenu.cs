@@ -108,6 +108,9 @@ public class PauseMenu : MonoBehaviour
         FusePuzzleBehavior.fusePuzzleCompletion = 0;
         TeslaCoilBehaviour.teslaProgress = 0;
 
+        TutorialManager.flow = 0;
+        SavePointRespawn.domeProgress = 0;
+
         Time.timeScale = 1f;
         SceneManager.LoadScene(currentSceneName);
     }

@@ -47,6 +47,7 @@ public class FusePuzzleBehavior : MonoBehaviour
     [SerializeField] bool uiActive = false;
     [SerializeField] bool interactPanelBool = false;
     [SerializeField] BoxCollider boxCollider;
+    [SerializeField] Transform centralHub;
     private Animator fuseBoxAnimator;
 
     private bool lit;
@@ -63,10 +64,10 @@ public class FusePuzzleBehavior : MonoBehaviour
         selectedFuse = 0;
         fuseBoxAnimator = this.gameObject.GetComponent<Animator>();
         boxCollider = this.gameObject.GetComponent<BoxCollider>();
-        //Inventory.prisonFuzeObtained = true;
-        //Inventory.labFuzeObtained = true;
-        //Inventory.lQFuzeObtained = true;
-        //Inventory.generatorFuzeObtained = true;
+        Inventory.prisonFuzeObtained = true;
+        Inventory.labFuzeObtained = true;
+        Inventory.lQFuzeObtained = true;
+        Inventory.generatorFuzeObtained = true;
     }
 
     private void Update()
@@ -196,6 +197,8 @@ public class FusePuzzleBehavior : MonoBehaviour
     {
         if (selectedFuse != 0)
         {
+            AudioManager.instance.PlaySound("fuseSlotIn", centralHub.position, true);
+
             if (i == 1)
             {
                 if (fuseSlots[i - 1].occupied == false)
@@ -246,6 +249,8 @@ public class FusePuzzleBehavior : MonoBehaviour
                         newPrefab.transform.parent = fuseSlots[i - 1].slotPosition2.transform;
                         newPrefab.transform.localPosition = Vector3.zero;
                         newPrefab.transform.localScale = Vector3.one;
+
+                        AudioManager.instance.PlaySound("PAerror", centralHub.position, true);
                     }
 
                     fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
@@ -304,6 +309,8 @@ public class FusePuzzleBehavior : MonoBehaviour
                         newPrefab.transform.parent = fuseSlots[i - 1].slotPosition2.transform;
                         newPrefab.transform.localPosition = Vector3.zero;
                         newPrefab.transform.localScale = Vector3.one;
+
+                        AudioManager.instance.PlaySound("PAerror", centralHub.position, true);
                     }
 
                     fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
@@ -362,6 +369,8 @@ public class FusePuzzleBehavior : MonoBehaviour
                         newPrefab.transform.parent = fuseSlots[i - 1].slotPosition2.transform;
                         newPrefab.transform.localPosition = Vector3.zero;
                         newPrefab.transform.localScale = Vector3.one;
+
+                        AudioManager.instance.PlaySound("PAerror", centralHub.position, true);
                     }
 
                     fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
@@ -420,6 +429,8 @@ public class FusePuzzleBehavior : MonoBehaviour
                         newPrefab.transform.parent = fuseSlots[i - 1].slotPosition2.transform;
                         newPrefab.transform.localPosition = Vector3.zero;
                         newPrefab.transform.localScale = Vector3.one;
+
+                        AudioManager.instance.PlaySound("PAerror", centralHub.position, true);
                     }
 
                     fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
@@ -442,6 +453,8 @@ public class FusePuzzleBehavior : MonoBehaviour
                     newPrefab.transform.parent = fuseSlots[i - 1].slotPosition2.transform;
                     newPrefab.transform.localPosition = Vector3.zero;
                     newPrefab.transform.localScale = Vector3.one;
+
+                    AudioManager.instance.PlaySound("PAerror", centralHub.position, true);
 
                     fusePrefabs[selectedFuse - 1].fuseSelectionButton.GetComponent<Button>().interactable = false;
                     fuseSlots[i - 1].fuseOccupying = selectedFuse;
@@ -506,6 +519,30 @@ public class FusePuzzleBehavior : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PlayerController.state = PlayerController.State.free;
+
+        if(fusePuzzleCompletion == 1)
+        {
+            AudioManager.instance.PlaySound("PAactivated", centralHub.position, true);
+            AudioManager.instance.PlaySound("elevator1", centralHub.position, true);
+        }
+
+        if (fusePuzzleCompletion == 2)
+        {
+            AudioManager.instance.PlaySound("PAcommencing", centralHub.position, true);
+            AudioManager.instance.PlaySound("elevator2", centralHub.position, true);
+        }
+
+        if (fusePuzzleCompletion == 3)
+        {
+            AudioManager.instance.PlaySound("PAdescending", centralHub.position, true);
+            AudioManager.instance.PlaySound("elevator3", centralHub.position, true);
+        }
+
+        if (fusePuzzleCompletion == 4)
+        {
+            AudioManager.instance.PlaySound("PAarriving", centralHub.position, true);
+            AudioManager.instance.PlaySound("elevator4", centralHub.position, true);
+        }
 
         this.gameObject.GetComponent<FusePuzzleBehavior>().enabled = false;
     }

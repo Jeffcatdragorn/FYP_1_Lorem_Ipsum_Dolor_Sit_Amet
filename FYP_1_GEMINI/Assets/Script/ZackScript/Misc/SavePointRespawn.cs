@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SavePointRespawn : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class SavePointRespawn : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] Animator mainCamAnimator;
     [SerializeField] CutsceneManager cutsceneManager;
+    [SerializeField] GameObject savingIcon;
+    [SerializeField] float fadeSpeed;
+    [SerializeField] float duration;
+    private float durationTimer;
     public static int domeProgress;
 
     private void Awake()
@@ -74,7 +79,16 @@ public class SavePointRespawn : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(domeProgress);
+        if(durationTimer > 0)
+        {
+            savingIcon.SetActive(true);
+            durationTimer -= Time.deltaTime;
+        }
+
+        else
+        {
+            savingIcon.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -84,27 +98,51 @@ public class SavePointRespawn : MonoBehaviour
             if (thisDome == Dome.prison && !(domeProgress > 1))
             {
                 domeProgress = 1;
+                this.gameObject.GetComponent<BoxCollider>().enabled = false;
             }
             if (thisDome == Dome.lab && !(domeProgress > 2))
             {
                 domeProgress = 2;
+                this.gameObject.GetComponent<BoxCollider>().enabled = false;
             }
             if (thisDome == Dome.general && !(domeProgress > 3))
             {
                 domeProgress = 3;
+                this.gameObject.GetComponent<BoxCollider>().enabled = false;
             }
             if (thisDome == Dome.generator && !(domeProgress > 4))
             {
                 domeProgress = 4;
+                this.gameObject.GetComponent<BoxCollider>().enabled = false;
             }
+
+            durationTimer = duration;
         }
     }
-
 
     public void Respawn()
     {
         FusePuzzleBehavior.fusePuzzleCompletion = 0;
         TeslaCoilBehaviour.teslaProgress = 0;
+
+        if(domeProgress == 2)
+        {
+            Inventory.gunObtained = false;
+            Inventory.labFuzeObtained = false;
+            Inventory.lvl2KeyObtained = false;
+        }
+
+
+        if (domeProgress == 3)
+        {
+            Inventory.lQFuzeObtained = false;
+            Inventory.lvl3KeyObtained = false;
+        }
+
+        if(domeProgress == 4)
+        {
+            Inventory.generatorFuzeObtained = false;
+        }
 
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

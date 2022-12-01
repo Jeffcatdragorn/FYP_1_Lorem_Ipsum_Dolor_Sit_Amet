@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LightsOutBehaviour : MonoBehaviour
 {
+    [SerializeField] GameObject player;
+
     [Header("Prison")]
     [SerializeField] GameObject prisonLights;
     private bool prisonDome = false;
@@ -27,6 +29,7 @@ public class LightsOutBehaviour : MonoBehaviour
         if (Inventory.prisonFuzeObtained == true && prisonDome == false)
         {
             prisonLights.SetActive(false);
+            AudioManager.instance.PlaySound("blackOutSound", player.transform.position, false);
             prisonDome = true;
         }
 
@@ -70,6 +73,7 @@ public class LightsOutBehaviour : MonoBehaviour
 
             if (doorDone == true && swarmDone == true)
             {
+                AudioManager.instance.PlaySound("blackOutSound", player.transform.position, false);
                 labDome = true;
             }
         }
@@ -93,6 +97,7 @@ public class LightsOutBehaviour : MonoBehaviour
 
             if (doorDone == true)
             {
+                AudioManager.instance.PlaySound("blackOutSound", player.transform.position, false);
                 generalFuse = true;
             }
         }

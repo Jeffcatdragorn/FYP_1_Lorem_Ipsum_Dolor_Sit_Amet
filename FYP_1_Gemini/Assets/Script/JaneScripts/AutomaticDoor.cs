@@ -54,7 +54,7 @@ public class AutomaticDoor : MonoBehaviour
 
                 //SOUND
                 //AudioManager.instance.PlaySound("doorOpening", playerController.transform.position, true);
-                AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
+                AudioManager.instance.PlaySound("doorClosing", normalDoorAnimator.gameObject.transform.GetChild(0).transform.position, true);
                 //AudioManager.instance.PlaySound("doorOpening", normalDoorAnimator.gameObject.transform.position, true);
                 //AudioManager.instance.PlaySound("doorOpening", gameObject.transform.position, true);
 

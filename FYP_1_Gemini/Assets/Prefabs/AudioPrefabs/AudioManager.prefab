@@ -46,8 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuMusic: {fileID: 8300000, guid: 71b7c0b184b1b934b89829a51ff9721f, type: 3}
   pressureAmbienceMusic: {fileID: 8300000, guid: 71b7c0b184b1b934b89829a51ff9721f, type: 3}
-  buttonSound: {fileID: 8300000, guid: 22c8b9c1b9fe14543b02f9ef0ac19011, type: 3}
-  doorOpening: {fileID: 8300000, guid: cf8240c310d97f442978f09a6f9e96ff, type: 3}
+  buttonSound: {fileID: 8300000, guid: 27b2ed72fa096954abf77df99c44bd3d, type: 3}
+  doorOpening: {fileID: 8300000, guid: 77343148ece1a9d4391e42871a334c7c, type: 3}
+  doorClosing: {fileID: 8300000, guid: 906d475438074cc49a59504adf7719fd, type: 3}
   walkingFootstep: {fileID: 8300000, guid: 1fbc480ec887bf74c95c3ae543363c24, type: 3}
   tabletOning: {fileID: 8300000, guid: 2f4c351f94dac1140901f02d35cfb082, type: 3}
   revolverReload: {fileID: 8300000, guid: a54ab3bfefb83344bbad500dc7bf6a38, type: 3}
@@ -90,6 +91,25 @@ MonoBehaviour:
   phsrHurt: {fileID: 8300000, guid: f7614fbc666ae3e4faff2fe70533b951, type: 3}
   phsrDie: {fileID: 8300000, guid: b8ea9afa9c743db45874a8c93ffca29d, type: 3}
   phsrBall: {fileID: 8300000, guid: b378a3c4501a52d48b3de6f70bfa475a, type: 3}
+  blackOutSound: {fileID: 8300000, guid: 23fe9c105928536458c7053a36084b26, type: 3}
+  tabletBackButton: {fileID: 8300000, guid: 22c8b9c1b9fe14543b02f9ef0ac19011, type: 3}
+  fuseSlotIn: {fileID: 8300000, guid: 294f55ddf625a7e4b88eb077071bb83b, type: 3}
+  parasiteWallShrink: {fileID: 8300000, guid: 18523fe6c0eb27f439619f73c3a880a1, type: 3}
+  elevatorChime: {fileID: 8300000, guid: 52634bb55c678234daad298bd961a6c2, type: 3}
+  fuseLightUp: {fileID: 8300000, guid: e1fb5e488c3d61446aa53d794e3f4eb7, type: 3}
+  PAerror: {fileID: 8300000, guid: 684daa9e378ae8a49939e78a8ee69d92, type: 3}
+  PAactivated: {fileID: 8300000, guid: 0d948d8d8303968419fa0613ee30ffb8, type: 3}
+  PAarriving: {fileID: 8300000, guid: 4b1349e3572ac0d4eb4dd6561d0ec81a, type: 3}
+  PAdescending: {fileID: 8300000, guid: e7f1e6bbc0822784a92f4123c523fdc9, type: 3}
+  PAcommencing: {fileID: 8300000, guid: 1b085165a09b49a4c8e95f78542b2dbb, type: 3}
+  elevator1: {fileID: 8300000, guid: d681c52382da82b4ea74510955d00902, type: 3}
+  elevator2: {fileID: 8300000, guid: 97459ed23d452c94f8103b5fc60c1dc7, type: 3}
+  elevator3: {fileID: 8300000, guid: 93a5bd7053c3e85488bbe86ea07654a8, type: 3}
+  elevator4: {fileID: 8300000, guid: ef9da060269ebec49af0c16aa53d5866, type: 3}
+  teslaDisabling: {fileID: 8300000, guid: c080418a4a48f0b49b9c9ef03ae4c887, type: 3}
+  teslaSparking: {fileID: 8300000, guid: b224ff7cd2d6b4e4ea3503681390ffb6, type: 3}
+  teslaHumming: {fileID: 8300000, guid: 035a43bb489d3db40a63376ef11db20a, type: 3}
+  teslaShutDown: {fileID: 8300000, guid: 5969b277039bbd1409f8731d2ecd226f, type: 3}
   soundObject: {fileID: 7314115016610703002, guid: e75bbbc6eb4294e44b17b9628720ff85, type: 3}
   SFXButton: {fileID: 7527728289082795968, guid: 5beb20db36f21154096b07d9b40db9c7, type: 3}
   musicObject: {fileID: 6222479523295503680, guid: 02401aecb908fdb4dadeae45ddf2db6e, type: 3}

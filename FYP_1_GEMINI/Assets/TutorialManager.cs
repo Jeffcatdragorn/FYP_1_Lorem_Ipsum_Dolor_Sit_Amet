@@ -12,11 +12,11 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject gunTutorialPanel;
     [SerializeField] private GameObject deadPanel;
     [SerializeField] private HumanoidLandInput input;
-    private int flow = 0;
     private bool inspectOffFLashlight;
     private bool inspectOffTablet;
     private bool flashlightTutorialCheck;
     private bool tabletTutorialCheck;
+    public static int flow = 0;
     public static bool inspectStop;
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (inspectCam.activeInHierarchy == true && Inventory.flashlightObtained == true && inspectOffFLashlight == false)
         {
-            if (input.FlashlightIsPressed == true)
+            if (input.TeleportIsPressed == true)
             {
                 player.GetComponent<PlayerController>().enabled = false;
                 player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
@@ -76,8 +76,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (inspectCam.activeInHierarchy == true && Inventory.tabletObtained == true && inspectOffTablet == false)
         {
-            Debug.Log("WTF");
-            if (input.FlashlightIsPressed == true)
+            if (input.TeleportIsPressed == true)
             {
                 player.GetComponent<PlayerController>().enabled = false;
                 player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;

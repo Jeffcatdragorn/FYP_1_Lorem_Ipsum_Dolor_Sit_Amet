@@ -22,6 +22,11 @@ public class HeadCrabJumpScare : MonoBehaviour
 
     private void Update()
     {
+        if(TutorialManager.flow > 3)
+        {
+            headCrab.gameObject.SetActive(false);
+        }
+
         if(triggered == true)
         {
             if (doorAnimator.GetCurrentAnimatorStateInfo(0).IsName("DomeGateOpen"))
@@ -62,13 +67,15 @@ public class HeadCrabJumpScare : MonoBehaviour
                 player.GetComponent<PlayerController>().enabled = true;
                 player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 check2 = true;
+                TutorialManager.flow = 4;
+                this.gameObject.GetComponent<HeadCrabJumpScare>().enabled = false;
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && triggered == false)
+        if (other.tag == "Player" && triggered == false && TutorialManager.flow == 3)
         {
             other.gameObject.transform.localPosition = new Vector3(-389.100006f, -12.9399996f, 93.6999969f);
             other.gameObject.transform.eulerAngles = new Vector3(0f, -90f, 0f);

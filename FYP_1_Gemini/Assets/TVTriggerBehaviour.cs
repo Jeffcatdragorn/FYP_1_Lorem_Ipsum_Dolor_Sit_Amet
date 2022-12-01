@@ -12,12 +12,12 @@ public class TVTriggerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider player)
     {
-       Debug.Log("Playing");
-        if(player.tag == "Player" && tvCheck == true && Inventory.flashlightObtained == true){
+        if(player.tag == "Player" && tvCheck == true && Inventory.flashlightObtained == true && TutorialManager.flow == 2){
             tvMask.SetActive(false);
             tvLight.SetActive(true);
             tvVideo.Play();
             AudioManager.instance.PlaySound("tvAudio", tvObject.position, true);
+            TutorialManager.flow = 3;
             Destroy(gameObject);
         }
     }

@@ -20,6 +20,7 @@ public class TeslaCoilBehaviour : MonoBehaviour
     [SerializeField] GameObject teslaLight;
     [SerializeField] GameObject teslaParent;
     [SerializeField] BoxCollider boxCollider;
+    [SerializeField] GameObject teslaDisblingSound;
 
     private bool interactPanelBool;
     private bool animBool;
@@ -41,6 +42,7 @@ public class TeslaCoilBehaviour : MonoBehaviour
             {
                 animScannerStateInfo = scannerAnimator.GetCurrentAnimatorStateInfo(0);
                 scannerNTime = animScannerStateInfo.normalizedTime;
+                teslaDisblingSound.SetActive(true);
             }
 
             if (scannerNTime > 1.0f)
@@ -67,6 +69,8 @@ public class TeslaCoilBehaviour : MonoBehaviour
 
         if(progressSlider.value <= 0)
         {
+            AudioManager.instance.PlaySound("teslaShutDown", transform.position, true);
+            teslaDisblingSound.SetActive(false);
             PlayerController.state = PlayerController.State.free;
             teslaProgress += 1;
             teslaLight.SetActive(false);
@@ -101,6 +105,7 @@ public class TeslaCoilBehaviour : MonoBehaviour
 
             if (input.InteractIsPressed == false && animBool == true)
             {
+                teslaDisblingSound.SetActive(false);
                 PlayerController.state = PlayerController.State.free;
                 tabletObject.SetActive(false);
                 scannerAnimator.SetTrigger("Idle");

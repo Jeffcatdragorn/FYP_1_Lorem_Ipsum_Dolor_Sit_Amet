@@ -30,7 +30,7 @@ public class ObjectInspection : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            if (input.FlashlightIsPressed == true)
+            if (input.TeleportIsPressed == true)
             {
                 if (TutorialManager.inspectStop == false)
                 {

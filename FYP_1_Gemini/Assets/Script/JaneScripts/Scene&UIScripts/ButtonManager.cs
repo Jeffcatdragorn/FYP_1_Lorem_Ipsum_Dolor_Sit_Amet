@@ -29,6 +29,10 @@ public class ButtonManager : MonoBehaviour
     {
         AudioManager.instance.PlaySound("buttonSound", cameraObject.position, false);
     }
+    public void PlayBackButtonSound()
+    {
+        AudioManager.instance.PlaySound("tabletBackButton", cameraObject.position, false);
+    }
 
     //public void Play()
     //{
