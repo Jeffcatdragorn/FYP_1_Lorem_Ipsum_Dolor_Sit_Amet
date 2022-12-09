@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
                      screeching, headCrabScreech, bringUpTablet, gunCharging, playerDeath, downloading, exposedFuse, flashlightOff, flashlightOn, labJumpscare,
                         lowBatteryError, ObjComplete, tabletIn, tabletOut, swarmAttack, swarmIdle1, swarmIdle2, swarmIdle3, swarmIdle4, swarmIdle5, alarmMuffled, phsrAtt1, phsrAtt2,
                     phsrScream, phsrHurt, phsrDie, phsrBall, blackOutSound, tabletBackButton, fuseSlotIn, parasiteWallShrink, elevatorChime, fuseLightUp, PAerror, PAactivated, PAarriving,
-                    PAdescending, PAcommencing, elevator1, elevator2, elevator3, elevator4, teslaDisabling, teslaSparking, teslaHumming, teslaShutDown; //sfx
+                    PAdescending, PAcommencing, elevator1, elevator2, elevator3, elevator4, teslaDisabling, teslaSparking, teslaHumming, teslaShutDown, screechingEnding; //sfx
 
     private GameObject currentMusicObject;
 
@@ -302,6 +302,9 @@ public class AudioManager : MonoBehaviour
                     break;
                 case "teslaShutDown":
                     SoundObjectCreate(teslaShutDown, spawnPosition, is3D);
+                    break;
+                case "screechingEnding":
+                    SoundObjectCreate(screechingEnding, spawnPosition, is3D);
                     break;
                 default:
                     break;

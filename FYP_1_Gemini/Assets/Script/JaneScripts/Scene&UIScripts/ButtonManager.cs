@@ -108,6 +108,12 @@ public class ButtonManager : MonoBehaviour
         TVTriggerBehaviour.tvCheck = false;
         HandJumpScare.handSlapCheck = false;
 
+        FusePuzzleBehavior.fusePuzzleCompletion = 0;
+        TeslaCoilBehaviour.teslaProgress = 0;
+
+        TutorialManager.flow = 0;
+        SavePointRespawn.domeProgress = 0;
+
         Time.timeScale = 1f;
         //PauseMenu.GameIsPaused = false;
         Loader.Load(Loader.Scene.MainMenu);

@@ -110,8 +110,6 @@ public class FusePuzzleBehavior : MonoBehaviour
             }
         }
 
-
-
         if (Inventory.prisonFuzeObtained == true)
         {
             fusePrefabs[0].fuseSelectionButton.SetActive(true);
@@ -131,13 +129,6 @@ public class FusePuzzleBehavior : MonoBehaviour
         {
             fusePrefabs[3].fuseSelectionButton.SetActive(true);
         }
-
-        if (fusePuzzleCompletion == 4)
-        {
-            elevatorDoor.SetTrigger("doorOpen");
-            gameObject.GetComponent<FusePuzzleBehavior>().enabled = false;
-        }
-
 
         if(cooldownTimer >= 0.0f)
         {
@@ -542,6 +533,7 @@ public class FusePuzzleBehavior : MonoBehaviour
         {
             AudioManager.instance.PlaySound("PAarriving", centralHub.position, true);
             AudioManager.instance.PlaySound("elevator4", centralHub.position, true);
+            elevatorDoor.SetTrigger("doorOpen");
         }
 
         this.gameObject.GetComponent<FusePuzzleBehavior>().enabled = false;

@@ -110,6 +110,7 @@ MonoBehaviour:
   teslaSparking: {fileID: 8300000, guid: b224ff7cd2d6b4e4ea3503681390ffb6, type: 3}
   teslaHumming: {fileID: 8300000, guid: 035a43bb489d3db40a63376ef11db20a, type: 3}
   teslaShutDown: {fileID: 8300000, guid: 5969b277039bbd1409f8731d2ecd226f, type: 3}
+  screechingEnding: {fileID: 8300000, guid: 9403fcc21d52d054c8c6c87fe6961379, type: 3}
   soundObject: {fileID: 7314115016610703002, guid: e75bbbc6eb4294e44b17b9628720ff85, type: 3}
   SFXButton: {fileID: 7527728289082795968, guid: 5beb20db36f21154096b07d9b40db9c7, type: 3}
   musicObject: {fileID: 6222479523295503680, guid: 02401aecb908fdb4dadeae45ddf2db6e, type: 3}

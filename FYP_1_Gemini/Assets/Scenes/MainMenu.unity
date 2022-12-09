@@ -2150,6 +2150,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: highlightObj
       objectReference: {fileID: 0}
+    - target: {fileID: 7786690731808529506, guid: b07442f40e5d583428821efdb10cac2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7953729462669043759, guid: b07442f40e5d583428821efdb10cac2a, type: 3}
       propertyPath: m_RootOrder
       value: 1

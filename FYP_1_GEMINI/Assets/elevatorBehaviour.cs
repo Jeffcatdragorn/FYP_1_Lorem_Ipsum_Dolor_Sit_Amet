@@ -47,6 +47,6 @@ public class elevatorBehaviour : MonoBehaviour
 
     public void callScreech()
     {
-        AudioManager.instance.PlaySoundParent("screeching", _camera, false);
+        AudioManager.instance.PlaySound("screechingEnding", _camera.transform.position, false);
     }
 }
